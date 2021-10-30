@@ -1,5 +1,4 @@
 {
-  "private": true,
   "name": "@liangsky/mock",
   "version": "0.0.1",
   "description": "mockServer for web",
