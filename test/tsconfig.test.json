@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../"
+  },
+  "include": [
+    "mock-service/**/*.ts",
+    "mock/**/*.ts",
+    "src/**/*.ts",
+    "test/**/*.ts",
+  ],
+}

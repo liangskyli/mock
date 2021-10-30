@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+/npm-debug.log*
+/yarn-error.log
+/package-lock.json
+/local.config.json
+/local.config.js
+
+/build
+# misc
+.DS_Store
+.idea
+/.vscode
+# umi
+

@@ -1,0 +1,51 @@
+{
+  "private": true,
+  "name": "@liangsky/mock",
+  "version": "0.0.1",
+  "description": "mockServer for web",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liangskyli/mock.git"
+  },
+  "keywords": [
+    "mock"
+  ],
+  "author": "liangsky",
+  "license": "MIT",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/mock.ts",
+    "build": "npm run clean && npm run compile",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "prepublish": "npm run build",
+    "update:deps": "yarn upgrade-interactive --latest"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write",
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "umi": "^3.5.20",
+    "yorkie": "^2.0.0"
+  },
+  "devDependencies": {
+    "@umijs/fabric": "^2.8.1",
+    "gts": "^3.1.0",
+    "lint-staged": "^11.2.6",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
+  },
+  "engines": {
+    "node": ">=12.13.0"
+  }
+}

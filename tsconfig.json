@@ -1,0 +1,31 @@
+{
+  "name": "@liangskyli/mock",
+  "version": "0.0.1",
+  "description": "web mock",
+  "repository": "git@github.com:liangskyli/test-back.git",
+  "author": "liangsky",
+  "license": "MIT",
+  "main": "build/index.js",
+  "compilerOptions": {
+    "outDir": "./build/",
+    "target": "es5",
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "declaration": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
