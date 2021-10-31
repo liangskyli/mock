@@ -1,6 +1,6 @@
 {
   "name": "@liangsky/mock",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "mockServer for web",
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     ]
   },
   "dependencies": {
+    "commander": "^8.3.0",
     "cross-spawn": "^7.0.3",
     "umi": "^3.5.20",
     "yorkie": "^2.0.0"

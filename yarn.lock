@@ -2182,6 +2182,11 @@ commander@^8.2.0:
   resolved "https://registry.npmmirror.com/commander/download/commander-8.3.0.tgz?cache=0&sync_timestamp=1634886367984&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fcommander%2Fdownload%2Fcommander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha1-SDfqGy2me5xhamevuw+v7lZ7ymY=
 
+commander@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.npmjs.org/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
+  integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
+
 concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.nlark.com/concat-map/download/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
