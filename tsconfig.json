@@ -1,13 +1,6 @@
 {
-  "name": "@liangskyli/mock",
-  "version": "0.0.1",
-  "description": "web mock",
-  "repository": "git@github.com:liangskyli/test-back.git",
-  "author": "liangsky",
-  "license": "MIT",
-  "main": "build/index.js",
   "compilerOptions": {
-    "outDir": "./build/",
+    "outDir": "./lib/",
     "target": "es5",
     "moduleResolution": "node",
     "jsx": "preserve",
@@ -26,6 +19,9 @@
     "src/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "test",
+    "lib",
+    "bin"
   ]
 }

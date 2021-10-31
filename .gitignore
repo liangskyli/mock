@@ -6,7 +6,7 @@
 /local.config.json
 /local.config.js
 
-/build
+/lib
 # misc
 .DS_Store
 .idea

@@ -4,7 +4,6 @@
     "rootDir": "../"
   },
   "include": [
-    "mock-service/**/*.ts",
     "mock/**/*.ts",
     "src/**/*.ts",
     "test/**/*.ts",

@@ -7,7 +7,7 @@ import createMiddleware from '@umijs/preset-built-in/lib/plugins/commands/dev/mo
 // @ts-ignore
 import { getMockData } from '@umijs/preset-built-in/lib/plugins/commands/dev/mock/utils';
 
-type IOpts = {
+export type IOpts = {
   mockDir?: string;
   hostname?: string;
   port?: number;
@@ -91,7 +91,7 @@ const mockServer = (opts: IOpts = {}) => {
 
       console.log(
         [
-          '  App running at:',
+          '  http mock server running at:',
           `  - Local:   ${chalk.cyan(localUrl)}`,
           lanUrl && `  - Network: ${chalk.cyan(lanUrl)}`,
         ]

@@ -1111,6 +1111,13 @@
   resolved "https://registry.nlark.com/@tsconfig/node16/download/@tsconfig/node16-1.0.2.tgz#423c77877d0569db20e1fc80885ac4118314010e"
   integrity sha1-Qjx3h30Fadsg4fyAiFrEEYMUAQ4=
 
+"@types/cross-spawn@^6.0.2":
+  version "6.0.2"
+  resolved "https://registry.nlark.com/@types/cross-spawn/download/@types/cross-spawn-6.0.2.tgz#168309de311cd30a2b8ae720de6475c2fbf33ac7"
+  integrity sha1-FoMJ3jEc0woriucg3mR1wvvzOsc=
+  dependencies:
+    "@types/node" "*"
+
 "@types/eslint@^7.2.13":
   version "7.28.2"
   resolved "https://registry.npmmirror.com/@types/eslint/download/@types/eslint-7.28.2.tgz#0ff2947cdd305897c52d5372294e8c76f351db68"
