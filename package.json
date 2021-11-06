@@ -1,13 +1,16 @@
 {
   "name": "@liangsky/mock",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "mockServer for web",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liangskyli/mock.git"
   },
   "keywords": [
-    "mock"
+    "mock",
+    "mock server",
+    "express",
+    "webpack"
   ],
   "author": "liangsky",
   "license": "MIT",
@@ -21,8 +24,10 @@
     "mock-server": "./bin/index.js"
   },
   "scripts": {
-    "start": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/mock.ts",
-    "test-http-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/http-cli.ts",
+    "start": "cross-env DEBUG=umi:preset-build-in:mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/server.ts",
+    "test-http-cli": "cross-env DEBUG=umi:preset-build-in:mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/http-cli.ts",
+    "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/middleware.ts",
+    "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/webpack-middleware.ts",
     "build": "npm run clean && npm run compile",
     "clean": "gts clean",
     "compile": "tsc -p .",
@@ -50,10 +55,15 @@
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",
+    "@types/webpack-dev-server": "^4.3.1",
     "@umijs/fabric": "^2.8.1",
+    "cross-env": "^7.0.3",
+    "express": "^4.17.1",
     "gts": "^3.1.0",
     "lint-staged": "^11.2.6",
     "ts-node": "^10.4.0",
-    "typescript": "^4.4.4"
+    "typescript": "^4.4.4",
+    "webpack": "^5.62.1",
+    "webpack-dev-server": "^4.4.0"
   }
 }
