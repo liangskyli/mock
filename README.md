@@ -2,13 +2,13 @@
 
 Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发所阻塞。
 
-##安装:
+## 安装:
 ```
 yarn add @liangsky/mock --dev
 ```
 
-##使用方式:
-##mockServer 调用方式
+## 使用方式:
+## mockServer 调用方式
 ```ts
 import mockServer from '@liangsky/mock';
 
