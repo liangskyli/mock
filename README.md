@@ -4,13 +4,13 @@ Mock 数据是前端开发过程中必不可少的一环，是分离前后端开
 
 ## 安装:
 ```
-yarn add @liangsky/mock --dev
+yarn add @liangskyli/mock --dev
 ```
 
 ## 使用方式:
 ## mockServer 调用方式
 ```ts
-import mockServer from '@liangsky/mock';
+import mockServer from '@liangskyli/mock';
 
 mockServer({ port: 9001, hostname: '0.0.0.0' });
 ```
@@ -57,7 +57,7 @@ yarn mock-server -p 8001
 ```ts
 // @ts-ignore
 import express from 'express';
-import { getMiddleware } from '@liangsky/mock';
+import { getMiddleware } from '@liangskyli/mock';
 
 const app = express();
 
@@ -76,7 +76,7 @@ getMiddleware().then((middleware) => {
 ```ts
 import type WebpackDevServer from 'webpack-dev-server';
 import type Webpack from 'webpack';
-import { getMiddleware } from '@liangsky/mock';
+import { getMiddleware } from '@liangskyli/mock';
 
 const webpackConfig: Webpack.Configuration = {
     entry: './test/app.js',
