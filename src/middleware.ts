@@ -6,6 +6,7 @@ import createMiddleware from '@umijs/preset-built-in/lib/plugins/commands/dev/mo
 // @ts-ignore
 import { getMockData } from '@umijs/preset-built-in/lib/plugins/commands/dev/mock/utils';
 import { killProcess } from './tools';
+import type { Request, Response, NextFunction } from 'express';
 
 export type IOpts = {
   mockDir?: string;
@@ -16,6 +17,12 @@ export type IOpts = {
 const getMiddleware = async (opts: IOpts = {}) => {
   const { mockDir = './', watch = true, exclude } = opts;
   const cwd = winPath(isAbsolute(mockDir) ? mockDir : join(process.cwd(), mockDir));
+
+  if (process.env.MOCK === 'false') {
+    return (req: Request, res: Response, next: NextFunction) => {
+      return next();
+    };
+  }
 
   const service = new Service({
     cwd,
