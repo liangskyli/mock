@@ -1,26 +1,38 @@
 # 多种Mock服务方式提供MOCK数据，总有一种方式适合你
 
-Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发所阻塞。
+> Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发所阻塞。
 
 ## 安装:
-```
+```bash
 yarn add @liangskyli/mock --dev
 ```
 
+## 环境变量
+适用于：
+- 1、mockServer 调用方式
+- 2、CLI 命令方式 
+- 3、中间件方式
+
+| 环境变量     | 说明                        | 默认值  |
+| ---------   | -------------------------  | ------ |
+| WATCH_FILES | 是否监听mock文件改动 `bool值` | `true` |
+| MOCK        | 是否需要使用mock服务 `bool值` | `true` |
+
 ## 使用方式:
-## mockServer 调用方式
+
+## 1、mockServer 调用方式
 ```ts
 import mockServer from '@liangskyli/mock';
 
 mockServer({ port: 9001, hostname: '0.0.0.0' });
 ```
 
-### mockServer 参数
-| 属性       | 说明             | 默认值      |
+### mockServer函数参数
+| 参数       | 说明             | 默认值      |
 | --------- | ---------------  | ---------- |
 | opts      | mockServer配置参数 | `见下面opts参数` |
 
-### mockServer opts参数
+### mockServer opts参数属性
 | 属性       | 说明             | 默认值      |
 | --------- | ---------------  | ---------- |
 | mockDir  | mock文件夹所在目录  | `./` |
@@ -30,20 +42,18 @@ mockServer({ port: 9001, hostname: '0.0.0.0' });
 | watch     | 是否监听mock文件改动 `bool值`  | `true` |
 
 
-## CLI 命令方式
+## 2、CLI 命令方式
 
-```
+```bash
+// 监听mock文件改动
 yarn mock-server -p 8001
+// 不监听mock文件改动
+yarn cross-env WATCH_FILES=false mock-server -p 8001
 ```
-
-### 环境变量
-| 属性       | 说明             | 默认值      |
-| --------- | ---------------  | ---------- |
-| WATCH_FILES  | 是否监听mock文件改动 `bool值`  | `true` |
 
 ### 命令参数
 
-| 属性       | 说明             | 默认值      |
+| 参数       | 说明             | 默认值      |
 | --------- | ---------------  | ---------- |
 | -d, --dir  | mock文件夹所在目录  | `./` |
 | -e, --exclude | 用于忽略不需要走 mock 的文件 `多个路径用英文逗号分割，如：a.ts,b.ts`  |  |
@@ -51,7 +61,8 @@ yarn mock-server -p 8001
 | -p, --port      | 端口号 `设置的端口被占用，自动使用新端口` | `8001` |
 | -w, --watch     | 是否监听mock文件改动 `bool值` | `true` |
 
-## 中间件方式，迁入已有的express服务或webpack-dev-server服务中
+## 3、中间件方式
+> 迁入已有的express服务或webpack-dev-server服务中
 
 - express服务
 ```ts
@@ -103,19 +114,19 @@ const webpackConfig: Webpack.Configuration = {
 export default webpackConfig;
 ```
 
-### getMiddleware 参数
-| 属性       | 说明             | 默认值      |
+### getMiddleware函数参数
+| 参数       | 说明             | 默认值      |
 | --------- | ---------------  | ---------- |
 | opts      | getMockMiddleware配置参数 | `见下面opts参数` |
 
-### getMiddleware opts参数
+### getMiddleware opts参数属性
 | 属性       | 说明             | 默认值      |
 | --------- | ---------------  | ---------- |
 | mockDir  | mock文件夹所在目录  | `./` |
 | exclude   | 用于忽略不需要走 mock 的文件 `Array(string) 如：['a.ts','b.ts']`  |  |
 | watch     | 是否监听mock文件改动 `bool值`  | `true` |
 
-### getMiddleware 方法异步返回中间件middleware
+### getMiddleware异步方法返回中间件middleware
 | 异步返回属性 | 说明             | 
 | ---------  | ---------------  |
 | middleware  | express中间件 `可用于express服务或webpack-dev-server服务中`  |
