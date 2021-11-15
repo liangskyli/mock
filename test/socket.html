@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>socket</title>
+    <script src="socket.io.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const socket = io('http://localhost:8002', { path: '/socket.io/' });
+      socket.on('connect', () => {
+        console.log('connect:', socket.connected,',socketId:',socket.id);
+      });
+
+      socket.on('toClient', (data) => {
+          console.log('socket data:',data);
+          socket.emit('toServer',{id:'111',txt:'hello1'});
+      });
+
+      socket.on('disconnect', () => {
+        console.log('disconnect!');
+      });
+
+      function send(){
+        socket.emit('toServer',{id:'22',txt:'hello2'});
+      }
+    </script>
+
+    socket
+    <button onclick="send()">按钮</button>
+  </body>
+</html>

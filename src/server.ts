@@ -2,6 +2,8 @@ import { Server } from '@umijs/server';
 import { address, chalk } from '@umijs/utils';
 import getMiddleware from './middleware';
 import { killProcess } from './tools';
+import type { ISocketConfig } from './socket-server';
+import getSocketServer from './socket-server';
 
 export type IOpts = {
   mockDir?: string;
@@ -9,16 +11,24 @@ export type IOpts = {
   port?: number;
   watch?: boolean;
   exclude?: string[];
+  socketConfig?: ISocketConfig;
 };
 
-const mockServer = (opts: IOpts = {}) => {
-  const { mockDir, hostname = '0.0.0.0', port = 8001, watch = true, exclude } = opts;
+const mockServer = async (opts: IOpts = {}) => {
+  const {
+    mockDir = './',
+    hostname = '0.0.0.0',
+    port = 8001,
+    watch = true,
+    exclude,
+    socketConfig,
+  } = opts;
   const HOME_PAGE = 'homepage';
-  let server: any;
+  let server: Server | undefined;
 
   try {
     const init = async () => {
-      const middleware = await getMiddleware({ mockDir, watch, exclude });
+      const { middleware, middlewareWatcher } = await getMiddleware({ mockDir, watch, exclude });
       server = new Server({
         beforeMiddlewares: [middleware],
         compilerMiddleware: (req, res, next) => {
@@ -30,16 +40,27 @@ const mockServer = (opts: IOpts = {}) => {
         },
       });
       const result = await server.listen({ hostname, port });
-      opts.port = result.port;
-      opts.hostname = result.hostname;
+
+      if (socketConfig && socketConfig.enable) {
+        getSocketServer({
+          socketConfig,
+          server: result.server.listeningApp,
+          mockDir,
+          port: result.port,
+          hostname: result.hostname,
+          middlewareWatcher,
+        });
+      }
+
+      return result;
     };
 
-    init().then(() => {
+    init().then((result) => {
       const lanIp = address.ip();
       const protocol = 'http';
-      const hostName = opts.hostname === '0.0.0.0' ? 'localhost' : opts.hostname;
-      const localUrl = `${protocol}://${hostName}:${opts.port}`;
-      const lanUrl = `${protocol}://${lanIp}:${opts.port}`;
+      const hostName = result.hostname === '0.0.0.0' ? 'localhost' : result.hostname;
+      const localUrl = `${protocol}://${hostName}:${result.port}`;
+      const lanUrl = `${protocol}://${lanIp}:${result.port}`;
 
       console.log(
         [
@@ -50,6 +71,8 @@ const mockServer = (opts: IOpts = {}) => {
           .filter(Boolean)
           .join('\n'),
       );
+
+      return Promise.resolve('aaa');
     });
 
     killProcess(server, 'server');

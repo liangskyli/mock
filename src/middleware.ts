@@ -1,6 +1,7 @@
 import { Service } from '@umijs/core';
 import { parseRequireDeps, winPath } from '@umijs/utils';
 import { join, isAbsolute } from 'path';
+import type { FSWatcher } from 'chokidar';
 // @ts-ignore
 import createMiddleware from '@umijs/preset-built-in/lib/plugins/commands/dev/mock/createMiddleware';
 // @ts-ignore
@@ -14,14 +15,17 @@ export type IOpts = {
   exclude?: string[];
 };
 
-const getMiddleware = async (opts: IOpts = {}) => {
+const getMiddleware = async (
+  opts: IOpts = {},
+): Promise<{ middleware: any; middlewareWatcher?: FSWatcher }> => {
   const { mockDir = './', watch = true, exclude } = opts;
   const cwd = winPath(isAbsolute(mockDir) ? mockDir : join(process.cwd(), mockDir));
 
   if (process.env.MOCK === 'false') {
-    return (req: Request, res: Response, next: NextFunction) => {
+    const middleware = (req: Request, res: Response, next: NextFunction) => {
       return next();
     };
+    return { middleware, middlewareWatcher: undefined };
   }
 
   const service = new Service({
@@ -51,6 +55,7 @@ const getMiddleware = async (opts: IOpts = {}) => {
   const ignore = [
     // ignore mock files under node_modules
     'node_modules/**',
+    'mock/socket/**',
     ...(exclude || []),
   ];
 
@@ -72,7 +77,7 @@ const getMiddleware = async (opts: IOpts = {}) => {
     await middlewareWatcher?.close?.();
   }
   killProcess(middlewareWatcher);
-  return middleware;
+  return { middleware, middlewareWatcher };
 };
 
 export default getMiddleware;

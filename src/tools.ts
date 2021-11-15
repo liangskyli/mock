@@ -20,3 +20,11 @@ export const killProcess = (target: any, type: 'server' | 'watcher' = 'watcher')
   // kill(15) default
   process.once('SIGTERM', () => onSignal());
 };
+
+export const sleep = (time = 0) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({});
+    }, time);
+  });
+};
