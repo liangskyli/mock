@@ -42,7 +42,7 @@ yarn add @liangskyli/mock --dev
 | --------- | ---------------  | ---------- |
 | enable    | mock是否开启      |  |
 | opts      | SocketServer 配置 `详细配置见`[socket.io](https://socket.io/docs/v4/server-options/)
-| mockControllerUrl  | socket mock server 逻辑入口代码路径  |  |
+| mockControllerUrl  | socket mock server 逻辑入口代码路径 `只能用相对路径，相对于mockDir路径`  |  |
 
 - mockServer 例子
 ```ts
@@ -82,7 +82,7 @@ mockServer({ port: 9001, hostname: '0.0.0.0' });
 | --------- | ---------------  | ---------- |
 | enable    | mock是否开启      |  |
 | opts      | SocketServer 配置 `详细配置见`[socket.io](https://socket.io/docs/v4/server-options/)
-| mockControllerUrl  | socket mock server 逻辑入口代码路径`CLI方式仅支持js文件`  |  |
+| mockControllerUrl  | socket mock server 逻辑入口代码路径`只能用相对路径，相对于mockDir路径，CLI方式仅支持js文件`  |  |
 
 - mock http接口例子
   - 监听mock文件改动
