@@ -10,7 +10,8 @@ export default {
         origin: ['http://localhost:63342'],
       },
     },
-    mockControllerUrl: 'mock/socket/sock.ts',
+    mockControllerUrl: path.join(__dirname, '/mock/socket/sock.ts'),
+    //mockControllerUrl: 'mock/socket/sock.ts',
     //mockControllerUrl: 'mock/socket/sock2.js',
   },
 };

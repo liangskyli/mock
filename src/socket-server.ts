@@ -57,11 +57,13 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
     }
 
     // socket main 函数入口
-    const socketControllerMainPath = winPath(
-      isAbsolute(mockDir)
+    let mockControllerUrl = socketConfig.mockControllerUrl;
+    if (!isAbsolute(mockControllerUrl)) {
+      mockControllerUrl = isAbsolute(mockDir)
         ? join(mockDir, socketConfig.mockControllerUrl)
-        : join(process.cwd(), mockDir, socketConfig.mockControllerUrl),
-    );
+        : join(process.cwd(), mockDir, socketConfig.mockControllerUrl);
+    }
+    const socketControllerMainPath = winPath(mockControllerUrl);
 
     const socketMain = require(socketControllerMainPath).default;
     if (!socketMain || typeof socketMain !== 'function') {
