@@ -82,5 +82,5 @@ export const getAbsolutePath = (pathName: string) => {
   return path.isAbsolute(pathName) ? pathName : path.join(process.cwd(), pathName);
 };
 
-//export const packageName = '@liangskyli/mock';
-export const packageName = path.join(process.cwd(), './src/index');
+export const packageName = '@liangskyli/mock';
+//export const packageName = path.join(process.cwd(), './src/index');
