@@ -26,10 +26,12 @@ yarn mock-server -p 8001 -c ./mock.config.ts
 ```
 
 - mockControllerUrl 逻辑
-  - CLI 命令方式，目前只支持js文件（ts文件，使用mockServer调用方式），热更新。灵活模拟 socket 场景数据。
+  - CLI 命令方式，支持js,ts文件，热更新。灵活模拟 socket 场景数据。
 
-```js
-const socketController = (socket) => {
+```ts
+import type {Socket} from 'socket.io';
+
+const socketController = (socket: Socket) => {
   const data = { a: 112 };
   // 数据发送客户端
   socket.emit('toClient', data);
@@ -40,7 +42,7 @@ const socketController = (socket) => {
   });
 };
 
-exports.default = socketController;
+export default socketController;
 ```
 - socket html 代码
 
