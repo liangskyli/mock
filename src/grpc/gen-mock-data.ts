@@ -36,12 +36,13 @@ const genMockData = (
     rootPathServerNameMap,
   } = opts;
   let { rootPath } = opts;
-  const genMockPath = path.relative(process.cwd(), path.join(grpcMockDir, grpcMockFolderName));
-  fs.removeSync(genMockPath);
+  const genMockPath = path.join(grpcMockDir, grpcMockFolderName);
+  const genMockAbsolutePath = getAbsolutePath(genMockPath);
+  fs.removeSync(genMockAbsolutePath);
   console.info(`Clean dir: ${genMockPath}`);
-  const genProtoPath = path.join(genMockPath, 'proto');
+  const genProtoPath = path.join(genMockAbsolutePath, 'proto');
   fs.ensureDirSync(genProtoPath);
-  const genServerPath = path.join(genMockPath, 'server');
+  const genServerPath = path.join(genMockAbsolutePath, 'server');
   fs.ensureDirSync(genServerPath);
   if (typeof rootPath !== 'string') {
     rootPath = genProtoJson({
@@ -50,8 +51,6 @@ const genMockData = (
     });
   }
   rootPath = getAbsolutePath(rootPath);
-  if (!fs.existsSync(rootPath)) {
-  }
 
   // mock 服务端口开始自动生成(默认从50000开始)
   let servicePort = port;

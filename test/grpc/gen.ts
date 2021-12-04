@@ -1,6 +1,6 @@
-import { gen } from '../../src/grpc/gen';
+import { grpcMockCodeGen } from '../../src';
 
-gen({
+grpcMockCodeGen({
   grpcMockDir: './test',
   rootPath: {
     grpcProtoServes: [
