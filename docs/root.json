@@ -1,0 +1,120 @@
+{
+  "serverName1": {
+    "nested": {
+      "activity_package": {
+        "nested": {
+          "ActivityService": {
+            "methods": {
+              "Create": {
+                "requestType": "CreateActivityRequest",
+                "responseType": "CreateActivityResponse",
+                "comment": "新增活动"
+              },
+              "Update": {
+                "requestType": "UpdateActivityRequest",
+                "responseType": "common.Response",
+                "comment": "编辑活动"
+              }
+            },
+            "comment": "活动服务"
+          },
+          "CreateActivityRequest": {
+            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "comment": null
+          },
+          "CreateActivityResponse": {
+            "fields": { "activityName": { "type": "string", "id": 1, "comment": "活动名称" } },
+            "comment": null
+          },
+          "UpdateActivityRequest": {
+            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "comment": null
+          },
+          "ActivityService2": {
+            "methods": {
+              "Create": {
+                "requestType": "CreateActivityRequest2",
+                "responseType": "CreateActivityResponse2",
+                "comment": "新增活动"
+              }
+            },
+            "comment": "活动服务"
+          },
+          "CreateActivityRequest2": {
+            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "comment": null
+          },
+          "CreateActivityResponse2": {
+            "fields": { "activityName": { "type": "string", "id": 1, "comment": "活动名称" } },
+            "comment": null
+          }
+        }
+      },
+      "common": {
+        "nested": {
+          "Request": { "fields": {}, "comment": null },
+          "Response": { "fields": {}, "comment": null }
+        }
+      }
+    }
+  },
+  "serverName2": {
+    "nested": {
+      "activity_package": {
+        "nested": {
+          "ActivityService": {
+            "methods": {
+              "Create": {
+                "requestType": "CreateActivityRequest",
+                "responseType": "CreateActivityResponse",
+                "comment": "新增活动"
+              },
+              "Update": {
+                "requestType": "UpdateActivityRequest",
+                "responseType": "common.Response",
+                "comment": "编辑活动"
+              }
+            },
+            "comment": "活动服务"
+          },
+          "CreateActivityRequest": {
+            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "comment": null
+          },
+          "CreateActivityResponse": {
+            "fields": { "activityName": { "type": "string", "id": 1, "comment": "活动名称" } },
+            "comment": null
+          },
+          "UpdateActivityRequest": {
+            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "comment": null
+          },
+          "ActivityService2": {
+            "methods": {
+              "Create": {
+                "requestType": "CreateActivityRequest2",
+                "responseType": "CreateActivityResponse2",
+                "comment": "新增活动"
+              }
+            },
+            "comment": "活动服务"
+          },
+          "CreateActivityRequest2": {
+            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "comment": null
+          },
+          "CreateActivityResponse2": {
+            "fields": { "activityName": { "type": "string", "id": 1, "comment": "活动名称" } },
+            "comment": null
+          }
+        }
+      },
+      "common": {
+        "nested": {
+          "Request": { "fields": {}, "comment": null },
+          "Response": { "fields": {}, "comment": null }
+        }
+      }
+    }
+  }
+}
