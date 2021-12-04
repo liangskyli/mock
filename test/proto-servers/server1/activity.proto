@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package activity_package;
+
+import "common/common.proto";
+
+// 活动服务
+service ActivityService {
+  // 新增活动
+  rpc Create(CreateActivityRequest) returns (CreateActivityResponse);
+  // 编辑活动
+  rpc Update(UpdateActivityRequest) returns (common.Response);
+}
+
+message CreateActivityRequest {
+  // 活动Id
+  string activityId = 1;
+}
+
+message CreateActivityResponse {
+  // 活动名称
+  string activityName = 1;
+}
+
+message UpdateActivityRequest {
+  // 活动Id
+  string activityId = 1;
+}

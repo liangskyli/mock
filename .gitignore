@@ -13,3 +13,5 @@
 /.vscode
 # umi
 
+/test/grpc-mock/
+/test/grpc/*.json

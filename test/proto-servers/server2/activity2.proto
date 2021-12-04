@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package activity_package;
+
+
+// 活动服务
+service ActivityService2 {
+  // 新增活动
+  rpc Create(CreateActivityRequest2) returns (CreateActivityResponse2);
+}
+
+message CreateActivityRequest2 {
+  // 活动Id
+  string activityId = 1;
+}
+
+message CreateActivityResponse2 {
+  // 活动名称
+  string activityName = 1;
+}

@@ -24,7 +24,8 @@
     "docs"
   ],
   "bin": {
-    "mock-server": "./bin/index.js"
+    "mock-server": "./bin/index.js",
+    "grpc-mock": "./bin/grpc/index.js"
   },
   "scripts": {
     "dev": "tsc --watch",
@@ -32,6 +33,10 @@
     "test-http-cli": "cross-env DEBUG=umi:preset-build-in:mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/http-cli.ts",
     "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/middleware.ts",
     "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/webpack-middleware.ts",
+    "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/grpc/gen.ts",
+    "test-grpc-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/grpc/grpc-cli.ts",
+    "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
+    "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
     "build": "npm run clean && npm run compile",
     "clean": "gts clean",
     "compile": "tsc -p .",
@@ -52,9 +57,12 @@
     ]
   },
   "dependencies": {
+    "@grpc/proto-loader": "^0.6.7",
     "commander": "^8.3.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.0.0",
+    "lodash": "^4.17.21",
+    "protobufjs": "^6.11.2",
     "socket.io": "^4.3.2",
     "umi": "^3.5.20"
   },
@@ -62,6 +70,7 @@
     "@types/cross-spawn": "^6.0.2",
     "@types/express": "^4.17.13",
     "@types/fs-extra": "^9.0.13",
+    "@types/lodash": "^4.14.177",
     "@types/mockjs": "^1.0.4",
     "@types/webpack-dev-server": "^4.3.1",
     "@umijs/fabric": "^2.8.1",
@@ -76,5 +85,8 @@
     "webpack": "^5.62.1",
     "webpack-dev-server": "^4.4.0",
     "yorkie": "^2.0.0"
+  },
+  "optionalDependencies": {
+    "grpc": "^1.24.11"
   }
 }

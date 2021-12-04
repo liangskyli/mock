@@ -1,0 +1,9 @@
+GET http://localhost:8002/1?id=1
+Accept: application/json
+
+###
+
+GET http://localhost:8002/2?id=2
+Accept: application/json
+
+###
