@@ -1,10 +1,9 @@
 import { program } from 'commander';
 import type { IOpts } from '../server';
 import mockServer from '../server';
-import path from 'path';
 import fs from 'fs-extra';
-import spawn from 'cross-spawn';
-import { sleep } from '../tools';
+import getConfig from './config';
+import { getAbsolutePath } from '../grpc/utils';
 
 const packageJson = require('../../package.json');
 
@@ -55,45 +54,18 @@ const runingScript = () => {
   }
 };
 
-const getConfigFormChildProcess = (configFilePath: string) => {
-  // 通过子进程方式获取config配置
-  const child = spawn(
-    'ts-node',
-    [require('path').join(__dirname, '../../bin/config'), configFilePath],
-    { stdio: ['ipc', 'pipe', 'pipe'] },
-  );
-
-  let start: any = null;
-
-  const timer = setTimeout(() => {
-    start = true;
-    runingScript();
-  }, 3000);
-
-  child.on('message', (msg = {}) => {
-    const { action, data } = msg as any;
-    if (action === 'get-config' && !start) {
-      clearTimeout(timer);
-      opt = {
-        ...opt,
-        ...data,
-      };
-      runingScript();
-    }
-  });
-
-  // 为了保证子进程能运行完成，这里延迟3秒再关闭当前进程
-  sleep(3000);
-};
-
 if (configFile) {
-  const configFilePath = path.join(process.cwd(), configFile);
-
+  const configFilePath = getAbsolutePath(configFile);
   if (!fs.pathExistsSync(configFilePath)) {
-    console.error(`mock config file not exits: ${configFilePath}`);
+    console.error(`mock config file not exits: ${configFile}`);
     process.exit(1);
   }
-  getConfigFormChildProcess(configFilePath);
-} else {
-  runingScript();
+
+  const data: IOpts = getConfig(configFilePath);
+  opt = {
+    ...opt,
+    ...data,
+  };
 }
+
+runingScript();
