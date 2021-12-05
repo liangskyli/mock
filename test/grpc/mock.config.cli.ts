@@ -1,4 +1,4 @@
-import type { ConfigFileOptionsCLI } from '../../src/grpc/gen';
+import type { ConfigFileOptionsCLI } from '../../src';
 
 const config: ConfigFileOptionsCLI = {
   rootPath: './test/grpc/root2.json',

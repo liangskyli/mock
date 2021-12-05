@@ -1,5 +1,5 @@
 import * as grpc from 'grpc';
-import type { IProtoItem, IMockService, IMetadataMap } from './mock-service';
+import type { IProtoItem, IMockService, IMetadataMap } from './service-type';
 import { get } from 'lodash';
 import type { Metadata } from 'grpc';
 import * as fs from 'fs';
