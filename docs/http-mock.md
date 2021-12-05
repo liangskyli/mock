@@ -40,7 +40,7 @@ import mockServer from '@liangskyli/mock';
 
 mockServer({ port: 9001, hostname: '0.0.0.0' });
 ```
-- [mockServer socket 例子](docs/mock-server-socket.md)
+- [mockServer socket 例子](mock-server-socket.md)
 
 ## 2、CLI 命令方式
 
@@ -86,7 +86,7 @@ mockServer({ port: 9001, hostname: '0.0.0.0' });
     yarn cross-env WATCH_FILES=false mock-server -p 8001
     ```
 
-- [CLI mock 配置文件, mock socket 例子](docs/cli-mock-socket.md)
+- [CLI mock 配置文件, mock socket 例子](cli-mock-socket.md)
 
 
 ## 3、中间件方式
@@ -113,16 +113,16 @@ mockServer({ port: 9001, hostname: '0.0.0.0' });
 
 
 - express服务
-    - [http mock](docs/express-mock.md)
-    - [socket mock](docs/express-mock-socket.md)
+    - [http mock](express-mock.md)
+    - [socket mock](express-mock-socket.md)
 
 
 - webpack-dev-server服务
-    - [http mock](docs/webpack-mock.md)
-    - [socket mock](docs/webpack-mock-socket.md)
+    - [http mock](webpack-mock.md)
+    - [socket mock](webpack-mock-socket.md)
 
 # Mock 数据
 
 Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发所阻塞。
-- [http mock 文件详细使用方法](docs/mock.md)
+- [http mock 文件详细使用方法](mock.md)
 - socket mock逻辑放在mock/socket文件夹下
