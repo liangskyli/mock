@@ -67,6 +67,26 @@ yarn grpc-mock code-gen -c ./mock.config.cli.ts
     ```
     - rootPathServerNameMap参数对生成的[root.json](./root.json)grpc服务名重命名。
 
+
+- configFile mock配置文件示例
+```ts
+import type { ConfigFileOptionsCLI } from '@liangskyli/mock';
+
+const config: ConfigFileOptionsCLI = {
+  rootPath: {
+    grpcProtoServes: [
+      { serverName: 'serverName1', serverDir: './src/proto-servers/server1' },
+      { serverName: 'serverName2', serverDir: './src/proto-servers/server2' },
+    ],
+  },
+  loaderOptions: {
+    defaults: false,
+    longs: String,
+  },
+};
+export default config;
+```
+
 ## 2、函数调用方式
 - node命令调用自己写的文件（如：grpc-mock-gen.ts）
 ```base
