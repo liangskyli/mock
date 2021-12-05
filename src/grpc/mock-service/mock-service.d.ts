@@ -4,7 +4,12 @@ export type IImplementationData = Record<
   string,
   {
     /** mock 错误数据 */
-    error?: { code: number; message: string };
+    error?: {
+      /** mock 错误码 */
+      code: number;
+      /** mock 错误信息 */
+      message: string;
+    };
     /** mock 响应数据 */
     response: any;
     /** mock metadata数据 */

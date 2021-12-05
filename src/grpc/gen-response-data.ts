@@ -26,7 +26,8 @@ export default function genResponseData(opts: IOpts): string {
     const jsonArr: string[] = [];
     Object.keys(fields).map((field) => {
       const { type: fieldType, rule, comment } = fields[field];
-      let tsType = PROTO_TYPE_2_TS_TYPE_MAP[fieldType];
+      const originalTsType = PROTO_TYPE_2_TS_TYPE_MAP[fieldType];
+      let tsType = originalTsType;
       if (tsType) {
         if (longsType.indexOf(fieldType) > -1 && longsTypeToString) {
           tsType = 'string';
@@ -38,7 +39,16 @@ export default function genResponseData(opts: IOpts): string {
 
       let fieldValue: any = null;
       if (tsType !== undefined) {
-        fieldValue = TS_TYPE_2_DEFAULT_MAP[tsType];
+        if (tsType === 'string') {
+          fieldValue = `'${field}'`;
+          if (originalTsType) {
+            if (longsType.indexOf(fieldType) > -1 && longsTypeToString) {
+              fieldValue = TS_TYPE_2_DEFAULT_MAP[tsType];
+            }
+          }
+        } else {
+          fieldValue = TS_TYPE_2_DEFAULT_MAP[tsType];
+        }
         if (commentStr) {
           jsonArr.push(commentStr);
         }
