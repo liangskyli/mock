@@ -171,7 +171,7 @@ node -r ts-node/register --trace-warnings grpc-mock/index.ts
           // 正常相应数据 字段注释会自动生成
         response: {
           /** 活动名称 */
-          activityName: '',
+          activityName: 'activityName',
         },
       },
     },
@@ -213,3 +213,35 @@ export type IImplementationData = Record<
   - 对象类型：对象里基础类型数据生成
   - 基础数组类型：生成第一个数组基础数据
   - 多维数组：proto目前不支持
+
+## 引入 Mock.js
+
+[Mock.js](http://mockjs.com/) 是常用的辅助生成模拟数据的三方库，借助他可以提升我们的 mock 数据能力。
+
+比如：
+
+```ts
+import mockjs from 'mockjs';
+import type { IProtoItem } from '@liangskyli/mock';
+const ActivityService: IProtoItem = {
+  path: 'serverName1.activity_package.ActivityService',
+  implementationData: [
+    {
+      Create: {
+        // 正常相应数据 字段注释会自动生成
+        response: {
+          /** 活动名称 */
+          activityName: mockjs.Random.string(3),
+        },
+      },
+    },
+    {
+      Update: {
+        response: {
+        },
+      },
+    },
+  ],
+};
+export default ActivityService;
+```
