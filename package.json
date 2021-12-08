@@ -12,7 +12,10 @@
     "express",
     "webpack",
     "socket",
-    "socket.io"
+    "socket.io",
+    "grpc",
+    "grpc mock",
+    "grpc mock server"
   ],
   "author": "liangsky",
   "license": "MIT",
