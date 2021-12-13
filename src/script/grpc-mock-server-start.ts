@@ -4,16 +4,25 @@ import fs from 'fs-extra';
 import { getAbsolutePath } from '../grpc/utils';
 import getConfig from './config';
 import path from 'path';
+import spawn from 'cross-spawn';
 
 const packageJson = require('../../package.json');
 
 program
   .version(packageJson.version)
+  .option<boolean>(
+    '-w, --watch [watch]',
+    'watch mock files change',
+    (watch) => {
+      return watch.toString() === 'true';
+    },
+    true,
+  )
   .option('-c, --configFile [configFile]', 'grpc mock config file')
   .parse(process.argv);
 
+const { watch } = program.opts();
 let { configFile } = program.opts();
-
 if (!configFile) {
   configFile = './grpc-mock-config.ts';
 }
@@ -41,4 +50,19 @@ const runningScript = () => {
   }
 };
 
-runningScript();
+const runningWatchScript = () => {
+  try {
+    const genMockFileDir = getAbsolutePath(path.join(grpcMockDir, grpcMockFolderName));
+    spawn.sync('ts-node-dev', [`--watch=${genMockFileDir}`, genMockIndexFile], {
+      stdio: 'inherit',
+    });
+  } catch (err: any) {
+    console.error(err);
+  }
+};
+
+if (watch) {
+  runningWatchScript();
+} else {
+  runningScript();
+}

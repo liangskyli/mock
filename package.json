@@ -69,6 +69,7 @@
     "lodash": "^4.17.21",
     "protobufjs": "^6.11.2",
     "socket.io": "^4.3.2",
+    "ts-node-dev": "^1.1.8",
     "umi": "^3.5.20"
   },
   "devDependencies": {
