@@ -171,17 +171,29 @@ node -r ts-node/register --trace-warnings grpc-mock/index.ts
   implementationData: [
     {
       Create: {
-          // 正常相应数据 字段注释会自动生成
+        /** mock 正常响应数据 */
         response: {
           /** 活动名称 */
           activityName: 'activityName',
         },
+        /** mock 多场景响应数据 */
+        sceneData: [
+          {
+            requestCase: (request: any) => {
+              // 命中逻辑，命中返回true
+              return request.activityId === '10';
+            },
+            response: {
+              /** 活动名称 */
+              activityName: 'activityName',
+            },
+          },
+        ],
       },
     },
     {
       Update: {
-        response: {
-        },
+        response: {},
       },
     },
   ],
@@ -189,7 +201,9 @@ node -r ts-node/register --trace-warnings grpc-mock/index.ts
 export default ActivityService;
 
 ```
-- implementationData 数据结构，里面可以按格式要求，配置错误数据,响应数据,metadata数据,注意：优先级error > response ， error > metadata
+- implementationData 数据结构，里面可以按格式要求，配置错误数据，响应数据，metadata数据，及多场景相关数据。
+- 优先级error > response ， error > metadata
+- sceneData 命中优先级 > 非命中优先级
 ```ts
 export type IImplementationData = Record<
   string,
@@ -201,10 +215,25 @@ export type IImplementationData = Record<
       /** mock 错误信息 */
       message: string;
     };
-    /** mock 响应数据 */
+    /** mock 正常响应数据 */
     response: any;
     /** mock metadata数据 */
     metadata?: IMetadataMap;
+    /** mock 多场景响应数据 */
+    sceneData?: {
+      /** mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配 */
+      requestCase: (request: any) => boolean;
+      error?: {
+        /** mock 错误码 */
+        code: number;
+        /** mock 错误信息 */
+        message: string;
+      };
+      /** mock 正常响应数据 */
+      response: any;
+      /** mock metadata数据 */
+      metadata?: IMetadataMap;
+    }[];
   }
   >[];
 ```
@@ -231,17 +260,29 @@ const ActivityService: IProtoItem = {
   implementationData: [
     {
       Create: {
-        // 正常相应数据 字段注释会自动生成
+        /** mock 正常响应数据 */
         response: {
           /** 活动名称 */
           activityName: mockjs.Random.string(3),
         },
+        /** mock 多场景响应数据 */
+        sceneData: [
+          {
+            requestCase: (request: any) => {
+              // 命中逻辑，命中返回true
+              return request.activityId === '10';
+            },
+            response: {
+              /** 活动名称 */
+              activityName: 'activityName',
+            },
+          },
+        ],
       },
     },
     {
       Update: {
-        response: {
-        },
+        response: {},
       },
     },
   ],
