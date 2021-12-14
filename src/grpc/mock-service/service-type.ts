@@ -10,10 +10,25 @@ export type IImplementationData = Record<
       /** mock 错误信息 */
       message: string;
     };
-    /** mock 响应数据 */
+    /** mock 正常响应数据 */
     response: any;
     /** mock metadata数据 */
     metadata?: IMetadataMap;
+    /** mock 多场景响应数据 */
+    sceneData?: {
+      /** mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配 */
+      requestCase: (request: any) => boolean;
+      error?: {
+        /** mock 错误码 */
+        code: number;
+        /** mock 错误信息 */
+        message: string;
+      };
+      /** mock 正常响应数据 */
+      response: any;
+      /** mock metadata数据 */
+      metadata?: IMetadataMap;
+    }[];
   }
 >[];
 

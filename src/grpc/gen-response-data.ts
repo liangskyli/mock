@@ -1,9 +1,9 @@
 import type * as protobufjs from 'protobufjs';
 import {
-  TS_TYPE_2_DEFAULT_MAP,
+  longsType,
   PROTO_TYPE_2_TS_TYPE_MAP,
   stringLeftNumber,
-  longsType,
+  TS_TYPE_2_DEFAULT_MAP,
 } from './utils';
 
 type IOpts = {
@@ -99,9 +99,13 @@ export default function genResponseData(opts: IOpts): string {
   };
 
   const dataObj: string[] = genFieldObj(typeMessage);
-  dataObj.unshift('{');
-  let str = stringLeftNumber(dataObj.join('\n'), 10);
-  str = str + stringLeftNumber('\n}', 8);
-
-  return str;
+  if (dataObj.length > 0) {
+    dataObj.unshift('{');
+    let str = stringLeftNumber(dataObj.join('\n'), 10);
+    str = str + stringLeftNumber('\n}', 8);
+    return str;
+  } else {
+    dataObj.unshift('{}');
+    return stringLeftNumber(dataObj.join('\n'), 10);
+  }
 }

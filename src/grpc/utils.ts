@@ -83,4 +83,4 @@ export const getAbsolutePath = (pathName: string) => {
 };
 
 export const packageName = '@liangskyli/mock';
-//export const packageName = path.join(process.cwd(), './src/index');
+//export const packageName = path.join(process.cwd(), './src/index').replace(/\\/ig,'/');

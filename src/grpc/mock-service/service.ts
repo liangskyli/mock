@@ -23,6 +23,7 @@ const getImplementation: (proto: IProtoItem) => IImplementation = (proto) => {
   implementationData.map((item, index) => {
     Object.keys(item).map((key) => {
       implementation[key] = (call: any, callback: any) => {
+        const { request, metadata: requestMetadata } = call;
         console.info(
           '-------grpc mock server-------',
           '\n',
@@ -33,14 +34,26 @@ const getImplementation: (proto: IProtoItem) => IImplementation = (proto) => {
           key,
           '\n',
           'grpc go request:',
-          call.request,
+          request,
           '\n',
           'grpc go metadata:',
-          call.metadata,
+          requestMetadata,
         );
         const data = implementationData[index][key];
-        const error = data.error ?? null;
-        callback(error, data.response, toMetadata(data.metadata));
+        let { error = null, response, metadata } = data;
+        if (data.sceneData) {
+          // 场景数据命中逻辑，没命中取非场景默认数据
+          data.sceneData.some((sceneItem) => {
+            if (sceneItem.requestCase(request)) {
+              error = sceneItem.error ?? null;
+              response = sceneItem.response;
+              metadata = sceneItem.metadata;
+              return true;
+            }
+            return false;
+          });
+        }
+        callback(error, response, toMetadata(metadata));
       };
     });
   });
