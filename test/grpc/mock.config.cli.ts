@@ -15,5 +15,6 @@ const config: ConfigFileOptionsCLI = {
     defaults: false,
     longs: String,
   },
+  prettierOptions: { singleQuote: false },
 };
 export default config;

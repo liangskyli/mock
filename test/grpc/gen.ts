@@ -8,6 +8,7 @@ grpcMockCodeGen({
       { serverName: 'serverName2', serverDir: './test/proto-servers/server2' },
     ],
   },
+  prettierOptions: { singleQuote: true },
   //configFilePath:'./test/grpc/mock.config.ts',
 });
 

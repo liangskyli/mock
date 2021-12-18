@@ -3,7 +3,7 @@ import genMockData from './gen-mock-data';
 import genGrpcObj from './gen-grpc-obj';
 import fs from 'fs-extra';
 import type { Options } from '@grpc/proto-loader';
-import { getAbsolutePath } from './utils';
+import { copyPrettierOptions, getAbsolutePath } from './utils';
 import genTsConfig from './gen-tsconfig';
 
 export type GenOptions = GenMockDataOptions & {
@@ -16,8 +16,8 @@ export const defaultLoaderOptions: Options = {
   defaults: true,
 };
 
-export function gen(opts: GenOptions) {
-  const { configFilePath } = opts;
+export async function gen(opts: GenOptions) {
+  const { configFilePath, prettierOptions } = opts;
   let loaderOptions: Options = defaultLoaderOptions;
   if (configFilePath) {
     const configFileAbsolutePath = getAbsolutePath(configFilePath);
@@ -32,9 +32,16 @@ export function gen(opts: GenOptions) {
   }
 
   // 生成mock数据
-  const { rootPath, genMockPath } = genMockData(opts, loaderOptions);
+  const { rootPath, genMockPath } = await genMockData(opts, loaderOptions);
   // 生成 genGrpcObj服务文件
-  genGrpcObj({ grpcNpmName: 'grpc', genMockPath, rootPath, loaderOptions, configFilePath });
+  await genGrpcObj({
+    grpcNpmName: 'grpc',
+    genMockPath,
+    rootPath,
+    loaderOptions,
+    configFilePath,
+    prettierOptions: copyPrettierOptions(prettierOptions),
+  });
   // 生成tsconfig
-  genTsConfig(genMockPath);
+  await genTsConfig(genMockPath, copyPrettierOptions(prettierOptions));
 }

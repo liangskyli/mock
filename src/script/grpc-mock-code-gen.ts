@@ -31,7 +31,7 @@ if (!otherOptions.rootPath) {
 
 const runningScript = () => {
   try {
-    gen({ ...otherOptions, configFilePath });
+    gen({ ...otherOptions, configFilePath }).then();
   } catch (err: any) {
     console.error(err);
   }

@@ -1376,6 +1376,11 @@
   resolved "https://registry.nlark.com/@types/parse-json/download/@types/parse-json-4.0.0.tgz?cache=0&sync_timestamp=1629708940688&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fparse-json%2Fdownload%2F%40types%2Fparse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity sha1-L4u0QUNNFjs1+4/9zNcTiSf/uMA=
 
+"@types/prettier@^2.4.2":
+  version "2.4.2"
+  resolved "https://registry.npmmirror.com/@types/prettier/download/@types/prettier-2.4.2.tgz?cache=0&sync_timestamp=1637270228152&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fprettier%2Fdownload%2F%40types%2Fprettier-2.4.2.tgz#4c62fae93eb479660c3bd93f9d24d561597a8281"
+  integrity sha512-ekoj4qOQYp7CvjX8ZDBgN86w3MqQhLE1hczEJbEIjgFEumDy+na/4AJAbLXfgEWFNB2pKadM5rPFtuSGMWK7xA==
+
 "@types/prop-types@*":
   version "15.7.4"
   resolved "https://registry.nlark.com/@types/prop-types/download/@types/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
@@ -6749,6 +6754,11 @@ prettier@^2.1.2, prettier@^2.3.2:
   version "2.4.1"
   resolved "https://registry.nlark.com/prettier/download/prettier-2.4.1.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fprettier%2Fdownload%2Fprettier-2.4.1.tgz#671e11c89c14a4cfc876ce564106c4a6726c9f5c"
   integrity sha1-Zx4RyJwUpM/Ids5WQQbEpnJsn1w=
+
+prettier@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.npmmirror.com/prettier/download/prettier-2.5.1.tgz#fff75fa9d519c54cf0fce328c1017d94546bc56a"
+  integrity sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"

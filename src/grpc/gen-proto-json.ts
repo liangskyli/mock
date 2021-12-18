@@ -1,8 +1,9 @@
 import * as fs from 'fs-extra';
 import path from 'path';
 import protobufjs from 'protobufjs';
-import { getAbsolutePath } from './utils';
+import { getAbsolutePath, prettierData } from './utils';
 import type { Options } from '@grpc/proto-loader';
+import type prettier from 'prettier';
 
 export type ProtoConfig = {
   grpcProtoServes: {
@@ -14,7 +15,7 @@ export type ProtoConfig = {
   protoResolvePath?: (origin: string, target: string) => string | null;
   loaderOptions?: Options;
 };
-type GenProtoOptions = ProtoConfig & { genMockPath: string };
+type GenProtoOptions = ProtoConfig & { genMockPath: string; prettierOptions?: prettier.Options };
 
 const getProtoFiles = (absoluteDir: string): string[] => {
   const protoFiles: string[] = [];
@@ -33,8 +34,9 @@ const getProtoFiles = (absoluteDir: string): string[] => {
   return protoFiles;
 };
 
-const genProtoJson = (opts: GenProtoOptions): string => {
+const genProtoJson = async (opts: GenProtoOptions) => {
   const { genMockPath, grpcProtoServes, protoResolvePath } = opts;
+  let { prettierOptions } = opts;
 
   if (!grpcProtoServes) {
     throw Error('grpcProtoServes 没有设置！');
@@ -63,7 +65,11 @@ const genProtoJson = (opts: GenProtoOptions): string => {
     allJson[serverName] = res.toJSON({ keepComments: true });
   });
 
-  fs.writeJSONSync(jsonPath, allJson);
+  if (prettierOptions === undefined) {
+    prettierOptions = { parser: 'json' };
+  }
+  prettierOptions = Object.assign(prettierOptions, { parser: 'json' });
+  fs.writeFileSync(jsonPath, await prettierData(JSON.stringify(allJson), prettierOptions));
   console.info(`Generate proto root.json success in ${genMockPath}`);
   return jsonPath;
 };

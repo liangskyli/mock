@@ -1,7 +1,15 @@
-import { fileTip, getAbsolutePath, getImportPath, packageName, tslintDisable } from './utils';
+import {
+  fileTip,
+  getAbsolutePath,
+  getImportPath,
+  packageName,
+  prettierData,
+  tslintDisable,
+} from './utils';
 import * as fs from 'fs-extra';
 import path from 'path';
 import type { Options } from '@grpc/proto-loader';
+import type prettier from 'prettier';
 
 type GenGrpcObjOptions = {
   genMockPath: string;
@@ -9,20 +17,21 @@ type GenGrpcObjOptions = {
   grpcNpmName: string;
   loaderOptions: Options;
   configFilePath?: string;
+  prettierOptions?: prettier.Options;
 };
 
-const genGrpcObj = (opt: GenGrpcObjOptions) => {
-  const { grpcNpmName, genMockPath, rootPath, configFilePath } = opt;
+const genGrpcObj = async (opt: GenGrpcObjOptions) => {
+  const { grpcNpmName, genMockPath, rootPath, configFilePath, prettierOptions } = opt;
   const grpcObjPath = getAbsolutePath(path.join(genMockPath, 'grpc-obj.ts'));
 
   const fileContent = [
     fileTip,
     tslintDisable,
     `import * as grpc from '${grpcNpmName}';`,
-    'import * as fs from \'fs-extra\';',
-    'import { fromJSON } from \'@grpc/proto-loader\';',
-    'import type { GrpcObject } from \'grpc\';',
-    `import { defaultLoaderOptions } from '${packageName}';\n`,
+    'import { fromJSON } from "@grpc/proto-loader";',
+    'import type { GrpcObject } from "grpc";',
+    `import { defaultLoaderOptions } from '${packageName}';`,
+    configFilePath ? 'import * as fs from "fs-extra";\n' : '',
     `const root = require('${getImportPath(grpcObjPath, rootPath)}');\n`,
     'let config: any;',
     configFilePath
@@ -40,7 +49,7 @@ const genGrpcObj = (opt: GenGrpcObjOptions) => {
     'export default grpcObjectGroup;',
   ].join('\n');
 
-  fs.writeFileSync(grpcObjPath, fileContent);
+  fs.writeFileSync(grpcObjPath, await prettierData(fileContent, prettierOptions));
   console.info(`Generate grpc-obj.ts success in ${genMockPath}`);
 };
 
