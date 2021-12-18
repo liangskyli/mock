@@ -24,6 +24,8 @@ yarn grpc-mock code-gen -c ./mock.config.cli.ts
 | port      | 端口号 | `50000` |
 | rootPath     | `见下面rootPath参数`  |  |
 | rootPathServerNameMap | `见下面rootPathServerNameMap参数`  |  |
+| prettierOptions | `生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置，详情配置见` [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md)  |  |
+
 
 ### configFile rootPath参数属性（string 或 ProtoConfig 类型）
 ####  string 时，表示proto文件通过protobufjs生成的json文件,合并后root.json根文件的路径。  
@@ -205,37 +207,30 @@ export default ActivityService;
 - 优先级error > response ， error > metadata
 - sceneData 命中优先级 > 非命中优先级
 ```ts
+type IResponseData = {
+  /** mock 错误数据 */
+  error?: {
+    /** mock 错误码 */
+    code: number;
+    /** mock 错误信息 */
+    message: string;
+  };
+  /** mock 正常响应数据 */
+  response: any;
+  /** mock metadata数据 */
+  metadata?: IMetadataMap;
+};
+
 export type IImplementationData = Record<
   string,
-  {
-    /** mock 错误数据 */
-    error?: {
-      /** mock 错误码 */
-      code: number;
-      /** mock 错误信息 */
-      message: string;
-    };
-    /** mock 正常响应数据 */
-    response: any;
-    /** mock metadata数据 */
-    metadata?: IMetadataMap;
+  IResponseData & {
     /** mock 多场景响应数据 */
-    sceneData?: {
+    sceneData?: (IResponseData & {
       /** mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配 */
       requestCase: (request: any) => boolean;
-      error?: {
-        /** mock 错误码 */
-        code: number;
-        /** mock 错误信息 */
-        message: string;
-      };
-      /** mock 正常响应数据 */
-      response: any;
-      /** mock metadata数据 */
-      metadata?: IMetadataMap;
-    }[];
+    })[];
   }
-  >[];
+>[];
 ```
 
 - mock数据生成规则
