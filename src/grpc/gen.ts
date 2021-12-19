@@ -3,7 +3,7 @@ import genMockData from './gen-mock-data';
 import genGrpcObj from './gen-grpc-obj';
 import fs from 'fs-extra';
 import type { Options } from '@grpc/proto-loader';
-import { copyPrettierOptions, getAbsolutePath } from './utils';
+import { copyOptions, getAbsolutePath } from './utils';
 import genTsConfig from './gen-tsconfig';
 
 export type GenOptions = GenMockDataOptions & {
@@ -40,8 +40,8 @@ export async function gen(opts: GenOptions) {
     rootPath,
     loaderOptions,
     configFilePath,
-    prettierOptions: copyPrettierOptions(prettierOptions),
+    prettierOptions: copyOptions(prettierOptions),
   });
   // 生成tsconfig
-  await genTsConfig(genMockPath, copyPrettierOptions(prettierOptions));
+  await genTsConfig(genMockPath, copyOptions(prettierOptions));
 }

@@ -15,6 +15,7 @@ type IResponseData = {
 };
 
 export type IImplementationData = Record<
+  /** grpc 调用方法名 */
   string,
   IResponseData & {
     /** mock 多场景响应数据 */
@@ -23,14 +24,20 @@ export type IImplementationData = Record<
       requestCase: (request: any) => boolean;
     })[];
   }
->[];
+>;
 
 export type IProtoItem = {
-  /** 服务所在的proto路径， 生成grpc mock 代码里生成的服务文件可以看到 */
+  /** 服务所在的proto路径，生成grpc mock 代码里生成的服务文件可以看到 */
   path: string;
   /** 需要mock的grpc方法和数据 */
   implementationData: IImplementationData;
 };
+
+export type ICustomData = Record<
+  /** 服务所在的proto路径，生成grpc mock 代码里生成的服务文件可以看到 */
+  string,
+  IImplementationData
+>;
 
 export type IMockService = {
   /** mock服务名*/

@@ -41,7 +41,7 @@
     "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
     "test-grpc-mock-server-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/grpc/mock-server-cli.ts",
     "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
-    "build": "npm run clean && npm run compile",
+    "build": "npm run clean && npm run compile && node script/copy.js",
     "clean": "gts clean",
     "compile": "tsc -p .",
     "prepublish": "npm run build",

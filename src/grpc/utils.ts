@@ -25,7 +25,7 @@ export const PROTO_TYPE_2_TS_TYPE_MAP: Record<string, string> = {
 export const TS_TYPE_2_DEFAULT_MAP: Record<string, any> = {
   number: 0,
   boolean: false,
-  string: '\'1\'',
+  string: '"1"',
 };
 
 export const genSpace = (num: number) => {
@@ -36,17 +36,6 @@ export const genSpace = (num: number) => {
   return space;
 };
 
-export const stringLeftNumber = (jsonStr: string, num: number) => {
-  let res = '';
-  jsonStr.split('').map((char) => {
-    res += char;
-    if (char === '\n') {
-      res += genSpace(num);
-    }
-  });
-  return res;
-};
-
 export const firstWordNeedLetter = (str: string): string => {
   const charFirst = str.charCodeAt(0);
   if (!((charFirst >= 65 && charFirst <= 90) || (charFirst >= 97 && charFirst <= 122))) {
@@ -54,11 +43,6 @@ export const firstWordNeedLetter = (str: string): string => {
     str = `z${str}`;
   }
   return str;
-};
-
-export const objectToString = (json: Record<string, any>, num: number) => {
-  const jsonStr = JSON.stringify(json, null, 2);
-  return stringLeftNumber(jsonStr, num);
 };
 
 export const firstUpperCaseOfWord = (str: string) => {
@@ -101,11 +85,11 @@ export const prettierData = async (fileContent: string, options?: prettier.Optio
   return prettier.format(fileContent, options);
 };
 
-export const copyPrettierOptions = (prettierOptions?: prettier.Options) => {
-  if (prettierOptions !== undefined) {
-    prettierOptions = Object.assign({}, prettierOptions);
+export const copyOptions = <T = undefined>(options: T) => {
+  if (options !== undefined) {
+    options = Object.assign({}, options);
   }
-  return prettierOptions;
+  return options;
 };
 
 export const packageName = '@liangskyli/mock';

@@ -20,42 +20,40 @@ const toMetadata = (metadata?: IMetadataMap): Metadata => {
 const getImplementation: (proto: IProtoItem) => IImplementation = (proto) => {
   const implementationData = proto.implementationData;
   const implementation: IImplementation = {};
-  implementationData.map((item, index) => {
-    Object.keys(item).map((key) => {
-      implementation[key] = (call: any, callback: any) => {
-        const { request, metadata: requestMetadata } = call;
-        console.info(
-          '-------grpc mock server-------',
-          '\n',
-          'grpc servicePath:',
-          proto.path,
-          '\n',
-          'grpc method:',
-          key,
-          '\n',
-          'grpc go request:',
-          request,
-          '\n',
-          'grpc go metadata:',
-          requestMetadata,
-        );
-        const data = implementationData[index][key];
-        let { error = null, response, metadata } = data;
-        if (data.sceneData) {
-          // 场景数据命中逻辑，没命中取非场景默认数据
-          data.sceneData.some((sceneItem) => {
-            if (sceneItem.requestCase(request)) {
-              error = sceneItem.error ?? null;
-              response = sceneItem.response;
-              metadata = sceneItem.metadata;
-              return true;
-            }
-            return false;
-          });
-        }
-        callback(error, response, toMetadata(metadata));
-      };
-    });
+  Object.keys(implementationData).map((key) => {
+    implementation[key] = (call: any, callback: any) => {
+      const { request, metadata: requestMetadata } = call;
+      console.info(
+        '-------grpc mock server-------',
+        '\n',
+        'grpc servicePath:',
+        proto.path,
+        '\n',
+        'grpc method:',
+        key,
+        '\n',
+        'grpc go request:',
+        request,
+        '\n',
+        'grpc go metadata:',
+        requestMetadata,
+      );
+      const data = implementationData[key];
+      let { error = null, response, metadata } = data;
+      if (data.sceneData) {
+        // 场景数据命中逻辑，没命中取非场景默认数据
+        data.sceneData.some((sceneItem) => {
+          if (sceneItem.requestCase(request)) {
+            error = sceneItem.error ?? null;
+            response = sceneItem.response;
+            metadata = sceneItem.metadata;
+            return true;
+          }
+          return false;
+        });
+      }
+      callback(error, response, toMetadata(metadata));
+    };
   });
   return implementation;
 };

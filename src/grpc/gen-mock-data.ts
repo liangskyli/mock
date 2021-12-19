@@ -2,10 +2,10 @@ import protobufjs from 'protobufjs';
 import type { IInspectNamespace } from './pbjs';
 import { genImplementationData, inspectNamespace } from './pbjs';
 import {
-  copyPrettierOptions,
+  copyOptions,
+  fileTip,
   firstUpperCaseOfWord,
   firstWordNeedLetter,
-  genSpace,
   getAbsolutePath,
   packageName,
   prettierData,
@@ -26,6 +26,53 @@ export type GenMockDataOptions = {
   prettierOptions?: prettier.Options;
 };
 
+const removeFilesSync = (dir: string) => {
+  let items: string[] = [];
+  try {
+    items = fs.readdirSync(dir);
+  } catch {
+    fs.mkdirsSync(dir);
+  }
+
+  items.forEach((item) => {
+    if (item !== 'custom-data') {
+      fs.removeSync(path.join(dir, item));
+    }
+  });
+};
+
+const genDefaultCustomData = async (
+  genCustomDataPath: string,
+  prettierOptions?: prettier.Options,
+) => {
+  if (!fs.pathExistsSync(path.join(genCustomDataPath, 'index.ts'))) {
+    fs.ensureDirSync(genCustomDataPath);
+    // 生成默认自定义mock数据入口文件
+    const templateData = fs.readFileSync(
+      path.join(__dirname, './custom-data-template/template-data.tpl'),
+      { encoding: 'utf-8' },
+    );
+    fs.writeFileSync(
+      path.join(genCustomDataPath, 'template-data.ts'),
+      await prettierData(
+        templateData.replace('packageName', packageName),
+        copyOptions(prettierOptions),
+      ),
+    );
+    const templateIndexData = fs.readFileSync(
+      path.join(__dirname, './custom-data-template/index.tpl'),
+      { encoding: 'utf-8' },
+    );
+    fs.writeFileSync(
+      path.join(genCustomDataPath, 'index.ts'),
+      await prettierData(
+        templateIndexData.replace('packageName', packageName),
+        copyOptions(prettierOptions),
+      ),
+    );
+  }
+};
+
 const genMockData = async (
   opts: GenMockDataOptions,
   loaderOptions: Options,
@@ -43,8 +90,13 @@ const genMockData = async (
   let { rootPath } = opts;
   const genMockPath = path.join(grpcMockDir, grpcMockFolderName);
   const genMockAbsolutePath = getAbsolutePath(genMockPath);
-  fs.removeSync(genMockAbsolutePath);
+
+  removeFilesSync(genMockAbsolutePath);
   console.info(`Clean dir: ${genMockPath}`);
+
+  const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
+  await genDefaultCustomData(genCustomDataPath, prettierOptions);
+
   const genProtoPath = path.join(genMockAbsolutePath, 'proto');
   fs.ensureDirSync(genProtoPath);
   const genServerPath = path.join(genMockAbsolutePath, 'server');
@@ -53,7 +105,8 @@ const genMockData = async (
     rootPath = await genProtoJson({
       genMockPath,
       ...rootPath,
-      prettierOptions: copyPrettierOptions(prettierOptions),
+      loaderOptions: copyOptions(loaderOptions),
+      prettierOptions: copyOptions(prettierOptions),
     });
   }
   rootPath = getAbsolutePath(rootPath);
@@ -61,9 +114,11 @@ const genMockData = async (
   // mock 服务端口开始自动生成(默认从50000开始)
   let servicePort = port;
   const grpcServiceMockConfigList: string[] = [];
+  grpcServiceMockConfigList.push(fileTip);
   grpcServiceMockConfigList.push('module.exports = {');
   const spaceServerNameMockList: string[] = [];
   const indexContent: string[] = [];
+  indexContent.push(fileTip);
   indexContent.push(`import { grpcMockInit } from '${packageName}';`);
 
   const rootObject = require(rootPath);
@@ -74,6 +129,7 @@ const genMockData = async (
       const result: IInspectNamespace = inspectNamespace(root);
       const { services, methods } = result!;
       const serviceMockContent = [];
+      serviceMockContent.push(fileTip);
       serviceMockContent.push(`import type { IMockService } from '${packageName}';`);
       const protoItem: string[] = [];
       const uniqueServiceCodeNameList: string[] = [];
@@ -92,25 +148,28 @@ const genMockData = async (
           }
           uniqueServiceCodeNameList.push(uniqueServiceCodeName);
 
-          const protoServiceContent = `import type { IProtoItem } from '${packageName}';
-
-const ${serviceCodeName}: IProtoItem = {
-  path: '${protoPath}',
-  implementationData: ${genImplementationData(
-    protoPath,
-    methods,
-    protoName,
-    root,
-    longsTypeToString,
-  )}
-};
-export default ${serviceCodeName};
-`;
+          const protoServiceContent = `${fileTip}
+            // 自定义mock数据，请在custom-data文件夹下编写，详细见custom-data/index.ts文件说明
+            import type { IProtoItem } from '${packageName}';
+            import CustomData from '${genCustomDataPath}/index';
+            
+            const ${serviceCodeName}: IProtoItem = {
+              path: '${protoPath}',
+              implementationData: ${genImplementationData(
+                protoPath,
+                methods,
+                protoName,
+                root,
+                longsTypeToString,
+              )}
+            };
+            export default ${serviceCodeName};
+            `;
           fs.ensureDirSync(path.join(genProtoPath, serverName, protoName));
           const filePath = path.join(genProtoPath, serverName, protoName, `${serviceCodeName}.ts`);
           fs.writeFileSync(
             filePath,
-            await prettierData(protoServiceContent, copyPrettierOptions(prettierOptions)),
+            await prettierData(protoServiceContent, copyOptions(prettierOptions)),
           );
 
           serviceMockContent.push(
@@ -125,7 +184,7 @@ const ${spaceServerNameMock}: IMockService = {
   serviceName: '${serverName}',
   servicePort: ${servicePort},
   protoList: [
-    ${protoItem.join(`\n${genSpace(4)}`)}
+    ${protoItem.join('\n')}
   ],
 };
 export default ${spaceServerNameMock};
@@ -140,7 +199,7 @@ export default ${spaceServerNameMock};
       const filePath = path.join(genServerPath, `${spaceServerNameMock}.ts`);
       fs.writeFileSync(
         filePath,
-        await prettierData(serviceMockContent.join('\n'), copyPrettierOptions(prettierOptions)),
+        await prettierData(serviceMockContent.join('\n'), copyOptions(prettierOptions)),
       );
       spaceServerNameMockList.push(spaceServerNameMock);
       indexContent.push(`import ${spaceServerNameMock} from './server/${spaceServerNameMock}';`);
@@ -149,18 +208,18 @@ export default ${spaceServerNameMock};
   // index.ts
   indexContent.push('');
   indexContent.push(`grpcMockInit([
-  ${spaceServerNameMockList.join(`,\n${genSpace(2)}`)}
+  ${spaceServerNameMockList.join(',')}
 ],'${genMockPath}');`);
   const filePath = path.join(genMockPath, 'index.ts');
   fs.writeFileSync(
     filePath,
-    await prettierData(indexContent.join('\n'), copyPrettierOptions(prettierOptions)),
+    await prettierData(indexContent.join('\n'), copyOptions(prettierOptions)),
   );
   grpcServiceMockConfigList.push('}');
   const fileConfigPath = path.join(genMockPath, 'grpc-service.mock.config.js');
   fs.writeFileSync(
     fileConfigPath,
-    await prettierData(grpcServiceMockConfigList.join('\n'), copyPrettierOptions(prettierOptions)),
+    await prettierData(grpcServiceMockConfigList.join('\n'), copyOptions(prettierOptions)),
   );
   console.info(`Generate mock data success in ${genMockPath}`);
 

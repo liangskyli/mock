@@ -12,7 +12,7 @@ grpcMockCodeGen({
   //configFilePath:'./test/grpc/mock.config.ts',
 });
 
-/*gen({
+/*grpcMockCodeGen({
   grpcMockDir: './test',
   rootPath:'./test/grpc/root2.json',
   rootPathServerNameMap:{
@@ -22,5 +22,6 @@ grpcMockCodeGen({
     'trade_trade_zxkp':'trade_zxkp',
     'trade_trade_center':'trade_center',
   },
+  prettierOptions: { singleQuote: true },
   configFilePath:'./test/grpc/mock.config.ts',
 });*/

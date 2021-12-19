@@ -14,7 +14,6 @@ import type {
 } from 'protobufjs';
 import type { TEnum, TField, TMessage, TMethod, TService } from './types';
 import type protobufjs from 'protobufjs';
-import { genSpace, stringLeftNumber } from './utils';
 import genResponseData from './gen-response-data';
 
 interface HasName {
@@ -107,9 +106,7 @@ export function inspectNamespace(namespace: ReflectionObject & INamespace): IIns
   return null;
 }
 
-function inspectType(
-  message: Type,
-): {
+function inspectType(message: Type): {
   json: IType & HasName;
   services: TService[];
   methods: TMethod[];
@@ -181,9 +178,7 @@ function inspectType(
   };
 }
 
-function inspectEnum(
-  enum1: Enum,
-): {
+function inspectEnum(enum1: Enum): {
   json: IEnum & HasName;
   enums: TEnum[];
 } {
@@ -208,9 +203,7 @@ function inspectEnum(
 
 const regExpAuthor = /\n?\s*@author\s+([^\n]+)/;
 
-function getAuthor(
-  comment: string | null,
-): {
+function getAuthor(comment: string | null): {
   author: string | undefined | null;
   comment: string | undefined | null;
 } {
@@ -231,9 +224,7 @@ function getAuthor(
   return { author, comment };
 }
 
-function inspectService(
-  service: Service,
-): {
+function inspectService(service: Service): {
   json: IService & HasName;
   services: TService[];
   methods: TMethod[];
@@ -310,7 +301,9 @@ export const genImplementationData = (
 ) => {
   const data: string[] = [];
   methods.map((item) => {
-    if (path.indexOf(item.fullName.substring(0, item.fullName.lastIndexOf('.'))) > -1) {
+    const serviceNamePath = item.fullName.substring(0, item.fullName.lastIndexOf('.'));
+    const pathIndex = path.indexOf(serviceNamePath);
+    if (pathIndex > -1 && pathIndex === path.length - serviceNamePath.length) {
       let typePath = `${protoName}.${item.responseType}`;
       // responseType 默认Message不能有. 存在时表明是其它命名空间下的类型
       if (item.responseType.indexOf('.') > -1) {
@@ -326,28 +319,21 @@ export const genImplementationData = (
       });
 
       data.push(
-        `{
-      ${item.name}: {
-        /** mock 正常响应数据 */
-        response: ${response},
-        /** mock 多场景响应数据 */
-        sceneData: [
-          {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            requestCase: (request: any) => {
-              // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
-              return false;
-            },
-            response: ${stringLeftNumber(response, 4)},
-          },
-        ],
-      },
-    },`,
+        `${item.name}: {
+          /** mock 错误数据 */
+          error: CustomData['${path}']?.${item.name}?.error,
+          /** mock 正常响应数据 */
+          response: CustomData['${path}']?.${item.name}?.response ?? ${response},
+          /** mock metadata数据 */
+          metadata: CustomData['${path}']?.${item.name}?.metadata,
+          /** mock 多场景响应数据,请在自定义目录下重写 */
+          sceneData: CustomData['${path}']?.${item.name}?.sceneData ?? [],
+        },`,
       );
     }
   });
 
-  return `[
-    ${data.join(`\n${genSpace(4)}`)}
-  ],`;
+  return `{
+    ${data.join('\n')}
+  },`;
 };

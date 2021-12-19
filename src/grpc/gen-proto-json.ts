@@ -2,8 +2,8 @@ import * as fs from 'fs-extra';
 import path from 'path';
 import protobufjs from 'protobufjs';
 import { getAbsolutePath, prettierData } from './utils';
-import type { Options } from '@grpc/proto-loader';
 import type prettier from 'prettier';
+import type { Options } from '@grpc/proto-loader';
 
 export type ProtoConfig = {
   grpcProtoServes: {
@@ -13,9 +13,12 @@ export type ProtoConfig = {
     serverDir: string;
   }[];
   protoResolvePath?: (origin: string, target: string) => string | null;
-  loaderOptions?: Options;
 };
-type GenProtoOptions = ProtoConfig & { genMockPath: string; prettierOptions?: prettier.Options };
+type GenProtoOptions = ProtoConfig & {
+  genMockPath: string;
+  loaderOptions: Options;
+  prettierOptions?: prettier.Options;
+};
 
 const getProtoFiles = (absoluteDir: string): string[] => {
   const protoFiles: string[] = [];
@@ -35,7 +38,7 @@ const getProtoFiles = (absoluteDir: string): string[] => {
 };
 
 const genProtoJson = async (opts: GenProtoOptions) => {
-  const { genMockPath, grpcProtoServes, protoResolvePath } = opts;
+  const { genMockPath, grpcProtoServes, protoResolvePath, loaderOptions } = opts;
   let { prettierOptions } = opts;
 
   if (!grpcProtoServes) {
@@ -57,11 +60,18 @@ const genProtoJson = async (opts: GenProtoOptions) => {
     }
     const files = getProtoFiles(curProtoServeAbsoluteDir);
 
-    const res = root.loadSync(files, {
-      keepCase: true,
-      alternateCommentMode: true,
-      preferTrailingComment: undefined,
-    });
+    const res = root.loadSync(
+      files,
+      Object.assign(
+        {},
+        {
+          keepCase: true,
+          alternateCommentMode: true,
+          preferTrailingComment: undefined,
+        },
+        loaderOptions,
+      ),
+    );
     allJson[serverName] = res.toJSON({ keepComments: true });
   });
 

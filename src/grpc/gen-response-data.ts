@@ -1,10 +1,5 @@
 import type * as protobufjs from 'protobufjs';
-import {
-  longsType,
-  PROTO_TYPE_2_TS_TYPE_MAP,
-  stringLeftNumber,
-  TS_TYPE_2_DEFAULT_MAP,
-} from './utils';
+import { longsType, PROTO_TYPE_2_TS_TYPE_MAP, TS_TYPE_2_DEFAULT_MAP } from './utils';
 
 type IOpts = {
   typeMessage: protobufjs.Type;
@@ -74,15 +69,9 @@ export default function genResponseData(opts: IOpts): string {
 
           let str = '';
           if (rule === 'repeated') {
-            str = stringLeftNumber('[\n', 2);
-            str = str + stringLeftNumber('{\n', 4);
-            str = str + stringLeftNumber(dataObj.join('\n'), 4);
-            str = str + stringLeftNumber('\n}', 2);
-            str = str + stringLeftNumber('\n]', 0);
+            str = `[{${dataObj.join('\n')}}]`;
           } else {
-            dataObj.unshift('{');
-            str = str + stringLeftNumber(dataObj.join('\n'), 2);
-            str = str + stringLeftNumber('\n}', 0);
+            str = `{${dataObj.join('\n')}}`;
           }
 
           jsonArr.push(`${field}: ${str},`);
@@ -99,13 +88,5 @@ export default function genResponseData(opts: IOpts): string {
   };
 
   const dataObj: string[] = genFieldObj(typeMessage);
-  if (dataObj.length > 0) {
-    dataObj.unshift('{');
-    let str = stringLeftNumber(dataObj.join('\n'), 10);
-    str = str + stringLeftNumber('\n}', 8);
-    return str;
-  } else {
-    dataObj.unshift('{}');
-    return stringLeftNumber(dataObj.join('\n'), 10);
-  }
+  return `{${dataObj.join('\n')}}`;
 }
