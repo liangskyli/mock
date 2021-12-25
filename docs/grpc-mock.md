@@ -1,7 +1,3 @@
-# grpc mock功能
-
-> 提供grpc mock数据自动生成和mock服务启动功能，减轻手动编写mock数据代码，mock数据填充默认值。
-
 ## grpc mock 生成方式:
 ## 1、CLI 命令方式（推荐）
 
