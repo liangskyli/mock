@@ -1,4 +1,6 @@
+// @ts-ignore
 import Webpack from 'webpack';
+// @ts-ignore
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConfig from './webpack.config';
 

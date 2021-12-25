@@ -3,9 +3,9 @@ import { parseRequireDeps, winPath } from '@umijs/utils';
 import { join, isAbsolute } from 'path';
 import type { FSWatcher } from 'chokidar';
 // @ts-ignore
-import createMiddleware from '@umijs/preset-built-in/lib/plugins/commands/dev/mock/createMiddleware';
+import createMiddleware from './http/mock/createMiddleware';
 // @ts-ignore
-import { getMockData } from '@umijs/preset-built-in/lib/plugins/commands/dev/mock/utils';
+import { getMockData } from './http/mock/utils';
 import { killProcess } from './tools';
 import type { Request, Response, NextFunction } from 'express';
 

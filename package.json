@@ -64,6 +64,10 @@
     "@grpc/proto-loader": "^0.6.7",
     "@types/fs-extra": "^9.0.13",
     "@types/prettier": "^2.4.2",
+    "@umijs/core": "^3.5.20",
+    "@umijs/server": "^3.5.20",
+    "@umijs/types": "^3.5.20",
+    "@umijs/utils": "^3.5.20",
     "commander": "^8.3.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.0.0",
@@ -71,8 +75,7 @@
     "prettier": "^2.5.1",
     "protobufjs": "^6.11.2",
     "socket.io": "^4.3.2",
-    "ts-node-dev": "^1.1.8",
-    "umi": "^3.5.20"
+    "ts-node-dev": "^1.1.8"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",

@@ -1,4 +1,6 @@
+// @ts-ignore
 import type WebpackDevServer from 'webpack-dev-server';
+// @ts-ignore
 import type Webpack from 'webpack';
 import { getMiddleware, initSocketServer } from '../src';
 import mockConfig from './mock.config';
