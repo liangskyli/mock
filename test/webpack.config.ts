@@ -1,6 +1,4 @@
-// @ts-ignore
 import type WebpackDevServer from 'webpack-dev-server';
-// @ts-ignore
 import type Webpack from 'webpack';
 import { getMiddleware, initSocketServer } from '../src';
 import mockConfig from './mock.config';
@@ -16,14 +14,14 @@ const webpackConfig: Webpack.Configuration = {
     host,
     port,
     onBeforeSetupMiddleware: (devServer: WebpackDevServer) => {
-      if (!devServer) {
+      if (!devServer || !devServer.app) {
         throw new Error('webpack-dev-server is not defined');
       }
 
       getMiddleware().then(({ middleware, middlewareWatcher }) => {
-        devServer.app.use(middleware);
+        devServer.app!.use(middleware);
 
-        devServer.app.get('/', (req, res) => {
+        devServer.app!.get('/', (req, res) => {
           res.send('homepage');
         });
         console.log('look in http://localhost:4000/');
@@ -31,7 +29,7 @@ const webpackConfig: Webpack.Configuration = {
         if (socketConfig && socketConfig.enable) {
           initSocketServer({
             socketConfig,
-            server: devServer.server,
+            server: devServer.server!,
             port,
             hostname: host,
             middlewareWatcher,
