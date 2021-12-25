@@ -1,23 +1,21 @@
 import bodyParser from '@umijs/deps/compiled/body-parser';
 import multer from '@umijs/deps/compiled/multer';
 import pathToRegexp from '@umijs/deps/compiled/path-to-regexp';
-import type { IApi, IRoute, NextFunction, Request, RequestHandler } from '@umijs/types';
+import type { NextFunction, RequestHandler } from '@umijs/deps/compiled/express';
+import type { Request } from 'express-serve-static-core';
 import { createDebug, glob, winPath } from '@umijs/utils';
 import assert from 'assert';
 import { existsSync } from 'fs';
 import { join } from 'path';
-import { getFlatRoutes } from './htmlUtils';
+import type { Service } from '@umijs/core';
 
 const VALID_METHODS = ['get', 'post', 'put', 'patch', 'delete'];
 const BODY_PARSED_METHODS = ['post', 'put', 'patch', 'delete'];
 
 const debug = createDebug('umi:preset-build-in:mock:utils');
 
-export interface IOpts {
-  api: IApi;
-}
-
-interface IGetMockPaths extends Required<Pick<IApi, 'cwd'>> {
+interface IGetMockPaths {
+  cwd: typeof Service.prototype.cwd;
   ignore?: string[];
   registerBabel?: (paths: string[]) => void;
   paths?: {
@@ -230,33 +228,4 @@ export const matchMock = (req: Request, mockData: IMockDataItem[]): IMockDataIte
     }
   }
   return undefined;
-};
-
-/**
- * check if mock path conflict with router path
- * @param param0
- */
-export const getConflictPaths = ({
-  mockData,
-  routes,
-}: {
-  mockData: IMockDataItem[];
-  routes: IRoute[];
-}): Pick<IMockDataItem, 'path'>[] => {
-  const conflictPaths: Pick<IMockDataItem, 'path'>[] = [];
-  getFlatRoutes({ routes }).forEach((route: any) => {
-    const { path, redirect } = route;
-    if (path && !path.startsWith(':') && !redirect) {
-      const req = {
-        path: !path.startsWith('/') ? `/${path}` : path,
-        method: 'get',
-      } as Request;
-      const matched = matchMock(req, mockData);
-      if (matched) {
-        conflictPaths.push({ path: matched.path });
-      }
-    }
-  });
-
-  return conflictPaths;
 };

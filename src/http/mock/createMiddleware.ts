@@ -1,4 +1,5 @@
-import type { NextFunction, Request, RequestHandler, Response } from '@umijs/types';
+import type { NextFunction, RequestHandler } from '@umijs/deps/compiled/express';
+import type { Request, Response } from 'express-serve-static-core';
 import { chokidar, createDebug, lodash, signale } from '@umijs/utils';
 import type { IGetMockDataResult } from './utils';
 import { cleanRequireCache, matchMock } from './utils';
