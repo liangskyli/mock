@@ -1,7 +1,7 @@
 import { Server } from '@umijs/server';
 import { address, chalk } from '@umijs/utils';
 import getMiddleware from './middleware';
-import { killProcess } from './tools';
+import { killProcess } from '../tools';
 import type { ISocketConfig } from './socket-server';
 import getSocketServer from './socket-server';
 

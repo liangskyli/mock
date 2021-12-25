@@ -1,5 +1,5 @@
 import path from 'path';
-import type { IOpts } from '../src/server';
+import type { IOpts } from '../src/http/server/server';
 
 const config: IOpts = {
   mockDir: path.join(__dirname, '/'),
