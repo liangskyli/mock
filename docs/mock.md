@@ -2,6 +2,8 @@
 
 Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发所阻塞。
 
+- socket mock逻辑放在mock/socket文件夹下
+
 ## 约定式 Mock 文件
 注意：mock/socket文件夹下为socket mock 文件，socket mock逻辑在这里写，和http mock区分。
 

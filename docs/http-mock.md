@@ -120,9 +120,3 @@ mockServer({ port: 9001, hostname: '0.0.0.0' });
 - webpack-dev-server服务
     - [http mock](webpack-mock.md)
     - [socket mock](webpack-mock-socket.md)
-
-# Mock 数据
-
-Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发所阻塞。
-- [http mock 文件详细使用方法](mock.md)
-- socket mock逻辑放在mock/socket文件夹下
