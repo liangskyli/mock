@@ -18,13 +18,13 @@ const webpackConfig: Webpack.Configuration = {
         throw new Error('webpack-dev-server is not defined');
       }
 
-      getMiddleware().then(({ middleware, middlewareWatcher }) => {
+      getMiddleware({ mockDir: mockConfig.mockDir }).then(({ middleware, middlewareWatcher }) => {
         devServer.app!.use(middleware);
 
         devServer.app!.get('/', (req, res) => {
           res.send('homepage');
         });
-        console.log('look in http://localhost:4000/');
+        console.log(`look in http://localhost:${port}/`);
 
         if (socketConfig && socketConfig.enable) {
           initSocketServer({

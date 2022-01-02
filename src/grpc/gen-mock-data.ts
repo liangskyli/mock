@@ -1,15 +1,8 @@
 import protobufjs from 'protobufjs';
 import type { IInspectNamespace } from './pbjs';
 import { genImplementationData, inspectNamespace } from './pbjs';
-import {
-  copyOptions,
-  fileTip,
-  firstUpperCaseOfWord,
-  firstWordNeedLetter,
-  getAbsolutePath,
-  packageName,
-  prettierData,
-} from './utils';
+import { fileTip, firstUpperCaseOfWord, firstWordNeedLetter, packageName } from './utils';
+import { getAbsolutePath, prettierData, copyOptions } from '../tools';
 import * as fs from 'fs-extra';
 import path from 'path';
 import type { ProtoConfig } from './gen-proto-json';

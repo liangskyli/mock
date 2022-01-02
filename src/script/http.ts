@@ -3,7 +3,7 @@ import type { IOpts } from '../http/server/server';
 import mockServer from '../http/server/server';
 import fs from 'fs-extra';
 import getConfig from './config';
-import { getAbsolutePath } from '../grpc/utils';
+import { getAbsolutePath } from '../tools';
 
 const packageJson = require('../../package.json');
 

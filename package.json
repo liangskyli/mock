@@ -28,6 +28,7 @@
   ],
   "bin": {
     "mock-server": "./bin/index.js",
+    "http-mock-gen": "./bin/http/index.js",
     "grpc-mock": "./bin/grpc/index.js"
   },
   "scripts": {
@@ -36,6 +37,8 @@
     "test-http-cli": "cross-env DEBUG=umi:preset-build-in:mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/http-cli.ts",
     "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/middleware.ts",
     "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/webpack-middleware.ts",
+    "test-http-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/http/gen.ts",
+    "test-http-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/http/gen-cli.ts",
     "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/grpc/gen.ts",
     "test-grpc-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register test/grpc/gen-cli.ts",
     "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.test.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
@@ -70,11 +73,14 @@
     "commander": "^8.3.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.0.0",
+    "json-schema-faker": "^0.5.0-rcv.40",
     "lodash": "^4.17.21",
+    "openapi-typescript": "^4.5.0",
     "prettier": "^2.5.1",
     "protobufjs": "^6.11.2",
     "socket.io": "^4.4.0",
-    "ts-node-dev": "^1.1.8"
+    "ts-node-dev": "^1.1.8",
+    "typescript-json-schema": "^0.52.0"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",

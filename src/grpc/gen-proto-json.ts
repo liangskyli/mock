@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import path from 'path';
 import protobufjs from 'protobufjs';
-import { getAbsolutePath, prettierData } from './utils';
+import { getAbsolutePath, prettierData } from '../tools';
 import type prettier from 'prettier';
 import type { Options } from '@grpc/proto-loader';
 
