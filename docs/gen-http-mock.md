@@ -14,7 +14,7 @@ yarn http-mock-gen -c ./mock.config.cli.ts
 ## 命令参数 configFile mock数据生成配置文件参数属性
 | 属性       | 说明             | 默认值      |
 | --------- | ---------------  | ---------- |
-| openapiPath  | openapi v3 YAML or JSON 格式的文件路径,需要自己根据业务逻辑生成  | `./` |
+| openapiPath  | openapi v3 YAML or JSON 格式的文件路径,需要自己根据业务逻辑生成  | |
 | mockDir  | mock文件夹所在目录  | `./` |
 | prettierOptions | `生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置，详情配置见` [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md)  |  |
 | jsonSchemaFakerOptions     | `生成mock 数据 faker配置参数，详情配置见` [json-schema-faker options文档](https://github.com/json-schema-faker/json-schema-faker/blob/HEAD/docs/README.md#available-options)  | { alwaysFakeOptionals: true, fillProperties: false } |
