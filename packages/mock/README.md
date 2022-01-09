@@ -11,12 +11,12 @@ yarn add @liangskyli/mock --dev
 ### http 或 socket mock
 > 提供http，socket接口的mock服务功能，mock数据场景化手动编写。支持mock数据更改时热更新获取新数据。
 
-- 基于node.js 实现 http mock 数据生成 [文档](packages/mock/docs/gen-http-mock.md)
-- Mock 数据修改指引 [文档](packages/mock/docs/mock.md)
-- 包含 http 和 socket 的mock功能 [文档](packages/mock/docs/http-mock.md)
+- 基于node.js 实现 http mock 数据生成 [文档](docs/gen-http-mock.md)
+- Mock 数据修改指引 [文档](docs/mock.md)
+- 包含 http 和 socket 的mock功能 [文档](docs/http-mock.md)
 ### grpc mock
 > 提供grpc mock数据自动生成和mock服务启动功能，减轻手动编写mock数据代码，mock数据填充默认值。支持mock数据更改时热更新获取新数据。
 
-- 基于node.js 实现 grpc mock 数据生成 [文档](packages/mock/docs/gen-grpc-mock.md)
-- Mock 数据修改指引 [文档](packages/mock/docs/grpc-mock-modify-guide.md)
-- 基于node.js 实现 grpc mock 服务 [文档](packages/mock/docs/grpc-mock-server.md)
+- 基于node.js 实现 grpc mock 数据生成 [文档](docs/gen-grpc-mock.md)
+- Mock 数据修改指引 [文档](docs/grpc-mock-modify-guide.md)
+- 基于node.js 实现 grpc mock 服务 [文档](docs/grpc-mock-server.md)
