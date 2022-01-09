@@ -48,7 +48,7 @@ export default config;
 
 ```
 
-- openapi v3 YAML or JSON 格式的文件[示例](./openapiv3-example.json)，openapi需要自己根据业务逻辑生成。
+- openapi v3 YAML or JSON 格式的文件[示例](openapiv3-example.json)，openapi需要自己根据业务逻辑生成。
 
 - 生成mock 数据结构，最终使用interface-mock-data.ts文件
 

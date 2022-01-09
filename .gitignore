@@ -1,19 +1,18 @@
 # dependencies
 /node_modules
+/packages/*/node_modules
 /npm-debug.log*
 /yarn-error.log
 /package-lock.json
-/local.config.json
-/local.config.js
 
-/lib
+/packages/*/lib
 # misc
 .DS_Store
 .idea
 /.vscode
 # umi
 
-/test/grpc-mock/
-/test/grpc/*.json
-/test/genHttpMock/
-/test/openapi/openapiv3.json
+/packages/mock/test/grpc-mock/
+/packages/mock/test/grpc/*.json
+/packages/mock/test/genHttpMock/
+/packages/mock/test/openapi/openapiv3.json

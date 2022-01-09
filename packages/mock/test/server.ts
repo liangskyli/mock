@@ -1,5 +1,5 @@
 import mockServer from '../src';
-import path from 'path';
+import * as path from 'path';
 
 //mockServer();
 //mockServer({ mockDir: 'test' });

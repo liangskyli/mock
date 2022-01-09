@@ -25,7 +25,7 @@ yarn grpc-mock code-gen -c ./mock.config.cli.ts
 
 ### configFile rootPath参数属性（string 或 ProtoConfig 类型）
 ####  string 时，表示proto文件通过protobufjs生成的json文件,合并后root.json根文件的路径。  
-- 文件格式如下：[root.json](./root.json)
+- 文件格式如下：[root.json](root.json)
     ```json
     {
         "serverName1": {
@@ -63,7 +63,7 @@ yarn grpc-mock code-gen -c ./mock.config.cli.ts
       serverName2: 'rename-serverName2',
     }
     ```
-    - rootPathServerNameMap参数对生成的[root.json](./root.json)grpc服务名重命名。
+    - rootPathServerNameMap参数对生成的[root.json](root.json)grpc服务名重命名。
 
 
 - configFile mock配置文件示例

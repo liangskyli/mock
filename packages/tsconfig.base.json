@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "./lib/",
     "target": "es5",
     "moduleResolution": "node",
     "jsx": "preserve",
@@ -15,13 +14,8 @@
     "declaration": true,
     "resolveJsonModule": true
   },
-  "include": [
-    "src/**/*.ts"
-  ],
   "exclude": [
     "node_modules",
-    "test",
     "lib",
-    "bin"
   ]
 }

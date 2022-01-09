@@ -77,7 +77,6 @@ export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = ({
   registerBabel(mockPaths);
 
   // get mock data
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
   const mockData = normalizeConfig(getMockConfig(mockPaths));
 
   const mockWatcherPaths = [...(mockPaths || []), join(cwd, 'mock')]
@@ -91,7 +90,6 @@ export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = ({
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/ban-types
 export const getMockConfig = (files: string[]): object => {
   return files.reduce((memo, mockFile) => {
     try {
@@ -207,7 +205,6 @@ export const matchMock = (req: Request, mockData: IMockDataItem[]): IMockDataIte
   const targetMethod = method.toLowerCase();
 
   for (const mock of mockData) {
-    // eslint-disable-next-line @typescript-eslint/no-shadow
     const { method, re, keys } = mock;
     if (method === targetMethod) {
       const match = re.exec(targetPath);

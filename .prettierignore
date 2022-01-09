@@ -1,3 +1,4 @@
 **/*.md
+**/node_modules
 package.json
-test/socket.io.js
+/packages/test/socket.io.js
