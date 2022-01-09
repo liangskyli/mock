@@ -10,8 +10,12 @@
   },
   "scripts": {
     "test-http-cli": "lerna run --scope @liangskyli/mock test-http-cli",
-    "test:middleware":"lerna run --scope @liangskyli/mock test:middleware",
+    "test:middleware": "lerna run --scope @liangskyli/mock test:middleware",
     "test-http-mock-code-gen": "lerna run --scope @liangskyli/mock test-http-mock-code-gen",
+    "version:pre": "echo '发布预发布beta版本' && HUSKY_SKIP_HOOKS=1 lerna version prerelease --preid beta --yes",
+    "version:patch": "echo '发布补丁版本' && HUSKY_SKIP_HOOKS=1 lerna version patch --yes",
+    "version:minor": "echo '发布小版本' && HUSKY_SKIP_HOOKS=1 lerna version minor --yes",
+    "version:major": "echo '发布主版本' && HUSKY_SKIP_HOOKS=1 lerna version major --yes",
     "update:deps": "yarn upgrade-interactive --latest"
   },
   "gitHooks": {
@@ -33,7 +37,7 @@
     "cross-env": "^7.0.3",
     "gts": "^3.1.0",
     "lerna": "^4.0.0",
-    "lint-staged": "^12.1.5",
+    "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4",
