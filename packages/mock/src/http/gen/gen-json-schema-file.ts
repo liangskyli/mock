@@ -4,7 +4,7 @@ import jsf from 'json-schema-faker';
 import fs from 'fs-extra';
 import path from 'path';
 import type prettier from 'prettier';
-import { prettierData } from '../../tools';
+import { prettierData } from '@liangskyli/utils';
 
 type IOpts = {
   schemaTsPath: string;

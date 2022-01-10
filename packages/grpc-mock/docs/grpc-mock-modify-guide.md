@@ -27,7 +27,7 @@
   
   ```ts
   // 自定义mock数据入口，文件不可删除。
-  import type { ICustomData } from '@liangskyli/mock';
+  import type { ICustomData } from '@liangskyli/grpc-mock';
   import { ActivityServiceData } from './template-data';
   
   const CustomData: ICustomData = {
@@ -41,7 +41,7 @@
   - custom-data/template-data.ts
   
   ```ts
-  import type { IImplementationData } from '@liangskyli/mock';
+  import type { IImplementationData } from '@liangskyli/grpc-mock';
   
   export const ActivityServiceData: IImplementationData = {
     Create: {
@@ -106,7 +106,7 @@ export type IImplementationData = Record<
 比如：
 - custom-data/template-data.ts
 ```ts
-import type { IImplementationData } from '@liangskyli/mock';
+import type { IImplementationData } from '@liangskyli/grpc-mock';
 import mockjs from 'mockjs';
 
 export const ActivityServiceData: IImplementationData = {

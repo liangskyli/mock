@@ -1,5 +1,5 @@
 import { fileTip, getImportPath, packageName, tslintDisable } from './utils';
-import { getAbsolutePath, prettierData } from '../tools';
+import { getAbsolutePath, prettierData } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
 import type { Options } from '@grpc/proto-loader';

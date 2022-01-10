@@ -1,7 +1,7 @@
 import type prettier from 'prettier';
 import fs from 'fs-extra';
 import path from 'path';
-import { prettierData } from '../../tools';
+import { prettierData } from '@liangskyli/utils';
 
 type IOpts = {
   mockDataAbsolutePath: string;

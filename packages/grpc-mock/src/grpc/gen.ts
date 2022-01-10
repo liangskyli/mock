@@ -3,7 +3,7 @@ import genMockData from './gen-mock-data';
 import genGrpcObj from './gen-grpc-obj';
 import fs from 'fs-extra';
 import type { Options } from '@grpc/proto-loader';
-import { getAbsolutePath, copyOptions } from '../tools';
+import { getAbsolutePath, copyOptions } from '@liangskyli/utils';
 import genTsConfig from './gen-tsconfig';
 
 export type GenOptions = GenMockDataOptions & {

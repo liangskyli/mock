@@ -1,0 +1,68 @@
+{
+  "name": "@liangskyli/grpc-mock",
+  "version": "0.7.0",
+  "description": "grpc mock for bff",
+  "keywords": [
+    "grpc",
+    "grpc mock",
+    "grpc mock server"
+  ],
+  "author": "liangsky <640634387@qq.com>",
+  "homepage": "https://github.com/liangskyli/mock#readme",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "bin",
+    "docs"
+  ],
+  "bin": {
+    "grpc-mock": "./bin/index.js"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen.ts",
+    "test-grpc-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen-cli.ts",
+    "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
+    "test-grpc-mock-server-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/mock-server-cli.ts",
+    "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
+    "build": "npm run clean && npm run compile && node script/copy.js",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.6.9",
+    "@liangskyli/utils": "^0.7.0",
+    "@types/fs-extra": "^9.0.13",
+    "commander": "^8.3.0",
+    "cross-spawn": "^7.0.3",
+    "fs-extra": "^10.0.0",
+    "lodash": "^4.17.21",
+    "protobufjs": "^6.11.2",
+    "ts-node-dev": "^1.1.8"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.2",
+    "@types/express": "^4.17.13",
+    "@types/lodash": "^4.14.178",
+    "@types/mockjs": "^1.0.5",
+    "cross-env": "^7.0.3",
+    "express": "^4.17.2",
+    "gts": "^3.1.0",
+    "mockjs": "^1.1.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  },
+  "optionalDependencies": {
+    "grpc": "^1.24.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liangskyli/mock.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liangskyli/mock/issues"
+  }
+}

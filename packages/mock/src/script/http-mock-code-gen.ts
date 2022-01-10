@@ -1,7 +1,6 @@
 import { program } from 'commander';
 import fs from 'fs-extra';
-import { getAbsolutePath } from '../tools';
-import getConfig from './config';
+import { getAbsolutePath, getConfig } from '@liangskyli/utils';
 import type { IGenMockDataOpts } from '../index';
 import { genMockData } from '../index';
 

@@ -62,5 +62,4 @@ export function getImportPath(fromPath: string, toPath: string) {
   return relative;
 }
 
-export const packageName = '@liangskyli/mock';
-//export const packageName = path.join(process.cwd(), './src/index').replace(/\\/ig,'/');
+export const packageName = '@liangskyli/grpc-mock';

@@ -12,8 +12,4 @@
 /.vscode
 # umi
 
-/packages/mock/test/grpc-mock/
-/packages/mock/test/grpc/*.json
-/packages/mock/test/genHttpMock/
-/packages/mock/test/openapi/openapiv3.json
 /lerna-debug.log

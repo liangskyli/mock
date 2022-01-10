@@ -2,8 +2,7 @@ import { program } from 'commander';
 import type { IOpts } from '../http/server/server';
 import mockServer from '../http/server/server';
 import fs from 'fs-extra';
-import getConfig from './config';
-import { getAbsolutePath } from '../tools';
+import { getAbsolutePath, getConfig } from '@liangskyli/utils';
 
 const packageJson = require('../../package.json');
 

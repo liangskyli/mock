@@ -1,8 +1,7 @@
 import { program } from 'commander';
 import type { ConfigFileOptionsCLI } from '../grpc/gen';
 import fs from 'fs-extra';
-import { getAbsolutePath } from '../tools';
-import getConfig from './config';
+import { getAbsolutePath, getConfig } from '@liangskyli/utils';
 import { gen } from '../grpc/gen';
 
 const packageJson = require('../../package.json');

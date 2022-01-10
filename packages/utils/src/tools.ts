@@ -6,7 +6,13 @@ export const getAbsolutePath = (pathName: string) => {
 };
 
 export const prettierData = async (fileContent: string, options?: prettier.Options) => {
-  const configFile = prettier.resolveConfigFile.sync();
+  let configFile;
+  try {
+    configFile = prettier.resolveConfigFile.sync();
+  } catch {
+    configFile = null;
+  }
+
   let configFileOptions: prettier.Options | null = null;
   if (configFile !== null) {
     configFileOptions = await prettier.resolveConfig(configFile);

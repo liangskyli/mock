@@ -10,7 +10,7 @@ export const ActivityServiceData: IImplementationData = {
     /** mock 多场景响应数据 */
     sceneData: [
       {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line
         requestCase: (request: any) => {
           // request 为grpc传入参数，可以更具不同参数配置不同场景数据
           // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配

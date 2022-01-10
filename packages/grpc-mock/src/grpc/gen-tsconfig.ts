@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import path from 'path';
 import type prettier from 'prettier';
-import { prettierData } from '../tools';
+import { prettierData } from '@liangskyli/utils';
 
 const genTsConfig = async (genMockPath: string, prettierOptions?: prettier.Options) => {
   const genMockPathArray = path.join(genMockPath).split(path.sep);

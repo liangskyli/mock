@@ -68,7 +68,7 @@ yarn grpc-mock code-gen -c ./mock.config.cli.ts
 
 - configFile mock配置文件示例
 ```ts
-import type { ConfigFileOptionsCLI } from '@liangskyli/mock';
+import type { ConfigFileOptionsCLI } from '@liangskyli/grpc-mock';
 
 const config: ConfigFileOptionsCLI = {
   rootPath: {
@@ -92,7 +92,7 @@ node -r ts-node/register ./grpc-mock-gen.ts
 ```
 
 ```ts
-import { grpcMockCodeGen } from '@liangskyli/mock';
+import { grpcMockCodeGen } from '@liangskyli/grpc-mock';
 
 grpcMockCodeGen({
   grpcMockDir: './',

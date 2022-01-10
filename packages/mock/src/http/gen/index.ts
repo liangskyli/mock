@@ -1,6 +1,6 @@
 import path from 'path';
 import openapiTS from 'openapi-typescript';
-import { getAbsolutePath, prettierData, copyOptions } from '../../tools';
+import { getAbsolutePath, prettierData, copyOptions } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import type prettier from 'prettier';
 import { genMockDataFile } from './gen-json-schema-file';

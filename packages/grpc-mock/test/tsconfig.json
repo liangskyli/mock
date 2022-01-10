@@ -1,0 +1,11 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "../",
+    "allowJs": false,
+  },
+  "include": [
+    "../mock/**/*.ts",
+    "../test/**/*.ts"
+  ],
+}
