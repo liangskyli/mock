@@ -1,8 +1,8 @@
 import { program } from 'commander';
 import fs from 'fs-extra';
 import { getAbsolutePath, getConfig } from '@liangskyli/utils';
-import type { IGenMockDataOpts } from '../index';
-import { genMockData } from '../index';
+import type { IGenMockDataOpts } from '../gen';
+import genMockData from '../index';
 
 const packageJson = require('../../package.json');
 

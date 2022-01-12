@@ -1,4 +1,4 @@
-import { genMockData } from '../../src/index';
+import genMockData from '../../src/index';
 
 genMockData({
   mockDir: './test/genHttpMock',

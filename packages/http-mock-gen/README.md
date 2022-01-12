@@ -1,4 +1,12 @@
-# http mock 生成方式:
+# http mock 代码生成工具
+> 基于openapi v3 生成 ts数据类型和http mock 数据代码。
+
+## 安装:
+```bash
+yarn add @liangskyli/http-mock-gen --dev
+```
+
+# 生成方式:
 ## 1、CLI 命令方式（推荐）
 
 ```bash
@@ -22,7 +30,7 @@ yarn http-mock-gen -c ./mock.config.cli.ts
 
 - configFile mock数据生成配置文件示例
 ```ts
-import type { IGenMockDataOpts } from '@liangskyli/mock';
+import type { IGenMockDataOpts } from '@liangskyli/http-mock-gen';
 
 const config: IGenMockDataOpts = {
   mockDir: './',
@@ -48,7 +56,7 @@ export default config;
 
 ```
 
-- openapi v3 YAML or JSON 格式的文件[示例](openapiv3-example.json)，openapi需要自己根据业务逻辑生成。
+- openapi v3 YAML or JSON 格式的文件[示例](docs/openapiv3-example.json)，openapi需要自己根据业务逻辑生成。
 
 - 生成mock 数据结构，最终使用interface-mock-data.ts文件
 

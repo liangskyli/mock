@@ -24,8 +24,7 @@
     "docs"
   ],
   "bin": {
-    "mock-server": "./bin/index.js",
-    "http-mock-gen": "./bin/http/index.js"
+    "mock-server": "./bin/index.js"
   },
   "scripts": {
     "dev": "tsc --watch",
@@ -33,8 +32,6 @@
     "test-http-cli": "cross-env DEBUG=umi:preset-build-in:mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http-cli.ts",
     "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/middleware.ts",
     "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/webpack-middleware.ts",
-    "test-http-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen.ts",
-    "test-http-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen-cli.ts",
     "build": "npm run clean && npm run compile",
     "clean": "gts clean",
     "compile": "tsc -p .",
@@ -50,12 +47,8 @@
     "commander": "^8.3.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.0.0",
-    "json-schema-faker": "^0.5.0-rcv.40",
     "lodash": "^4.17.21",
-    "openapi-typescript": "^4.5.0",
-    "socket.io": "^4.4.1",
-    "ts-node-dev": "^1.1.8",
-    "typescript-json-schema": "^0.52.0"
+    "socket.io": "^4.4.1"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",

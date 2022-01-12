@@ -112,7 +112,7 @@ const genMockData = async (
   const spaceServerNameMockList: string[] = [];
   const indexContent: string[] = [];
   indexContent.push(fileTip);
-  indexContent.push(`import { grpcMockInit } from '${packageName}';`);
+  indexContent.push(`import grpcMockInit from '${packageName}';`);
 
   const rootObject = require(rootPath);
   await Promise.all(

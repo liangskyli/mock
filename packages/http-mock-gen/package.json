@@ -1,0 +1,52 @@
+{
+  "name": "@liangskyli/http-mock-gen",
+  "version": "0.7.0",
+  "description": "http mock gen for web mockServer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liangskyli/mock.git"
+  },
+  "keywords": [
+    "mock",
+    "http mock generate"
+  ],
+  "author": "liangsky",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "bin",
+    "docs"
+  ],
+  "bin": {
+    "http-mock-gen": "bin/index.js"
+  },
+  "scripts": {
+    "dev": "tsc --watch",
+    "test-http-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen.ts",
+    "test-http-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen-cli.ts",
+    "build": "npm run clean && npm run compile",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "prepublish": "npm run build",
+    "update:deps": "yarn upgrade-interactive --latest"
+  },
+  "dependencies": {
+    "@liangskyli/utils": "^0.7.0",
+    "@types/fs-extra": "^9.0.13",
+    "commander": "^8.3.0",
+    "cross-spawn": "^7.0.3",
+    "fs-extra": "^10.0.0",
+    "json-schema-faker": "^0.5.0-rcv.40",
+    "openapi-typescript": "^4.5.0",
+    "typescript-json-schema": "^0.52.0"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.2",
+    "cross-env": "^7.0.3",
+    "gts": "^3.1.0",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
+}

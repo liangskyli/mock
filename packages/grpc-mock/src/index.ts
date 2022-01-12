@@ -1,4 +1,6 @@
-export { default as grpcMockInit } from './grpc/mock-service/service';
+import grpcMockInit from './grpc/mock-service/service';
+
+export default grpcMockInit;
 export type {
   IMockService,
   IProtoItem,

@@ -6,6 +6,13 @@
 yarn add @liangskyli/mock --dev
 ```
 
-- 基于node.js 实现 http mock 数据生成 [文档](docs/gen-http-mock.md)
 - Mock 数据修改指引 [文档](docs/mock.md)
 - 包含 http 和 socket 的mock功能 [文档](docs/http-mock.md)
+
+### 1.1 http mock 代码生成工具
+
+### 安装:
+```bash
+yarn add @liangskyli/http-mock-gen --dev
+```
+- [文档](../http-mock-gen/README.md)
