@@ -32,6 +32,9 @@
     "prepublish": "npm run build",
     "update:deps": "yarn upgrade-interactive --latest"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@liangskyli/utils": "^0.7.0",
     "@types/fs-extra": "^9.0.13",

@@ -32,6 +32,9 @@
     "compile": "tsc -p .",
     "prepublish": "npm run build"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@grpc/proto-loader": "^0.6.9",
     "@liangskyli/utils": "^0.7.0",
