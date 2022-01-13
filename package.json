@@ -12,7 +12,7 @@
     "prepare": "husky install",
     "test-http-cli": "lerna run --scope @liangskyli/mock test-http-cli",
     "test:middleware": "lerna run --scope @liangskyli/mock test:middleware",
-    "test-http-mock-code-gen": "lerna run --scope @liangskyli/mock test-http-mock-code-gen",
+    "test-http-mock-code-gen": "lerna run --scope @liangskyli/http-mock-gen test-http-mock-code-gen",
     "test-grpc-mock-code-gen": "lerna run --scope @liangskyli/grpc-mock test-grpc-mock-code-gen",
     "version:pre": "echo '发布预发布beta版本' && HUSKY=1 lerna version prerelease --preid beta",
     "version:preminor": "echo '发布小版本beta版本' && HUSKY=1 lerna version preminor --preid beta",
