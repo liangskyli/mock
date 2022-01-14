@@ -1,2 +1,2 @@
-export { getAbsolutePath, prettierData, copyOptions } from './tools';
+export { getAbsolutePath, prettierData, copyOptions, winPath } from './tools';
 export { default as getConfig } from './config';

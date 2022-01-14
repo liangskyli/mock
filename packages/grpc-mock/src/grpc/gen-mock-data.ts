@@ -2,7 +2,7 @@ import protobufjs from 'protobufjs';
 import type { IInspectNamespace } from './pbjs';
 import { genImplementationData, inspectNamespace } from './pbjs';
 import { fileTip, firstUpperCaseOfWord, firstWordNeedLetter, packageName } from './utils';
-import { getAbsolutePath, prettierData, copyOptions } from '@liangskyli/utils';
+import { getAbsolutePath, prettierData, copyOptions, winPath } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
 import type { ProtoConfig } from './gen-proto-json';
@@ -144,7 +144,7 @@ const genMockData = async (
           const protoServiceContent = `${fileTip}
             // 自定义mock数据，请在custom-data文件夹下编写，详细见custom-data/index.ts文件说明
             import type { IProtoItem } from '${packageName}';
-            import CustomData from '${genCustomDataPath}/index';
+            import CustomData from '${winPath(genCustomDataPath)}/index';
             
             const ${serviceCodeName}: IProtoItem = {
               path: '${protoPath}',

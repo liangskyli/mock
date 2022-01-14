@@ -35,3 +35,12 @@ export const copyOptions = <T = undefined>(options: T) => {
   }
   return options;
 };
+
+export const winPath = (path: string) => {
+  const isExtendedLengthPath = /^\\\\\?\\/.test(path);
+  if (isExtendedLengthPath) {
+    return path;
+  }
+
+  return path.replace(/\\/g, '/');
+};

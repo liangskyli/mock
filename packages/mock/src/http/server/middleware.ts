@@ -1,5 +1,6 @@
 import { Service } from '@umijs/core';
-import { parseRequireDeps, winPath } from '@umijs/utils';
+import { parseRequireDeps } from '@umijs/utils';
+import { winPath } from '@liangskyli/utils';
 import { join, isAbsolute } from 'path';
 import type { FSWatcher } from 'chokidar';
 import createMiddleware from '../mock/createMiddleware';
