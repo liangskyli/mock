@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/grpc-mock",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "grpc mock for bff",
   "keywords": [
     "grpc",
