@@ -23,7 +23,7 @@
 | mockDir  | mock文件夹所在目录  | `./` |
 | exclude   | 用于忽略不需要走 mock 的文件 `Array(string) 如：['mock/a.ts','mock/b.ts']`  |  |
 | hostname  | 服务器地址        | `0.0.0.0` |
-| port      | 端口号 `设置的端口被占用，自动使用新端口` | `8001` |
+| port      | 端口号           | `8001` |
 | watch     | 是否监听mock文件改动 `bool值`  | `true` |
 | socketConfig | socket.io 配置 `见下面socketConfig参数`  |  |
 
@@ -51,7 +51,7 @@ mockServer({ port: 9001, hostname: '0.0.0.0' });
 | -d, --dir  | mock文件夹所在目录  | `./` |
 | -e, --exclude | 用于忽略不需要走 mock 的文件 `多个路径用英文逗号分割，如：mock/a.ts,mock/b.ts`  |  |
 | -host, --hostname  | 服务器地址        | `0.0.0.0` |
-| -p, --port      | 端口号 `设置的端口被占用，自动使用新端口` | `8001` |
+| -p, --port      | 端口号        | `8001` |
 | -w, --watch     | 是否监听mock文件改动 `bool值` | `true` |
 | -c, --configFile  | mock配置文件 `配置参数见下面`  |  |
 
@@ -61,7 +61,7 @@ mockServer({ port: 9001, hostname: '0.0.0.0' });
 | mockDir  | mock文件夹所在目录  | `./` |
 | exclude   | 用于忽略不需要走 mock 的文件 `Array(string) 如：['mock/a.ts','mock/b.ts']`  |  |
 | hostname  | 服务器地址        | `0.0.0.0` |
-| port      | 端口号 `设置的端口被占用，自动使用新端口` | `8001` |
+| port      | 端口号           | `8001` |
 | watch     | 是否监听mock文件改动 `bool值`  | `true` |
 | socketConfig | socket.io 配置 `见下面socketConfig参数`  |  |
 
