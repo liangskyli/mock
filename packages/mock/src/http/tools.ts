@@ -1,11 +1,11 @@
-export const killProcess = (target: any, type: 'server' | 'watcher' = 'watcher') => {
+export const killProcess = (target: any, type: 'httpServer' | 'watcher' = 'watcher') => {
   let closed = false;
   const onSignal = async () => {
     if (closed) return;
     closed = true;
     // 退出时触发事件
-    if (type === 'server') {
-      target?.listeningApp?.close();
+    if (type === 'httpServer') {
+      target?.close();
     }
     if (type === 'watcher') {
       await target?.close?.();

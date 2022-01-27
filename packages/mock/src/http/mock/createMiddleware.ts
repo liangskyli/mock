@@ -1,10 +1,11 @@
-import type { NextFunction, RequestHandler } from '@umijs/deps/compiled/express';
+import type { NextFunction, RequestHandler } from 'express';
 import type { Request, Response } from 'express-serve-static-core';
-import { chokidar, createDebug, lodash, signale } from '@umijs/utils';
+import chokidar from 'chokidar';
+import { lodash, signale, createDebug } from '@liangskyli/utils';
 import type { IGetMockDataResult } from './utils';
 import { cleanRequireCache, matchMock } from './utils';
 
-const debug = createDebug('umi:preset-build-in:mock:createMiddleware');
+const debug = createDebug('mock:createMiddleware');
 
 export interface IMockOpts extends IGetMockDataResult {
   updateMockData: () => Promise<IGetMockDataResult>;
@@ -30,7 +31,7 @@ export default function (opts = {} as IMockOpts): ICreateMiddleware {
     .on(
       'all',
       // debounce avoiding too much file change events
-      lodash.debounce(async (event, file) => {
+      lodash.debounce(async (event: any, file: any) => {
         debug(`[${event}] ${file}, reload mock data`);
         errors.splice(0, errors.length);
         cleanRequireCache(mockWatcherPaths);

@@ -1,9 +1,12 @@
-import { Server } from '@umijs/server';
-import { address, chalk } from '@umijs/utils';
+import http from 'http';
+import express from 'express';
+import { address, chalk } from '@liangskyli/utils';
 import getMiddleware from './middleware';
 import { killProcess } from '../tools';
 import type { ISocketConfig } from './socket-server';
-import getSocketServer from './socket-server';
+import initSocketServer from './socket-server';
+
+const app = express();
 
 export type IOpts = {
   mockDir?: string;
@@ -24,35 +27,32 @@ const mockServer = async (opts: IOpts = {}) => {
     socketConfig,
   } = opts;
   const HOME_PAGE = 'homepage';
-  let server: Server | undefined;
+  let httpServer: http.Server | undefined;
 
   try {
     const init = async () => {
       const { middleware, middlewareWatcher } = await getMiddleware({ mockDir, watch, exclude });
-      server = new Server({
-        beforeMiddlewares: [middleware],
-        compilerMiddleware: (req, res, next) => {
-          if (req.path === '/') {
-            res.end(HOME_PAGE);
-          } else {
-            next();
-          }
-        },
+      app.use(middleware);
+      app.get('/', (req: any, res: any) => {
+        res.end(HOME_PAGE);
       });
-      const result = await server.listen({ hostname, port });
+      httpServer = app.listen(port, hostname);
 
       if (socketConfig && socketConfig.enable) {
-        getSocketServer({
+        initSocketServer({
           socketConfig,
-          server: result.server.listeningApp,
+          server: httpServer,
           mockDir,
-          port: result.port,
-          hostname: result.hostname,
+          port: port,
+          hostname: hostname,
           middlewareWatcher,
         });
       }
 
-      return result;
+      return {
+        hostname,
+        port,
+      };
     };
 
     init().then((result) => {
@@ -72,10 +72,10 @@ const mockServer = async (opts: IOpts = {}) => {
           .join('\n'),
       );
 
-      return Promise.resolve('aaa');
+      return Promise.resolve('init ok');
     });
 
-    killProcess(server, 'server');
+    killProcess(httpServer, 'httpServer');
   } catch (e) {
     console.log(e);
     process.exit(0);

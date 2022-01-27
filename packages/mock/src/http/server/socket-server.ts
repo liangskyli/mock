@@ -1,7 +1,6 @@
 import type { Socket, ServerOptions } from 'socket.io';
 import { Server as SocketServer } from 'socket.io';
-import { address, chalk } from '@umijs/utils';
-import { winPath } from '@liangskyli/utils';
+import { winPath, address, chalk } from '@liangskyli/utils';
 import { isAbsolute, join } from 'path';
 import type http from 'http';
 import type { FSWatcher } from 'chokidar';

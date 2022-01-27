@@ -1,22 +1,21 @@
-import bodyParser from '@umijs/deps/compiled/body-parser';
-import multer from '@umijs/deps/compiled/multer';
-import pathToRegexp from '@umijs/deps/compiled/path-to-regexp';
-import type { NextFunction, RequestHandler } from '@umijs/deps/compiled/express';
+import bodyParser from 'body-parser';
+import multer from 'multer';
+import { pathToRegexp } from 'path-to-regexp';
+import type { NextFunction, RequestHandler } from 'express';
 import type { Request } from 'express-serve-static-core';
-import { createDebug, glob } from '@umijs/utils';
-import { winPath } from '@liangskyli/utils';
+import glob from 'glob';
+import { winPath, createDebug } from '@liangskyli/utils';
 import assert from 'assert';
 import { existsSync } from 'fs';
 import { join } from 'path';
-import type { Service } from '@umijs/core';
 
 const VALID_METHODS = ['get', 'post', 'put', 'patch', 'delete'];
 const BODY_PARSED_METHODS = ['post', 'put', 'patch', 'delete'];
 
-const debug = createDebug('umi:preset-build-in:mock:utils');
+const debug = createDebug('mock:utils');
 
 interface IGetMockPaths {
-  cwd: typeof Service.prototype.cwd;
+  cwd: string;
   ignore?: string[];
   registerBabel?: (paths: string[]) => void;
   paths?: {
