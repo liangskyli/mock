@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/grpc-mock",
-  "version": "0.9.0-beta.0",
+  "version": "0.9.0",
   "description": "grpc mock for bff",
   "keywords": [
     "grpc",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.6.9",
-    "@liangskyli/utils": "^0.9.0-beta.0",
+    "@liangskyli/utils": "^0.9.0",
     "@types/fs-extra": "^9.0.13",
     "commander": "^8.3.0",
     "cross-spawn": "^7.0.3",
