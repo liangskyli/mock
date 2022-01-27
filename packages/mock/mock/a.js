@@ -1,3 +1,3 @@
 export default {
-  '/api/a': { a: 'aaa' },
+  '/api/a': { a: 'aaaa' },
 };
