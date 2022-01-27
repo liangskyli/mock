@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.0-beta.3](https://github.com/liangskyli/mock/compare/v0.9.0-beta.2...v0.9.0-beta.3) (2022-01-27)
+
+**Note:** Version bump only for package @liangskyli/mock
+
+
+
+
+
 ## [0.9.0-beta.2](https://github.com/liangskyli/mock/compare/v0.9.0-beta.1...v0.9.0-beta.2) (2022-01-27)
 
 **Note:** Version bump only for package @liangskyli/mock
