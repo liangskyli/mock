@@ -21,7 +21,7 @@
     "version:minor": "echo '发布小版本' && HUSKY=1 lerna version minor",
     "version:major": "echo '发布主版本' && HUSKY=1 lerna version major",
     "publish-all": "lerna publish from-package --yes",
-    "publish-all-pre": "lerna publish from-package --canary beta",
+    "publish-all-pre": "lerna publish from-package --canary --preid beta",
     "update:deps": "yarn upgrade-interactive --latest"
   },
   "lint-staged": {
