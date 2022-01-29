@@ -1,8 +1,8 @@
 import path from 'path';
-import openapiTS from 'openapi-typescript';
 import { getAbsolutePath, prettierData, copyOptions } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import type prettier from 'prettier';
+import openapiTS from '../esm-to-commjs/openapi-typescript';
 import { genMockDataFile } from './gen-json-schema-file';
 import { genMockInterfaceFile } from './gen-mock-interface-file';
 import type { JSONSchemaFakerOptions } from 'json-schema-faker';

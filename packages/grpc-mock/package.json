@@ -39,7 +39,7 @@
     "@grpc/proto-loader": "^0.6.9",
     "@liangskyli/utils": "^0.9.0",
     "@types/fs-extra": "^9.0.13",
-    "commander": "^8.3.0",
+    "commander": "^9.0.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.0.0",
     "lodash": "^4.17.21",
@@ -67,5 +67,8 @@
   },
   "bugs": {
     "url": "https://github.com/liangskyli/mock/issues"
+  },
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0"
   }
 }

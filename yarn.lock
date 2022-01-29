@@ -2304,15 +2304,7 @@
     "@types/eslint" "*"
     "@types/estree" "*"
 
-"@types/eslint@*":
-  version "8.4.1"
-  resolved "https://registry.npmmirror.com/@types/eslint/download/@types/eslint-8.4.1.tgz#c48251553e8759db9e656de3efc846954ac32304"
-  integrity sha512-GE44+DNEyxxh2Kc6ro/VkIj+9ma0pO0bwv9+uHSyBrikYOHr8zYcdPvnBOp1aw8s+CjRvuSx7CyWqRrNFQ59mA==
-  dependencies:
-    "@types/estree" "*"
-    "@types/json-schema" "*"
-
-"@types/eslint@^7.2.13":
+"@types/eslint@*", "@types/eslint@^7.2.13":
   version "7.29.0"
   resolved "https://registry.npmmirror.com/@types/eslint/download/@types/eslint-7.29.0.tgz#e56ddc8e542815272720bb0b4ccc2aff9c3e1c78"
   integrity sha512-VNcvioYDH8/FxaeTKkM4/TiTwt6pBV9E3OfGmvaw8tPl0rrHCJ4Ll15HRT+pMiFAf/MLQvAzC+6RzUMEL9Ceng==
@@ -3718,6 +3710,11 @@ commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.npmmirror.com/commander/download/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
+
+commander@^9.0.0:
+  version "9.0.0"
+  resolved "https://registry.npmmirror.com/commander/download/commander-9.0.0.tgz#86d58f24ee98126568936bd1d3574e0308a99a40"
+  integrity sha512-JJfP2saEKbQqvW+FI93OYUB4ByV5cizMpFMiiJI8xDbBvQvSkIk0VvQdn1CZ8mqAO8Loq2h0gYTYtDFUZUeERw==
 
 commondir@^1.0.1:
   version "1.0.1"
@@ -5543,13 +5540,6 @@ hosted-git-info@^2.1.4:
   resolved "https://registry.npmmirror.com/hosted-git-info/download/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
   integrity sha1-3/wL+aIcAiCQkPKqaUKeFBTa8/k=
 
-hosted-git-info@^3.0.8:
-  version "3.0.8"
-  resolved "https://registry.npmmirror.com/hosted-git-info/download/hosted-git-info-3.0.8.tgz#6e35d4cc87af2c5f816e4cb9ce350ba87a3f370d"
-  integrity sha1-bjXUzIevLF+Bbky5zjULqHo/Nw0=
-  dependencies:
-    lru-cache "^6.0.0"
-
 hosted-git-info@^4.0.0, hosted-git-info@^4.0.1:
   version "4.1.0"
   resolved "https://registry.npmmirror.com/hosted-git-info/download/hosted-git-info-4.1.0.tgz#827b82867e9ff1c8d0c4d9d53880397d2c86d224"
@@ -6336,11 +6326,6 @@ kind-of@^6.0.2, kind-of@^6.0.3:
   resolved "https://registry.nlark.com/kind-of/download/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha1-B8BQNKbDSfoG4k+jWqdttFgM5N0=
 
-kleur@^4.1.4:
-  version "4.1.4"
-  resolved "https://registry.npm.taobao.org/kleur/download/kleur-4.1.4.tgz#8c202987d7e577766d039a8cd461934c01cda04d"
-  integrity sha1-jCAph9fld3ZtA5qM1GGTTAHNoE0=
-
 known-css-properties@^0.21.0:
   version "0.21.0"
   resolved "https://registry.npmmirror.com/known-css-properties/download/known-css-properties-0.21.0.tgz#15fbd0bbb83447f3ce09d8af247ed47c68ede80d"
@@ -7116,7 +7101,7 @@ neo-async@^2.6.0, neo-async@^2.6.2:
   resolved "https://registry.nlark.com/neo-async/download/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha1-tKr7k+OustgXTKU88WOrfXMIMF8=
 
-node-fetch@^2.6.1, node-fetch@^2.6.5, node-fetch@^2.6.6, node-fetch@^2.6.7:
+node-fetch@^2.6.1, node-fetch@^2.6.5, node-fetch@^2.6.7:
   version "2.6.7"
   resolved "https://registry.npmmirror.com/node-fetch/download/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"
   integrity sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==
@@ -7480,20 +7465,17 @@ open@^8.0.9:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-openapi-typescript@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.npmmirror.com/openapi-typescript/download/openapi-typescript-4.5.0.tgz#e64ef8281ee9b7ffab87bda612f64c565158f230"
-  integrity sha512-++gWZLTKmbZP608JHMerllAs84HzULWfVjfH7otkWBLrKxUvzHMFqI6R4JSW1LoNDZnS4KKiRTZW66Fxyp6z4Q==
+openapi-typescript@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.npmmirror.com/openapi-typescript/download/openapi-typescript-5.1.1.tgz#5b6484e9d86b1d8616efb2c0e27b7bbfdb05d188"
+  integrity sha512-ixZMg4ufPwBblLLdCja2i3RSfrAzHrLQp+BvmW+MWTtrJnhr6xYVkYs9EWSp6u0rtBg+5GTLn+47DKDPhvB7mA==
   dependencies:
-    hosted-git-info "^3.0.8"
     js-yaml "^4.1.0"
-    kleur "^4.1.4"
-    meow "^9.0.0"
     mime "^3.0.0"
-    node-fetch "^2.6.6"
     prettier "^2.5.1"
-    slash "^3.0.0"
     tiny-glob "^0.2.9"
+    undici "^4.12.2"
+    yargs-parser "^21.0.0"
 
 optionator@^0.9.1:
   version "0.9.1"
@@ -9742,28 +9724,23 @@ typedarray@^0.0.6:
   resolved "https://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript-json-schema@^0.52.0:
-  version "0.52.0"
-  resolved "https://registry.npmmirror.com/typescript-json-schema/download/typescript-json-schema-0.52.0.tgz#954560ec90e5486e8f7a5b7706ec59286a708e29"
-  integrity sha512-3ZdHzx116gZ+D9LmMl5/+d1G3Rpt8baWngKzepYWHnXbAa8Winv64CmFRqLlMKneE1c40yugYDFcWdyX1FjGzQ==
+typescript-json-schema@^0.53.0:
+  version "0.53.0"
+  resolved "https://registry.npmmirror.com/typescript-json-schema/download/typescript-json-schema-0.53.0.tgz#ac5b89e4b0af55be422f475a041360e0556f88ea"
+  integrity sha512-BcFxC9nipQQOXxrBGI/jOWU31BwzVh6vqJR008G8VHKJtQ8YrZX6veriXfTK1l+L0/ff0yKl3mZigMLA6ZqkHg==
   dependencies:
     "@types/json-schema" "^7.0.9"
     "@types/node" "^16.9.2"
     glob "^7.1.7"
     safe-stable-stringify "^2.2.0"
     ts-node "^10.2.1"
-    typescript "~4.4.4"
+    typescript "~4.5.0"
     yargs "^17.1.1"
 
-typescript@^4.4.3, typescript@^4.5.4, typescript@^4.5.5:
+typescript@^4.4.3, typescript@^4.5.4, typescript@^4.5.5, typescript@~4.5.0:
   version "4.5.5"
   resolved "https://registry.npmmirror.com/typescript/download/typescript-4.5.5.tgz#d8c953832d28924a9e3d37c73d729c846c5896f3"
   integrity sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==
-
-typescript@~4.4.4:
-  version "4.4.4"
-  resolved "https://registry.npmmirror.com/typescript/download/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
-  integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
 
 uglify-js@^3.1.4:
   version "3.15.0"
@@ -9789,6 +9766,11 @@ unbox-primitive@^1.0.1:
     has-bigints "^1.0.1"
     has-symbols "^1.0.2"
     which-boxed-primitive "^1.0.2"
+
+undici@^4.12.2:
+  version "4.12.2"
+  resolved "https://registry.npmmirror.com/undici/download/undici-4.12.2.tgz#f2fc50ca77a774ed8c0e7067c9361ee18a2f422b"
+  integrity sha512-RZj6SbkQFs5O/pJCboGEo6l5DTCe3Zg4r/8Z/0/2qnIv08+s6zL4akohOPMYWKc3mzwv15WTvsfMWaafZcvYoQ==
 
 unicode-canonical-property-names-ecmascript@^2.0.0:
   version "2.0.0"
