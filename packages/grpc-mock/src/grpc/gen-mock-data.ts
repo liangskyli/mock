@@ -202,7 +202,7 @@ export default ${spaceServerNameMock};
   indexContent.push('');
   indexContent.push(`grpcMockInit([
   ${spaceServerNameMockList.join(',')}
-],'${genMockPath}');`);
+],'${winPath(genMockPath)}');`);
   const filePath = path.join(genMockPath, 'index.ts');
   fs.writeFileSync(
     filePath,
