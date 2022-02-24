@@ -6,19 +6,15 @@
   "author": "liangsky <640634387@qq.com>",
   "homepage": "https://github.com/liangskyli/mock#readme",
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/es/index.js",
+  "types": "./lib/es/index.d.ts",
+  "typings": "./lib/es/index.d.ts",
   "files": [
     "lib"
   ],
-  "bin": {
-    "grpc-mock": "./bin/index.js"
-  },
   "scripts": {
-    "dev": "tsc --watch",
-    "build": "npm run clean && npm run compile",
-    "clean": "gts clean",
-    "compile": "tsc -p .",
+    "build": "gulp && rollup --config=./rollup.config.js",
     "prepublish": "npm run build"
   },
   "publishConfig": {
@@ -37,11 +33,18 @@
     "signale": "^1.4.0"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^21.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-typescript": "^8.3.0",
     "@types/debug": "^4.1.7",
     "@types/resolve": "^1.20.1",
     "@types/signale": "^1.4.4",
-    "gts": "^3.1.0",
-    "typescript": "^4.5.5"
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "rollup": "^2.68.0",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "through2": "^4.0.2"
   },
   "repository": {
     "type": "git",

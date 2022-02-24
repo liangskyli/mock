@@ -21,7 +21,7 @@ yarn add @liangskyli/mock --dev
 ```bash
 yarn add @liangskyli/http-mock-gen --dev
 ```
-- [文档](./packages/http-mock-gen/README.md)
+- [文档](packages/http-mock-gen/README.md)
 
 
 

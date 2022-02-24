@@ -13,7 +13,7 @@ switch (script) {
         '-r',
         'ts-node/register',
         '--trace-warnings',
-        require.resolve(path.join('../lib/script', `grpc-mock-${script}`)),
+        require.resolve(path.join('../cjs/script', `grpc-mock-${script}`)),
       ].concat(args),
       { stdio: 'inherit' },
     );
@@ -27,7 +27,7 @@ switch (script) {
         '-r',
         'ts-node/register',
         '--trace-warnings',
-        require.resolve(path.join('../lib/script', `grpc-mock-${script}`)),
+        require.resolve(path.join('../cjs/script', `grpc-mock-${script}`)),
       ].concat(args),
       { stdio: 'inherit' },
     );

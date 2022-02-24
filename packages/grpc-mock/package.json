@@ -10,26 +10,23 @@
   "author": "liangsky <640634387@qq.com>",
   "homepage": "https://github.com/liangskyli/mock#readme",
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/es/index.js",
+  "types": "./lib/es/index.d.ts",
+  "typings": "./lib/es/index.d.ts",
   "files": [
-    "lib",
-    "bin",
-    "docs"
+    "lib"
   ],
   "bin": {
     "grpc-mock": "./bin/index.js"
   },
   "scripts": {
-    "dev": "tsc --watch",
     "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen.ts",
     "test-grpc-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen-cli.ts",
     "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
     "test-grpc-mock-server-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/mock-server-cli.ts",
     "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
-    "build": "npm run clean && npm run compile && node script/copy.js",
-    "clean": "gts clean",
-    "compile": "tsc -p .",
+    "build": "gulp",
     "prepublish": "npm run build"
   },
   "publishConfig": {
@@ -48,15 +45,20 @@
     "ts-node-dev": "^1.1.8"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "@types/cross-spawn": "^6.0.2",
     "@types/express": "^4.17.13",
     "@types/lodash": "^4.14.178",
     "@types/mockjs": "^1.0.5",
     "cross-env": "^7.0.3",
+    "del": "^6.0.0",
     "express": "^4.17.2",
     "gts": "^3.1.0",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "mockjs": "^1.1.0",
-    "typescript": "^4.5.5"
+    "through2": "^4.0.2"
   },
   "optionalDependencies": {
     "grpc": "^1.24.11"
