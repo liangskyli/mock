@@ -37,9 +37,9 @@
     "@types/fs-extra": "^9.0.13",
     "commander": "^9.0.0",
     "cross-spawn": "^7.0.3",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^10.0.1",
     "json-schema-faker": "^0.5.0-rcv.40",
-    "openapi-typescript": "^5.1.1",
+    "openapi-typescript": "^5.2.0",
     "ts-node": "^10.5.0",
     "typescript-json-schema": "^0.53.0"
   },
