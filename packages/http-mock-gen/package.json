@@ -45,13 +45,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",
-    "@types/cross-spawn": "^6.0.2",
-    "cross-env": "^7.0.3",
-    "del": "^6.0.0",
-    "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
-    "gulp-typescript": "^6.0.0-alpha.1",
-    "through2": "^4.0.2"
+    "@types/cross-spawn": "^6.0.2"
   },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
