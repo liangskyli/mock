@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/utils",
-  "version": "0.9.1-beta.0",
+  "version": "0.9.1-beta.8",
   "description": "@liangskyli/utils",
   "keywords": [],
   "author": "liangsky <640634387@qq.com>",
@@ -14,11 +14,11 @@
     "lib"
   ],
   "scripts": {
-    "build": "gulp && rollup --config=./rollup.config.js",
-    "prepublish": "npm run build"
+    "build": "gulp && rollup --config=./rollup.config.js"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "lib"
   },
   "dependencies": {
     "@qiwi/esm": "^1.1.1",

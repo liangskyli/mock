@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/grpc-mock",
-  "version": "0.9.1-beta.0",
+  "version": "0.9.1-beta.8",
   "description": "grpc mock for bff",
   "keywords": [
     "grpc",
@@ -26,11 +26,11 @@
     "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
     "test-grpc-mock-server-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/mock-server-cli.ts",
     "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
-    "build": "gulp",
-    "prepublish": "npm run build"
+    "build": "gulp"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "lib"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.6.9",

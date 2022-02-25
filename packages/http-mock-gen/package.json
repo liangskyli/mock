@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/http-mock-gen",
-  "version": "0.9.1-beta.0",
+  "version": "0.9.1-beta.8",
   "description": "http mock gen for web mockServer",
   "repository": {
     "type": "git",
@@ -25,11 +25,11 @@
   "scripts": {
     "test-http-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen.ts",
     "test-http-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen-cli.ts",
-    "build": "gulp",
-    "prepublish": "npm run build"
+    "build": "gulp"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "lib"
   },
   "dependencies": {
     "@liangskyli/utils": "^0.9.1-beta.0",

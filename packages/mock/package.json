@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/mock",
-  "version": "0.9.1-beta.0",
+  "version": "0.9.1-beta.8",
   "description": "mockServer for web",
   "repository": {
     "type": "git",
@@ -31,11 +31,11 @@
     "test-http-cli": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http-cli.ts",
     "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/middleware.ts",
     "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/webpack-middleware.ts",
-    "build": "gulp",
-    "prepublish": "npm run build"
+    "build": "gulp"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "lib"
   },
   "dependencies": {
     "@babel/core": "^7.17.5",
