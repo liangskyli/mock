@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+### [0.9.1-beta.0](https://github.com/liangskyli/mock/compare/v0.9.0...v0.9.1-beta.0) (2022-02-25)
+
+
+### Bug Fixes
+
+* **grpc-mock:** genMockPath window path ([5f80bc3](https://github.com/liangskyli/mock/commit/5f80bc3906e6d3a7a6d2c338761d4f80a85380df))
+
+
+
 ## [0.9.0](https://github.com/liangskyli/mock/compare/v0.9.0-beta.5...v0.9.0) (2022-01-27)
 
 **Note:** Version bump only for package @liangskyli/grpc-mock
