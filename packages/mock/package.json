@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/mock",
-  "version": "0.9.1-beta.8",
+  "version": "0.9.1",
   "description": "mockServer for web",
   "repository": {
     "type": "git",
