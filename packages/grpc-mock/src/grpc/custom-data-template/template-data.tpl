@@ -12,7 +12,7 @@ export const ActivityServiceData: IImplementationData = {
       {
         // eslint-disable-next-line
         requestCase: (request: any) => {
-          // request 为grpc传入参数，可以更具不同参数配置不同场景数据
+          // request 为grpc传入参数，可以根据不同参数配置不同场景数据
           // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
           return false;
         },
