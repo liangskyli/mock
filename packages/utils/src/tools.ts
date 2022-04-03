@@ -1,5 +1,6 @@
 import path from 'path';
 import prettier from 'prettier';
+import fs from 'fs-extra';
 
 export const getAbsolutePath = (pathName: string) => {
   return path.isAbsolute(pathName) ? pathName : path.join(process.cwd(), pathName);
@@ -43,4 +44,19 @@ export const winPath = (path: string) => {
   }
 
   return path.replace(/\\/g, '/');
+};
+
+export const removeFilesSync = (dir: string) => {
+  let items: string[] = [];
+  try {
+    items = fs.readdirSync(dir);
+  } catch {
+    fs.mkdirsSync(dir);
+  }
+
+  items.forEach((item) => {
+    if (item !== 'custom-data') {
+      fs.removeSync(path.join(dir, item));
+    }
+  });
 };

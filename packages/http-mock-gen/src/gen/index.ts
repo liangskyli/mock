@@ -1,5 +1,5 @@
 import path from 'path';
-import { getAbsolutePath, prettierData, copyOptions } from '@liangskyli/utils';
+import { getAbsolutePath, prettierData, copyOptions, removeFilesSync } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import type prettier from 'prettier';
 import openapiTS from '../esm-to-commjs/openapi-typescript';
@@ -36,7 +36,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     process.exit(1);
   }
 
-  fs.removeSync(genMockAbsolutePath);
+  removeFilesSync(genMockAbsolutePath);
   console.info(`Clean dir: ${genMockPath}`);
 
   fs.ensureDirSync(genMockAbsolutePath);
