@@ -2,7 +2,13 @@ import protobufjs from 'protobufjs';
 import type { IInspectNamespace } from './pbjs';
 import { genImplementationData, inspectNamespace } from './pbjs';
 import { fileTip, firstUpperCaseOfWord, firstWordNeedLetter, packageName } from './utils';
-import { getAbsolutePath, prettierData, copyOptions, winPath } from '@liangskyli/utils';
+import {
+  getAbsolutePath,
+  prettierData,
+  copyOptions,
+  winPath,
+  removeFilesSync,
+} from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
 import type { ProtoConfig } from './gen-proto-json';
@@ -17,21 +23,6 @@ export type GenMockDataOptions = {
   rootPath: ProtoConfig | string;
   rootPathServerNameMap?: Record<string, string>;
   prettierOptions?: prettier.Options;
-};
-
-const removeFilesSync = (dir: string) => {
-  let items: string[] = [];
-  try {
-    items = fs.readdirSync(dir);
-  } catch {
-    fs.mkdirsSync(dir);
-  }
-
-  items.forEach((item) => {
-    if (item !== 'custom-data') {
-      fs.removeSync(path.join(dir, item));
-    }
-  });
 };
 
 const genDefaultCustomData = async (
