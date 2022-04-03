@@ -53,6 +53,8 @@ const getMiddleware = async (
     // ignore mock files under node_modules
     'node_modules/**',
     'mock/socket/**',
+    'mock/custom-data/**',
+    'mock/ts-schema.ts',
     ...(exclude || []),
   ];
 
