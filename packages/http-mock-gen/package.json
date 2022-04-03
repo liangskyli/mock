@@ -35,17 +35,17 @@
     "@liangskyli/utils": "^0.9.1-beta.0",
     "@qiwi/esm": "^1.1.1",
     "@types/fs-extra": "^9.0.13",
-    "commander": "^9.0.0",
+    "commander": "^9.1.0",
     "cross-spawn": "^7.0.3",
     "express": "^4.17.3",
     "fs-extra": "^10.0.1",
-    "json-schema-faker": "^0.5.0-rcv.40",
+    "json-schema-faker": "^0.5.0-rcv.42",
     "openapi-typescript": "^5.2.0",
-    "ts-node": "^10.5.0",
+    "ts-node": "^10.7.0",
     "typescript-json-schema": "^0.53.0"
   },
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.17.7",
     "@types/cross-spawn": "^6.0.2"
   },
   "engines": {

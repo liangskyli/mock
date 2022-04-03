@@ -36,18 +36,18 @@
     "@grpc/proto-loader": "^0.6.9",
     "@liangskyli/utils": "^0.9.1-beta.0",
     "@types/fs-extra": "^9.0.13",
-    "commander": "^9.0.0",
+    "commander": "^9.1.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.0.1",
     "lodash": "^4.17.21",
     "protobufjs": "^6.11.2",
-    "ts-node": "^10.5.0",
+    "ts-node": "^10.7.0",
     "ts-node-dev": "^1.1.8"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",
     "@types/express": "^4.17.13",
-    "@types/lodash": "^4.14.178",
+    "@types/lodash": "^4.14.181",
     "@types/mockjs": "^1.0.5",
     "express": "^4.17.3",
     "mockjs": "^1.1.0"

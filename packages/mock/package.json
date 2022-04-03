@@ -38,15 +38,15 @@
     "directory": "lib"
   },
   "dependencies": {
-    "@babel/core": "^7.17.5",
-    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
-    "@babel/register": "^7.17.0",
+    "@babel/core": "^7.17.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.17.7",
+    "@babel/register": "^7.17.7",
     "@liangskyli/utils": "^0.9.1-beta.0",
     "@types/express": "^4.17.13",
     "@types/fs-extra": "^9.0.13",
-    "body-parser": "^1.19.2",
+    "body-parser": "^1.20.0",
     "chokidar": "^3.5.3",
-    "commander": "^9.0.0",
+    "commander": "^9.1.0",
     "cross-spawn": "^7.0.3",
     "express": "^4.17.3",
     "fs-extra": "^10.0.1",
@@ -55,17 +55,17 @@
     "multer": "^1.4.4",
     "path-to-regexp": "^6.2.0",
     "socket.io": "^4.4.1",
-    "ts-node": "^10.5.0"
+    "ts-node": "^10.7.0"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",
     "@types/glob": "^7.2.0",
-    "@types/lodash": "^4.14.178",
+    "@types/lodash": "^4.14.181",
     "@types/mockjs": "^1.0.5",
     "@types/multer": "^1.4.7",
     "mockjs": "^1.1.0",
     "socket.io-client": "^4.4.1",
-    "webpack": "^5.69.1",
+    "webpack": "^5.71.0",
     "webpack-dev-server": "^4.7.4"
   },
   "engines": {
