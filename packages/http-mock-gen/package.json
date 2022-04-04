@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/http-mock-gen",
-  "version": "0.10.0-beta.0",
+  "version": "0.10.0-beta.1",
   "description": "http mock gen for web mockServer",
   "repository": {
     "type": "git",
