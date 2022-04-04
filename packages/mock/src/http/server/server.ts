@@ -1,6 +1,6 @@
 import http from 'http';
 import express from 'express';
-import { address, chalk } from '@liangskyli/utils';
+import { address } from '@liangskyli/utils';
 import getMiddleware from './middleware';
 import { killProcess } from '../tools';
 import type { ISocketConfig } from './socket-server';
@@ -65,8 +65,8 @@ const mockServer = async (opts: IOpts = {}) => {
       console.log(
         [
           '  http mock server running at:',
-          `  - Local:   ${chalk.cyan(localUrl)}`,
-          lanUrl && `  - Network: ${chalk.cyan(lanUrl)}`,
+          `  - Local:   ${localUrl}`,
+          lanUrl && `  - Network: ${lanUrl}`,
         ]
           .filter(Boolean)
           .join('\n'),

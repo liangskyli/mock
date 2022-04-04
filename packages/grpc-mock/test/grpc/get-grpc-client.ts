@@ -1,5 +1,5 @@
 import * as grpc from 'grpc';
-import { get } from 'lodash';
+import { lodash } from '@liangskyli/utils';
 import grpcObject from '../grpc-mock/grpc-obj';
 import type { Metadata } from 'grpc';
 
@@ -16,7 +16,7 @@ function toMetadata(metadata: MetadataMap): Metadata {
 }
 
 export const start = async (): Promise<{ response: any; metadata: Metadata }> => {
-  const proto = get<any, string>(grpcObject, 'trade_trade_zxkp.trade_zxkp_proto');
+  const proto = lodash.get<any, string>(grpcObject, 'trade_trade_zxkp.trade_zxkp_proto');
   const client = new proto.ActivityService('localhost:50003', grpc.credentials.createInsecure());
   return new Promise((resolve, reject) => {
     client.GetListByBuildingId(
@@ -34,7 +34,7 @@ export const start = async (): Promise<{ response: any; metadata: Metadata }> =>
 };
 
 export const start2 = async (): Promise<{ response: any; metadata: Metadata }> => {
-  const proto = get<any, string>(grpcObject, 'serverName1.activity_package');
+  const proto = lodash.get<any, string>(grpcObject, 'serverName1.activity_package');
   const client = new proto.ActivityService('localhost:50000', grpc.credentials.createInsecure());
   return new Promise((resolve, reject) => {
     client.Create(

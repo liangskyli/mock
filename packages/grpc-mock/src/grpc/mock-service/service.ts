@@ -1,6 +1,6 @@
 import * as grpc from 'grpc';
 import type { IProtoItem, IMockService, IMetadataMap } from './service-type';
-import { get } from 'lodash';
+import { lodash } from '@liangskyli/utils';
 import type { Metadata } from 'grpc';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -61,7 +61,7 @@ const getImplementation: (proto: IProtoItem) => IImplementation = (proto) => {
 const start = (grpcObject: any, mock: IMockService) => {
   const server = new grpc.Server();
   mock.protoList.map((proto) => {
-    const { service } = get<any, string>(grpcObject, proto.path);
+    const { service } = lodash.get<any, string>(grpcObject, proto.path);
     server.addService(service, getImplementation(proto));
   });
 

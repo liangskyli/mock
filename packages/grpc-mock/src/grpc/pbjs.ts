@@ -1,4 +1,4 @@
-import { uniqBy } from 'lodash';
+import { lodash } from '@liangskyli/utils';
 import type {
   Enum,
   Field,
@@ -97,10 +97,10 @@ export function inspectNamespace(namespace: ReflectionObject & INamespace): IIns
         nested: cloneNested,
         comment: comment as string,
       },
-      services: uniqBy(collectServices, 'fullName'),
-      methods: uniqBy(collectMethods, 'fullName'),
-      messages: uniqBy(collectMessages, 'fullName'),
-      enums: uniqBy(collectEnums, 'fullName'),
+      services: lodash.uniqBy(collectServices, 'fullName'),
+      methods: lodash.uniqBy(collectMethods, 'fullName'),
+      messages: lodash.uniqBy(collectMessages, 'fullName'),
+      enums: lodash.uniqBy(collectEnums, 'fullName'),
     };
   }
   return null;

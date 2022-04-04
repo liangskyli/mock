@@ -1,6 +1,6 @@
 import type { Socket, ServerOptions } from 'socket.io';
 import { Server as SocketServer } from 'socket.io';
-import { winPath, address, chalk } from '@liangskyli/utils';
+import { winPath, address } from '@liangskyli/utils';
 import { isAbsolute, join } from 'path';
 import type http from 'http';
 import type { FSWatcher } from 'chokidar';
@@ -43,8 +43,8 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
   console.log(
     [
       '  socket mock server running at:',
-      `  - Local:   ${chalk.cyan(localUrl)}`,
-      lanUrl && `  - Network: ${chalk.cyan(lanUrl)}`,
+      `  - Local:   ${localUrl}`,
+      lanUrl && `  - Network: ${lanUrl}`,
       `  - path:   ${socketConfig.opts?.path}`,
     ]
       .filter(Boolean)
