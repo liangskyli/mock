@@ -1,10 +1,14 @@
 import type { ICustomData } from 'packageName';
 import { Request } from 'express';
 
-export const ActivityData: ICustomData = {
-  '/v1/activity/create': {
-    /** mock 正常响应数据 */
-    response: { retCode: 0, retMsg: 'retMsg', data: {} },
+export const BuildingData: ICustomData = {
+  '/v1/building/get-list': {
+    /** mock 响应数据 */
+    response: {
+      retCode: 0,
+      retMsg: 'retMsg',
+      data: { isFuLi: false, blockList: [{ isBindErp: false, buildingName: 'buildingName' }] },
+    },
     /** mock 多场景响应数据 */
     sceneData: [
       {
@@ -14,7 +18,11 @@ export const ActivityData: ICustomData = {
           // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
           return false;
         },
-        response: { retCode: 0, retMsg: 'retMsg', data: {} },
+        response: {
+          retCode: 0,
+          retMsg: 'retMsg',
+          data: { isFuLi: false, blockList: [{ isBindErp: false, buildingName: 'buildingName' }] },
+        },
       },
     ],
   },
