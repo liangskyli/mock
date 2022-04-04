@@ -10,15 +10,15 @@
     ├── custom-data // 自定义mock数据文件夹
     |   └── index.ts // 自定义mock数据入口文件
     |   └── template-data.ts // 模版数据例子
-    └── proto  // proto mock数据文件夹（自动生成，不要更改）
+    ├── proto  // proto mock数据文件夹（自动生成，不要更改）
     |   └── serverName1 // 服务文件夹
     |       └── accitity_package // proto 包名文件夹
     |           └── ActibityService.ts // proto服务mock数据
     ├── server // mock 服务代码文件夹
     |   └── Severname1Mock.ts // mock服务配置代码
-    └── root.json // 生成的proto对应的json文件
-    └── index.ts // grpc-mock服务启动文件
-    └── grpc-obj.ts // grpc-mock服务依赖文件
+    ├── root.json // 生成的proto对应的json文件
+    ├── index.ts // grpc-mock服务启动文件
+    ├── grpc-obj.ts // grpc-mock服务依赖文件
     └── grpc-service.mock.config.js // grpc-mock服务名和端口配置文件
 ```
 
