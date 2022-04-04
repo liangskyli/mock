@@ -46,7 +46,11 @@ function buildDeclaration() {
 }
 
 function copyMetaFiles() {
-  return gulp.src(['./README.md', './bin*/**', './docs*/**']).pipe(gulp.dest('./lib/'));
+  gulp.src(['./README.md', './bin*/**', './docs*/**']).pipe(gulp.dest('./lib/'));
+  return gulp
+    .src(['./src/gen*/custom-data-template*/**'])
+    .pipe(gulp.dest('lib/es/'))
+    .pipe(gulp.dest('lib/cjs/'));
 }
 
 function generateCliPackageJSON() {
