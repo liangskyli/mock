@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/http-mock-gen",
-  "version": "0.9.1",
+  "version": "0.10.0-beta.0",
   "description": "http mock gen for web mockServer",
   "repository": {
     "type": "git",
@@ -32,7 +32,7 @@
     "directory": "lib"
   },
   "dependencies": {
-    "@liangskyli/utils": "^0.9.1-beta.0",
+    "@liangskyli/utils": "^0.10.0-beta.0",
     "@qiwi/esm": "^1.1.1",
     "@types/fs-extra": "^9.0.13",
     "commander": "^9.1.0",

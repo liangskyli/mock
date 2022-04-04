@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.0-beta.0](https://github.com/liangskyli/mock/compare/v0.9.1-beta.0...v0.10.0-beta.0) (2022-04-04)
+
+
+### Features
+
+* http-mock-gen support separation of custom data and generated data ([585e59d](https://github.com/liangskyli/mock/commit/585e59db3ccf208203087751e1db27b627d6d0f9))
+* **mock:** add system ignore mock files mock/custom-data/**,mock/ts-schema.ts ([bec572c](https://github.com/liangskyli/mock/commit/bec572c5db179be687583043e464e84a7d661248))
+* **mock:** custom-data-template modify ([a836707](https://github.com/liangskyli/mock/commit/a8367071a6feee715f0cb9f5c843e96e00902652))
+
+
+
 ### [0.9.1-beta.0](https://github.com/liangskyli/mock/compare/v0.9.0...v0.9.1-beta.0) (2022-02-25)
 
 

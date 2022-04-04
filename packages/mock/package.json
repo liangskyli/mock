@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/mock",
-  "version": "0.9.1",
+  "version": "0.10.0-beta.0",
   "description": "mockServer for web",
   "repository": {
     "type": "git",
@@ -41,7 +41,7 @@
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-modules-commonjs": "^7.17.7",
     "@babel/register": "^7.17.7",
-    "@liangskyli/utils": "^0.9.1-beta.0",
+    "@liangskyli/utils": "^0.10.0-beta.0",
     "@types/express": "^4.17.13",
     "@types/fs-extra": "^9.0.13",
     "body-parser": "^1.20.0",
