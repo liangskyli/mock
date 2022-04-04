@@ -16,6 +16,8 @@ yarn add @liangskyli/mock --dev
 - 包含 http 和 socket 的mock功能 [文档](packages/mock/docs/http-mock.md)
 
 ### 1.1 http mock 代码生成工具
+> 提供http mock数据自动生成功能，减轻手动编写mock数据代码，mock数据填充默认值。<br/>
+> 支持生成数据和自定义数据分离。
 
 ### 安装:
 ```bash
@@ -26,7 +28,9 @@ yarn add @liangskyli/http-mock-gen --dev
 
 
 ### 2、grpc mock
-> 提供grpc mock数据自动生成和mock服务启动功能，减轻手动编写mock数据代码，mock数据填充默认值。支持mock数据更改时热更新获取新数据。
+> 提供grpc mock数据自动生成和mock服务启动功能，减轻手动编写mock数据代码，mock数据填充默认值。<br/>
+> 支持生成数据和自定义数据分离。<br/>
+> 支持mock数据更改时热更新获取新数据。
 
 ### 安装:
 ```bash
