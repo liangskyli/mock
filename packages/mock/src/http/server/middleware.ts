@@ -54,7 +54,7 @@ const getMiddleware = async (
     'node_modules/**',
     'mock/socket/**',
     'mock/custom-data/**',
-    'mock/ts-schema.ts',
+    'mock/schema-api/**',
     ...(exclude || []),
   ];
 
