@@ -47,7 +47,16 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "query",
+            "description": "活动id (@QueryParams, 类型：number)",
+            "required": true,
+            "schema": { "type": "number", "description": "活动id" }
+          }
+        ]
       }
     },
     "/v1/beta-round/delete": {

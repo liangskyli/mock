@@ -2,7 +2,7 @@ import genMockData from './gen/index';
 import { Request } from 'express';
 import { ICustomData } from './gen/mock-interface-type';
 
-const getMockData = (req: Request, data?: ICustomData['string']) => {
+const getMockData = <T = any>(defaultData: T, req: Request, data?: ICustomData<T>['string']) => {
   let json = data?.response;
   if (data?.sceneData) {
     data.sceneData.some((sceneItem) => {
@@ -12,6 +12,9 @@ const getMockData = (req: Request, data?: ICustomData['string']) => {
       }
       return false;
     });
+  }
+  if (!json) {
+    json = defaultData;
   }
   return json;
 };

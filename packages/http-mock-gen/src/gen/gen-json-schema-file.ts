@@ -8,7 +8,7 @@ import { prettierData } from '@liangskyli/utils';
 
 type IOpts = {
   schemaTsPath: string;
-  genMockAbsolutePath: string;
+  genSchemaAPIAbsolutePath: string;
   compilerOptions?: TJS.CompilerOptions;
   prettierOptions?: prettier.Options;
   jsonSchemaFakerOptions?: JSONSchemaFakerOptions;
@@ -18,7 +18,7 @@ type IOpts = {
 const genMockDataFile = async (opts: IOpts) => {
   const {
     schemaTsPath,
-    genMockAbsolutePath,
+    genSchemaAPIAbsolutePath,
     compilerOptions = { strictNullChecks: true },
     mockDataReplace,
   } = opts;
@@ -30,10 +30,10 @@ const genMockDataFile = async (opts: IOpts) => {
   }
   prettierOptions = Object.assign(prettierOptions, { parser: 'json' });
 
-  const schemaPath = path.join(genMockAbsolutePath, 'schema.json');
+  const schemaPath = path.join(genSchemaAPIAbsolutePath, 'schema.json');
   const schemaString = JSON.stringify(schema, null, 2);
   fs.writeFileSync(schemaPath, await prettierData(schemaString, prettierOptions));
-  console.info('Generate schema.json success');
+  console.info('Generate schema-api/schema.json success');
 
   if (jsonSchemaFakerOptions === undefined) {
     jsonSchemaFakerOptions = { alwaysFakeOptionals: true, fillProperties: false };
@@ -46,10 +46,10 @@ const genMockDataFile = async (opts: IOpts) => {
   jsf.option(jsonSchemaFakerOptions);
   const mockData = jsf.generate(schema as any);
   const mockDataString = JSON.stringify(mockData, mockDataReplace, 2);
-  const mockDataAbsolutePath = path.join(genMockAbsolutePath, 'mock-data.json');
+  const mockDataAbsolutePath = path.join(genSchemaAPIAbsolutePath, 'mock-data.json');
   fs.writeFileSync(mockDataAbsolutePath, await prettierData(mockDataString, prettierOptions));
 
-  console.info('Generate mock-data.json success');
+  console.info('Generate schema-api/mock-data.json success');
 
   return mockDataAbsolutePath;
 };

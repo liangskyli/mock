@@ -1,7 +1,10 @@
 import type { ICustomData } from 'packageName';
 import { Request } from 'express';
+import { API } from '../schema-api/interface-api';
 
-export const BuildingData: ICustomData = {
+type IBuildingData = API['/v1/building/get-list']['Response'];
+
+export const BuildingData: ICustomData<IBuildingData> = {
   '/v1/building/get-list': {
     /** mock 响应数据 */
     response: {
