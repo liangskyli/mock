@@ -28,6 +28,34 @@ yarn http-mock-gen -c ./mock.config.cli.ts
 | prettierOptions        | `生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置，详情配置见` [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md)    |                                                      |
 | jsonSchemaFakerOptions | `生成mock 数据 faker配置参数，详情配置见` [json-schema-faker options文档](https://github.com/json-schema-faker/json-schema-faker/blob/HEAD/docs/README.md#available-options) | { alwaysFakeOptionals: true, fillProperties: false } |
 | mockDataReplace        | `生成mock 数据处理函数，可以覆盖faker数据` (this: any, key: string, value: any) => any                                                                                      | undefined                                            |
+| requestFilePath        | `ajax请求库路径，默认使用axios,文件默认导出函数，类型详见下面说明`                                                                                                                      | undefined                                            |
+
+- requestFilePath 说明
+  - 不设置，默认使用axios,可以自己封装后引入路径使用。
+  - ajax请求库路径不做处理，按生成的文件的相对路径或使用绝对路径。
+  - 路径下的文件要求默认导出方法,为IAPIRequest类型。
+    ```ts
+    type IAPIRequest = (param: {
+      url?: string;
+      method?: 'get' | 'GET' | 'post' | 'POST';
+      params?: any;
+      data?: any;
+      [k: string]: any;
+    }) => Promise<any>;
+    ```
+  - 自定义ajax接口例子：
+    ```ts
+    import axios from 'axios';
+    import type { IAPIRequest } from '@liangskyli/http-mock-gen';
+    
+    const request: IAPIRequest = (config) => {
+      // 这里可以封装公共逻辑
+      return axios(config).then((res) => res.data);
+    };
+    
+    export default request;
+    ```
+  - 生成的schema-api/request-api.ts文件,可直接用于项目请求接口，无需手动编写代码。
 
 - configFile mock数据生成配置文件示例
 ```ts
@@ -61,6 +89,7 @@ export default config;
 - openapi v3 method 只支持 get post接口，只生成application/json响应数据
 - 生成mock 数据结构，最终使用interface-mock-data.ts文件
 - Mock 数据修改指引 [文档](docs/http-mock-modify-guide.md)
+- 接口API使用指引 [文档](docs/request-api-guide.md)
 
 生成的interface-mock-data.ts 文件(不要手动修改这个文件)，用于http mock 功能。
 ```ts
@@ -68,17 +97,17 @@ export default config;
 import { Request, Response } from 'express';
 import CustomData from './custom-data';
 import { getMockData, ICustomData } from '@liangskyli/http-mock-gen';
-import { API } from './schema-api/interface-api';
+import { IApi } from './schema-api/interface-api';
 
 export default {
     'POST /v1/beta-round/delete': (req: Request, res: Response) => {
-        type IData = API['/v1/beta-round/delete']['Response'];
+        type IData = IApi['/v1/beta-round/delete']['Response'];
         const data = (CustomData as ICustomData<IData>)['/v1/beta-round/delete'];
         let json = getMockData({ retCode: 0, retMsg: 'retMsg' }, req, data);
         res.json(json);
     },
     'GET /v1/building/get-list': (req: Request, res: Response) => {
-        type IData = API['/v1/building/get-list']['Response'];
+        type IData = IApi['/v1/building/get-list']['Response'];
         const data = (CustomData as ICustomData<IData>)['/v1/building/get-list'];
         let json = getMockData(
             {
