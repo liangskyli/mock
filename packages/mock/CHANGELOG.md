@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.0](https://github.com/liangskyli/mock/compare/v0.10.0-beta.1...v0.11.0) (2022-04-17)
+
+
+### Features
+
+* **mock:** modify system ignore mock files mock/ts-schema.ts to mock/schema-api/** ([bd54755](https://github.com/liangskyli/mock/commit/bd54755caedde3720efa23dd3c38f6353f54544d))
+
+
+
 ## [0.10.0-beta.0](https://github.com/liangskyli/mock/compare/v0.9.1-beta.0...v0.10.0-beta.0) (2022-04-04)
 
 

@@ -13,6 +13,11 @@ export type IGenMockDataOpts = {
   prettierOptions?: prettier.Options;
   jsonSchemaFakerOptions?: JSONSchemaFakerOptions;
   mockDataReplace?: (this: any, key: string, value: any) => any;
+  /**
+   * 请求库文件路径，例如 "../../utils/request"
+   * 需要注意的是此文件必须是使用 export default 默认导出
+   */
+  requestFilePath?: string;
 };
 
 const genMockData = async (opts: IGenMockDataOpts) => {
@@ -22,6 +27,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     prettierOptions,
     jsonSchemaFakerOptions,
     mockDataReplace,
+    requestFilePath,
   } = opts;
 
   const genMockPath = path.join(mockDir, 'mock');
@@ -40,16 +46,19 @@ const genMockData = async (opts: IGenMockDataOpts) => {
   console.info(`Clean dir: ${genMockPath}`);
 
   fs.ensureDirSync(genMockAbsolutePath);
+  // schema接口定义相关文件目录
+  const genSchemaAPIAbsolutePath = path.join(genMockAbsolutePath, 'schema-api');
+  fs.ensureDirSync(genSchemaAPIAbsolutePath);
 
   // openapi生成TS类型文件
   const schemaString = await openapiTS(openapiAbsolutePath);
-  const schemaTsPath = path.join(genMockAbsolutePath, 'ts-schema.ts');
+  const schemaTsPath = path.join(genSchemaAPIAbsolutePath, 'ts-schema.ts');
   fs.writeFileSync(schemaTsPath, await prettierData(schemaString, copyOptions(prettierOptions)));
-  console.info('Generate ts-schema.ts success');
+  console.info('Generate schema-api/ts-schema.ts success');
   // 生成schema file and mock data file
   const mockDataAbsolutePath = await genMockDataFile({
     schemaTsPath,
-    genMockAbsolutePath,
+    genSchemaAPIAbsolutePath,
     prettierOptions: copyOptions(prettierOptions),
     jsonSchemaFakerOptions,
     mockDataReplace,
@@ -59,7 +68,9 @@ const genMockData = async (opts: IGenMockDataOpts) => {
   await genMockInterfaceFile({
     mockDataAbsolutePath,
     genMockAbsolutePath,
+    genSchemaAPIAbsolutePath,
     prettierOptions: copyOptions(prettierOptions),
+    requestFilePath,
   });
 };
 

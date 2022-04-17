@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.0](https://github.com/liangskyli/mock/compare/v0.10.0-beta.1...v0.11.0) (2022-04-17)
+
+
+### Features
+
+* **http-mock-gen:** gen interface-api ts type file and mock data add ts type ([a029d2c](https://github.com/liangskyli/mock/commit/a029d2c4e599d3ccc93591ee9cecc02144d87e39))
+* **http-mock-gen:** gen request-api ts file and support customer ajax request ([5811655](https://github.com/liangskyli/mock/commit/58116559661f14b604a24814c5762da7c638575a))
+
+
+
 ## [0.10.0-beta.1](https://github.com/liangskyli/mock/compare/v0.10.0-beta.0...v0.10.0-beta.1) (2022-04-04)
 
 **Note:** Version bump only for package @liangskyli/http-mock-gen
