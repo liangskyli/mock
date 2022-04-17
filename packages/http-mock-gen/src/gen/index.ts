@@ -13,6 +13,11 @@ export type IGenMockDataOpts = {
   prettierOptions?: prettier.Options;
   jsonSchemaFakerOptions?: JSONSchemaFakerOptions;
   mockDataReplace?: (this: any, key: string, value: any) => any;
+  /**
+   * 请求库文件路径，例如 "../../utils/request"
+   * 需要注意的是此文件必须是使用 export default 默认导出
+   */
+  requestFilePath?: string;
 };
 
 const genMockData = async (opts: IGenMockDataOpts) => {
@@ -22,6 +27,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     prettierOptions,
     jsonSchemaFakerOptions,
     mockDataReplace,
+    requestFilePath,
   } = opts;
 
   const genMockPath = path.join(mockDir, 'mock');
@@ -64,6 +70,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     genMockAbsolutePath,
     genSchemaAPIAbsolutePath,
     prettierOptions: copyOptions(prettierOptions),
+    requestFilePath,
   });
 };
 

@@ -1,4 +1,5 @@
 import genMockData from '../../src/index';
+//import * as path from 'path';
 
 genMockData({
   mockDir: './test/genHttpMock',
@@ -19,4 +20,6 @@ genMockData({
     }
     return value;
   },
+  //requestFilePath: '../../../http/request',
+  //requestFilePath: path.join(__dirname, './request'),
 }).then();

@@ -18,8 +18,15 @@ const getMockData = <T = any>(defaultData: T, req: Request, data?: ICustomData<T
   }
   return json;
 };
+type IAPIRequest = (param: {
+  url?: string;
+  method?: 'get' | 'GET' | 'post' | 'POST';
+  params?: any;
+  data?: any;
+  [k: string]: any;
+}) => Promise<any>;
 
 export type { IGenMockDataOpts } from './gen/index';
 export default genMockData;
 export { getMockData };
-export type { ICustomData };
+export type { ICustomData, IAPIRequest };

@@ -9,6 +9,7 @@ type IOpts = {
   genMockAbsolutePath: string;
   genSchemaAPIAbsolutePath: string;
   prettierOptions?: prettier.Options;
+  requestFilePath?: string;
 };
 
 const genDefaultCustomData = async (
@@ -44,25 +45,61 @@ const genDefaultCustomData = async (
 };
 
 const genMockInterfaceFile = async (opts: IOpts) => {
-  const { mockDataAbsolutePath, genMockAbsolutePath, genSchemaAPIAbsolutePath, prettierOptions } =
-    opts;
+  const {
+    mockDataAbsolutePath,
+    genMockAbsolutePath,
+    genSchemaAPIAbsolutePath,
+    prettierOptions,
+    requestFilePath,
+  } = opts;
 
   const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
   await genDefaultCustomData(genCustomDataPath, prettierOptions);
   const mockData = await import(mockDataAbsolutePath);
 
+  if (!requestFilePath) {
+    const requestData: string[] = [];
+    requestData.push(`${fileTip}
+    import axios from 'axios';
+    import type { IAPIRequest } from '${packageName}';
+    
+    const request: IAPIRequest = (config) => {
+      return axios(config).then((res) => res.data);
+    };
+    
+    export default request;
+  `);
+    const requestDataAbsolutePath = path.join(genSchemaAPIAbsolutePath, 'request.ts');
+    fs.writeFileSync(
+      requestDataAbsolutePath,
+      await prettierData(requestData.join(''), prettierOptions),
+    );
+    console.info('Generate request.ts file success');
+  }
+
   const interfaceAPIType: string[] = [];
   interfaceAPIType.push(`${fileTip}
-  import { paths } from './ts-schema';
+  import type { paths } from '${requestFilePath ? requestFilePath : './ts-schema'}';
   `);
-  interfaceAPIType.push('\n export interface API {');
+  interfaceAPIType.push('\n export interface IApi {');
+
+  const requestAPI: string[] = [];
+  requestAPI.push(`${fileTip}
+   import request from '${requestFilePath ? requestFilePath : './request'}';
+   import type { IApi } from './interface-api';
+  `);
+  requestAPI.push('\n');
+  requestAPI.push(`
+    type IConfig<T extends Record<any, any>, U extends Record<any, any>> = T & U;
+   `);
+  requestAPI.push('\n export const requestApi = {');
 
   const interfaceMockData: string[] = [];
   interfaceMockData.push(`${fileTip}
     import { Request, Response } from "express";
     import CustomData from "./custom-data";
     import { getMockData, ICustomData } from "${packageName}";
-    import { API } from './schema-api/interface-api';
+    import type { IApi } from './schema-api/interface-api';
   `);
 
   interfaceMockData.push('\n export default {');
@@ -95,33 +132,70 @@ const genMockInterfaceFile = async (opts: IOpts) => {
       haveBody = !!itemValue.post?.requestBody?.content?.['application/json'];
     }
     if (method) {
+      let IConfigT: string[] = [];
+      if (haveQuery || haveBody) {
+        IConfigT.push('Omit<T, ');
+        if (haveQuery) {
+          IConfigT.push('"params"');
+        }
+        if (haveBody) {
+          if (haveQuery) {
+            IConfigT.push(' | ');
+          }
+          IConfigT.push('"data"');
+        }
+        IConfigT.push('>,');
+      }
+
       interfaceMockData.push(`'${method} ${item}': (req: Request, res: Response) => {
-        type IData = API['${item}']['Response'];
+        type IData = IApi['${item}']['Response'];
         const data = (CustomData as ICustomData<IData>)['${item}'];
         let json = getMockData(${JSON.stringify(data)},req, data);
         res.json(json);
       },`);
 
       interfaceAPIType.push(`'${item}': {`);
+      requestAPI.push(`'${item}': <T extends Record<any, any>>(
+        config: IConfig<
+          ${IConfigT.length > 0 ? IConfigT.join('') : 'T,'}
+          {
+      `);
       if (haveQuery) {
         interfaceAPIType.push(
           `Query: paths['${item}']['${method.toLowerCase()}']['parameters']['query'];`,
         );
+        requestAPI.push(`params: IApi['${item}']['Query'];`);
       }
       if (haveBody) {
         interfaceAPIType.push(
           `Body: paths['${item}']['${method.toLowerCase()}']['requestBody']['content']['application/json'];`,
         );
+        requestAPI.push(`data: IApi['${item}']['Body'];`);
       }
       interfaceAPIType.push(
         `Response: paths['${item}']['${method.toLowerCase()}']['responses']['200']['content']['application/json'];`,
       );
       interfaceAPIType.push('};');
+      requestAPI.push(`}
+        >,
+      ): Promise<IApi['${item}']['Response']> => {  
+      const { ${haveQuery ? 'params,' : ''} ${haveBody ? 'data,' : ''} ...otherConfig } = config;
+
+      return request({
+        method: 'GET',
+        url: '${item}',
+        ${haveQuery ? 'params: params,' : ''}
+        ${haveBody ? 'data: data,' : ''}
+        ...otherConfig,
+      });
+    },
+      `);
     }
   });
 
   interfaceMockData.push('}');
   interfaceAPIType.push('}');
+  requestAPI.push('}');
 
   const interfaceMockDataAbsolutePath = path.join(genMockAbsolutePath, 'interface-mock-data.ts');
   fs.writeFileSync(
@@ -137,6 +211,14 @@ const genMockInterfaceFile = async (opts: IOpts) => {
   );
 
   console.info('Generate schema-api/interface-api.ts file success');
+
+  const requestAPIAbsolutePath = path.join(genSchemaAPIAbsolutePath, 'request-api.ts');
+  fs.writeFileSync(
+    requestAPIAbsolutePath,
+    await prettierData(requestAPI.join(''), prettierOptions),
+  );
+
+  console.info('Generate schema-api/request-api.ts file success');
 };
 
 export { genMockInterfaceFile };
