@@ -1,11 +1,11 @@
 // 自定义mock数据入口，文件不可删除。
-import type { ICustomData } from 'packageName';
-import { BuildingData } from './template-data';
+import type { ICustomsData } from 'packageName';
+import { TemplateData } from './template-data';
 
-const CustomData: ICustomData = {
+const CustomData: ICustomsData = {
   // 自定义mock数据示例
-  // BuildingData 对应接口数据
-  ...BuildingData,
+  // TemplateData 对应接口数据
+  ...TemplateData,
 };
 export default CustomData;
 

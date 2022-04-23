@@ -10,12 +10,25 @@ export interface ISceneDataItem<T> extends IResponseData<T> {
   requestCase: (request: Request) => boolean;
 }
 
-export type ICustomData<T = any> = Record<
+export type ICustomDataValue<T = any> = IResponseData<T> & {
+  /** mock 多场景响应数据 */
+  sceneData?: ISceneDataItem<T>[];
+};
+
+export type ICustomData<T = any, K extends keyof any = string> = Record<
   /** http 接口路径 */
-  string,
-  | (IResponseData<T> & {
-      /** mock 多场景响应数据 */
-      sceneData?: ISceneDataItem<T>[];
-    })
-  | undefined
+  K,
+  ICustomDataValue<T> | undefined
 >;
+
+export type ICustomsData<
+  T extends Record<
+    /** http 接口路径 */
+    string,
+    ICustomDataValue
+  > = Record<
+    /** http 接口路径 */
+    string,
+    ICustomDataValue
+  >,
+> = T;

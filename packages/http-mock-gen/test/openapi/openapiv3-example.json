@@ -59,7 +59,7 @@
         ]
       }
     },
-    "/v1/beta-round/delete": {
+    "/v1/card/delete": {
       "post": {
         "tags": ["BetaRoundController"],
         "summary": "删除活动轮次",

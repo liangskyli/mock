@@ -13,10 +13,27 @@ type IOpts = {
 };
 
 const genDefaultCustomData = async (
+  mockData: any,
   genCustomDataPath: string,
   prettierOptions?: prettier.Options,
 ) => {
   if (!fs.pathExistsSync(path.join(genCustomDataPath, 'index.ts'))) {
+    const firstPath = Object.keys(mockData)[0];
+    const itemValue = mockData[firstPath];
+    let responseData = {};
+    if (itemValue.get) {
+      const content = itemValue.get?.responses?.['200']?.content;
+      if (content && content['application/json']) {
+        responseData = content['application/json'];
+      }
+    }
+    if (itemValue.post) {
+      const content = itemValue.post?.responses?.['200']?.content;
+      if (content && content['application/json']) {
+        responseData = content['application/json'];
+      }
+    }
+
     fs.ensureDirSync(genCustomDataPath);
     // 生成默认自定义mock数据入口文件
     const templateData = fs.readFileSync(
@@ -26,7 +43,10 @@ const genDefaultCustomData = async (
     fs.writeFileSync(
       path.join(genCustomDataPath, 'template-data.ts'),
       await prettierData(
-        templateData.replace('packageName', packageName),
+        templateData
+          .replace('packageName', packageName)
+          .replace(/{{firstPath}}/gi, firstPath)
+          .replace(/{{responseData}}/gi, JSON.stringify(responseData)),
         copyOptions(prettierOptions),
       ),
     );
@@ -41,6 +61,7 @@ const genDefaultCustomData = async (
         copyOptions(prettierOptions),
       ),
     );
+    console.info('Generate custom-data folder success');
   }
 };
 
@@ -53,9 +74,10 @@ const genMockInterfaceFile = async (opts: IOpts) => {
     requestFilePath,
   } = opts;
 
-  const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
-  await genDefaultCustomData(genCustomDataPath, prettierOptions);
   const mockData = await import(mockDataAbsolutePath);
+  // 生成自定义数据模版
+  const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
+  await genDefaultCustomData(mockData, genCustomDataPath, prettierOptions);
 
   if (!requestFilePath) {
     const requestData: string[] = [];
@@ -96,9 +118,10 @@ const genMockInterfaceFile = async (opts: IOpts) => {
 
   const interfaceMockData: string[] = [];
   interfaceMockData.push(`${fileTip}
-    import { Request, Response } from "express";
+    import type { Request, Response } from "express";
     import CustomData from "./custom-data";
-    import { getMockData, ICustomData } from "${packageName}";
+    import { getMockData } from "${packageName}";
+    import type { ICustomData, PartialAll } from "${packageName}";
     import type { IApi } from './schema-api/interface-api';
   `);
 
@@ -149,8 +172,8 @@ const genMockInterfaceFile = async (opts: IOpts) => {
 
       interfaceMockData.push(`'${method} ${item}': (req: Request, res: Response) => {
         type IData = IApi['${item}']['Response'];
-        const data = (CustomData as ICustomData<IData>)['${item}'];
-        let json = getMockData(${JSON.stringify(data)},req, data);
+        const data = (CustomData as ICustomData<PartialAll<IData>>)['${item}'];
+        let json = getMockData<IData>(${JSON.stringify(data)},req, data);
         res.json(json);
       },`);
 

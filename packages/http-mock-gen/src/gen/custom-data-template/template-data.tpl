@@ -1,17 +1,13 @@
-import type { ICustomData } from 'packageName';
-import { Request } from 'express';
+import type { ICustomsData, PartialAll, ICustomDataValue } from 'packageName';
+import type { Request } from 'express';
 import type { IApi } from '../schema-api/interface-api';
 
-type IBuildingData = IApi['/v1/building/get-list']['Response'];
-
-export const BuildingData: ICustomData<IBuildingData> = {
-  '/v1/building/get-list': {
+export const TemplateData: ICustomsData<{
+  '{{firstPath}}': ICustomDataValue<PartialAll<IApi['{{firstPath}}']['Response']>>;
+}> = {
+  '{{firstPath}}': {
     /** mock 响应数据 */
-    response: {
-      retCode: 0,
-      retMsg: 'retMsg',
-      data: { isFuLi: false, blockList: [{ isBindErp: false, buildingName: 'buildingName' }] },
-    },
+    response: {{responseData}},
     /** mock 多场景响应数据 */
     sceneData: [
       {
@@ -21,11 +17,7 @@ export const BuildingData: ICustomData<IBuildingData> = {
           // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
           return false;
         },
-        response: {
-          retCode: 0,
-          retMsg: 'retMsg',
-          data: { isFuLi: false, blockList: [{ isBindErp: false, buildingName: 'buildingName' }] },
-        },
+        response: {{responseData}},
       },
     ],
   },
