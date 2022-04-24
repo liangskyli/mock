@@ -10,6 +10,8 @@ type IOpts = {
   genSchemaAPIAbsolutePath: string;
   prettierOptions?: prettier.Options;
   requestFilePath?: string;
+  requestQueryOmit: string[];
+  requestBodyOmit: string[];
 };
 
 const genDefaultCustomData = async (
@@ -72,6 +74,8 @@ const genMockInterfaceFile = async (opts: IOpts) => {
     genSchemaAPIAbsolutePath,
     prettierOptions,
     requestFilePath,
+    requestQueryOmit,
+    requestBodyOmit,
   } = opts;
 
   const mockData = await import(mockDataAbsolutePath);
@@ -178,21 +182,35 @@ const genMockInterfaceFile = async (opts: IOpts) => {
       },`);
 
       interfaceAPIType.push(`'${item}': {`);
-      requestAPI.push(`'${item}': <T extends Record<any, any>>(
+      requestAPI.push(`'${item}': <T extends Record<any, any> = {}>(
         config: IConfig<
           ${IConfigT.length > 0 ? IConfigT.join('') : 'T,'}
           {
       `);
       if (haveQuery) {
-        interfaceAPIType.push(
-          `Query: paths['${item}']['${method.toLowerCase()}']['parameters']['query'];`,
-        );
+        if (requestQueryOmit.length === 0) {
+          interfaceAPIType.push(
+            `Query: paths['${item}']['${method.toLowerCase()}']['parameters']['query'];`,
+          );
+        } else {
+          const omitKeys = requestQueryOmit.map((item) => `'${item}'`).join(' | ');
+          interfaceAPIType.push(
+            `Query: Omit<paths['${item}']['${method.toLowerCase()}']['parameters']['query'], ${omitKeys}>;`,
+          );
+        }
         requestAPI.push(`params: IApi['${item}']['Query'];`);
       }
       if (haveBody) {
-        interfaceAPIType.push(
-          `Body: paths['${item}']['${method.toLowerCase()}']['requestBody']['content']['application/json'];`,
-        );
+        if (requestBodyOmit.length === 0) {
+          interfaceAPIType.push(
+            `Body: paths['${item}']['${method.toLowerCase()}']['requestBody']['content']['application/json'];`,
+          );
+        } else {
+          const omitKeys = requestBodyOmit.map((item) => `'${item}'`).join(' | ');
+          interfaceAPIType.push(
+            `Body: Omit<paths['${item}']['${method.toLowerCase()}']['requestBody']['content']['application/json'], ${omitKeys}>;`,
+          );
+        }
         requestAPI.push(`data: IApi['${item}']['Body'];`);
       }
       interfaceAPIType.push(

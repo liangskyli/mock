@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import type { Request } from 'express';
 
 type IResponseData<T = any> = {
   /** mock 响应数据 */

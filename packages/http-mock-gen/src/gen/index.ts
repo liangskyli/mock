@@ -18,6 +18,8 @@ export type IGenMockDataOpts = {
    * 需要注意的是此文件必须是使用 export default 默认导出
    */
   requestFilePath?: string;
+  requestQueryOmit?: string[];
+  requestBodyOmit?: string[];
 };
 
 const genMockData = async (opts: IGenMockDataOpts) => {
@@ -28,6 +30,8 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     jsonSchemaFakerOptions,
     mockDataReplace,
     requestFilePath,
+    requestQueryOmit = [],
+    requestBodyOmit = [],
   } = opts;
 
   const genMockPath = path.join(mockDir, 'mock');
@@ -71,6 +75,8 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     genSchemaAPIAbsolutePath,
     prettierOptions: copyOptions(prettierOptions),
     requestFilePath,
+    requestQueryOmit,
+    requestBodyOmit,
   });
 };
 

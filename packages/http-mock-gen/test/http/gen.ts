@@ -22,4 +22,6 @@ genMockData({
   },
   //requestFilePath: '../../../http/request',
   //requestFilePath: path.join(__dirname, './request'),
+  //requestQueryOmit: ['activityId','b'],
+  //requestBodyOmit: ['a','b'],
 }).then();
