@@ -37,42 +37,42 @@ import type { IApi } from './interface-api';
 type IConfig<T extends Record<any, any>, U extends Record<any, any>> = T & U;
 
 export const requestApi = {
-  '/v1/beta-round/delete': <T extends Record<any, any>>(
-    config: IConfig<
-      Omit<T, 'data'>,
-      {
-        data: IApi['/v1/beta-round/delete']['Body'];
-      }
-    >,
-  ): Promise<IApi['/v1/beta-round/delete']['Response']> => {
-    const { data, ...otherConfig } = config;
+    '/v1/building/get-list': <T extends Record<any, any> = {}>(
+        config: IConfig<
+            Omit<T, 'params'>,
+            {
+                params: IApi['/v1/building/get-list']['Query'];
+            }
+            >,
+    ): Promise<IApi['/v1/building/get-list']['Response']> => {
+        const { params, ...otherConfig } = config;
 
-    return request({
-      method: 'GET',
-      url: '/v1/beta-round/delete',
+        return request({
+            method: 'GET',
+            url: '/v1/building/get-list',
+            params: params,
 
-      data: data,
-      ...otherConfig,
-    });
-  },
-  '/v1/building/get-list': <T extends Record<any, any>>(
-    config: IConfig<
-      Omit<T, 'params'>,
-      {
-        params: IApi['/v1/building/get-list']['Query'];
-      }
-    >,
-  ): Promise<IApi['/v1/building/get-list']['Response']> => {
-    const { params, ...otherConfig } = config;
+            ...otherConfig,
+        });
+    },
+    '/v1/card/delete': <T extends Record<any, any> = {}>(
+        config: IConfig<
+            Omit<T, 'data'>,
+            {
+                data: IApi['/v1/card/delete']['Body'];
+            }
+            >,
+    ): Promise<IApi['/v1/card/delete']['Response']> => {
+        const { data, ...otherConfig } = config;
 
-    return request({
-      method: 'GET',
-      url: '/v1/building/get-list',
-      params: params,
+        return request({
+            method: 'GET',
+            url: '/v1/card/delete',
 
-      ...otherConfig,
-    });
-  },
+            data: data,
+            ...otherConfig,
+        });
+    },
 };
 ```
 - 使用方法

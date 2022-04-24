@@ -25,32 +25,32 @@
   
   ```ts
   // 自定义mock数据入口，文件不可删除。
-  import type { ICustomData } from '@liangskyli/http-mock-gen';
-  import { BuildingData } from './template-data';
+  import type { ICustomsData } from '@liangskyli/http-mock-gen';
+  import { TemplateData } from './template-data';
   
-  const CustomData: ICustomData = {
-  // 自定义mock数据示例
-  // BuildingData 对应接口数据
-  ...BuildingData,
+  const CustomData: ICustomsData = {
+    // 自定义mock数据示例
+    // TemplateData 对应接口数据
+    ...TemplateData,
   };
   export default CustomData;
   ```
   - custom-data/template-data.ts
   
   ```ts
-  import type { ICustomData } from '@liangskyli/http-mock-gen';
-  import { Request } from 'express';
-  import { IApi } from '../schema-api/interface-api';
+  import type { ICustomsData, PartialAll, ICustomDataValue } from '@liangskyli/http-mock-gen';
+  import type { Request } from 'express';
+  import type { IApi } from '../schema-api/interface-api';
   
-  type IBuildingData = IApi['/v1/building/get-list']['Response'];
-  
-  export const BuildingData: ICustomData<IBuildingData> = {
+  export const TemplateData: ICustomsData<{
+    '/v1/building/get-list': ICustomDataValue<PartialAll<IApi['/v1/building/get-list']['Response']>>;
+  }> = {
     '/v1/building/get-list': {
       /** mock 响应数据 */
       response: {
         retCode: 0,
+        data: { blockList: [{ isBindErp: false, buildingName: 'buildingName' }], isFuLi: false },
         retMsg: 'retMsg',
-        data: { isFuLi: false, blockList: [{ isBindErp: false, buildingName: 'buildingName11' }] },
       },
       /** mock 多场景响应数据 */
       sceneData: [
@@ -63,8 +63,8 @@
           },
           response: {
             retCode: 0,
+            data: { blockList: [{ isBindErp: false, buildingName: 'buildingName' }], isFuLi: false },
             retMsg: 'retMsg',
-            data: { isFuLi: false, blockList: [{ isBindErp: false, buildingName: 'buildingName' }] },
           },
         },
       ],
@@ -73,27 +73,85 @@
   ```
   
 - ICustomData 数据结构，里面可以按格式要求，配置响应数据，及多场景相关数据。
+- 自定义mock数据(含多场景响应数据)支持按需配置，未配置使用默认值。
+  - 智能合并mock数据例子如下
+  ```ts
+  // 默认数据
+  const defaultData = {
+    retCode: 0,
+    data: { blockList: [{ isBindErp: false, buildingName: 'buildingName' }], isFuLi: false },
+    retMsg: 'retMsg',
+  };
+  
+  //自定义数据response里可以这样
+  const response = {
+    data: {
+      blockList: [
+        {
+          buildingName: 'buildingName11'
+        },
+        {
+          isBindErp: true,
+        },     
+      ],
+    },
+  };
+  //自定义数据和默认数据合并后，会生成下面mock数据
+  const result = {
+    retCode: 0,
+    data: {
+      blockList: [
+        {
+          isBindErp: false,
+          buildingName: 'buildingName11'
+        },
+        {
+          isBindErp: true,
+          buildingName: 'buildingName',
+        },
+      ],
+      isFuLi: false,
+    },
+    retMsg: 'retMsg',
+  };
+  ```
 - sceneData 命中优先级 > 非命中优先级
+- 相关类型定义说明
 ```ts
-import { Request } from 'express';
+import type { Request } from 'express';
 
 type IResponseData<T = any> = {
   /** mock 响应数据 */
   response: T;
 };
 
-export type ICustomData<T = any> = Record<
+export interface ISceneDataItem<T> extends IResponseData<T> {
+  /** mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配 */
+  requestCase: (request: Request) => boolean;
+}
+
+export type ICustomDataValue<T = any> = IResponseData<T> & {
+  /** mock 多场景响应数据 */
+  sceneData?: ISceneDataItem<T>[];
+};
+
+export type ICustomData<T = any, K extends keyof any = string> = Record<
   /** http 接口路径 */
-  string,
-  | (IResponseData<T> & {
-      /** mock 多场景响应数据 */
-      sceneData?: (IResponseData<T> & {
-        /** mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配 */
-        requestCase: (request: Request) => boolean;
-      })[];
-    })
-  | undefined
+  K,
+  ICustomDataValue<T> | undefined
 >;
+
+export type ICustomsData<
+  T extends Record<
+    /** http 接口路径 */
+    string,
+    ICustomDataValue
+  > = Record<
+    /** http 接口路径 */
+    string,
+    ICustomDataValue
+  >,
+> = T;
 ```
 
 ## 引入 Mock.js
@@ -103,17 +161,19 @@ export type ICustomData<T = any> = Record<
 比如：
 - custom-data/template-data.ts
 ```ts
-import type { ICustomData } from '@liangskyli/http-mock-gen';
-import { Request } from 'express';
-import mockjs from 'mockjs';
+import type { ICustomsData, PartialAll, ICustomDataValue } from '@liangskyli/http-mock-gen';
+import type { Request } from 'express';
+import type { IApi } from '../schema-api/interface-api';
 
-export const BuildingData: ICustomData = {
+export const TemplateData: ICustomsData<{
+  '/v1/building/get-list': ICustomDataValue<PartialAll<IApi['/v1/building/get-list']['Response']>>;
+}> = {
   '/v1/building/get-list': {
-    /** mock 正常响应数据 */
+    /** mock 响应数据 */
     response: {
       retCode: 0,
+      data: { blockList: [{ isBindErp: false, buildingName: mockjs.Random.string(3) }], isFuLi: false },
       retMsg: 'retMsg',
-      data: { isFuLi: false, blockList: [{ isBindErp: false, buildingName: mockjs.Random.string(3) }] },
     },
     /** mock 多场景响应数据 */
     sceneData: [
@@ -126,8 +186,8 @@ export const BuildingData: ICustomData = {
         },
         response: {
           retCode: 0,
+          data: { blockList: [{ isBindErp: false, buildingName: 'buildingName' }], isFuLi: false },
           retMsg: 'retMsg',
-          data: { isFuLi: false, blockList: [{ isBindErp: false, buildingName: 'buildingName' }] },
         },
       },
     ],
