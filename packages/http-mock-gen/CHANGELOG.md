@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.12.0](https://github.com/liangskyli/mock/compare/v0.11.0...v0.12.0) (2022-04-24)
+
+
+### Features
+
+* **http-mock-gen:** enhance custom data gen and mock data intellect merge ([13acb4e](https://github.com/liangskyli/mock/commit/13acb4ef7131a9e0f133da0f983c26ffc72e0ecb))
+* **http-mock-gen:** support interface type omit global query/body parameter by gen ([02e0d41](https://github.com/liangskyli/mock/commit/02e0d41df5430d05b8b9602a8991db16f7419f42))
+
+
+### Bug Fixes
+
+* sceneData type use interface replace type ([e7a94d3](https://github.com/liangskyli/mock/commit/e7a94d3bb2886da2485ab887366fd502ab6ce871))
+
+
+
 ## [0.11.0](https://github.com/liangskyli/mock/compare/v0.10.0-beta.1...v0.11.0) (2022-04-17)
 
 
