@@ -2,16 +2,13 @@
   "name": "@liangskyli/http-mock-gen",
   "version": "0.12.0",
   "description": "http mock gen for web mockServer",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/liangskyli/mock.git"
-  },
+  "author": "liangsky <640634387@qq.com>",
+  "homepage": "https://github.com/liangskyli/mock#readme",
+  "license": "MIT",
   "keywords": [
     "mock",
     "http mock generate"
   ],
-  "author": "liangsky",
-  "license": "MIT",
   "main": "./lib/cjs/index.js",
   "module": "./lib/es/index.js",
   "types": "./lib/es/index.d.ts",
@@ -22,14 +19,18 @@
   "bin": {
     "http-mock-gen": "bin/index.js"
   },
+  "publishConfig": {
+    "access": "public",
+    "directory": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liangskyli/mock.git"
+  },
   "scripts": {
     "test-http-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen.ts",
     "test-http-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen-cli.ts",
     "build": "gulp"
-  },
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
   },
   "dependencies": {
     "@liangskyli/utils": "^0.12.0",
@@ -51,5 +52,8 @@
   },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/liangskyli/mock/issues"
   }
 }

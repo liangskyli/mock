@@ -2,14 +2,14 @@
   "name": "@liangskyli/grpc-mock",
   "version": "0.12.0",
   "description": "grpc mock for bff",
+  "author": "liangsky <640634387@qq.com>",
+  "homepage": "https://github.com/liangskyli/mock#readme",
+  "license": "MIT",
   "keywords": [
     "grpc",
     "grpc mock",
     "grpc mock server"
   ],
-  "author": "liangsky <640634387@qq.com>",
-  "homepage": "https://github.com/liangskyli/mock#readme",
-  "license": "MIT",
   "main": "./lib/cjs/index.js",
   "module": "./lib/es/index.js",
   "types": "./lib/es/index.d.ts",
@@ -20,6 +20,10 @@
   "bin": {
     "grpc-mock": "./bin/index.js"
   },
+  "publishConfig": {
+    "access": "public",
+    "directory": "lib"
+  },
   "scripts": {
     "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen.ts",
     "test-grpc-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen-cli.ts",
@@ -27,10 +31,6 @@
     "test-grpc-mock-server-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/mock-server-cli.ts",
     "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
     "build": "gulp"
-  },
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.6.9",
@@ -57,10 +57,10 @@
     "type": "git",
     "url": "git+https://github.com/liangskyli/mock.git"
   },
-  "bugs": {
-    "url": "https://github.com/liangskyli/mock/issues"
-  },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/liangskyli/mock/issues"
   }
 }

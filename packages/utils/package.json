@@ -2,10 +2,10 @@
   "name": "@liangskyli/utils",
   "version": "0.12.0",
   "description": "@liangskyli/utils",
-  "keywords": [],
   "author": "liangsky <640634387@qq.com>",
   "homepage": "https://github.com/liangskyli/mock#readme",
   "license": "MIT",
+  "keywords": [],
   "main": "./lib/cjs/index.js",
   "module": "./lib/es/index.js",
   "types": "./lib/es/index.d.ts",
@@ -13,12 +13,16 @@
   "files": [
     "lib"
   ],
-  "scripts": {
-    "build": "gulp && rollup --config=./rollup.config.js"
-  },
   "publishConfig": {
     "access": "public",
     "directory": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liangskyli/mock.git"
+  },
+  "scripts": {
+    "build": "gulp && rollup --config=./rollup.config.js"
   },
   "dependencies": {
     "@types/prettier": "^2.6.0",
@@ -38,9 +42,8 @@
     "@types/resolve": "^1.20.2",
     "@types/signale": "^1.4.4"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/liangskyli/mock.git"
+  "engines": {
+    "node": "^14.13.1 || >=16.0.0"
   },
   "bugs": {
     "url": "https://github.com/liangskyli/mock/issues"

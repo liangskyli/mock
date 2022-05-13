@@ -2,10 +2,9 @@
   "name": "@liangskyli/mock",
   "version": "0.12.0",
   "description": "mockServer for web",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/liangskyli/mock.git"
-  },
+  "author": "liangsky <640634387@qq.com>",
+  "homepage": "https://github.com/liangskyli/mock#readme",
+  "license": "MIT",
   "keywords": [
     "mock",
     "mock server",
@@ -14,8 +13,6 @@
     "socket",
     "socket.io"
   ],
-  "author": "liangsky",
-  "license": "MIT",
   "main": "./lib/cjs/index.js",
   "module": "./lib/es/index.js",
   "types": "./lib/es/index.d.ts",
@@ -26,16 +23,20 @@
   "bin": {
     "mock-server": "./bin/index.js"
   },
+  "publishConfig": {
+    "access": "public",
+    "directory": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liangskyli/mock.git"
+  },
   "scripts": {
     "start": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/server.ts",
     "test-http-cli": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http-cli.ts",
     "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/middleware.ts",
     "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/webpack-middleware.ts",
     "build": "gulp"
-  },
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
   },
   "dependencies": {
     "@babel/core": "^7.17.9",
@@ -68,5 +69,8 @@
   },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/liangskyli/mock/issues"
   }
 }
