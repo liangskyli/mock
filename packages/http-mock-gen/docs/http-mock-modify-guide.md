@@ -9,15 +9,15 @@
 ├── mock
     ├── custom-data // 自定义mock数据文件夹
     |   └── index.ts // 自定义mock数据入口文件
-    |   └── template-data.ts // 模版数据例子
-    ├── schema-api // schema接口定义文件夹
+    |   └── template-data.ts // 模版数据例子  
+    ├── schema-api // schema接口定义文件夹(genTsDir没配置，默认生成在mock下)
     |   ├── interface-api.ts // 生成最终的http 接口api数据类型入出参定义
-    |   ├── mock-data.ts // 生成mock数据文件
     |   ├── request.ts // requestFilePath没设置时，生成默认axios请求库文件
     |   ├── request-api.ts // 请求接口文件
     |   ├── schema.ts // ts类型文件生成json schema文件
     |   └── ts-schema.ts // openapi 生成ts类型文件
-    └── interface-mock-data.ts // 生成最终的http mock 默认数据
+    ├── interface-mock-data.ts // 生成最终的http mock 默认数据  
+    └── mock-data.ts // 生成mock数据文件
 ```
 
 - mock 数据修改，例如：在上图结构中 只能在custom-data目录下，进行自定义数据修改。

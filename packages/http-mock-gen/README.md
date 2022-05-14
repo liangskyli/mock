@@ -25,41 +25,15 @@ yarn http-mock-gen -c ./mock.config.cli.ts
 ## 命令参数 configFile mock数据生成配置文件参数属性
 | 属性                     | 说明                                                                                                                                                         | 默认值                                                  |
 |------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
-| openapiPath            | openapi v3 YAML or JSON 格式的文件路径,需要自己根据业务逻辑生成                                                                                                               |                                                      |
 | mockDir                | mock文件夹所在目录                                                                                                                                                | `./`                                                 |
-| prettierOptions        | 生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置，详情配置见 [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md)    |                                                      |
 | jsonSchemaFakerOptions | 生成mock 数据 faker配置参数，详情配置见 [json-schema-faker options文档](https://github.com/json-schema-faker/json-schema-faker/blob/HEAD/docs/README.md#available-options) | { alwaysFakeOptionals: true, fillProperties: false } |
 | mockDataReplace        | 生成mock 数据处理函数，可以覆盖faker数据 `(this: any, key: string, value: any) => any`                                                                                    | undefined                                            |
-| requestFilePath        | ajax请求库路径，默认使用axios,文件默认导出函数，类型详见下面说明  `string`                                                                                                            | undefined                                            |
+| openapiPath            | openapi v3 YAML or JSON 格式的文件路径,需要自己根据业务逻辑生成                                                                                                               |                                                      |
+| genTsDir               | 生成ts文件夹所在目录                                                                                                                                                | `未设置时，默认mockDir配置目录下mock文件夹`                         |
+| prettierOptions        | 生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置，详情配置见 [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md)    |                                                      |
+| requestFilePath        | ajax请求库路径，默认使用axios,文件默认导出函数，类型详见[requestFilePath 说明](https://github.com/liangskyli/openapi-ts)  `string`                                                  | undefined                                            |
 | requestQueryOmit       | ajax请求库里对公共get参数做了传入处理时，请求接口忽略get参数ts类型声明 `string[]`                                                                                                       | undefined                                            |
 | requestBodyOmit        | ajax请求库里对公共post参数做了传入处理时，请求接口忽略post参数ts类型声明 `string[]`                                                                                                     | undefined                                            |
-
-- requestFilePath 说明
-  - 不设置，默认使用axios,可以自己封装后引入路径使用。
-  - ajax请求库路径不做处理，按生成的文件的相对路径或使用绝对路径。
-  - 路径下的文件要求默认导出方法,为IAPIRequest类型。
-    ```ts
-    type IAPIRequest = (param: {
-      url?: string;
-      method?: 'get' | 'GET' | 'post' | 'POST';
-      params?: any;
-      data?: any;
-      [k: string]: any;
-    }) => Promise<any>;
-    ```
-  - 自定义ajax接口例子：
-    ```ts
-    import axios from 'axios';
-    import type { IAPIRequest } from '@liangskyli/http-mock-gen';
-    
-    const request: IAPIRequest = (config) => {
-      // 这里可以封装公共逻辑
-      return axios(config).then((res) => res.data);
-    };
-    
-    export default request;
-    ```
-  - 生成的schema-api/request-api.ts文件,可直接用于项目请求接口，无需手动编写代码。
 
 - configFile mock数据生成配置文件示例
 ```ts
@@ -89,11 +63,12 @@ export default config;
 
 ```
 
-- openapi v3 YAML or JSON 格式的文件[示例](docs/openapiv3-example.json)，[openapi](https://www.openapis.org/) 需要自己根据业务逻辑生成。
+- openapi v3 YAML or JSON 格式的文件[示例](https://github.com/liangskyli/openapi-ts/blob/master/packages/openapi-gen-ts/docs/openapiv3-example.json) ，[openapi](https://www.openapis.org/) 需要自己根据业务逻辑生成。
 - openapi v3 method 只支持 get post接口，只生成application/json响应数据
+- openpai 生成数据类型和接口使用说明，详见[使用说明](https://github.com/liangskyli/openapi-ts)
 - 生成mock 数据结构，最终使用interface-mock-data.ts文件
 - Mock 数据修改指引 [文档](docs/http-mock-modify-guide.md)
-- 接口API使用指引 [文档](docs/request-api-guide.md)
+- 接口API使用指引 [文档](https://github.com/liangskyli/openapi-ts/blob/master/packages/openapi-gen-ts/docs/request-api-guide.md)
 
 生成的interface-mock-data.ts 文件(不要手动修改这个文件)，用于http mock 功能。
 ```ts
