@@ -1,6 +1,6 @@
 import type { ICustomsData, PartialAll, ICustomDataValue } from 'packageName';
 import type { Request } from 'express';
-import type { IApi } from '../schema-api/interface-api';
+import type { IApi } from '{{IApiRelativePath}}';
 
 export const TemplateData: ICustomsData<{
   '{{firstPath}}': ICustomDataValue<PartialAll<IApi['{{firstPath}}']['Response']>>;

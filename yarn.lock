@@ -2085,6 +2085,22 @@
     npmlog "^4.1.2"
     write-file-atomic "^3.0.3"
 
+"@liangskyli/openapi-gen-ts@^0.2.0-beta.2":
+  version "0.2.0-beta.2"
+  resolved "https://registry.npmjs.org/@liangskyli/openapi-gen-ts/-/openapi-gen-ts-0.2.0-beta.2.tgz#772e31ee01b8c0e9c5204358a47e6f9c2d86dd6c"
+  integrity sha512-2KVvpzbzbAmAG0m6e4oDEa4YgsspJEFc2EZUuNw0Qqge1dtjy21L3wBEg9OrC+EGmo83Bbo3fAJ+TM9tFFyzOQ==
+  dependencies:
+    "@liangskyli/utils" "^0.12.0"
+    "@qiwi/esm" "^1.1.1"
+    axios "^0.26.1"
+    commander "^9.2.0"
+    cross-spawn "^7.0.3"
+    express "^4.17.3"
+    fs-extra "^10.1.0"
+    openapi-typescript "^5.2.0"
+    ts-node "^10.7.0"
+    typescript-json-schema "^0.53.0"
+
 "@mapbox/node-pre-gyp@^1.0.4":
   version "1.0.8"
   resolved "https://registry.npmmirror.com/@mapbox/node-pre-gyp/download/@mapbox/node-pre-gyp-1.0.8.tgz#32abc8a5c624bc4e46c43d84dfb8b26d33a96f58"

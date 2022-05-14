@@ -1,24 +1,25 @@
 import type prettier from 'prettier';
 import fs from 'fs-extra';
 import path from 'path';
-import { copyOptions, prettierData } from '@liangskyli/utils';
+import { copyOptions, prettierData, winPath } from '@liangskyli/utils';
 import { fileTip, packageName } from '../utils';
 
 type IOpts = {
+  interfaceApiRelativePath: string;
   mockDataAbsolutePath: string;
   genMockAbsolutePath: string;
-  genSchemaAPIAbsolutePath: string;
   prettierOptions?: prettier.Options;
-  requestFilePath?: string;
-  requestQueryOmit: string[];
-  requestBodyOmit: string[];
 };
 
-const genDefaultCustomData = async (
-  mockData: any,
-  genCustomDataPath: string,
-  prettierOptions?: prettier.Options,
-) => {
+type IDefaultOpts = {
+  mockData: any;
+  genCustomDataPath: string;
+  interfaceApiRelativePath: string;
+  prettierOptions?: prettier.Options;
+};
+
+const genDefaultCustomData = async (opts: IDefaultOpts) => {
+  const { mockData, genCustomDataPath, interfaceApiRelativePath, prettierOptions } = opts;
   if (!fs.pathExistsSync(path.join(genCustomDataPath, 'index.ts'))) {
     const firstPath = Object.keys(mockData)[0];
     const itemValue = mockData[firstPath];
@@ -42,11 +43,16 @@ const genDefaultCustomData = async (
       path.join(__dirname, './custom-data-template/template-data.tpl'),
       { encoding: 'utf-8' },
     );
+    let IApiRelativePath = winPath(interfaceApiRelativePath);
+    if (!IApiRelativePath.startsWith('.')) {
+      IApiRelativePath = `./${IApiRelativePath}`;
+    }
     fs.writeFileSync(
       path.join(genCustomDataPath, 'template-data.ts'),
       await prettierData(
         templateData
           .replace('packageName', packageName)
+          .replace(/{{IApiRelativePath}}/gi, winPath(IApiRelativePath))
           .replace(/{{firstPath}}/gi, firstPath)
           .replace(/{{responseData}}/gi, JSON.stringify(responseData)),
         copyOptions(prettierOptions),
@@ -63,70 +69,36 @@ const genDefaultCustomData = async (
         copyOptions(prettierOptions),
       ),
     );
-    console.info('Generate custom-data folder success');
+    console.info('Generate mock/custom-data folder file success');
   }
 };
 
 const genMockInterfaceFile = async (opts: IOpts) => {
-  const {
-    mockDataAbsolutePath,
-    genMockAbsolutePath,
-    genSchemaAPIAbsolutePath,
-    prettierOptions,
-    requestFilePath,
-    requestQueryOmit,
-    requestBodyOmit,
-  } = opts;
+  const { interfaceApiRelativePath, mockDataAbsolutePath, genMockAbsolutePath, prettierOptions } =
+    opts;
 
   const mockData = await import(mockDataAbsolutePath);
   // 生成自定义数据模版
   const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
-  await genDefaultCustomData(mockData, genCustomDataPath, prettierOptions);
 
-  if (!requestFilePath) {
-    const requestData: string[] = [];
-    requestData.push(`${fileTip}
-    import axios from 'axios';
-    import type { IAPIRequest } from '${packageName}';
-    
-    const request: IAPIRequest = (config) => {
-      return axios(config).then((res) => res.data);
-    };
-    
-    export default request;
-  `);
-    const requestDataAbsolutePath = path.join(genSchemaAPIAbsolutePath, 'request.ts');
-    fs.writeFileSync(
-      requestDataAbsolutePath,
-      await prettierData(requestData.join(''), prettierOptions),
-    );
-    console.info('Generate request.ts file success');
+  await genDefaultCustomData({
+    mockData,
+    genCustomDataPath,
+    interfaceApiRelativePath: path.join('../', interfaceApiRelativePath),
+    prettierOptions,
+  });
+
+  let IApiRelativePath = winPath(interfaceApiRelativePath);
+  if (!IApiRelativePath.startsWith('.')) {
+    IApiRelativePath = `./${IApiRelativePath}`;
   }
-
-  const interfaceAPIType: string[] = [];
-  interfaceAPIType.push(`${fileTip}
-  import type { paths } from '${requestFilePath ? requestFilePath : './ts-schema'}';
-  `);
-  interfaceAPIType.push('\n export interface IApi {');
-
-  const requestAPI: string[] = [];
-  requestAPI.push(`${fileTip}
-   import request from '${requestFilePath ? requestFilePath : './request'}';
-   import type { IApi } from './interface-api';
-  `);
-  requestAPI.push('\n');
-  requestAPI.push(`
-    type IConfig<T extends Record<any, any>, U extends Record<any, any>> = T & U;
-   `);
-  requestAPI.push('\n export const requestApi = {');
-
   const interfaceMockData: string[] = [];
   interfaceMockData.push(`${fileTip}
     import type { Request, Response } from "express";
     import CustomData from "./custom-data";
     import { getMockData } from "${packageName}";
     import type { ICustomData, PartialAll } from "${packageName}";
-    import type { IApi } from './schema-api/interface-api';
+    import type { IApi } from '${IApiRelativePath}';
   `);
 
   interfaceMockData.push('\n export default {');
@@ -135,8 +107,6 @@ const genMockInterfaceFile = async (opts: IOpts) => {
     // method 只支持 get post
     let method = '';
     let data: any = '';
-    let haveQuery = false;
-    let haveBody = false;
     if (itemValue.get) {
       method = 'GET';
       const content = itemValue.get?.responses?.['200']?.content;
@@ -145,7 +115,6 @@ const genMockInterfaceFile = async (opts: IOpts) => {
       } else {
         data = {};
       }
-      haveQuery = !!itemValue.get?.parameters?.query;
     }
     if (itemValue.post) {
       method = 'POST';
@@ -155,111 +124,25 @@ const genMockInterfaceFile = async (opts: IOpts) => {
       } else {
         data = {};
       }
-      haveQuery = !!itemValue.post?.parameters?.query;
-      haveBody = !!itemValue.post?.requestBody?.content?.['application/json'];
     }
     if (method) {
-      let IConfigT: string[] = [];
-      if (haveQuery || haveBody) {
-        IConfigT.push('Omit<T, ');
-        if (haveQuery) {
-          IConfigT.push('"params"');
-        }
-        if (haveBody) {
-          if (haveQuery) {
-            IConfigT.push(' | ');
-          }
-          IConfigT.push('"data"');
-        }
-        IConfigT.push('>,');
-      }
-
       interfaceMockData.push(`'${method} ${item}': (req: Request, res: Response) => {
         type IData = IApi['${item}']['Response'];
         const data = (CustomData as ICustomData<PartialAll<IData>>)['${item}'];
         let json = getMockData<IData>(${JSON.stringify(data)},req, data);
         res.json(json);
       },`);
-
-      interfaceAPIType.push(`'${item}': {`);
-      requestAPI.push(`'${item}': <T extends Record<any, any> = {}>(
-        config: IConfig<
-          ${IConfigT.length > 0 ? IConfigT.join('') : 'T,'}
-          {
-      `);
-      if (haveQuery) {
-        if (requestQueryOmit.length === 0) {
-          interfaceAPIType.push(
-            `Query: paths['${item}']['${method.toLowerCase()}']['parameters']['query'];`,
-          );
-        } else {
-          const omitKeys = requestQueryOmit.map((item) => `'${item}'`).join(' | ');
-          interfaceAPIType.push(
-            `Query: Omit<paths['${item}']['${method.toLowerCase()}']['parameters']['query'], ${omitKeys}>;`,
-          );
-        }
-        requestAPI.push(`params: IApi['${item}']['Query'];`);
-      }
-      if (haveBody) {
-        if (requestBodyOmit.length === 0) {
-          interfaceAPIType.push(
-            `Body: paths['${item}']['${method.toLowerCase()}']['requestBody']['content']['application/json'];`,
-          );
-        } else {
-          const omitKeys = requestBodyOmit.map((item) => `'${item}'`).join(' | ');
-          interfaceAPIType.push(
-            `Body: Omit<paths['${item}']['${method.toLowerCase()}']['requestBody']['content']['application/json'], ${omitKeys}>;`,
-          );
-        }
-        requestAPI.push(`data: IApi['${item}']['Body'];`);
-      }
-      interfaceAPIType.push(
-        `Response: paths['${item}']['${method.toLowerCase()}']['responses']['200']['content']['application/json'];`,
-      );
-      interfaceAPIType.push('};');
-      requestAPI.push(`}
-        >,
-      ): Promise<IApi['${item}']['Response']> => {  
-      const { ${haveQuery ? 'params,' : ''} ${haveBody ? 'data,' : ''} ...otherConfig } = config;
-
-      return request({
-        method: 'GET',
-        url: '${item}',
-        ${haveQuery ? 'params: params,' : ''}
-        ${haveBody ? 'data: data,' : ''}
-        ...otherConfig,
-      });
-    },
-      `);
     }
   });
 
   interfaceMockData.push('}');
-  interfaceAPIType.push('}');
-  requestAPI.push('}');
 
   const interfaceMockDataAbsolutePath = path.join(genMockAbsolutePath, 'interface-mock-data.ts');
   fs.writeFileSync(
     interfaceMockDataAbsolutePath,
     await prettierData(interfaceMockData.join(''), prettierOptions),
   );
-  console.info('Generate interface-mock-data.ts file success');
-
-  const interfaceAPITypeAbsolutePath = path.join(genSchemaAPIAbsolutePath, 'interface-api.ts');
-  fs.writeFileSync(
-    interfaceAPITypeAbsolutePath,
-    await prettierData(interfaceAPIType.join(''), prettierOptions),
-  );
-
-  console.info('Generate schema-api/interface-api.ts file success');
-
-  const requestAPIAbsolutePath = path.join(genSchemaAPIAbsolutePath, 'request-api.ts');
-  fs.writeFileSync(
-    requestAPIAbsolutePath,
-    await prettierData(requestAPI.join(''), prettierOptions),
-  );
-
-  console.info('Generate schema-api/request-api.ts file success');
+  console.info('Generate mock/interface-mock-data.ts file success');
 };
 
 export { genMockInterfaceFile };

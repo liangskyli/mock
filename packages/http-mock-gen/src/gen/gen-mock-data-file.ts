@@ -1,39 +1,26 @@
-import * as TJS from 'typescript-json-schema';
 import type { JSONSchemaFakerOptions } from 'json-schema-faker';
 import jsf from 'json-schema-faker';
 import fs from 'fs-extra';
 import path from 'path';
 import type prettier from 'prettier';
 import { prettierData } from '@liangskyli/utils';
+import type { Definition } from '@liangskyli/openapi-gen-ts';
 
 type IOpts = {
-  schemaTsPath: string;
-  genSchemaAPIAbsolutePath: string;
-  compilerOptions?: TJS.CompilerOptions;
+  genMockAbsolutePath: string;
+  schemaDefinition: Definition;
   prettierOptions?: prettier.Options;
   jsonSchemaFakerOptions?: JSONSchemaFakerOptions;
   mockDataReplace?: (this: any, key: string, value: any) => any;
 };
 
 const genMockDataFile = async (opts: IOpts) => {
-  const {
-    schemaTsPath,
-    genSchemaAPIAbsolutePath,
-    compilerOptions = { strictNullChecks: true },
-    mockDataReplace,
-  } = opts;
+  const { genMockAbsolutePath, schemaDefinition, mockDataReplace } = opts;
   let { prettierOptions, jsonSchemaFakerOptions } = opts;
-  const program = TJS.getProgramFromFiles([schemaTsPath], compilerOptions);
-  const schema = TJS.generateSchema(program, 'paths', { required: true });
   if (prettierOptions === undefined) {
     prettierOptions = { parser: 'json' };
   }
   prettierOptions = Object.assign(prettierOptions, { parser: 'json' });
-
-  const schemaPath = path.join(genSchemaAPIAbsolutePath, 'schema.json');
-  const schemaString = JSON.stringify(schema, null, 2);
-  fs.writeFileSync(schemaPath, await prettierData(schemaString, prettierOptions));
-  console.info('Generate schema-api/schema.json success');
 
   if (jsonSchemaFakerOptions === undefined) {
     jsonSchemaFakerOptions = { alwaysFakeOptionals: true, fillProperties: false };
@@ -44,12 +31,12 @@ const genMockDataFile = async (opts: IOpts) => {
   });
 
   jsf.option(jsonSchemaFakerOptions);
-  const mockData = jsf.generate(schema as any);
+  const mockData = jsf.generate(schemaDefinition as any);
   const mockDataString = JSON.stringify(mockData, mockDataReplace, 2);
-  const mockDataAbsolutePath = path.join(genSchemaAPIAbsolutePath, 'mock-data.json');
+  const mockDataAbsolutePath = path.join(genMockAbsolutePath, 'mock-data.json');
   fs.writeFileSync(mockDataAbsolutePath, await prettierData(mockDataString, prettierOptions));
 
-  console.info('Generate schema-api/mock-data.json success');
+  console.info('Generate mock/mock-data.json success');
 
   return mockDataAbsolutePath;
 };
