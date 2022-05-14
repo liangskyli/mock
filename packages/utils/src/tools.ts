@@ -6,6 +6,10 @@ export const getAbsolutePath = (pathName: string) => {
   return path.isAbsolute(pathName) ? pathName : path.join(process.cwd(), pathName);
 };
 
+export const getRelativePath = (absolutePath1: string, absolutePath2: string) => {
+  return path.relative(absolutePath1, absolutePath2);
+};
+
 export const prettierData = async (fileContent: string, options?: prettier.Options) => {
   let configFile;
   try {
