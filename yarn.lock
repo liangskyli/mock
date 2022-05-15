@@ -1942,12 +1942,12 @@
     npmlog "^4.1.2"
     write-file-atomic "^3.0.3"
 
-"@liangskyli/openapi-gen-ts@^0.2.0-beta.3":
-  version "0.2.0-beta.3"
-  resolved "https://registry.npmmirror.com/@liangskyli/openapi-gen-ts/-/openapi-gen-ts-0.2.0-beta.3.tgz#b6e3b282fc5dfc23b0f1dc9b7a41646b0f6b4904"
-  integrity sha512-jo7tFAnYcsLQ/MwE5P1jV/ckrHXrPS0/REWx/xy9Ktgv4vRjRTwf/c4p6fUWhPDZ6g5HW+nOVcw+ure77DLuuQ==
+"@liangskyli/openapi-gen-ts@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npmmirror.com/@liangskyli/openapi-gen-ts/-/openapi-gen-ts-0.2.0.tgz#e86d224e601ef3d583d4532b13fee427924d715a"
+  integrity sha512-6jMXogeii0+kxr3h04pz3md6h/W0zkVc4YitUICYQqGLC0Apr1bd76iz2bunHujPFMAynlM6Kig7HsE2aqvkuQ==
   dependencies:
-    "@liangskyli/utils" "^0.12.0"
+    "@liangskyli/utils" "^1.0.0-beta.0"
     "@qiwi/esm" "^1.1.1"
     axios "^0.27.2"
     commander "^9.2.0"
