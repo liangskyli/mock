@@ -20,6 +20,15 @@
     └── mock-data.ts // 生成mock数据文件
 ```
 
+- 注意：生成的mock数据，使用需要忽略custom-data，schema-api文件夹，不需要走 mock 的文件。
+  - @liangskyli/mock 已经默认忽略了,不需要额外配置。
+  ```ts
+  exclude: [
+   'mock/custom-data/**',
+   'mock/schema-api/**',
+  ],
+  ```
+
 - mock 数据修改，例如：在上图结构中 只能在custom-data目录下，进行自定义数据修改。
   - custom-data/index.ts
   
