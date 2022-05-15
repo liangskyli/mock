@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.0-beta.0](https://github.com/liangskyli/mock/compare/v0.12.0...v1.0.0-beta.0) (2022-05-15)
+
+
+### Features
+
+* **http-mock-gen:** openapi to typescript gen move to @liangskyli/openapi-gen-ts ([ca4de4a](https://github.com/liangskyli/mock/commit/ca4de4aa4c64530ec47c14d1382642f5bfe5ce9d))
+
+
+
 ## [0.12.0](https://github.com/liangskyli/mock/compare/v0.11.0...v0.12.0) (2022-04-24)
 
 
