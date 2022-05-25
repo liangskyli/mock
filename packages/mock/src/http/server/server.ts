@@ -1,4 +1,4 @@
-import http from 'http';
+import type http from 'http';
 import express from 'express';
 import { address } from '@liangskyli/utils';
 import getMiddleware from './middleware';

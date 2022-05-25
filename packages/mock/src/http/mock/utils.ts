@@ -90,7 +90,7 @@ export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = ({
   };
 };
 
-export const getMockConfig = (files: string[]): object => {
+export function getMockConfig(files: string[]): object {
   return files.reduce((memo, mockFile) => {
     try {
       const m = require(mockFile); // eslint-disable-line
@@ -103,7 +103,7 @@ export const getMockConfig = (files: string[]): object => {
       throw new Error(e.stack);
     }
   }, {});
-};
+}
 
 export const cleanRequireCache = (paths: string[]): void => {
   Object.keys(require.cache).forEach((file) => {
@@ -160,7 +160,7 @@ function createHandler(method: any, path: any, handler: any) {
   } as unknown as RequestHandler;
 }
 
-export const normalizeConfig = (config: any) => {
+function normalizeConfig(config: any) {
   return Object.keys(config).reduce((memo: any, key) => {
     const handler = config[key];
     const type = typeof handler;
@@ -180,7 +180,7 @@ export const normalizeConfig = (config: any) => {
     });
     return memo;
   }, []);
-};
+}
 
 function decodeParam(val: any) {
   if (typeof val !== 'string' || val.length === 0) {
@@ -205,8 +205,8 @@ export const matchMock = (req: Request, mockData: IMockDataItem[]): IMockDataIte
   const targetMethod = method.toLowerCase();
 
   for (const mock of mockData) {
-    const { method, re, keys } = mock;
-    if (method === targetMethod) {
+    const { method: mockMethod, re, keys } = mock;
+    if (mockMethod === targetMethod) {
       const match = re.exec(targetPath);
       if (match) {
         const params = {};
