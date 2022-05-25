@@ -129,7 +129,7 @@ const genMockInterfaceFile = async (opts: IOpts) => {
       interfaceMockData.push(`'${method} ${item}': (req: Request, res: Response) => {
         type IData = IApi['${item}']['Response'];
         const data = (CustomData as ICustomData<PartialAll<IData>>)['${item}'];
-        let json = getMockData<IData>(${JSON.stringify(data)},req, data);
+        const json = getMockData<IData>(${JSON.stringify(data)},req, data);
         res.json(json);
       },`);
     }
