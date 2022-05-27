@@ -1,15 +1,18 @@
 # http mock 代码生成工具
+
 - 基于openapi v3 生成 ts数据类型和http mock 数据代码。
 - mock数据填充默认值，自定义mock数据支持按需配置，未配置使用默认值。
 - ts接口类型文件生成
 - 通用请求库接口调用文件生成
 
 ## 安装:
+
 ```bash
 yarn add @liangskyli/http-mock-gen --dev
 ```
 
 # 生成方式:
+
 ## 1、CLI 命令方式（推荐）
 
 ```bash
@@ -23,19 +26,21 @@ yarn http-mock-gen -c ./mock.config.cli.ts
 | -c, --configFile | mock数据生成配置文件 `配置参数见下面` |     |
 
 ## 命令参数 configFile mock数据生成配置文件参数属性
-| 属性                     | 说明                                                                                                                                                         | 默认值                                                  |
-|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------|
-| mockDir                | mock文件夹所在目录                                                                                                                                                | `./`                                                 |
-| jsonSchemaFakerOptions | 生成mock 数据 faker配置参数，详情配置见 [json-schema-faker options文档](https://github.com/json-schema-faker/json-schema-faker/blob/HEAD/docs/README.md#available-options) | { alwaysFakeOptionals: true, fillProperties: false } |
-| mockDataReplace        | 生成mock 数据处理函数，可以覆盖faker数据 `(this: any, key: string, value: any) => any`                                                                                    | undefined                                            |
-| openapiPath            | openapi v3 YAML or JSON 格式的文件路径,需要自己根据业务逻辑生成                                                                                                               |                                                      |
-| genTsDir               | 生成ts文件夹所在目录                                                                                                                                                | `未设置时，默认mockDir配置目录下mock文件夹`                         |
-| prettierOptions        | 生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置，详情配置见 [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md)    |                                                      |
-| requestFilePath        | ajax请求库路径，默认使用axios,文件默认导出函数，类型详见[requestFilePath 说明](https://github.com/liangskyli/openapi-ts)  `string`                                                  | undefined                                            |
-| requestQueryOmit       | ajax请求库里对公共get参数做了传入处理时，请求接口忽略get参数ts类型声明 `string[]`                                                                                                       | undefined                                            |
-| requestBodyOmit        | ajax请求库里对公共post参数做了传入处理时，请求接口忽略post参数ts类型声明 `string[]`                                                                                                     | undefined                                            |
+
+| 属性                     | 说明                                                                   | 类型                                                                                                                                     | 默认值                                                    |
+|------------------------|----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|
+| mockDir                | mock文件夹所在目录                                                          | `string`                                                                                                                               | `./`                                                   |
+| jsonSchemaFakerOptions | 生成mock 数据 faker配置参数                                                  | 详情配置见 [json-schema-faker options文档](https://github.com/json-schema-faker/json-schema-faker/blob/HEAD/docs/README.md#available-options) | `{ alwaysFakeOptionals: true, fillProperties: false }` |
+| mockDataReplace        | 生成mock 数据处理函数，可以覆盖faker数据                                            | `(this: any, key: string, value: any) => any`                                                                                          | `undefined`                                            |
+| openapiPath            | openapi v3 YAML or JSON 格式的文件路径,需要自己根据业务逻辑生成                         | `string`                                                                                                                               |                                                        |
+| genTsDir               | 生成ts文件夹所在目录                                                          | `string`                                                                                                                               | `未设置时，默认mockDir配置目录下mock文件夹`                           |
+| prettierOptions        | 生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置 | 详情配置见 [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md)                                                     |                                                        |
+| requestFilePath        | ajax请求库路径，默认使用axios,文件默认导出函数                                         | `string`                                                                                                                               | `undefined`                                            |
+| requestQueryOmit       | ajax请求库里对公共get参数做了传入处理时，请求接口忽略get参数ts类型声明                            | `string[]`                                                                                                                             | `undefined`                                            |
+| requestBodyOmit        | ajax请求库里对公共post参数做了传入处理时，请求接口忽略post参数ts类型声明                          | `string[]`                                                                                                                             | `undefined`                                            |
 
 - configFile mock数据生成配置文件示例
+
 ```ts
 import type { IGenMockDataOpts } from '@liangskyli/http-mock-gen';
 
@@ -71,6 +76,7 @@ export default config;
 - 接口API使用指引 [文档](https://github.com/liangskyli/openapi-ts/blob/master/packages/openapi-gen-ts/docs/request-api-guide.md)
 
 生成的interface-mock-data.ts 文件(不要手动修改这个文件)，用于http mock 功能。
+
 ```ts
 // This file is auto generated by http-mock-gen, do not edit!
 import type { Request, Response } from 'express';

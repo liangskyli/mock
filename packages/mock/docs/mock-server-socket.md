@@ -1,4 +1,5 @@
 # mockServer socket 例子
+
 - mockServer服务代码
 
 ```ts
@@ -23,6 +24,7 @@ mockServer({
 
 - mockControllerUrl 逻辑
   - 可以使用mockjs库生成随机数据，支持js,ts文件，热更新。灵活模拟 socket 场景数据。
+
 ```ts
 import type { Socket } from 'socket.io';
 import mockjs from 'mockjs';
@@ -48,6 +50,7 @@ const socketController = (socket: Socket) => {
 
 export default socketController;
 ```
+
 - socket html 代码
 
 ```html

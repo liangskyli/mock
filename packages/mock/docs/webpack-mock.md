@@ -1,6 +1,7 @@
 # http mock 迁入已有的webpack-dev-server服务
 
 - webpack.config.ts 文件
+
 ```ts
 import type WebpackDevServer from 'webpack-dev-server';
 import type Webpack from 'webpack';
@@ -30,7 +31,9 @@ const webpackConfig: Webpack.Configuration = {
 };
 export default webpackConfig;
 ```
+
 - webpack 启动服务
+
 ```ts
 import Webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';

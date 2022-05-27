@@ -20,6 +20,7 @@ export default {
 ```
 
 - webpack.config.ts 文件
+
 ```ts
 import type WebpackDevServer from 'webpack-dev-server';
 import type Webpack from 'webpack';
@@ -64,7 +65,9 @@ const webpackConfig: Webpack.Configuration = {
 };
 export default webpackConfig;
 ```
+
 - webpack 启动服务
+
 ```ts
 import Webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
@@ -84,6 +87,7 @@ runServer().then();
 
 - mockControllerUrl 逻辑
     - 可以使用mockjs库生成随机数据，支持js,ts文件，热更新。灵活模拟 socket 场景数据。
+
 ```ts
 import type { Socket } from 'socket.io';
 import mockjs from 'mockjs';
@@ -109,6 +113,7 @@ const socketController = (socket: Socket) => {
 
 export default socketController;
 ```
+
 - socket html 代码
 
 ```html

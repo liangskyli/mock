@@ -38,6 +38,7 @@
   };
   export default CustomData;
   ```
+  
   - custom-data/template-data.ts
   
   ```ts
@@ -68,9 +69,11 @@
     },
   };
   ```
+  
 - implementationData 数据结构，里面可以按格式要求，配置错误数据，响应数据，metadata数据，及多场景相关数据。
 - 优先级error > response ， error > metadata
 - sceneData 命中优先级 > 非命中优先级
+
 ```ts
 type IResponseData = {
   /** mock 错误数据 */
@@ -105,6 +108,7 @@ export type IImplementationData = Record<
 
 比如：
 - custom-data/template-data.ts
+
 ```ts
 import type { IImplementationData } from '@liangskyli/grpc-mock';
 import mockjs from 'mockjs';

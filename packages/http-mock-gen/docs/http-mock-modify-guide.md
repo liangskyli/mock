@@ -22,6 +22,7 @@
 
 - 注意：生成的mock数据，使用需要忽略custom-data，schema-api文件夹，不需要走 mock 的文件。
   - @liangskyli/mock 已经默认忽略了,不需要额外配置。
+
   ```ts
   exclude: [
    'mock/custom-data/**',
@@ -44,6 +45,7 @@
   };
   export default CustomData;
   ```
+  
   - custom-data/template-data.ts
   
   ```ts
@@ -84,6 +86,7 @@
 - ICustomData 数据结构，里面可以按格式要求，配置响应数据，及多场景相关数据。
 - 自定义mock数据(含多场景响应数据)支持按需配置，未配置使用默认值。
   - 智能合并mock数据例子如下
+
   ```ts
   // 默认数据
   const defaultData = {
@@ -126,6 +129,7 @@
   ```
 - sceneData 命中优先级 > 非命中优先级
 - 相关类型定义说明
+
 ```ts
 import type { Request } from 'express';
 
@@ -169,6 +173,7 @@ export type ICustomsData<
 
 比如：
 - custom-data/template-data.ts
+
 ```ts
 import type { ICustomsData, PartialAll, ICustomDataValue } from '@liangskyli/http-mock-gen';
 import type { Request } from 'express';

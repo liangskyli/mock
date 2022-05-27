@@ -2,6 +2,7 @@
 > 提供http，socket接口的mock服务功能，mock数据场景化手动编写。支持mock数据更改时热更新获取新数据。
 
 ## 安装:
+
 ```bash
 yarn add @liangskyli/mock --dev
 ```
@@ -12,6 +13,7 @@ yarn add @liangskyli/mock --dev
 ### 1.1 http mock 代码生成工具
 
 ### 安装:
+
 ```bash
 yarn add @liangskyli/http-mock-gen --dev
 ```

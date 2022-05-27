@@ -21,6 +21,7 @@ export default {
 ```
 
 - CLI 运行命令
+
 ```bash
 yarn mock-server -p 8001 -c ./mock.config.ts
 ```
@@ -44,6 +45,7 @@ const socketController = (socket: Socket) => {
 
 export default socketController;
 ```
+
 - socket html 代码
 
 ```html
