@@ -36,12 +36,12 @@
     "@grpc/proto-loader": "^0.6.12",
     "@liangskyli/utils": "^1.0.0",
     "@types/fs-extra": "^9.0.13",
-    "commander": "^9.2.0",
+    "commander": "^9.3.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^10.1.0",
-    "protobufjs": "^6.11.2",
-    "ts-node": "^10.7.0",
-    "ts-node-dev": "^1.1.8"
+    "protobufjs": "^6.11.3",
+    "ts-node": "^10.8.0",
+    "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",
