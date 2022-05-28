@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/liangskyli/mock/compare/v1.0.0...v1.1.0) (2022-05-28)
+
+
+### Features
+
+* console colors show ([614a473](https://github.com/liangskyli/mock/commit/614a4738612f471598263e562d14fce5c215c17b))
+* optimization ts type and code ([d48f9ce](https://github.com/liangskyli/mock/commit/d48f9ce9c9921a961fc8bcba54c328643cdb5abb))
+
+
+
 ## [1.0.0](https://github.com/liangskyli/mock/compare/v1.0.0-beta.0...v1.0.0) (2022-05-15)
 
 **Note:** Version bump only for package @liangskyli/utils

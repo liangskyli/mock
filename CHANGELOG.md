@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/liangskyli/mock/compare/v1.0.0...v1.1.0) (2022-05-28)
+
+
+### Features
+
+* console colors show ([614a473](https://github.com/liangskyli/mock/commit/614a4738612f471598263e562d14fce5c215c17b))
+* console colors show for update @liangskyli/openapi-gen-ts ([52c6559](https://github.com/liangskyli/mock/commit/52c655939e862b8af6b9f9b778c4d2dc2f5ba88d))
+* **http-mock-gen:** optimization ts type ([8f7c5d5](https://github.com/liangskyli/mock/commit/8f7c5d5a76b00dbb666c6981c2a08659b7239ce1))
+* optimization ts type and code ([d48f9ce](https://github.com/liangskyli/mock/commit/d48f9ce9c9921a961fc8bcba54c328643cdb5abb))
+
+
+
 ## [1.0.0](https://github.com/liangskyli/mock/compare/v1.0.0-beta.0...v1.0.0) (2022-05-15)
 
 **Note:** Version bump only for package root

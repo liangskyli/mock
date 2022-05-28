@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/mock",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "mockServer for web",
   "author": "liangsky <640634387@qq.com>",
   "homepage": "https://github.com/liangskyli/mock#readme",
@@ -42,7 +42,7 @@
     "@babel/core": "^7.18.2",
     "@babel/plugin-transform-modules-commonjs": "^7.18.2",
     "@babel/register": "^7.17.7",
-    "@liangskyli/utils": "^1.0.0",
+    "@liangskyli/utils": "^1.1.0",
     "@types/express": "^4.17.13",
     "@types/fs-extra": "^9.0.13",
     "body-parser": "^1.20.0",
