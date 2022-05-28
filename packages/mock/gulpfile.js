@@ -43,7 +43,7 @@ function buildDeclaration() {
 }
 
 function copyMetaFiles() {
-  return gulp.src(['./README.md', './bin*/**', './docs*/**']).pipe(gulp.dest('./lib/'));
+  return gulp.src(['./README.md', './bin*/**', './docs*/**', 'LICENSE']).pipe(gulp.dest('./lib/'));
 }
 
 function generateCliPackageJSON() {

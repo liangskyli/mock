@@ -7,7 +7,7 @@ function clean() {
 }
 
 function copyMetaFiles() {
-  return gulp.src(['./README.md']).pipe(gulp.dest('./lib/'));
+  return gulp.src(['./README.md', 'LICENSE']).pipe(gulp.dest('./lib/'));
 }
 
 function generateCliPackageJSON() {

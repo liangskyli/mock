@@ -46,7 +46,7 @@ function buildDeclaration() {
 }
 
 function copyMetaFiles() {
-  gulp.src(['./README.md', './bin*/**', './docs*/**']).pipe(gulp.dest('./lib/'));
+  gulp.src(['./README.md', './bin*/**', './docs*/**', 'LICENSE']).pipe(gulp.dest('./lib/'));
   return gulp
     .src(['./src/gen*/custom-data-template*/**'])
     .pipe(gulp.dest('lib/es/'))
