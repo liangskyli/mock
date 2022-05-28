@@ -3,7 +3,7 @@ import jsf from 'json-schema-faker';
 import fs from 'fs-extra';
 import path from 'path';
 import type prettier from 'prettier';
-import { prettierData } from '@liangskyli/utils';
+import { colors, prettierData } from '@liangskyli/utils';
 import type { Definition } from '@liangskyli/openapi-gen-ts';
 
 type IOpts = {
@@ -36,7 +36,7 @@ const genMockDataFile = async (opts: IOpts) => {
   const mockDataAbsolutePath = path.join(genMockAbsolutePath, 'mock-data.json');
   fs.writeFileSync(mockDataAbsolutePath, await prettierData(mockDataString, prettierOptions));
 
-  console.info('Generate mock/mock-data.json success');
+  console.info(colors.green('Generate mock/mock-data.json success'));
 
   return mockDataAbsolutePath;
 };

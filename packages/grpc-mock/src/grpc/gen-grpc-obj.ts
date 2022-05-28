@@ -1,5 +1,5 @@
 import { fileTip, getImportPath, packageName, tslintDisable } from './utils';
-import { getAbsolutePath, prettierData } from '@liangskyli/utils';
+import { colors, getAbsolutePath, prettierData } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
 import type { Options } from '@grpc/proto-loader';
@@ -44,7 +44,7 @@ const genGrpcObj = async (opt: GenGrpcObjOptions) => {
   ].join('\n');
 
   fs.writeFileSync(grpcObjPath, await prettierData(fileContent, prettierOptions));
-  console.info(`Generate grpc-obj.ts success in ${genMockPath}`);
+  console.info(colors.green(`Generate grpc-obj.ts success in ${genMockPath}`));
 };
 
 export default genGrpcObj;

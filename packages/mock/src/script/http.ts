@@ -2,7 +2,7 @@ import { program } from 'commander';
 import type { IOpts } from '../http/server/server';
 import mockServer from '../http/server/server';
 import fs from 'fs-extra';
-import { getAbsolutePath, getConfig } from '@liangskyli/utils';
+import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
 
 const packageJson = require('../../package.json');
 
@@ -56,7 +56,7 @@ const runingScript = () => {
 if (configFile) {
   const configFilePath = getAbsolutePath(configFile);
   if (!fs.pathExistsSync(configFilePath)) {
-    console.error(`mock config file not exits: ${configFile}`);
+    console.error(colors.red(`mock config file not exits: ${configFile}`));
     process.exit(1);
   }
 

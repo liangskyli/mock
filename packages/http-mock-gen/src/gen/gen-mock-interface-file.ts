@@ -1,7 +1,7 @@
 import type prettier from 'prettier';
 import fs from 'fs-extra';
 import path from 'path';
-import { copyOptions, prettierData, winPath } from '@liangskyli/utils';
+import { colors, copyOptions, prettierData, winPath } from '@liangskyli/utils';
 import { fileTip, packageName } from '../utils';
 
 type IOpts = {
@@ -69,7 +69,7 @@ const genDefaultCustomData = async (opts: IDefaultOpts) => {
         copyOptions(prettierOptions),
       ),
     );
-    console.info('Generate mock/custom-data folder file success');
+    console.info(colors.green('Generate mock/custom-data folder file success'));
   }
 };
 
@@ -142,7 +142,7 @@ const genMockInterfaceFile = async (opts: IOpts) => {
     interfaceMockDataAbsolutePath,
     await prettierData(interfaceMockData.join(''), prettierOptions),
   );
-  console.info('Generate mock/interface-mock-data.ts file success');
+  console.info(colors.green('Generate mock/interface-mock-data.ts file success'));
 };
 
 export { genMockInterfaceFile };

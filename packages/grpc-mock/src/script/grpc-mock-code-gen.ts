@@ -1,7 +1,7 @@
 import { program } from 'commander';
 import type { ConfigFileOptionsCLI } from '../grpc/gen';
 import fs from 'fs-extra';
-import { getAbsolutePath, getConfig } from '@liangskyli/utils';
+import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
 import { gen } from '../grpc/gen';
 
 const packageJson = require('../../package.json');
@@ -18,14 +18,14 @@ if (!configFile) {
 }
 const configFilePath = getAbsolutePath(configFile);
 if (!fs.existsSync(configFilePath)) {
-  console.error(`grpc mock config file not exits: ${configFile}`);
+  console.error(colors.red(`grpc mock config file not exits: ${configFile}`));
   process.exit(1);
 }
 
 const data: ConfigFileOptionsCLI = getConfig(configFilePath);
 const { loaderOptions, ...otherOptions } = data;
 if (!otherOptions.rootPath) {
-  console.error(`grpc mock config file need rootPath field: ${configFile}`);
+  console.error(colors.red(`grpc mock config file need rootPath field: ${configFile}`));
 }
 
 const runningScript = () => {

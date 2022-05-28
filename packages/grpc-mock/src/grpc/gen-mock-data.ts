@@ -8,6 +8,7 @@ import {
   copyOptions,
   winPath,
   removeFilesSync,
+  colors,
 } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
@@ -76,7 +77,7 @@ const genMockData = async (
   const genMockAbsolutePath = getAbsolutePath(genMockPath);
 
   removeFilesSync(genMockAbsolutePath);
-  console.info(`Clean dir: ${genMockPath}`);
+  console.info(colors.green(`Clean dir: ${genMockPath}`));
 
   const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
   await genDefaultCustomData(genCustomDataPath, prettierOptions);
@@ -205,7 +206,7 @@ export default ${spaceServerNameMock};
     fileConfigPath,
     await prettierData(grpcServiceMockConfigList.join('\n'), copyOptions(prettierOptions)),
   );
-  console.info(`Generate mock data success in ${genMockPath}`);
+  console.info(colors.green(`Generate mock data success in ${genMockPath}`));
 
   return { rootPath, genMockPath };
 };

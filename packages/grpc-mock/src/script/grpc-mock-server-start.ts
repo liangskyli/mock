@@ -1,7 +1,7 @@
 import { program } from 'commander';
 import type { ConfigFileOptionsCLI } from '../grpc/gen';
 import fs from 'fs-extra';
-import { getAbsolutePath, getConfig } from '@liangskyli/utils';
+import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
 import path from 'path';
 import spawn from 'cross-spawn';
 
@@ -27,7 +27,7 @@ if (!configFile) {
 }
 const configFilePath = getAbsolutePath(configFile);
 if (!fs.existsSync(configFilePath)) {
-  console.error(`grpc mock config file not exits: ${configFile}`);
+  console.error(colors.red(`grpc mock config file not exits: ${configFile}`));
   process.exit(1);
 }
 
@@ -37,7 +37,9 @@ const { grpcMockDir = './', grpcMockFolderName = 'grpc-mock' } = data;
 const genMockIndexFile = getAbsolutePath(path.join(grpcMockDir, grpcMockFolderName, 'index.ts'));
 
 if (!fs.existsSync(genMockIndexFile)) {
-  console.error(`grpc mock file not exits: ${genMockIndexFile}, please generate it first!`);
+  console.error(
+    colors.red(`grpc mock file not exits: ${genMockIndexFile}, please generate it first!`),
+  );
   process.exit(1);
 }
 

@@ -1,6 +1,6 @@
 import * as grpc from 'grpc';
 import type { IProtoItem, IMockService, IMetadataMap } from './service-type';
-import { lodash } from '@liangskyli/utils';
+import { colors, lodash } from '@liangskyli/utils';
 import type { Metadata } from 'grpc';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -67,7 +67,7 @@ const start = (grpcObject: any, mock: IMockService) => {
 
   server.bindAsync(`0.0.0.0:${mock.servicePort}`, grpc.ServerCredentials.createInsecure(), () => {
     server.start();
-    console.info(`grpc mock服务${mock.serviceName}启动,端口号:`, mock.servicePort);
+    console.info(colors.green(`grpc mock服务${mock.serviceName}启动,端口号:`), mock.servicePort);
   });
 };
 
@@ -85,7 +85,7 @@ const grpcMockInit = (mockList: IMockService[], baseDir: string) => {
       start(grpcObject, mock);
     });
   } else {
-    console.error('请先生成grpc mock 代码');
+    console.error(colors.red('请先生成grpc mock 代码'));
   }
 };
 

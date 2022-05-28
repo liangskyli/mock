@@ -3,7 +3,7 @@ import genMockData from './gen-mock-data';
 import genGrpcObj from './gen-grpc-obj';
 import fs from 'fs-extra';
 import type { Options } from '@grpc/proto-loader';
-import { getAbsolutePath, copyOptions } from '@liangskyli/utils';
+import { getAbsolutePath, copyOptions, colors } from '@liangskyli/utils';
 import genTsConfig from './gen-tsconfig';
 
 export type GenOptions = GenMockDataOptions & {
@@ -27,7 +27,7 @@ export async function gen(opts: GenOptions) {
         loaderOptions = Object.assign(defaultLoaderOptions, configData.loaderOptions);
       }
     } else {
-      console.log(`配置文件${configFilePath}不存在`);
+      console.error(colors.red(`配置文件${configFilePath}不存在`));
     }
   }
 

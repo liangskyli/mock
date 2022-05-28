@@ -1,5 +1,11 @@
 import path from 'path';
-import { getAbsolutePath, copyOptions, removeFilesSync, getRelativePath } from '@liangskyli/utils';
+import {
+  getAbsolutePath,
+  copyOptions,
+  removeFilesSync,
+  getRelativePath,
+  colors,
+} from '@liangskyli/utils';
 import fs from 'fs-extra';
 import genTsData from '@liangskyli/openapi-gen-ts';
 import type { IGenTsDataOpts } from '@liangskyli/openapi-gen-ts';
@@ -29,13 +35,12 @@ const genMockData = async (opts: IGenMockDataOpts) => {
   const genMockPath = path.join(mockDir, 'mock');
   const genMockAbsolutePath = getAbsolutePath(genMockPath);
   if (!fs.existsSync(getAbsolutePath(mockDir))) {
-    console.error(`mockDir not exits: ${mockDir}`);
+    console.error(colors.red(`mockDir not exits: ${mockDir}`));
     process.exit(1);
   }
 
   removeFilesSync(genMockAbsolutePath);
-  console.info(`Clean mock dir: ${genMockPath}`);
-
+  console.info(colors.green(`Clean mock dir: ${genMockPath}`));
   fs.ensureDirSync(genMockAbsolutePath);
 
   // openapi gen ts file

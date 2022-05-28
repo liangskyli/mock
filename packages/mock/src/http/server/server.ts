@@ -1,6 +1,6 @@
 import type http from 'http';
 import express from 'express';
-import { address } from '@liangskyli/utils';
+import { address, colors } from '@liangskyli/utils';
 import getMiddleware from './middleware';
 import { killProcess } from '../tools';
 import type { ISocketConfig } from './socket-server';
@@ -64,7 +64,7 @@ const mockServer = async (opts: IOpts = {}) => {
 
       console.log(
         [
-          '  http mock server running at:',
+          colors.green('  http mock server running at:'),
           `  - Local:   ${localUrl}`,
           lanUrl && `  - Network: ${lanUrl}`,
         ]
@@ -77,7 +77,7 @@ const mockServer = async (opts: IOpts = {}) => {
 
     killProcess(httpServer, 'httpServer');
   } catch (e) {
-    console.log(e);
+    console.error(e);
     process.exit(0);
   }
 };

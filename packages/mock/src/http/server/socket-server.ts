@@ -1,6 +1,6 @@
 import type { Socket, ServerOptions } from 'socket.io';
 import { Server as SocketServer } from 'socket.io';
-import { winPath, address } from '@liangskyli/utils';
+import { winPath, address, colors } from '@liangskyli/utils';
 import { isAbsolute, join } from 'path';
 import type http from 'http';
 import type { FSWatcher } from 'chokidar';
@@ -42,7 +42,7 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
   const lanUrl = `${protocol}://${lanIp}:${port}`;
   console.log(
     [
-      '  socket mock server running at:',
+      colors.green('  socket mock server running at:'),
       `  - Local:   ${localUrl}`,
       lanUrl && `  - Network: ${lanUrl}`,
       `  - path:   ${socketConfig.opts?.path}`,
@@ -73,14 +73,19 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
   };
 
   io.on('connection', (socket) => {
-    console.log('socket.io mock server connection success,socketId:', socket.id);
+    console.log(colors.green('socket.io mock server connection success,socketId:'), socket.id);
     sockets.push(socket);
 
     // socket mock逻辑
     runSocketController(socket);
 
     socket.on('disconnect', (reason) => {
-      console.log('socket.io mock server disconnect,socketId:', socket.id, 'reason:', reason);
+      console.log(
+        colors.green('socket.io mock server disconnect,socketId:'),
+        socket.id,
+        colors.green('reason:'),
+        reason,
+      );
     });
   });
 

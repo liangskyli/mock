@@ -1,7 +1,7 @@
 import * as fs from 'fs-extra';
 import path from 'path';
 import protobufjs from 'protobufjs';
-import { getAbsolutePath, prettierData } from '@liangskyli/utils';
+import { colors, getAbsolutePath, prettierData } from '@liangskyli/utils';
 import type prettier from 'prettier';
 import type { Options } from '@grpc/proto-loader';
 
@@ -80,7 +80,7 @@ const genProtoJson = async (opts: GenProtoOptions) => {
   }
   prettierOptions = Object.assign(prettierOptions, { parser: 'json' });
   fs.writeFileSync(jsonPath, await prettierData(JSON.stringify(allJson), prettierOptions));
-  console.info(`Generate proto root.json success in ${genMockPath}`);
+  console.info(colors.green(`Generate proto root.json success in ${genMockPath}`));
   return jsonPath;
 };
 
