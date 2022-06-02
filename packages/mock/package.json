@@ -55,7 +55,8 @@
     "multer": "^1.4.4",
     "path-to-regexp": "^6.2.1",
     "socket.io": "^4.5.1",
-    "ts-node": "^10.8.0"
+    "ts-node": "^10.8.0",
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",

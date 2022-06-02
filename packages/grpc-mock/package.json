@@ -41,7 +41,8 @@
     "fs-extra": "^10.1.0",
     "protobufjs": "^6.11.3",
     "ts-node": "^10.8.0",
-    "ts-node-dev": "^2.0.0"
+    "ts-node-dev": "^2.0.0",
+    "tslib": "^2.4.0"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.2",
