@@ -19,6 +19,18 @@ yarn add @liangskyli/http-mock-gen --dev
 yarn http-mock-gen -c ./mock.config.cli.ts
 ```
 
+- 注意：要求项目里tsconfig.json 配置ts-node节点
+```json
+{
+  "ts-node": {
+    "compilerOptions": {
+      "allowJs": false,
+      "module": "CommonJS"
+    }
+  }
+}
+```
+
 ### 命令参数
 
 | 参数               | 说明                     | 默认值 |
