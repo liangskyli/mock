@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/liangskyli/mock/compare/v1.1.1...v1.1.2) (2022-06-02)
+
+
+### Bug Fixes
+
+* add tslib dependencies for ts-node ([34a7590](https://github.com/liangskyli/mock/commit/34a75907f294aace56945cf4c12c410668da8522))
+
+
+
 ## [1.1.1](https://github.com/liangskyli/mock/compare/v1.1.0...v1.1.1) (2022-06-02)
 
 **Note:** Version bump only for package @liangskyli/grpc-mock
