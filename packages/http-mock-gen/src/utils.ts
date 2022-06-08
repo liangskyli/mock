@@ -30,7 +30,38 @@ const customizer: AssignCustomizer = (value, srcValue) => {
   }
 };
 
+const mergeUndefined = (temp: any, custom: any) => {
+  if (lodash.isObject(custom)) {
+    if (lodash.isArray(custom)) {
+      custom.map((item, index) => {
+        if (lodash.isObject(item)) {
+          mergeUndefined(temp[index], item);
+        } else {
+          if (item === undefined) {
+            temp[index] = undefined;
+          }
+        }
+      });
+    } else {
+      Object.keys(custom).map((key) => {
+        const item = custom[key];
+        if (lodash.isObject(item)) {
+          mergeUndefined(temp[key], item);
+        } else {
+          if (item === undefined) {
+            temp[key] = undefined;
+          }
+        }
+      });
+    }
+  }
+  return temp;
+};
+
 // 自定义数据和默认数据合并
 export const mergeObject = (object: any, source: any) => {
-  return lodash.mergeWith(object, source, customizer);
+  const tempData = lodash.mergeWith(lodash.cloneDeep(object), source, customizer);
+  // 自定义undefined数据覆盖默认数据
+  const result = mergeUndefined(tempData, object);
+  return result;
 };
