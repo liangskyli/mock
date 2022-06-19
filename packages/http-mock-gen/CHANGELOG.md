@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.3](https://github.com/liangskyli/mock/compare/v1.1.2...v1.1.3) (2022-06-19)
+
+
+### Bug Fixes
+
+* merge custom undefined to target data ([2a1d83f](https://github.com/liangskyli/mock/commit/2a1d83f1983ad24d7ccdb27b33b95208f443afa6))
+
+
+
 ## [1.1.1](https://github.com/liangskyli/mock/compare/v1.1.0...v1.1.1) (2022-06-02)
 
 **Note:** Version bump only for package @liangskyli/http-mock-gen
