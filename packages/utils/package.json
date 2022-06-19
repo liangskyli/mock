@@ -25,6 +25,7 @@
     "build": "gulp && rollup --config=./rollup.config.js"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.182",
     "@types/prettier": "^2.6.3",
     "address": "^1.2.0",
     "colors": "^1.4.0",
@@ -32,13 +33,12 @@
     "debug": "^4.3.4",
     "fs-extra": "^10.1.0",
     "lodash": "^4.17.21",
-    "prettier": "^2.6.2",
-    "resolve": "^1.22.0",
+    "prettier": "^2.7.1",
+    "resolve": "^1.22.1",
     "signale": "^1.4.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.7",
-    "@types/lodash": "^4.14.182",
     "@types/resolve": "^1.20.2",
     "@types/signale": "^1.4.4"
   },

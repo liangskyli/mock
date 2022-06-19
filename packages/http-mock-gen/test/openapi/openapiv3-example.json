@@ -52,9 +52,9 @@
           {
             "name": "activityId",
             "in": "query",
-            "description": "活动id (@QueryParams, 类型：number)",
+            "description": "111活动id (@QueryParams, 类型：number)",
             "required": true,
-            "schema": { "type": "number", "description": "活动id" }
+            "schema": {  "description": "活动id" }
           }
         ]
       }
@@ -106,7 +106,7 @@
       "GetListItem": {
         "type": "object",
         "properties": {
-          "buildingName": { "type": "string", "description": "楼盘名称" },
+          "buildingName": {  "description": "11楼盘名称" },
           "isBindErp": { "type": "boolean", "description": "是否绑定ERP" }
         },
         "additionalProperties": false
