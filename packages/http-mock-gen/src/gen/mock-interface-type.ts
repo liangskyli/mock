@@ -1,10 +1,9 @@
 import type { Request } from 'express';
 
-type IResponseData<T = any> = {
-  /** mock 响应数据 */
-  response: T;
-};
-
+interface IResponseData<T = any> {
+  /** mock 响应数据(函数调用，支持动态生成数据) */
+  response: T | (() => T);
+}
 export interface ISceneDataItem<T> extends IResponseData<T> {
   /** mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配 */
   requestCase: (request: Request) => boolean;

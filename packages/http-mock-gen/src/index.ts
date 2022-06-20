@@ -10,10 +10,16 @@ const getMockData = <T = any>(
   data?: ICustomData<PartialAll<T>>['string'],
 ) => {
   let json = data?.response;
+  if (typeof json === 'function') {
+    json = json();
+  }
   if (data?.sceneData) {
     data.sceneData.some((sceneItem) => {
       if (sceneItem.requestCase(req)) {
         json = sceneItem.response;
+        if (typeof json === 'function') {
+          json = json();
+        }
         return true;
       }
       return false;

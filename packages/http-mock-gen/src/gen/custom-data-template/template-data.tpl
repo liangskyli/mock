@@ -6,7 +6,7 @@ export const TemplateData: ICustomsData<{
   '{{firstPath}}': ICustomDataValue<PartialAll<IApi['{{firstPath}}']['Response']>>;
 }> = {
   '{{firstPath}}': {
-    /** mock 响应数据 */
+    /** mock 响应数据(函数调用，支持动态生成数据) */
     response: {{responseData}},
     /** mock 多场景响应数据 */
     sceneData: [
