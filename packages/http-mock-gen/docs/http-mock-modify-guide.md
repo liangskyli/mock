@@ -57,7 +57,7 @@
     '/v1/building/get-list': ICustomDataValue<PartialAll<IApi['/v1/building/get-list']['Response']>>;
   }> = {
     '/v1/building/get-list': {
-      /** mock 响应数据 */
+      /** mock 响应数据(函数调用，支持动态生成数据) */
       response: {
         retCode: 0,
         data: { blockList: [{ isBindErp: false, buildingName: 'buildingName' }], isFuLi: false },
@@ -134,8 +134,8 @@
 import type { Request } from 'express';
 
 type IResponseData<T = any> = {
-  /** mock 响应数据 */
-  response: T;
+  /** mock 响应数据(函数调用，支持动态生成数据) */
+  response: T | (() => T);
 };
 
 export interface ISceneDataItem<T> extends IResponseData<T> {
@@ -183,11 +183,13 @@ export const TemplateData: ICustomsData<{
   '/v1/building/get-list': ICustomDataValue<PartialAll<IApi['/v1/building/get-list']['Response']>>;
 }> = {
   '/v1/building/get-list': {
-    /** mock 响应数据 */
-    response: {
-      retCode: 0,
-      data: { blockList: [{ isBindErp: false, buildingName: mockjs.Random.string(3) }], isFuLi: false },
-      retMsg: 'retMsg',
+    /** mock 响应数据(函数调用，支持动态生成数据) */
+    response: () => {
+      return {
+        retCode: 0,
+        data: { blockList: [{ isBindErp: false, buildingName: mockjs.Random.string(3) }], isFuLi: false },
+        retMsg: 'retMsg',
+      };
     },
     /** mock 多场景响应数据 */
     sceneData: [
