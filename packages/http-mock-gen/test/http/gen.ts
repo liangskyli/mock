@@ -4,7 +4,7 @@ import genMockData from '../../src/index';
 genMockData({
   mockDir: './test/genHttpMock',
   //genTsDir: './test/genHttpMock',
-  openapiPath: './test/openapi/openapiv3-example.json',
+  openapiPath: './test/openapi/openapiv3-example2.json',
   jsonSchemaFakerOptions: {
     minItems: 1,
     maxItems: 1,
