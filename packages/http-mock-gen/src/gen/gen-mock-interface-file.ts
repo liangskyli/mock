@@ -18,6 +18,10 @@ type IDefaultOpts = {
   prettierOptions?: prettier.Options;
 };
 
+const getMediaTypeData = (content: any) => {
+  return content?.['application/json'] ?? content?.['text/plain'] ?? {};
+};
+
 const genDefaultCustomData = async (opts: IDefaultOpts) => {
   const { mockData, genCustomDataPath, interfaceApiRelativePath, prettierOptions } = opts;
   if (!fs.pathExistsSync(path.join(genCustomDataPath, 'index.ts'))) {
@@ -26,15 +30,11 @@ const genDefaultCustomData = async (opts: IDefaultOpts) => {
     let responseData = {};
     if (itemValue.get) {
       const content = itemValue.get?.responses?.['200']?.content;
-      if (content && content['application/json']) {
-        responseData = content['application/json'];
-      }
+      responseData = getMediaTypeData(content);
     }
     if (itemValue.post) {
       const content = itemValue.post?.responses?.['200']?.content;
-      if (content && content['application/json']) {
-        responseData = content['application/json'];
-      }
+      responseData = getMediaTypeData(content);
     }
 
     fs.ensureDirSync(genCustomDataPath);
@@ -110,20 +110,12 @@ const genMockInterfaceFile = async (opts: IOpts) => {
     if (itemValue.get) {
       method = 'GET';
       const content = itemValue.get?.responses?.['200']?.content;
-      if (content && content['application/json']) {
-        data = content['application/json'];
-      } else {
-        data = {};
-      }
+      data = getMediaTypeData(content);
     }
     if (itemValue.post) {
       method = 'POST';
       const content = itemValue.post?.responses?.['200']?.content;
-      if (content && content['application/json']) {
-        data = content['application/json'];
-      } else {
-        data = {};
-      }
+      data = getMediaTypeData(content);
     }
     if (method) {
       interfaceMockData.push(`'${method} ${item}': (req: Request, res: Response) => {
