@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/liangskyli/mock/compare/v1.1.3...v1.2.0) (2022-07-02)
+
+
+### Features
+
+* **http-mock-gen:** mock response support function,now can support dynamic data generation ([891d135](https://github.com/liangskyli/mock/commit/891d1352e514f59a5a943bbf11ac927d8db622e0))
+* **mock:** support text/plain media type ([3f5b568](https://github.com/liangskyli/mock/commit/3f5b56844fb3343e0bd0f85c69eee60a616e6e52))
+
+
+
 ## [1.1.3](https://github.com/liangskyli/mock/compare/v1.1.2...v1.1.3) (2022-06-19)
 
 
