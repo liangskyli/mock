@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/grpc-mock",
-  "version": "1.1.3",
+  "version": "1.2.1",
   "description": "grpc mock for bff",
   "author": "liangsky <640634387@qq.com>",
   "homepage": "https://github.com/liangskyli/mock#readme",

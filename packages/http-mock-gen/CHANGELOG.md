@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/liangskyli/mock/compare/v1.2.0...v1.2.1) (2022-07-10)
+
+
+### Features
+
+* upgrade dependencies and fix @liangskyli/openapi-gen-ts post method query data err ([373db5f](https://github.com/liangskyli/mock/commit/373db5fb1d7c7bc3c8d6d1d71c5da69aa6a728ea))
+
+
+
 ## [1.2.0](https://github.com/liangskyli/mock/compare/v1.1.3...v1.2.0) (2022-07-02)
 
 
