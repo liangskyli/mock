@@ -1,7 +1,7 @@
-import type prettier from 'prettier';
+import { colors, copyOptions, prettierData, winPath } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import path from 'path';
-import { colors, copyOptions, prettierData, winPath } from '@liangskyli/utils';
+import type prettier from 'prettier';
 import { fileTip, packageName } from '../utils';
 
 type IOpts = {
@@ -23,7 +23,12 @@ const getMediaTypeData = (content: any) => {
 };
 
 const genDefaultCustomData = async (opts: IDefaultOpts) => {
-  const { mockData, genCustomDataPath, interfaceApiRelativePath, prettierOptions } = opts;
+  const {
+    mockData,
+    genCustomDataPath,
+    interfaceApiRelativePath,
+    prettierOptions,
+  } = opts;
   if (!fs.pathExistsSync(path.join(genCustomDataPath, 'index.ts'))) {
     const firstPath = Object.keys(mockData)[0];
     const itemValue = mockData[firstPath];
@@ -74,8 +79,12 @@ const genDefaultCustomData = async (opts: IDefaultOpts) => {
 };
 
 const genMockInterfaceFile = async (opts: IOpts) => {
-  const { interfaceApiRelativePath, mockDataAbsolutePath, genMockAbsolutePath, prettierOptions } =
-    opts;
+  const {
+    interfaceApiRelativePath,
+    mockDataAbsolutePath,
+    genMockAbsolutePath,
+    prettierOptions,
+  } = opts;
 
   const mockData = await import(mockDataAbsolutePath);
   // 生成自定义数据模版
@@ -102,7 +111,7 @@ const genMockInterfaceFile = async (opts: IOpts) => {
   `);
 
   interfaceMockData.push('\n export default {');
-  Object.keys(mockData).map((item) => {
+  Object.keys(mockData).forEach((item) => {
     const itemValue = mockData[item];
     // method 只支持 get post
     let method = '';
@@ -129,12 +138,17 @@ const genMockInterfaceFile = async (opts: IOpts) => {
 
   interfaceMockData.push('}');
 
-  const interfaceMockDataAbsolutePath = path.join(genMockAbsolutePath, 'interface-mock-data.ts');
+  const interfaceMockDataAbsolutePath = path.join(
+    genMockAbsolutePath,
+    'interface-mock-data.ts',
+  );
   fs.writeFileSync(
     interfaceMockDataAbsolutePath,
     await prettierData(interfaceMockData.join(''), prettierOptions),
   );
-  console.info(colors.green('Generate mock/interface-mock-data.ts file success'));
+  console.info(
+    colors.green('Generate mock/interface-mock-data.ts file success'),
+  );
 };
 
 export { genMockInterfaceFile };

@@ -1,7 +1,7 @@
-import { program } from 'commander';
-import type { ConfigFileOptionsCLI } from '../grpc/gen';
-import fs from 'fs-extra';
 import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
+import { program } from 'commander';
+import fs from 'fs-extra';
+import type { ConfigFileOptionsCLI } from '../grpc/gen';
 import { gen } from '../grpc/gen';
 
 const packageJson = require('../../package.json');
@@ -23,9 +23,12 @@ if (!fs.existsSync(configFilePath)) {
 }
 
 const data: ConfigFileOptionsCLI = getConfig(configFilePath);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { loaderOptions, ...otherOptions } = data;
 if (!otherOptions.rootPath) {
-  console.error(colors.red(`grpc mock config file need rootPath field: ${configFile}`));
+  console.error(
+    colors.red(`grpc mock config file need rootPath field: ${configFile}`),
+  );
 }
 
 const runningScript = () => {

@@ -45,7 +45,6 @@
     "ts-node": "^10.8.2"
   },
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "^7.18.6",
     "@types/cross-spawn": "^6.0.2"
   },
   "engines": {

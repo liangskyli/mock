@@ -1,9 +1,9 @@
+import type { Options } from '@grpc/proto-loader';
+import { colors, getAbsolutePath, prettierData } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
-import protobufjs from 'protobufjs';
-import { colors, getAbsolutePath, prettierData } from '@liangskyli/utils';
 import type prettier from 'prettier';
-import type { Options } from '@grpc/proto-loader';
+import protobufjs from 'protobufjs';
 
 export type ProtoConfig = {
   grpcProtoServes: {
@@ -22,7 +22,7 @@ type GenProtoOptions = ProtoConfig & {
 
 const getProtoFiles = (absoluteDir: string): string[] => {
   const protoFiles: string[] = [];
-  fs.readdirSync(absoluteDir).map((filename) => {
+  fs.readdirSync(absoluteDir).forEach((filename) => {
     const fileDir = path.join(absoluteDir, filename);
     const stats = fs.statSync(fileDir);
     if (stats.isFile()) {
@@ -38,7 +38,8 @@ const getProtoFiles = (absoluteDir: string): string[] => {
 };
 
 const genProtoJson = async (opts: GenProtoOptions) => {
-  const { genMockPath, grpcProtoServes, protoResolvePath, loaderOptions } = opts;
+  const { genMockPath, grpcProtoServes, protoResolvePath, loaderOptions } =
+    opts;
   let { prettierOptions } = opts;
 
   if (!grpcProtoServes) {
@@ -79,8 +80,13 @@ const genProtoJson = async (opts: GenProtoOptions) => {
     prettierOptions = { parser: 'json' };
   }
   prettierOptions = Object.assign(prettierOptions, { parser: 'json' });
-  fs.writeFileSync(jsonPath, await prettierData(JSON.stringify(allJson), prettierOptions));
-  console.info(colors.green(`Generate proto root.json success in ${genMockPath}`));
+  fs.writeFileSync(
+    jsonPath,
+    await prettierData(JSON.stringify(allJson), prettierOptions),
+  );
+  console.info(
+    colors.green(`Generate proto root.json success in ${genMockPath}`),
+  );
   return jsonPath;
 };
 

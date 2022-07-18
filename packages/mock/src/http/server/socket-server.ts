@@ -1,9 +1,9 @@
-import type { Socket, ServerOptions } from 'socket.io';
-import { Server as SocketServer } from 'socket.io';
-import { winPath, address, colors } from '@liangskyli/utils';
-import { isAbsolute, join } from 'path';
-import type http from 'http';
+import { address, colors, winPath } from '@liangskyli/utils';
 import type { FSWatcher } from 'chokidar';
+import type http from 'http';
+import { isAbsolute, join } from 'path';
+import type { ServerOptions, Socket } from 'socket.io';
+import { Server as SocketServer } from 'socket.io';
 
 export type ISocketConfig = {
   enable: boolean;
@@ -73,7 +73,10 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
   };
 
   io.on('connection', (socket) => {
-    console.log(colors.green('socket.io mock server connection success,socketId:'), socket.id);
+    console.log(
+      colors.green('socket.io mock server connection success,socketId:'),
+      socket.id,
+    );
     sockets.push(socket);
 
     // socket mock逻辑
@@ -91,7 +94,7 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
 
   if (middlewareWatcher) {
     middlewareWatcher.on('all', () => {
-      sockets.map((value) => {
+      sockets.forEach((value) => {
         // 文件更改后，客户端断开，重新链接
         value.client.conn.close();
       });

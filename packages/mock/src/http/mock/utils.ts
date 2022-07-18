@@ -1,13 +1,13 @@
+import { createDebug, winPath } from '@liangskyli/utils';
+import assert from 'assert';
 import bodyParser from 'body-parser';
-import multer from 'multer';
-import { pathToRegexp } from 'path-to-regexp';
 import type { NextFunction, RequestHandler } from 'express';
 import type { Request } from 'express-serve-static-core';
-import glob from 'glob';
-import { winPath, createDebug } from '@liangskyli/utils';
-import assert from 'assert';
 import { existsSync } from 'fs';
+import glob from 'glob';
+import multer from 'multer';
 import { join } from 'path';
+import { pathToRegexp } from 'path-to-regexp';
 
 const VALID_METHODS = ['get', 'post', 'put', 'patch', 'delete'];
 const BODY_PARSED_METHODS = ['post', 'put', 'patch', 'delete'];
@@ -40,6 +40,120 @@ export interface IGetMockDataResult {
   mockData: IMockDataItem[];
   mockPaths: string[];
   mockWatcherPaths: string[];
+}
+
+export function getMockConfig(files: string[]): object {
+  return files.reduce((memo, mockFile) => {
+    try {
+      const m = require(mockFile); // eslint-disable-line
+      memo = {
+        ...memo,
+        ...(m.default || m),
+      };
+      return memo;
+    } catch (e: any) {
+      throw new Error(e.stack);
+    }
+  }, {});
+}
+
+export const cleanRequireCache = (paths: string[]): void => {
+  Object.keys(require.cache).forEach((file) => {
+    if (
+      paths.some((path) => {
+        return winPath(file).indexOf(path) > -1;
+      })
+    ) {
+      delete require.cache[file];
+    }
+  });
+};
+
+function parseKey(key: string) {
+  let method = 'get';
+  let path = key;
+  if (/\s+/.test(key)) {
+    const splited = key.split(/\s+/);
+    method = splited[0].toLowerCase();
+    path = splited[1]; // eslint-disable-line
+  }
+  assert(
+    VALID_METHODS.includes(method),
+    `Invalid method ${method} for path ${path}, please check your mock files.`,
+  );
+  return {
+    method,
+    path,
+  };
+}
+
+function createHandler(method: any, path: any, handler: any) {
+  return function (req: Request, res: any, next: NextFunction) {
+    function sendData() {
+      if (typeof handler === 'function') {
+        // @ts-ignore
+        multer().any()(req, res, () => {
+          handler(req, res, next);
+        });
+      } else {
+        res.json(handler);
+      }
+    }
+
+    if (BODY_PARSED_METHODS.includes(method)) {
+      bodyParser.json({ limit: '5mb', strict: false })(req, res, () => {
+        bodyParser.urlencoded({ limit: '5mb', extended: true })(
+          req,
+          res as any,
+          () => {
+            sendData();
+          },
+        );
+      });
+    } else {
+      sendData();
+    }
+  } as unknown as RequestHandler;
+}
+
+function normalizeConfig(config: any) {
+  return Object.keys(config).reduce((memo: any, key) => {
+    const handler = config[key];
+    const type = typeof handler;
+    assert(
+      type === 'function' || type === 'object',
+      `mock value of ${key} should be function or object, but got ${type}`,
+    );
+    const { method, path } = parseKey(key);
+    const keys: any[] = [];
+    const re = pathToRegexp(path, keys);
+    memo.push({
+      method,
+      path,
+      re,
+      keys,
+      handler: createHandler(method, path, handler),
+    });
+    return memo;
+  }, []);
+}
+
+function decodeParam(val: any) {
+  if (typeof val !== 'string' || val.length === 0) {
+    return val;
+  }
+  try {
+    return decodeURIComponent(val);
+  } catch (err) {
+    if (err instanceof URIError) {
+      err.message = `Failed to decode param ' ${val} '`;
+      // @ts-ignore
+      err.status = 400;
+      // @ts-ignore
+      err.statusCode = 400;
+    }
+    throw err;
+  }
 }
 
 /**
@@ -90,117 +204,10 @@ export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = ({
   };
 };
 
-export function getMockConfig(files: string[]): object {
-  return files.reduce((memo, mockFile) => {
-    try {
-      const m = require(mockFile); // eslint-disable-line
-      memo = {
-        ...memo,
-        ...(m.default || m),
-      };
-      return memo;
-    } catch (e: any) {
-      throw new Error(e.stack);
-    }
-  }, {});
-}
-
-export const cleanRequireCache = (paths: string[]): void => {
-  Object.keys(require.cache).forEach((file) => {
-    if (
-      paths.some((path) => {
-        return winPath(file).indexOf(path) > -1;
-      })
-    ) {
-      delete require.cache[file];
-    }
-  });
-};
-
-function parseKey(key: string) {
-  let method = 'get';
-  let path = key;
-  if (/\s+/.test(key)) {
-    const splited = key.split(/\s+/);
-    method = splited[0].toLowerCase();
-    path = splited[1]; // eslint-disable-line
-  }
-  assert(
-    VALID_METHODS.includes(method),
-    `Invalid method ${method} for path ${path}, please check your mock files.`,
-  );
-  return {
-    method,
-    path,
-  };
-}
-
-function createHandler(method: any, path: any, handler: any) {
-  return function (req: Request, res: any, next: NextFunction) {
-    if (BODY_PARSED_METHODS.includes(method)) {
-      bodyParser.json({ limit: '5mb', strict: false })(req, res, () => {
-        bodyParser.urlencoded({ limit: '5mb', extended: true })(req, res as any, () => {
-          sendData();
-        });
-      });
-    } else {
-      sendData();
-    }
-
-    function sendData() {
-      if (typeof handler === 'function') {
-        // @ts-ignore
-        multer().any()(req, res, () => {
-          handler(req, res, next);
-        });
-      } else {
-        res.json(handler);
-      }
-    }
-  } as unknown as RequestHandler;
-}
-
-function normalizeConfig(config: any) {
-  return Object.keys(config).reduce((memo: any, key) => {
-    const handler = config[key];
-    const type = typeof handler;
-    assert(
-      type === 'function' || type === 'object',
-      `mock value of ${key} should be function or object, but got ${type}`,
-    );
-    const { method, path } = parseKey(key);
-    const keys: any[] = [];
-    const re = pathToRegexp(path, keys);
-    memo.push({
-      method,
-      path,
-      re,
-      keys,
-      handler: createHandler(method, path, handler),
-    });
-    return memo;
-  }, []);
-}
-
-function decodeParam(val: any) {
-  if (typeof val !== 'string' || val.length === 0) {
-    return val;
-  }
-  try {
-    return decodeURIComponent(val);
-  } catch (err) {
-    if (err instanceof URIError) {
-      err.message = `Failed to decode param ' ${val} '`;
-      // @ts-ignore
-      err.status = 400;
-      // @ts-ignore
-      err.statusCode = 400;
-    }
-    throw err;
-  }
-}
-
-export const matchMock = (req: Request, mockData: IMockDataItem[]): IMockDataItem | undefined => {
+export const matchMock = (
+  req: Request,
+  mockData: IMockDataItem[],
+): IMockDataItem | undefined => {
   const { path: targetPath, method } = req;
   const targetMethod = method.toLowerCase();
 

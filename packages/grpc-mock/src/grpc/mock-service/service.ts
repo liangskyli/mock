@@ -1,9 +1,9 @@
-import * as grpc from 'grpc';
-import type { IProtoItem, IMockService, IMetadataMap } from './service-type';
 import { colors, lodash } from '@liangskyli/utils';
-import type { Metadata } from 'grpc';
 import * as fs from 'fs';
+import type { Metadata } from 'grpc';
+import * as grpc from 'grpc';
 import * as path from 'path';
+import type { IMetadataMap, IMockService, IProtoItem } from './service-type';
 
 type IImplementation = Record<string, (call: any, callback: any) => void>;
 
@@ -20,7 +20,7 @@ const toMetadata = (metadata?: IMetadataMap): Metadata => {
 const getImplementation: (proto: IProtoItem) => IImplementation = (proto) => {
   const implementationData = proto.implementationData;
   const implementation: IImplementation = {};
-  Object.keys(implementationData).map((key) => {
+  Object.keys(implementationData).forEach((key) => {
     implementation[key] = (call: any, callback: any) => {
       const { request, metadata: requestMetadata } = call;
       console.info(
@@ -60,15 +60,22 @@ const getImplementation: (proto: IProtoItem) => IImplementation = (proto) => {
 
 const start = (grpcObject: any, mock: IMockService) => {
   const server = new grpc.Server();
-  mock.protoList.map((proto) => {
+  mock.protoList.forEach((proto) => {
     const { service } = lodash.get<any, string>(grpcObject, proto.path);
     server.addService(service, getImplementation(proto));
   });
 
-  server.bindAsync(`0.0.0.0:${mock.servicePort}`, grpc.ServerCredentials.createInsecure(), () => {
-    server.start();
-    console.info(colors.green(`grpc mock服务${mock.serviceName}启动,端口号:`), mock.servicePort);
-  });
+  server.bindAsync(
+    `0.0.0.0:${mock.servicePort}`,
+    grpc.ServerCredentials.createInsecure(),
+    () => {
+      server.start();
+      console.info(
+        colors.green(`grpc mock服务${mock.serviceName}启动,端口号:`),
+        mock.servicePort,
+      );
+    },
+  );
 };
 
 /**
@@ -81,7 +88,7 @@ const grpcMockInit = (mockList: IMockService[], baseDir: string) => {
   if (fs.existsSync(require.resolve(grpcObjPath))) {
     const grpcObject = require(grpcObjPath).default;
     // start server
-    mockList.map((mock) => {
+    mockList.forEach((mock) => {
       start(grpcObject, mock);
     });
   } else {

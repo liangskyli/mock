@@ -1,5 +1,9 @@
 import type * as protobufjs from 'protobufjs';
-import { longsType, PROTO_TYPE_2_TS_TYPE_MAP, TS_TYPE_2_DEFAULT_MAP } from './utils';
+import {
+  longsType,
+  PROTO_TYPE_2_TS_TYPE_MAP,
+  TS_TYPE_2_DEFAULT_MAP,
+} from './utils';
 
 type IOpts = {
   typeMessage: protobufjs.Type;
@@ -19,7 +23,7 @@ export default function genResponseData(opts: IOpts): string {
   const genFieldObj = (type: protobufjs.Type) => {
     const { fields } = type;
     const jsonArr: string[] = [];
-    Object.keys(fields).map((field) => {
+    Object.keys(fields).forEach((field) => {
       const { type: fieldType, rule, comment } = fields[field];
       const originalTsType = PROTO_TYPE_2_TS_TYPE_MAP[fieldType];
       let tsType = originalTsType;
