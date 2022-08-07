@@ -1,5 +1,20 @@
 # 多种Mock服务提供MOCK数据，总有一种方式适合你。
 
+<p>
+  <a href="https://github.com/liangskyli/mock/releases">
+    <img alt="preview badge" src="https://img.shields.io/github/v/release/liangskyli/mock">
+  </a>
+  <a href="https://www.npmjs.com/package/@liangskyli/grpc-mock">
+   <img alt="preview badge" src="https://img.shields.io/npm/v/@liangskyli/grpc-mock?label=%40liangskyli%2Fgrpc-mock">
+  </a>
+  <a href="https://www.npmjs.com/package/@liangskyli/http-mock-gen">
+   <img alt="preview badge" src="https://img.shields.io/npm/v/@liangskyli/http-mock-gen?label=%40liangskyli%2Fhttp-mock-gen">
+  </a>
+  <a href="https://www.npmjs.com/package/@liangskyli/mock">
+   <img alt="preview badge" src="https://img.shields.io/npm/v/@liangskyli/mock?label=%40liangskyli%2Fmock">
+  </a>
+</p>
+
 > Mock 数据是前端开发过程中必不可少的一环，是分离前后端开发的关键链路。通过预先跟服务器端约定好的接口，模拟请求数据甚至逻辑，能够让前端开发独立自主，不会被服务端的开发所阻塞。全面支持http，socket，grpc接口。支持mock数据更改时热更新获取新数据，支持Mock数据自动生成和自定义场景化数据能力。
 
 ## mock 场景

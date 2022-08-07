@@ -1,5 +1,12 @@
 # http mock 代码生成工具
 
+<p>
+  <a href="https://www.npmjs.com/package/@liangskyli/http-mock-gen">
+   <img alt="preview badge" src="https://img.shields.io/npm/v/@liangskyli/http-mock-gen?label=%40liangskyli%2Fhttp-mock-gen">
+  </a>
+
+</p>
+
 - 基于openapi v3 生成 ts数据类型和http mock 数据代码。
 - mock数据填充默认值，自定义mock数据支持按需配置，未配置使用默认值。
 - ts接口类型文件生成
