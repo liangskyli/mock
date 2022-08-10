@@ -24,7 +24,7 @@ export default function genResponseData(opts: IOpts): string {
     const { fields } = type;
     const jsonArr: string[] = [];
     Object.keys(fields).forEach((field) => {
-      const { type: fieldType, rule, comment } = fields[field];
+      const { type: fieldType, repeated, comment } = fields[field];
       const originalTsType = PROTO_TYPE_2_TS_TYPE_MAP[fieldType];
       let tsType = originalTsType;
       if (tsType) {
@@ -51,7 +51,7 @@ export default function genResponseData(opts: IOpts): string {
         if (commentStr) {
           jsonArr.push(commentStr);
         }
-        if (rule === 'repeated') {
+        if (repeated) {
           jsonArr.push(`${field}: [${fieldValue}],`);
         } else {
           jsonArr.push(`${field}: ${fieldValue},`);
@@ -72,7 +72,7 @@ export default function genResponseData(opts: IOpts): string {
           const dataObj = genFieldObj(root.lookupType(typePath));
 
           let str = '';
-          if (rule === 'repeated') {
+          if (repeated) {
             str = `[{${dataObj.join('\n')}}]`;
           } else {
             str = `{${dataObj.join('\n')}}`;
@@ -80,7 +80,7 @@ export default function genResponseData(opts: IOpts): string {
 
           jsonArr.push(`${field}: ${str},`);
         } else {
-          if (rule === 'repeated') {
+          if (repeated) {
             jsonArr.push(`${field}: [],`);
           } else {
             jsonArr.push(`${field}: {},`);

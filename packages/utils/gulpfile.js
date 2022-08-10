@@ -1,9 +1,9 @@
 const gulp = require('gulp');
-const del = require('del');
+const del = require('../../script/esm-to-commjs').del;
 const through = require('through2');
 
 function clean() {
-  return del('./lib/**');
+  return del.deleteAsync('./lib/**');
 }
 
 function copyMetaFiles() {
