@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/liangskyli/mock/compare/v1.2.1...v1.3.0) (2022-08-10)
+
+
+### Features
+
+* **http-mock-gen:** support CLI config multiple IGenMockDataOpts type ([8353f44](https://github.com/liangskyli/mock/commit/8353f44f0e5c523d847bb07bbbead6c28bc896ef))
+
+
+
 ## [1.2.1](https://github.com/liangskyli/mock/compare/v1.2.0...v1.2.1) (2022-07-10)
 
 

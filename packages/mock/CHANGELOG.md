@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.3.0](https://github.com/liangskyli/mock/compare/v1.2.1...v1.3.0) (2022-08-10)
+
+
+### Features
+
+* **mock:** middleware mock support ts file compiler ([d7965af](https://github.com/liangskyli/mock/commit/d7965afb9b5a0758b565bc5e955e787afb2b6942))
+
+
+
 ## [1.2.1](https://github.com/liangskyli/mock/compare/v1.2.0...v1.2.1) (2022-07-10)
 
 
