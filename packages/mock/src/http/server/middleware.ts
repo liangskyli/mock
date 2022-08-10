@@ -1,10 +1,11 @@
-import { winPath, parseRequireDeps } from '@liangskyli/utils';
-import { join, isAbsolute } from 'path';
+import { parseRequireDeps, winPath } from '@liangskyli/utils';
 import type { FSWatcher } from 'chokidar';
+import type { NextFunction, Request, Response } from 'express';
+import fs from 'fs-extra';
+import { isAbsolute, join } from 'path';
 import createMiddleware from '../mock/createMiddleware';
 import { getMockData } from '../mock/utils';
 import { killProcess } from '../tools';
-import type { Request, Response, NextFunction } from 'express';
 
 const register = require('@babel/register');
 
@@ -18,7 +19,9 @@ const getMiddleware = async (
   opts: IOpts = {},
 ): Promise<{ middleware: any; middlewareWatcher?: FSWatcher }> => {
   const { mockDir = './', watch = true, exclude } = opts;
-  const cwd = winPath(isAbsolute(mockDir) ? mockDir : join(process.cwd(), mockDir));
+  const cwd = winPath(
+    isAbsolute(mockDir) ? mockDir : join(process.cwd(), mockDir),
+  );
 
   if (process.env.MOCK === 'false') {
     const middleware = (req: Request, res: Response, next: NextFunction) => {
@@ -26,6 +29,24 @@ const getMiddleware = async (
     };
     return { middleware, middlewareWatcher: undefined };
   }
+
+  const projectTsconfigName = join(process.cwd(), './tsconfig.json');
+  let projectConfig: any = {};
+  if (fs.existsSync(projectTsconfigName)) {
+    projectConfig.project = projectTsconfigName;
+  } else {
+    projectConfig.skipProject = true;
+  }
+
+  require('ts-node').register({
+    dir: join(cwd, './mock'),
+    emit: false,
+    transpileOnly: true,
+    compilerOptions: {
+      allowJs: true,
+    },
+    ...projectConfig,
+  });
 
   const registerBabel = (paths: string[]): void => {
     // support
