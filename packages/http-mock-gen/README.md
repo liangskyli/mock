@@ -4,7 +4,6 @@
   <a href="https://www.npmjs.com/package/@liangskyli/http-mock-gen">
    <img alt="preview badge" src="https://img.shields.io/npm/v/@liangskyli/http-mock-gen?label=%40liangskyli%2Fhttp-mock-gen">
   </a>
-
 </p>
 
 - 基于openapi v3 生成 ts数据类型和http mock 数据代码。
@@ -45,7 +44,11 @@ yarn http-mock-gen -c ./mock.config.cli.ts
 |------------------|------------------------|-----|
 | -c, --configFile | mock数据生成配置文件 `配置参数见下面` |     |
 
-## 命令参数 configFile mock数据生成配置文件参数属性
+## 命令参数 configFile mock数据生成配置文件参数属性 
+
+- 类型：IGenMockDataOpts | IGenMockDataOpts[]
+
+### IGenMockDataOpts 参数属性
 
 | 属性                     | 说明                                                                                                                                                                                          | 类型                                                                                                                                     | 默认值                                                    |
 |------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------|
@@ -63,28 +66,30 @@ yarn http-mock-gen -c ./mock.config.cli.ts
 - configFile mock数据生成配置文件示例
 
 ```ts
-import type { IGenMockDataOpts } from '@liangskyli/http-mock-gen';
+import type { IGenMockDataOptsCLI } from '@liangskyli/http-mock-gen';
 
-const config: IGenMockDataOpts = {
-  mockDir: './',
-  openapiPath: './openapi/openapiv3-example.json',
-  jsonSchemaFakerOptions: {
-    minItems: 1,
-    maxItems: 1,
-  },
-  mockDataReplace: (key, value) => {
-    if (typeof value === 'string') {
-      return key;
-    }
-    if (typeof value === 'number') {
-      return 0;
-    }
-    if (typeof value === 'boolean') {
-      return false;
-    }
-    return value;
-  },
-};
+const config: IGenMockDataOptsCLI = [
+  {
+    mockDir: './',
+    openapiPath: './openapi/openapiv3-example.json',
+    jsonSchemaFakerOptions: {
+      minItems: 1,
+      maxItems: 1,
+    },
+    mockDataReplace: (key, value) => {
+      if (typeof value === 'string') {
+        return key;
+      }
+      if (typeof value === 'number') {
+        return 0;
+      }
+      if (typeof value === 'boolean') {
+        return false;
+      }
+      return value;
+    },
+  }
+];
 export default config;
 
 ```
