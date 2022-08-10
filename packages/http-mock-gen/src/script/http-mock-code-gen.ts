@@ -1,7 +1,7 @@
+import { colors, getAbsolutePath, getConfig, lodash } from '@liangskyli/utils';
 import { program } from 'commander';
 import fs from 'fs-extra';
-import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
-import type { IGenMockDataOpts } from '../gen';
+import type { IGenMockDataOpts, IGenMockDataOptsCLI } from '../gen';
 import genMockData from '../index';
 
 const packageJson = require('../../package.json');
@@ -23,14 +23,24 @@ if (!fs.existsSync(configFilePath)) {
   process.exit(1);
 }
 
-const data: IGenMockDataOpts = getConfig(configFilePath);
-if (!data.openapiPath) {
-  console.error(colors.red(`http mock config file need openapiPath field: ${configFile}`));
-}
+let opts: IGenMockDataOptsCLI = getConfig(configFilePath);
 
-const runningScript = () => {
+const runningScript = async () => {
   try {
-    genMockData(data).then();
+    if (!lodash.isArray(opts)) {
+      opts = [opts] as IGenMockDataOpts[];
+    }
+    for (let i = 0; i < opts.length; i++) {
+      const singleOpts = opts[i];
+      if (!singleOpts.openapiPath) {
+        console.error(
+          colors.red(
+            `http mock config file need openapiPath field: ${configFile}`,
+          ),
+        );
+      }
+      await genMockData(singleOpts);
+    }
   } catch (err: any) {
     console.error(err);
   }

@@ -1,23 +1,25 @@
-import path from 'path';
+import type { IGenTsDataOpts } from '@liangskyli/openapi-gen-ts';
+import genTsData from '@liangskyli/openapi-gen-ts';
 import {
-  getAbsolutePath,
-  copyOptions,
-  removeFilesSync,
-  getRelativePath,
   colors,
+  copyOptions,
+  getAbsolutePath,
+  getRelativePath,
+  removeFilesSync,
 } from '@liangskyli/utils';
 import fs from 'fs-extra';
-import genTsData from '@liangskyli/openapi-gen-ts';
-import type { IGenTsDataOpts } from '@liangskyli/openapi-gen-ts';
+import type { JSONSchemaFakerOptions } from 'json-schema-faker';
+import path from 'path';
 import { genMockDataFile } from './gen-mock-data-file';
 import { genMockInterfaceFile } from './gen-mock-interface-file';
-import type { JSONSchemaFakerOptions } from 'json-schema-faker';
 
 export type IGenMockDataOpts = IGenTsDataOpts & {
   mockDir?: string;
   jsonSchemaFakerOptions?: JSONSchemaFakerOptions;
   mockDataReplace?: (this: any, key: string, value: any) => any;
 };
+
+export type IGenMockDataOptsCLI = IGenMockDataOpts | IGenMockDataOpts[];
 
 const genMockData = async (opts: IGenMockDataOpts) => {
   const {

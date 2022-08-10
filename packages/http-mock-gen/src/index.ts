@@ -1,7 +1,11 @@
-import type { PartialAll, IAPIRequest } from '@liangskyli/openapi-gen-ts';
-import genMockData from './gen/index';
+import type { IAPIRequest, PartialAll } from '@liangskyli/openapi-gen-ts';
 import type { Request } from 'express';
-import type { ICustomData, ICustomsData, ICustomDataValue } from './gen/mock-interface-type';
+import genMockData from './gen/index';
+import type {
+  ICustomData,
+  ICustomDataValue,
+  ICustomsData,
+} from './gen/mock-interface-type';
 import { mergeObject } from './utils';
 
 const getMockData = <T = any>(
@@ -34,7 +38,13 @@ const getMockData = <T = any>(
   return json;
 };
 
-export type { IGenMockDataOpts } from './gen/index';
-export default genMockData;
+export type { IGenMockDataOpts, IGenMockDataOptsCLI } from './gen/index';
 export { getMockData };
-export type { ICustomData, ICustomDataValue, ICustomsData, IAPIRequest, PartialAll };
+export type {
+  ICustomData,
+  ICustomDataValue,
+  ICustomsData,
+  IAPIRequest,
+  PartialAll,
+};
+export default genMockData;
