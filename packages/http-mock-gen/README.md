@@ -21,8 +21,16 @@ yarn add @liangskyli/http-mock-gen --dev
 
 ## 1、CLI 命令方式（推荐）
 
+- 默认配置文件在运行目录下mock.config.ts
+
 ```bash
-yarn http-mock-gen -c ./mock.config.cli.ts
+yarn http-mock-gen
+```
+
+- 配置文件别名mock.config2.ts
+
+```bash
+yarn http-mock-gen -c ./mock.config2.ts
 ```
 
 - 注意：如果项目里tsconfig.json，module不是CommonJS，则要求配置ts-node节点
@@ -40,9 +48,9 @@ yarn http-mock-gen -c ./mock.config.cli.ts
 
 ### 命令参数
 
-| 参数               | 说明                     | 默认值 |
-|------------------|------------------------|-----|
-| -c, --configFile | mock数据生成配置文件 `配置参数见下面` |     |
+| 参数               | 说明                     | 默认值                |
+|------------------|------------------------|--------------------|
+| -c, --configFile | mock数据生成配置文件 `配置参数见下面` | `./mock.config.ts` |
 
 ## 命令参数 configFile mock数据生成配置文件参数属性 
 
