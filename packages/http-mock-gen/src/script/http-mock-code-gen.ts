@@ -11,14 +11,15 @@ program
   .option('-c, --configFile [configFile]', 'http mock code gen config file')
   .parse(process.argv);
 
-const { configFile } = program.opts();
+let { configFile } = program.opts();
 
 if (!configFile) {
-  console.error(colors.red('-c, --configFile [configFile] field need'));
-  process.exit(1);
+  configFile = './mock.config.ts';
 }
 const configFilePath = getAbsolutePath(configFile);
-if (!fs.existsSync(configFilePath)) {
+if (fs.existsSync(configFilePath)) {
+  console.info(colors.green(`use configFile path: ${configFile}`));
+} else {
   console.error(colors.red(`-c, --configFile path not exits: ${configFile}`));
   process.exit(1);
 }
