@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/http-mock-gen",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "http mock gen for web mockServer",
   "author": "liangsky <640634387@qq.com>",
   "homepage": "https://github.com/liangskyli/mock#readme",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@liangskyli/openapi-gen-ts": "^0.5.0",
-    "@liangskyli/utils": "^1.3.0",
+    "@liangskyli/utils": "^1.4.0",
     "@types/fs-extra": "^9.0.13",
     "axios": "^0.27.2",
     "commander": "^9.4.1",

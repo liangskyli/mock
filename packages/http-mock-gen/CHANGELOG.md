@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.0](https://github.com/liangskyli/mock/compare/v1.3.0...v1.4.0) (2022-10-04)
+
+
+### Features
+
+* **http-mock-gen:** support CLI config file default vale ([fbc7b3b](https://github.com/liangskyli/mock/commit/fbc7b3bf0af9d7f7ebf4b19e8d64e9945a6c05af))
+
+
+
 ## [1.3.0](https://github.com/liangskyli/mock/compare/v1.2.1...v1.3.0) (2022-08-10)
 
 

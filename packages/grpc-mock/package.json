@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/grpc-mock",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "grpc mock for bff",
   "author": "liangsky <640634387@qq.com>",
   "homepage": "https://github.com/liangskyli/mock#readme",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.7.3",
-    "@liangskyli/utils": "^1.3.0",
+    "@liangskyli/utils": "^1.4.0",
     "@types/fs-extra": "^9.0.13",
     "commander": "^9.4.1",
     "cross-spawn": "^7.0.3",
