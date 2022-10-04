@@ -21,7 +21,7 @@ yarn add @liangskyli/http-mock-gen --dev
 
 ## 1、CLI 命令方式（推荐）
 
-- 默认配置文件在运行目录下mock.config.ts
+- 默认配置文件在运行目录下mock.config.ts文件
 
 ```bash
 yarn http-mock-gen
