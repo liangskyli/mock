@@ -15,6 +15,7 @@ import { genMockInterfaceFile } from './gen-mock-interface-file';
 
 export type IGenMockDataOpts = IGenTsDataOpts & {
   mockDir?: string;
+  mockPathPrefix?: string;
   jsonSchemaFakerOptions?: JSONSchemaFakerOptions;
   mockDataReplace?: (this: any, key: string, value: any) => any;
 };
@@ -31,6 +32,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     requestFilePath,
     requestQueryOmit = [],
     requestBodyOmit = [],
+    mockPathPrefix,
   } = opts;
   const genTsDir = opts.genTsDir ?? `${opts.mockDir}/mock`;
 
@@ -74,6 +76,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     mockDataAbsolutePath,
     genMockAbsolutePath,
     prettierOptions: copyOptions(prettierOptions),
+    mockPathPrefix,
   });
 };
 

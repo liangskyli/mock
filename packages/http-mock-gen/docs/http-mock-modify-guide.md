@@ -84,6 +84,7 @@
   ```
   
 - ICustomData 数据结构，里面可以按格式要求，配置响应数据，及多场景相关数据。
+  - 注意：ICustomData 里的 key值（例：路径/v1/building/get-list）不包含mockPathPrefix的配置值，请保持和openapi文件里paths路径一致。
 - 自定义mock数据(含多场景响应数据)支持按需配置，未配置使用默认值。
   - 智能合并mock数据例子如下
 

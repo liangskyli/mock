@@ -9,6 +9,7 @@ type IOpts = {
   mockDataAbsolutePath: string;
   genMockAbsolutePath: string;
   prettierOptions?: prettier.Options;
+  mockPathPrefix?: string;
 };
 
 type IDefaultOpts = {
@@ -84,6 +85,7 @@ const genMockInterfaceFile = async (opts: IOpts) => {
     mockDataAbsolutePath,
     genMockAbsolutePath,
     prettierOptions,
+    mockPathPrefix = '',
   } = opts;
 
   const mockData = await import(mockDataAbsolutePath);
@@ -127,7 +129,7 @@ const genMockInterfaceFile = async (opts: IOpts) => {
       data = getMediaTypeData(content);
     }
     if (method) {
-      interfaceMockData.push(`'${method} ${item}': (req: Request, res: Response) => {
+      interfaceMockData.push(`'${method} ${mockPathPrefix}${item}': (req: Request, res: Response) => {
         type IData = IApi['${item}']['Response'];
         const data = (CustomData as ICustomData<PartialAll<IData>>)['${item}'];
         const json = getMockData<IData>(${JSON.stringify(data)},req, data);

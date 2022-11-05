@@ -3,6 +3,7 @@ import genMockData from '../../src/index';
 
 genMockData({
   mockDir: './test/genHttpMock',
+  mockPathPrefix: '/mockPathPrefix',
   //genTsDir: './test/genHttpMock',
   openapiPath: './test/openapi/openapiv3-example2.json',
   jsonSchemaFakerOptions: {
