@@ -22,10 +22,10 @@
     "url": "git+https://github.com/liangskyli/mock.git"
   },
   "scripts": {
-    "build": "gulp && rollup --config=./rollup.config.js"
+    "build": "gulp && rollup --bundleConfigAsCjs --config=./rollup.config.js"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.186",
+    "@types/lodash": "^4.14.188",
     "@types/prettier": "^2.7.1",
     "address": "^1.2.1",
     "colors": "^1.4.0",
