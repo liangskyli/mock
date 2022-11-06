@@ -1,7 +1,6 @@
-import type { NextFunction, RequestHandler } from 'express';
-import type { Request, Response } from 'express-serve-static-core';
+import { createDebug, lodash, signale } from '@liangskyli/utils';
 import chokidar from 'chokidar';
-import { lodash, signale, createDebug } from '@liangskyli/utils';
+import type { NextFunction, Request, RequestHandler } from 'express';
 import type { IGetMockDataResult } from './utils';
 import { cleanRequireCache, matchMock } from './utils';
 
@@ -59,5 +58,5 @@ export default function (opts = {} as IMockOpts): ICreateMiddleware {
       }
     },
     watcher,
-  } as ICreateMiddleware;
+  } as unknown as ICreateMiddleware;
 }

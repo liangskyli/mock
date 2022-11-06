@@ -1,8 +1,7 @@
 import { createDebug, winPath } from '@liangskyli/utils';
 import assert from 'assert';
 import bodyParser from 'body-parser';
-import type { NextFunction, RequestHandler } from 'express';
-import type { Request } from 'express-serve-static-core';
+import type { NextFunction, Request, RequestHandler } from 'express';
 import { existsSync } from 'fs';
 import glob from 'glob';
 import multer from 'multer';

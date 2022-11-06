@@ -59,6 +59,7 @@
     "tslib": "^2.4.1"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.2",
     "@types/cross-spawn": "^6.0.2",
     "@types/glob": "^8.0.0",
     "@types/mockjs": "^1.0.7",
