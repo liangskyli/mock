@@ -1,41 +1,40 @@
 {
   "name": "@liangskyli/http-mock-gen",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "http mock gen for web mockServer",
-  "author": "liangsky <640634387@qq.com>",
-  "homepage": "https://github.com/liangskyli/mock#readme",
-  "license": "MIT",
   "keywords": [
     "mock",
     "http mock generate"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/es/index.js",
-  "types": "./lib/es/index.d.ts",
-  "typings": "./lib/es/index.d.ts",
-  "files": [
-    "lib"
-  ],
-  "bin": {
-    "http-mock-gen": "bin/index.js"
-  },
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
+  "homepage": "https://github.com/liangskyli/mock#readme",
+  "bugs": {
+    "url": "https://github.com/liangskyli/mock/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liangskyli/mock.git"
   },
+  "license": "MIT",
+  "author": "liangsky <640634387@qq.com>",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/es/index.js",
+  "types": "./lib/es/index.d.ts",
+  "typings": "./lib/es/index.d.ts",
+  "bin": {
+    "http-mock-gen": "bin/index.js"
+  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
+    "build": "gulp",
     "test-http-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen.ts",
     "test-http-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen-cli.ts",
-    "build": "gulp",
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
     "@liangskyli/openapi-gen-ts": "^0.5.0",
-    "@liangskyli/utils": "^1.4.0",
+    "@liangskyli/utils": "^1.5.0",
     "@types/fs-extra": "^9.0.13",
     "axios": "^1.2.0",
     "commander": "^9.4.1",
@@ -52,7 +51,8 @@
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
   },
-  "bugs": {
-    "url": "https://github.com/liangskyli/mock/issues"
+  "publishConfig": {
+    "access": "public",
+    "directory": "lib"
   }
 }

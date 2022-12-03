@@ -1,10 +1,7 @@
 {
   "name": "@liangskyli/mock",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "mockServer for web",
-  "author": "liangsky <640634387@qq.com>",
-  "homepage": "https://github.com/liangskyli/mock#readme",
-  "license": "MIT",
   "keywords": [
     "mock",
     "mock server",
@@ -13,37 +10,39 @@
     "socket",
     "socket.io"
   ],
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/es/index.js",
-  "types": "./lib/es/index.d.ts",
-  "typings": "./lib/es/index.d.ts",
-  "files": [
-    "lib"
-  ],
-  "bin": {
-    "mock-server": "./bin/index.js"
-  },
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
+  "homepage": "https://github.com/liangskyli/mock#readme",
+  "bugs": {
+    "url": "https://github.com/liangskyli/mock/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/liangskyli/mock.git"
   },
+  "license": "MIT",
+  "author": "liangsky <640634387@qq.com>",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/es/index.js",
+  "types": "./lib/es/index.d.ts",
+  "typings": "./lib/es/index.d.ts",
+  "bin": {
+    "mock-server": "./bin/index.js"
+  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
+    "build": "gulp",
     "start": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/server.ts",
     "test-http-cli": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http-cli.ts",
     "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/middleware.ts",
     "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/webpack-middleware.ts",
-    "build": "gulp",
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
     "@babel/core": "^7.20.5",
     "@babel/plugin-transform-modules-commonjs": "^7.19.6",
     "@babel/register": "^7.18.9",
-    "@liangskyli/utils": "^1.4.0",
+    "@liangskyli/utils": "^1.5.0",
     "@types/express": "^4.17.14",
     "@types/fs-extra": "^9.0.13",
     "body-parser": "^1.20.1",
@@ -73,7 +72,8 @@
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
   },
-  "bugs": {
-    "url": "https://github.com/liangskyli/mock/issues"
+  "publishConfig": {
+    "access": "public",
+    "directory": "lib"
   }
 }

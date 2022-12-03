@@ -1,11 +1,18 @@
 {
   "name": "@liangskyli/utils",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "@liangskyli/utils",
-  "author": "liangsky <640634387@qq.com>",
-  "homepage": "https://github.com/liangskyli/mock#readme",
-  "license": "MIT",
   "keywords": [],
+  "homepage": "https://github.com/liangskyli/mock#readme",
+  "bugs": {
+    "url": "https://github.com/liangskyli/mock/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liangskyli/mock.git"
+  },
+  "license": "MIT",
+  "author": "liangsky <640634387@qq.com>",
   "main": "./lib/cjs/index.js",
   "module": "./lib/es/index.js",
   "types": "./lib/es/index.d.ts",
@@ -13,14 +20,6 @@
   "files": [
     "lib"
   ],
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/liangskyli/mock.git"
-  },
   "scripts": {
     "build": "gulp && rollup --bundleConfigAsCjs --config=./rollup.config.js",
     "update:deps": "pnpm update --interactive --latest"
@@ -47,7 +46,8 @@
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
   },
-  "bugs": {
-    "url": "https://github.com/liangskyli/mock/issues"
+  "publishConfig": {
+    "access": "public",
+    "directory": "lib"
   }
 }

@@ -1,41 +1,44 @@
 {
   "name": "@liangskyli/grpc-mock",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "grpc mock for bff",
-  "author": "liangsky <640634387@qq.com>",
-  "homepage": "https://github.com/liangskyli/mock#readme",
-  "license": "MIT",
   "keywords": [
     "grpc",
     "grpc mock",
     "grpc mock server"
   ],
+  "homepage": "https://github.com/liangskyli/mock#readme",
+  "bugs": {
+    "url": "https://github.com/liangskyli/mock/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liangskyli/mock.git"
+  },
+  "license": "MIT",
+  "author": "liangsky <640634387@qq.com>",
   "main": "./lib/cjs/index.js",
   "module": "./lib/es/index.js",
   "types": "./lib/es/index.d.ts",
   "typings": "./lib/es/index.d.ts",
-  "files": [
-    "lib"
-  ],
   "bin": {
     "grpc-mock": "./bin/index.js"
   },
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
-  },
+  "files": [
+    "lib"
+  ],
   "scripts": {
+    "build": "gulp",
+    "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
     "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen.ts",
     "test-grpc-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen-cli.ts",
     "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
     "test-grpc-mock-server-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/mock-server-cli.ts",
-    "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
-    "build": "gulp",
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.7.3",
-    "@liangskyli/utils": "^1.4.0",
+    "@liangskyli/utils": "^1.5.0",
     "@types/fs-extra": "^9.0.13",
     "commander": "^9.4.1",
     "cross-spawn": "^7.0.3",
@@ -55,14 +58,11 @@
   "optionalDependencies": {
     "grpc": "^1.24.11"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/liangskyli/mock.git"
-  },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
   },
-  "bugs": {
-    "url": "https://github.com/liangskyli/mock/issues"
+  "publishConfig": {
+    "access": "public",
+    "directory": "lib"
   }
 }
