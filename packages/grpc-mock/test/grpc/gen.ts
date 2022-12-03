@@ -25,3 +25,13 @@ grpcMockCodeGen({
   prettierOptions: { singleQuote: true },
   configFilePath:'./test/grpc/mock.config.ts',
 });*/
+
+/*grpcMockCodeGen({
+  grpcMockDir: './test',
+  rootPath:'./test/grpc/root3.json',
+  rootPathServerNameMap:{
+    'component-center_cc_file_box':'cc_file_box',
+  },
+  prettierOptions: { singleQuote: true },
+  configFilePath:'./test/grpc/mock.config.ts',
+});*/

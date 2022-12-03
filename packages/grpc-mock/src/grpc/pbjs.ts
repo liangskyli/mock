@@ -327,7 +327,6 @@ export const genImplementationData = (
 
       const response = genResponseData({
         typeMessage,
-        protoName,
         root,
         longsTypeToString,
       });

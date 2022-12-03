@@ -33,7 +33,8 @@ export const PROTO_TYPE_2_TS_TYPE_MAP: Record<string, string> = {
 export const TS_TYPE_2_DEFAULT_MAP: Record<string, any> = {
   number: 0,
   boolean: false,
-  string: '"1"',
+  string: '""',
+  stringNumber: '"1"',
 };
 
 export const genSpace = (num: number) => {

@@ -1,4 +1,4 @@
-import type * as protobufjs from 'protobufjs';
+import type { Enum, ReflectionObject, Root, Type } from 'protobufjs';
 import {
   longsType,
   PROTO_TYPE_2_TS_TYPE_MAP,
@@ -6,50 +6,68 @@ import {
 } from './utils';
 
 type IOpts = {
-  typeMessage: protobufjs.Type;
-  protoName: string;
-  root: protobufjs.Root;
+  typeMessage: Type;
+  root: Root;
   longsTypeToString: boolean;
 };
 
 let repeatList: string[] = [];
 
 export default function genResponseData(opts: IOpts): string {
-  const { typeMessage, protoName, root, longsTypeToString } = opts;
+  const { typeMessage, root, longsTypeToString } = opts;
 
   const commentReg = /(@optional)|(@option)|[\r\n]/g;
   repeatList = [];
 
-  const genFieldObj = (type: protobufjs.Type) => {
+  const genEnumObj = (type: Enum) => {
+    const { valuesById, comments } = type;
+    let firstValue = '';
+    const enumCommentArr: string[] = [];
+    Object.keys(valuesById).forEach((value, index) => {
+      if (index === 0) {
+        firstValue = value;
+      }
+      enumCommentArr.push(
+        `${value}:${comments[`${valuesById[value as any]}`]}`,
+      );
+    });
+    const enumCommentStr =
+      enumCommentArr.length > 0 ? `/** ${enumCommentArr.join(';')} */` : '';
+    return { firstValue, enumCommentStr };
+  };
+
+  const genFieldObj = (type: Type) => {
     const { fields } = type;
     const jsonArr: string[] = [];
     Object.keys(fields).forEach((field) => {
       const { type: fieldType, repeated, comment } = fields[field];
       const originalTsType = PROTO_TYPE_2_TS_TYPE_MAP[fieldType];
       let tsType = originalTsType;
+      const stringNumber =
+        longsType.indexOf(fieldType) > -1 && longsTypeToString;
       if (tsType) {
-        if (longsType.indexOf(fieldType) > -1 && longsTypeToString) {
+        if (stringNumber) {
           tsType = 'string';
         }
       }
 
       const commentFilter = comment ? comment.replace(commentReg, '') : '';
       const commentStr = commentFilter ? `/** ${commentFilter} */` : '';
+      if (commentStr) {
+        jsonArr.push(commentStr);
+      }
 
       let fieldValue: any = null;
       if (tsType !== undefined) {
         if (tsType === 'string') {
           fieldValue = `'${field}'`;
           if (originalTsType) {
-            if (longsType.indexOf(fieldType) > -1 && longsTypeToString) {
-              fieldValue = TS_TYPE_2_DEFAULT_MAP[tsType];
+            if (stringNumber) {
+              fieldValue = TS_TYPE_2_DEFAULT_MAP['stringNumber'];
             }
           }
         } else {
           fieldValue = TS_TYPE_2_DEFAULT_MAP[tsType];
-        }
-        if (commentStr) {
-          jsonArr.push(commentStr);
         }
         if (repeated) {
           jsonArr.push(`${field}: [${fieldValue}],`);
@@ -57,28 +75,36 @@ export default function genResponseData(opts: IOpts): string {
           jsonArr.push(`${field}: ${fieldValue},`);
         }
       } else {
-        jsonArr.push(commentStr);
         repeatList.push(fieldType);
         const repeatCount = repeatList.filter((value) => {
           return value === fieldType;
         }).length;
         // 防止死循环
         if (repeatCount < 2) {
-          let typePath = `${protoName}.${fieldType}`;
-          // typePath不能有. 存在时表明是其它命名空间下的类型
-          if (typePath.indexOf('.') > -1) {
-            typePath = `${fieldType}`;
-          }
-          const dataObj = genFieldObj(root.lookupType(typePath));
+          const typePath = `${fieldType}`;
+          const lookupTypeOrEnumMessage = root.lookupTypeOrEnum(
+            typePath,
+          ) as ReflectionObject;
+          const asType = lookupTypeOrEnumMessage as Type;
+          const asEnum = lookupTypeOrEnumMessage as Enum;
+          if (typeof asType.fields !== 'undefined') {
+            const dataObj = genFieldObj(asType);
+            let str = '';
+            if (repeated) {
+              str = `[{${dataObj.join('\n')}}]`;
+            } else {
+              str = `{${dataObj.join('\n')}}`;
+            }
 
-          let str = '';
-          if (repeated) {
-            str = `[{${dataObj.join('\n')}}]`;
-          } else {
-            str = `{${dataObj.join('\n')}}`;
+            jsonArr.push(`${field}: ${str},`);
           }
-
-          jsonArr.push(`${field}: ${str},`);
+          if (typeof asEnum.values !== 'undefined') {
+            const dataEnumObj = genEnumObj(asEnum);
+            if (dataEnumObj.enumCommentStr) {
+              jsonArr.push(dataEnumObj.enumCommentStr);
+            }
+            jsonArr.push(`${field}: ${dataEnumObj.firstValue},`);
+          }
         } else {
           if (repeated) {
             jsonArr.push(`${field}: [],`);
