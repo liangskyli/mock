@@ -61,11 +61,14 @@ export const firstWordNeedLetter = (str: string): string => {
 export const firstUpperCaseOfWord = (str: string) => {
   const result: string[] = [];
   str = firstWordNeedLetter(str);
-  str.split('_').forEach((item) => {
-    result.push(
-      item.toLowerCase().replace(/^\w|\s\w/g, (w) => w.toUpperCase()),
-    );
-  });
+  str
+    .replace(/-/gi, '_')
+    .split('_')
+    .forEach((item) => {
+      result.push(
+        item.toLowerCase().replace(/^\w|\s\w/g, (w) => w.toUpperCase()),
+      );
+    });
   return result.join('');
 };
 
