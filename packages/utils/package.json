@@ -22,18 +22,19 @@
     "url": "git+https://github.com/liangskyli/mock.git"
   },
   "scripts": {
-    "build": "gulp && rollup --bundleConfigAsCjs --config=./rollup.config.js"
+    "build": "gulp && rollup --bundleConfigAsCjs --config=./rollup.config.js",
+    "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.188",
+    "@types/lodash": "^4.14.191",
     "@types/prettier": "^2.7.1",
     "address": "^1.2.1",
     "colors": "^1.4.0",
     "crequire": "^1.8.1",
     "debug": "^4.3.4",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.1.0",
     "lodash": "^4.17.21",
-    "prettier": "^2.7.1",
+    "prettier": "^2.8.0",
     "resolve": "^1.22.1",
     "signale": "^1.4.0"
   },

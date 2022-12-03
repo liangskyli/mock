@@ -30,7 +30,8 @@
     "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
     "test-grpc-mock-server-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/mock-server-cli.ts",
     "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
-    "build": "gulp"
+    "build": "gulp",
+    "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.7.3",
@@ -38,7 +39,7 @@
     "@types/fs-extra": "^9.0.13",
     "commander": "^9.4.1",
     "cross-spawn": "^7.0.3",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.1.0",
     "protobufjs": "^7.1.2",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",

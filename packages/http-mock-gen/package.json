@@ -30,17 +30,18 @@
   "scripts": {
     "test-http-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen.ts",
     "test-http-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen-cli.ts",
-    "build": "gulp"
+    "build": "gulp",
+    "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
     "@liangskyli/openapi-gen-ts": "^0.5.0",
     "@liangskyli/utils": "^1.4.0",
     "@types/fs-extra": "^9.0.13",
-    "axios": "^1.1.3",
+    "axios": "^1.2.0",
     "commander": "^9.4.1",
     "cross-spawn": "^7.0.3",
     "express": "^4.18.2",
-    "fs-extra": "^10.1.0",
+    "fs-extra": "^11.1.0",
     "json-schema-faker": "^0.5.0-rcv.46",
     "ts-node": "^10.9.1"
   },
