@@ -33,6 +33,7 @@
 | enable            | mock是否开启                                            | `boolean`                                                     |     |
 | opts              | SocketServer 配置                                     | `详细配置见`[socket.io](https://socket.io/docs/v4/server-options/) |     |
 | mockControllerUrl | socket mock server 逻辑入口代码路径 `使用用相对路径时，相对于mockDir路径` | `string`                                                      |     |
+| namespaceList     | socket 自定义命名空间                                      | `string[]`                                                    |     |
 
 - mockServer 例子
 ```ts
@@ -75,6 +76,7 @@ mockServer({ port: 9001, hostname: '0.0.0.0' });
 | enable            | mock是否开启                                           | `boolean`                                                     |     |     |
 | opts              | SocketServer 配置                                    | `详细配置见`[socket.io](https://socket.io/docs/v4/server-options/) |     |     |
 | mockControllerUrl | socket mock server 逻辑入口代码路径`使用用相对路径时，相对于mockDir路径` | `string`                                                      |     |     |
+| namespaceList     | socket 自定义命名空间                                     | `string[]`                                                    |     |    |
 
 - mock http接口例子
     - 监听mock文件改动

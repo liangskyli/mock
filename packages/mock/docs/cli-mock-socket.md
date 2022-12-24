@@ -9,6 +9,8 @@ export default {
   mockDir: path.join(__dirname, '/'),
   socketConfig: {
     enable: true,
+    // 自定义命名空间
+    // namespaceList:['/namespace'],
     opts: {
       path: '/socket.io/',
       cors: {
@@ -30,9 +32,9 @@ yarn mock-server -p 8001 -c ./mock.config.ts
   - 可以使用mockjs库生成随机数据，支持js,ts文件，热更新。灵活模拟 socket 场景数据。
 
 ```ts
-import type {Socket} from 'socket.io';
+import type { ISocketDefaultController } from '@liangskyli/mock';
 
-const socketController = (socket: Socket) => {
+const socketDefaultController: ISocketDefaultController = (socket) => {
   const data = { a: 112 };
   // 数据发送客户端
   socket.emit('toClient', data);
@@ -43,7 +45,33 @@ const socketController = (socket: Socket) => {
   });
 };
 
-export default socketController;
+export default socketDefaultController;
+```
+
+- 支持自定义命名空间socket连接，导出socketNamespaceController方法
+  - mock 配置文件里socketConfig配置：namespaceList:['/namespace']
+  - mockControllerUrl 逻辑
+  
+```ts
+import type { ISocketNamespaceController } from '@liangskyli/mock';
+
+const socketNamespaceController: ISocketNamespaceController = (
+) => {
+  // namespace
+  return {
+    '/namespace': (socket) => {
+      const data = { a: 112 };
+      // 数据发送客户端
+      socket.emit('toClient', data);
+
+      // 接收客户端数据
+      socket.on('toServer', (clientData) => {
+        console.log('from client:', clientData);
+      });
+    }
+  };
+};
+export { socketNamespaceController };
 ```
 
 - socket html 代码
@@ -58,7 +86,10 @@ export default socketController;
   </head>
   <body>
     <script type="text/javascript">
-      const socket = io('http://localhost:8002', { path: '/socket.io/' });
+      const url = 'ws://localhost:8002';
+      // namespace 命名空间
+      // const url = 'ws://localhost:8002/namespace';
+      const socket = io(url, { path: '/socket.io/' });
       socket.on('connect', () => {
         console.log('connect:', socket.connected,',socketId:',socket.id);
       });
