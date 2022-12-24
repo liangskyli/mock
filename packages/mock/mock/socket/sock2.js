@@ -1,4 +1,4 @@
-const socketController = (socket) => {
+const socketDefaultController = (socket) => {
   const data = { a: 112 };
   // 数据发送客户端
   socket.emit('toClient', data);
@@ -9,4 +9,4 @@ const socketController = (socket) => {
   });
 };
 
-exports.default = socketController;
+exports.default = socketDefaultController;

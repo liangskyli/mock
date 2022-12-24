@@ -1,6 +1,6 @@
-import type { Socket } from 'socket.io';
+import type { ISocketDefaultController } from '../../../src';
 
-const socketController = (socket: Socket) => {
+const socketDefaultController: ISocketDefaultController = (socket) => {
   const data = { a: 112 };
   // 数据发送客户端
   socket.emit('toClient', data);
@@ -11,4 +11,4 @@ const socketController = (socket: Socket) => {
   });
 };
 
-export default socketController;
+export default socketDefaultController;
