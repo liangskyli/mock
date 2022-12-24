@@ -9,7 +9,16 @@ export type ISocketConfig = {
   enable: boolean;
   opts?: Partial<ServerOptions>;
   mockControllerUrl?: string;
+  namespaceList?: string[];
 };
+
+export type ISocketDefaultController = (socket: Socket) => void;
+
+export type ISocketNamespaceController = () => Record<
+  /** namespace */
+  string,
+  (socket: Socket) => void
+>;
 
 type ISocketServerConfig = {
   socketConfig: ISocketConfig;
@@ -33,6 +42,7 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
   // socket server
   const io = new SocketServer(server, {
     serveClient: false,
+    allowEIO3: true,
     ...socketConfig.opts,
   });
   const lanIp = address.ip();
@@ -51,7 +61,7 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
       .join('\n'),
   );
 
-  const runSocketController = (socket: Socket) => {
+  const getSocketController = () => {
     if (!socketConfig.mockControllerUrl) {
       return;
     }
@@ -65,30 +75,75 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
     }
     const socketControllerMainPath = winPath(mockControllerUrl);
 
-    const socketMain = require(socketControllerMainPath).default;
+    const {
+      default: socketMain,
+      socketNamespaceController,
+    } = require(socketControllerMainPath);
+    return { socketMain, socketNamespaceController };
+  };
+
+  const runDefaultSocketController = (socket: Socket) => {
+    const controllerData = getSocketController();
+    if (!controllerData) {
+      return;
+    }
+
+    const socketMain = controllerData.socketMain;
     if (!socketMain || typeof socketMain !== 'function') {
       return;
     }
     socketMain(socket);
   };
 
-  io.on('connection', (socket) => {
-    console.log(
-      colors.green('socket.io mock server connection success,socketId:'),
-      socket.id,
+  const runCustomNamespaceSocketController = (
+    namespace: string,
+    socket: Socket,
+  ) => {
+    const controllerData = getSocketController();
+    if (!controllerData) {
+      return;
+    }
+
+    const socketNamespaceController = controllerData.socketNamespaceController;
+    if (
+      !socketNamespaceController ||
+      typeof socketNamespaceController !== 'function'
+    ) {
+      return;
+    }
+    (socketNamespaceController as ISocketNamespaceController)()?.[namespace]?.(
+      socket,
     );
-    sockets.push(socket);
+  };
 
-    // socket mock逻辑
-    runSocketController(socket);
+  let namespaceList = socketConfig.namespaceList ?? [];
+  namespaceList = namespaceList.filter((value) => value !== '/');
+  namespaceList.unshift('/');
 
-    socket.on('disconnect', (reason) => {
+  namespaceList.forEach((namespace) => {
+    io.of(namespace).on('connection', (socket) => {
       console.log(
-        colors.green('socket.io mock server disconnect,socketId:'),
+        colors.green('socket.io mock server connection success,socketId:'),
         socket.id,
-        colors.green('reason:'),
-        reason,
       );
+      sockets.push(socket);
+
+      if (namespace === '/') {
+        // socket 默认命名空间 mock逻辑
+        runDefaultSocketController(socket);
+      } else {
+        // socket 自定义命名空间 mock逻辑
+        runCustomNamespaceSocketController(namespace, socket);
+      }
+
+      socket.on('disconnect', (reason) => {
+        console.log(
+          colors.green('socket.io mock server disconnect,socketId:'),
+          socket.id,
+          colors.green('reason:'),
+          reason,
+        );
+      });
     });
   });
 
