@@ -1,9 +1,9 @@
-import { fileTip, getImportPath, packageName, tslintDisable } from './utils';
+import type { Options } from '@grpc/proto-loader';
+import type { IPrettierOptions } from '@liangskyli/utils';
 import { colors, getAbsolutePath, prettierData } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
-import type { Options } from '@grpc/proto-loader';
-import type prettier from 'prettier';
+import { fileTip, getImportPath, packageName, tslintDisable } from './utils';
 
 type GenGrpcObjOptions = {
   genMockPath: string;
@@ -11,11 +11,17 @@ type GenGrpcObjOptions = {
   grpcNpmName: string;
   loaderOptions: Options;
   configFilePath?: string;
-  prettierOptions?: prettier.Options;
+  prettierOptions?: IPrettierOptions;
 };
 
 const genGrpcObj = async (opt: GenGrpcObjOptions) => {
-  const { grpcNpmName, genMockPath, rootPath, configFilePath, prettierOptions } = opt;
+  const {
+    grpcNpmName,
+    genMockPath,
+    rootPath,
+    configFilePath,
+    prettierOptions,
+  } = opt;
   const grpcObjPath = getAbsolutePath(path.join(genMockPath, 'grpc-obj.ts'));
 
   const fileContent = [
@@ -29,7 +35,10 @@ const genGrpcObj = async (opt: GenGrpcObjOptions) => {
     `const root = require('${getImportPath(grpcObjPath, rootPath)}');\n`,
     'let config: any;',
     configFilePath
-      ? `if (fs.existsSync(require.resolve('${getImportPath(grpcObjPath, configFilePath)}'))) {
+      ? `if (fs.existsSync(require.resolve('${getImportPath(
+          grpcObjPath,
+          configFilePath,
+        )}'))) {
   config = require('${getImportPath(grpcObjPath, configFilePath)}').default;
 }`
       : '',
@@ -43,7 +52,10 @@ const genGrpcObj = async (opt: GenGrpcObjOptions) => {
     'export default grpcObjectGroup;',
   ].join('\n');
 
-  fs.writeFileSync(grpcObjPath, await prettierData(fileContent, prettierOptions));
+  fs.writeFileSync(
+    grpcObjPath,
+    await prettierData(fileContent, prettierOptions),
+  );
   console.info(colors.green(`Generate grpc-obj.ts success in ${genMockPath}`));
 };
 

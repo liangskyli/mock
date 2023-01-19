@@ -1,9 +1,12 @@
+import type { IPrettierOptions } from '@liangskyli/utils';
+import { prettierData } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
-import type prettier from 'prettier';
-import { prettierData } from '@liangskyli/utils';
 
-const genTsConfig = async (genMockPath: string, prettierOptions?: prettier.Options) => {
+const genTsConfig = async (
+  genMockPath: string,
+  prettierOptions?: IPrettierOptions,
+) => {
   const genMockPathArray = path.join(genMockPath).split(path.sep);
   // 生成tsconfig.mock.json文件
   const tsconfigMockConfigPath = path.join(genMockPath, 'tsconfig.mock.json');

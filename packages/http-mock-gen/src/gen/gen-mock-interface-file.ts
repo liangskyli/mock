@@ -1,14 +1,14 @@
+import type { IPrettierOptions } from '@liangskyli/utils';
 import { colors, copyOptions, prettierData, winPath } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import path from 'path';
-import type prettier from 'prettier';
 import { fileTip, packageName } from '../utils';
 
 type IOpts = {
   interfaceApiRelativePath: string;
   mockDataAbsolutePath: string;
   genMockAbsolutePath: string;
-  prettierOptions?: prettier.Options;
+  prettierOptions?: IPrettierOptions;
   mockPathPrefix?: string;
 };
 
@@ -16,7 +16,7 @@ type IDefaultOpts = {
   mockData: any;
   genCustomDataPath: string;
   interfaceApiRelativePath: string;
-  prettierOptions?: prettier.Options;
+  prettierOptions?: IPrettierOptions;
 };
 
 const getMediaTypeData = (content: any) => {

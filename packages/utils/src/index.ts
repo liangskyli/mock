@@ -1,17 +1,19 @@
 import address from 'address';
+import colors from 'colors';
+import createDebug from 'debug';
 import lodash from 'lodash';
 import signale from 'signale';
-import createDebug from 'debug';
-import colors from 'colors';
+import type { prettierData } from './tools';
 
+export { default as getConfig } from './config';
+export { default as parseRequireDeps } from './parse-require-deps/parse-require-deps';
 export {
+  copyOptions,
   getAbsolutePath,
   getRelativePath,
   prettierData,
-  copyOptions,
-  winPath,
   removeFilesSync,
+  winPath,
 } from './tools';
-export { default as getConfig } from './config';
 export { address, colors, lodash, signale, createDebug };
-export { default as parseRequireDeps } from './parse-require-deps/parse-require-deps';
+export type IPrettierOptions = Parameters<typeof prettierData>[1];

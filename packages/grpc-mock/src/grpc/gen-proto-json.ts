@@ -1,8 +1,8 @@
 import type { Options } from '@grpc/proto-loader';
+import type { IPrettierOptions } from '@liangskyli/utils';
 import { colors, getAbsolutePath, prettierData } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
-import type prettier from 'prettier';
 import protobufjs from 'protobufjs';
 
 export type ProtoConfig = {
@@ -17,7 +17,7 @@ export type ProtoConfig = {
 type GenProtoOptions = ProtoConfig & {
   genMockPath: string;
   loaderOptions: Options;
-  prettierOptions?: prettier.Options;
+  prettierOptions?: IPrettierOptions;
 };
 
 const getProtoFiles = (absoluteDir: string): string[] => {
