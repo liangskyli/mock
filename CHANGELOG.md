@@ -1,6 +1,17 @@
 # Change Log
 
-All notable changes to this project will be documented in this file. See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.6.0](https://github.com/liangskyli/mock/compare/v1.5.0...v1.6.0) (2023-02-25)
+
+
+### Features
+
+* **mock:** socket server support custom namespace, socket server default support allowEIO3 ([1301c4a](https://github.com/liangskyli/mock/commit/1301c4ad9fb762d61294e77b1c08251e250031f0))
+* prettierOptions type use @liangskyli/utils IPrettierOptions type ([c6a7295](https://github.com/liangskyli/mock/commit/c6a72959bba638d2630a1149fd69405ee47ac731))
+
+
 
 ## [1.5.0](https://github.com/liangskyli/mock/compare/v1.4.0...v1.5.0) (2022-12-03)
 

@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/http-mock-gen",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "http mock gen for web mockServer",
   "keywords": [
     "mock",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@liangskyli/openapi-gen-ts": "^0.5.0",
-    "@liangskyli/utils": "^1.5.0",
+    "@liangskyli/utils": "^1.6.0",
     "@types/fs-extra": "^11.0.1",
     "axios": "^1.3.4",
     "commander": "^10.0.0",
@@ -45,7 +45,7 @@
     "ts-node": "^10.9.1"
   },
   "devDependencies": {
-    "@liangskyli/http-mock-gen": "workspace:^1.5.0",
+    "@liangskyli/http-mock-gen": "workspace:^1.6.0",
     "@types/cross-spawn": "^6.0.2",
     "@types/express": "^4.17.17"
   },
