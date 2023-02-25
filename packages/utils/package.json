@@ -26,20 +26,20 @@
   },
   "dependencies": {
     "@types/lodash": "^4.14.191",
-    "@types/prettier": "^2.7.1",
-    "address": "^1.2.1",
+    "@types/prettier": "^2.7.2",
+    "address": "^1.2.2",
     "colors": "^1.4.0",
     "crequire": "^1.8.1",
     "debug": "^4.3.4",
     "fs-extra": "^11.1.0",
     "lodash": "^4.17.21",
-    "prettier": "^2.8.0",
+    "prettier": "^2.8.4",
     "resolve": "^1.22.1",
     "signale": "^1.4.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.7",
-    "@types/fs-extra": "^9.0.13",
+    "@types/fs-extra": "^11.0.1",
     "@types/resolve": "^1.20.2",
     "@types/signale": "^1.4.4"
   },
