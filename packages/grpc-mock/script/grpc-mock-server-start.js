@@ -1,15 +1,14 @@
-import { program } from 'commander';
-import type { ConfigFileOptionsCLI } from '../grpc/gen';
-import fs from 'fs-extra';
-import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
-import path from 'path';
-import spawn from 'cross-spawn';
+const { program } = require('commander');
+const fs = require('fs-extra');
+const { colors, getAbsolutePath, getConfig } = require('@liangskyli/utils');
+const path = require('path');
+const spawn = require('cross-spawn');
 
-const packageJson = require('../../package.json');
+const packageJson = require('../package.json');
 
 program
   .version(packageJson.version)
-  .option<boolean>(
+  .option(
     '-w, --watch [watch]',
     'watch mock files change',
     (watch) => {
@@ -31,14 +30,18 @@ if (!fs.existsSync(configFilePath)) {
   process.exit(1);
 }
 
-const data: ConfigFileOptionsCLI = getConfig(configFilePath);
+const data = getConfig(configFilePath);
 const { grpcMockDir = './', grpcMockFolderName = 'grpc-mock' } = data;
 
-const genMockIndexFile = getAbsolutePath(path.join(grpcMockDir, grpcMockFolderName, 'index.ts'));
+const genMockIndexFile = getAbsolutePath(
+  path.join(grpcMockDir, grpcMockFolderName, 'index.ts'),
+);
 
 if (!fs.existsSync(genMockIndexFile)) {
   console.error(
-    colors.red(`grpc mock file not exits: ${genMockIndexFile}, please generate it first!`),
+    colors.red(
+      `grpc mock file not exits: ${genMockIndexFile}, please generate it first!`,
+    ),
   );
   process.exit(1);
 }
@@ -46,18 +49,20 @@ if (!fs.existsSync(genMockIndexFile)) {
 const runningScript = () => {
   try {
     require(genMockIndexFile);
-  } catch (err: any) {
+  } catch (err) {
     console.error(err);
   }
 };
 
 const runningWatchScript = () => {
   try {
-    const genMockFileDir = getAbsolutePath(path.join(grpcMockDir, grpcMockFolderName));
+    const genMockFileDir = getAbsolutePath(
+      path.join(grpcMockDir, grpcMockFolderName),
+    );
     spawn.sync('ts-node-dev', [`--watch=${genMockFileDir}`, genMockIndexFile], {
       stdio: 'inherit',
     });
-  } catch (err: any) {
+  } catch (err) {
     console.error(err);
   }
 };

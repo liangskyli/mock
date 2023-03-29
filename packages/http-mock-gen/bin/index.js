@@ -10,7 +10,7 @@ const result = spawn.sync(
     '-r',
     'ts-node/register',
     '--trace-warnings',
-    require.resolve(path.join('../cjs/script', 'http-mock-code-gen')),
+    require.resolve(path.join('../script', 'http-mock-code-gen')),
   ].concat(args),
   { stdio: 'inherit' },
 );

@@ -20,18 +20,25 @@
   },
   "license": "MIT",
   "author": "liangsky <640634387@qq.com>",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/es/index.js",
-  "types": "./lib/es/index.d.ts",
-  "typings": "./lib/es/index.d.ts",
+  "main": "./lib/index.cjs.js",
+  "module": "./lib/index.esm.js",
+  "types": "./lib/index.d.ts",
+  "typings": "./lib/index.d.ts",
   "bin": {
     "mock-server": "./bin/index.js"
   },
   "files": [
-    "lib"
+    "lib",
+    "bin",
+    "docs",
+    "script",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "package.json"
   ],
   "scripts": {
-    "build": "gulp",
+    "build": "rollup --bundleConfigAsCjs --config=./rollup.config.js",
     "start": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/server.ts",
     "test-http-cli": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http-cli.ts",
     "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/middleware.ts",
@@ -71,9 +78,5 @@
   },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
-  },
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
   }
 }

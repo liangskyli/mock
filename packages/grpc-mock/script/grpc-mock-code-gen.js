@@ -1,10 +1,9 @@
-import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
-import { program } from 'commander';
-import fs from 'fs-extra';
-import type { ConfigFileOptionsCLI } from '../grpc/gen';
-import { gen } from '../grpc/gen';
+const { colors, getAbsolutePath, getConfig } = require('@liangskyli/utils');
+const { program } = require('commander');
+const fs = require('fs-extra');
+const { grpcMockCodeGen } = require('../lib/index.cjs');
 
-const packageJson = require('../../package.json');
+const packageJson = require('../package.json');
 
 program
   .version(packageJson.version)
@@ -22,7 +21,7 @@ if (!fs.existsSync(configFilePath)) {
   process.exit(1);
 }
 
-const data: ConfigFileOptionsCLI = getConfig(configFilePath);
+const data = getConfig(configFilePath);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const { loaderOptions, ...otherOptions } = data;
 if (!otherOptions.rootPath) {
@@ -33,8 +32,8 @@ if (!otherOptions.rootPath) {
 
 const runningScript = () => {
   try {
-    gen({ ...otherOptions, configFilePath }).then();
-  } catch (err: any) {
+    grpcMockCodeGen({ ...otherOptions, configFilePath }).then();
+  } catch (err) {
     console.error(err);
   }
 };

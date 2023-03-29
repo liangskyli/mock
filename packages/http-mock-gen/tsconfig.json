@@ -2,8 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./lib/",
-    "target": "ESNext",
-    "module": "CommonJS"
+    "module": "ESNext"
   },
   "include": ["src/**/*.ts"]
 }

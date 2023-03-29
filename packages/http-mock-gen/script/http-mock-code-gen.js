@@ -1,10 +1,14 @@
-import { colors, getAbsolutePath, getConfig, lodash } from '@liangskyli/utils';
-import { program } from 'commander';
-import fs from 'fs-extra';
-import type { IGenMockDataOpts, IGenMockDataOptsCLI } from '../gen';
-import genMockData from '../index';
+const {
+  colors,
+  getAbsolutePath,
+  getConfig,
+  lodash,
+} = require('@liangskyli/utils');
+const { program } = require('commander');
+const fs = require('fs-extra');
+const genMockData = require('../lib/index.cjs').default;
 
-const packageJson = require('../../package.json');
+const packageJson = require('../package.json');
 
 program
   .version(packageJson.version)
@@ -24,12 +28,12 @@ if (fs.existsSync(configFilePath)) {
   process.exit(1);
 }
 
-let opts: IGenMockDataOptsCLI = getConfig(configFilePath);
+let opts = getConfig(configFilePath);
 
 const runningScript = async () => {
   try {
     if (!lodash.isArray(opts)) {
-      opts = [opts] as IGenMockDataOpts[];
+      opts = [opts];
     }
     for (let i = 0; i < opts.length; i++) {
       const singleOpts = opts[i];
@@ -42,7 +46,7 @@ const runningScript = async () => {
       }
       await genMockData(singleOpts);
     }
-  } catch (err: any) {
+  } catch (err) {
     console.error(err);
   }
 };

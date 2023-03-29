@@ -2,7 +2,7 @@ import * as spawn from 'cross-spawn';
 
 const result = spawn.sync(
   'node',
-  'lib/bin/index.js code-gen -c ./test/grpc/mock.config.cli.ts'.split(' '),
+  'bin/index.js code-gen -c ./test/grpc/mock.config.cli.ts'.split(' '),
   {
     stdio: 'inherit',
   },

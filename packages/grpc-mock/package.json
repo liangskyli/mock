@@ -17,18 +17,25 @@
   },
   "license": "MIT",
   "author": "liangsky <640634387@qq.com>",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/es/index.js",
-  "types": "./lib/es/index.d.ts",
-  "typings": "./lib/es/index.d.ts",
+  "main": "./lib/index.cjs.js",
+  "module": "./lib/index.esm.js",
+  "types": "./lib/index.d.ts",
+  "typings": "./lib/index.d.ts",
   "bin": {
     "grpc-mock": "./bin/index.js"
   },
   "files": [
-    "lib"
+    "lib",
+    "bin",
+    "docs",
+    "script",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "package.json"
   ],
   "scripts": {
-    "build": "gulp",
+    "build": "rollup --bundleConfigAsCjs --config=./rollup.config.js",
     "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
     "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen.ts",
     "test-grpc-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen-cli.ts",
@@ -61,9 +68,5 @@
   },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
-  },
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
   }
 }

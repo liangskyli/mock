@@ -1,15 +1,14 @@
-import { program } from 'commander';
-import type { IOpts } from '../http/server/server';
-import mockServer from '../http/server/server';
-import fs from 'fs-extra';
-import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
+const { program } = require('commander');
+const fs = require('fs-extra');
+const { colors, getAbsolutePath, getConfig } = require('@liangskyli/utils');
+const mockServer = require('../lib/index.cjs').default;
 
-const packageJson = require('../../package.json');
+const packageJson = require('../package.json');
 
 program
   .version(packageJson.version)
   .option('-d, --dir [dir]', 'Base dir of the mock folder')
-  .option<string[] | undefined>(
+  .option(
     '-e, --exclude [exclude]',
     'Used to ignore files that do not need to go mock',
     (exclude) => {
@@ -17,10 +16,10 @@ program
     },
   )
   .option('-p, --port [port]', 'mock servicePort start begin')
-  .option<number | undefined>('-host, --hostname [hostname]', 'mock hostname', (port) => {
+  .option('-host, --hostname [hostname]', 'mock hostname', (port) => {
     return parseInt(port);
   })
-  .option<boolean>(
+  .option(
     '-w, --watch [watch]',
     'watch mock files change',
     (watch) => {
@@ -33,7 +32,7 @@ program
 
 const { dir, port, hostname, watch, exclude, configFile } = program.opts();
 
-let opt: IOpts = {};
+let opt = {};
 
 if (dir) {
   opt.mockDir = dir;
@@ -48,7 +47,7 @@ opt.exclude = exclude;
 const runingScript = () => {
   try {
     mockServer(opt).then();
-  } catch (err: any) {
+  } catch (err) {
     console.error(err);
   }
 };
@@ -60,7 +59,7 @@ if (configFile) {
     process.exit(1);
   }
 
-  const data: IOpts = getConfig(configFilePath);
+  const data = getConfig(configFilePath);
   opt = {
     ...opt,
     ...data,

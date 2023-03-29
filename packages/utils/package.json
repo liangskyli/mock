@@ -13,15 +13,19 @@
   },
   "license": "MIT",
   "author": "liangsky <640634387@qq.com>",
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/es/index.js",
-  "types": "./lib/es/index.d.ts",
-  "typings": "./lib/es/index.d.ts",
+  "main": "./lib/index.cjs.js",
+  "module": "./lib/index.esm.js",
+  "types": "./lib/index.d.ts",
+  "typings": "./lib/index.d.ts",
   "files": [
-    "lib"
+    "lib",
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "package.json"
   ],
   "scripts": {
-    "build": "gulp && rollup --bundleConfigAsCjs --config=./rollup.config.js",
+    "build": "rollup --bundleConfigAsCjs --config=./rollup.config.js",
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
@@ -45,9 +49,5 @@
   },
   "engines": {
     "node": "^14.13.1 || >=16.0.0"
-  },
-  "publishConfig": {
-    "access": "public",
-    "directory": "lib"
   }
 }
