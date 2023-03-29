@@ -44,13 +44,13 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
-    "@grpc/proto-loader": "^0.7.5",
+    "@grpc/proto-loader": "^0.7.6",
     "@liangskyli/utils": "^1.6.0",
     "@types/fs-extra": "^11.0.1",
     "commander": "^10.0.0",
     "cross-spawn": "^7.0.3",
-    "fs-extra": "^11.1.0",
-    "protobufjs": "^7.2.2",
+    "fs-extra": "^11.1.1",
+    "protobufjs": "^7.2.3",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "tslib": "^2.5.0"
