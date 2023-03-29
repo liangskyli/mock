@@ -1,4 +1,4 @@
-import { grpcMockCodeGen } from '../../src';
+import { grpcMockCodeGen } from '../../src/index';
 
 grpcMockCodeGen({
   grpcMockDir: './test',

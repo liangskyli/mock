@@ -45,7 +45,7 @@ const mergeUndefined = (temp: any, custom: any) => {
       });
     } else {
       Object.keys(custom).forEach((key) => {
-        const item = custom[key];
+        const item = (custom as any)[key];
         if (lodash.isObject(item)) {
           mergeUndefined(temp[key], item);
         } else {

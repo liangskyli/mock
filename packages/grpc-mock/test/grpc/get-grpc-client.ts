@@ -1,7 +1,7 @@
-import * as grpc from 'grpc';
 import { lodash } from '@liangskyli/utils';
-import grpcObject from '../grpc-mock/grpc-obj';
 import type { Metadata } from 'grpc';
+import * as grpc from 'grpc';
+import grpcObject from '../grpc-mock/grpc-obj';
 
 type MetadataMap = Record<string, string | number | Buffer>;
 
@@ -15,9 +15,15 @@ function toMetadata(metadata: MetadataMap): Metadata {
   return metadataIns;
 }
 
-export const start = async (): Promise<{ response: any; metadata: Metadata }> => {
-  const proto = lodash.get<any, string>(grpcObject, 'trade_trade_zxkp.trade_zxkp_proto');
-  const client = new proto.ActivityService('localhost:50003', grpc.credentials.createInsecure());
+export const start = async (): Promise<unknown> => {
+  const proto = lodash.get<any, string>(
+    grpcObject,
+    'trade_trade_zxkp.trade_zxkp_proto',
+  );
+  const client = new proto.ActivityService(
+    'localhost:50003',
+    grpc.credentials.createInsecure(),
+  );
   return new Promise((resolve, reject) => {
     client.GetListByBuildingId(
       { buildingId: 1 },
@@ -33,9 +39,15 @@ export const start = async (): Promise<{ response: any; metadata: Metadata }> =>
   });
 };
 
-export const start2 = async (): Promise<{ response: any; metadata: Metadata }> => {
-  const proto = lodash.get<any, string>(grpcObject, 'serverName1.activity_package');
-  const client = new proto.ActivityService('localhost:50000', grpc.credentials.createInsecure());
+export const start2 = async (): Promise<unknown> => {
+  const proto = lodash.get<any, string>(
+    grpcObject,
+    'serverName1.activity_package',
+  );
+  const client = new proto.ActivityService(
+    'localhost:50000',
+    grpc.credentials.createInsecure(),
+  );
   return new Promise((resolve, reject) => {
     client.Create(
       { activityId: 1 },

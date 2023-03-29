@@ -163,11 +163,10 @@ function decodeParam(val: any) {
  *
  * @param param
  */
-export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = ({
-  cwd,
-  ignore = [],
-  registerBabel = () => {},
-}) => {
+export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = (
+  opts,
+) => {
+  const { cwd, ignore = [], registerBabel = () => {} } = opts;
   const mockPaths = [
     ...(glob.sync('mock/**/*.[jt]s', {
       cwd,
@@ -215,7 +214,7 @@ export const matchMock = (
     if (mockMethod === targetMethod) {
       const match = re.exec(targetPath);
       if (match) {
-        const params = {};
+        const params: Record<any, any> = {};
         for (let i = 1; i < match.length; i += 1) {
           const key = keys[i - 1];
           const prop = key.name;

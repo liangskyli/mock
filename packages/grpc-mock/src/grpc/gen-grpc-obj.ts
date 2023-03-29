@@ -44,7 +44,7 @@ const genGrpcObj = async (opt: GenGrpcObjOptions) => {
       : '',
     'const grpcObjectGroup: Record<string, GrpcObject> = {};',
     'Object.keys(root).forEach((key: string) => {',
-    '  grpcObjectGroup[key] = grpc.loadPackageDefinition(fromJSON(',
+    '  grpcObjectGroup[key] = (grpc.loadPackageDefinition as any)(fromJSON(',
     '    root[key],',
     '   Object.assign(defaultLoaderOptions, config && config.loaderOptions),',
     '  ));',
