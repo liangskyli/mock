@@ -7,6 +7,7 @@
   },
   "scripts": {
     "prepare": "husky install",
+    "preinstall": "npx only-allow pnpm",
     "test-http-cli": "lerna run --scope @liangskyli/mock test-http-cli",
     "test:middleware": "lerna run --scope @liangskyli/mock test:middleware",
     "test-http-mock-code-gen": "lerna run --scope @liangskyli/http-mock-gen test-http-mock-code-gen",
@@ -52,9 +53,9 @@
     "stylelint": "^15.3.0",
     "typescript": "^5.0.2"
   },
-  "packageManager": "pnpm",
+  "packageManager": "pnpm@8.1.0",
   "engines": {
-    "node": "^14.18.0 || >=16.0.0",
-    "pnpm": ">=7"
+    "node": ">=16.14.0",
+    "pnpm": "^8"
   }
 }
