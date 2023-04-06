@@ -10,9 +10,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^17.4.4
         version: 17.4.4
-      '@commitlint/config-lerna-scopes':
-        specifier: ^17.4.2
-        version: 17.4.2(lerna@6.4.1)
+      '@commitlint/config-pnpm-scopes':
+        specifier: ^17.5.0
+        version: 17.5.0
       '@rollup/plugin-commonjs':
         specifier: ^24.0.1
         version: 24.0.1(rollup@3.20.2)
@@ -618,20 +618,13 @@ packages:
       conventional-changelog-conventionalcommits: 5.0.0
     dev: true
 
-  /@commitlint/config-lerna-scopes@17.4.2(lerna@6.4.1):
-    resolution: {integrity: sha512-uqunHW7LWBkjEflRAxmzlNu4l3n6Yh/W4EN7eUs404dNj8jhX/K05/ZcFq9i7KzadVp70MUIpZEXfWBTqR9Jyg==}
+  /@commitlint/config-pnpm-scopes@17.5.0:
+    resolution: {integrity: sha512-bHV1K3HZdJQpYxRvQngk96tfPB0OnSNb2SpQuVRNgsDRQYFLh8bvdSdZ2+M7Cn0xezBUWBHeNarJ1958qMOrrg==}
     engines: {node: '>=v14'}
-    peerDependencies:
-      lerna: ^5.0.0 || ^6
-    peerDependenciesMeta:
-      lerna:
-        optional: true
     dependencies:
-      glob: 8.1.0
-      import-from: 4.0.0
-      lerna: 6.4.1
-      resolve-pkg: 2.0.0
-      semver: 7.3.8
+      '@pnpm/read-project-manifest': 4.1.4
+      fast-glob: 3.2.12
+      read-yaml-file: 2.1.0
     dev: true
 
   /@commitlint/config-validator@17.4.4:
@@ -1083,6 +1076,11 @@ packages:
       protobufjs: 7.2.3
       yargs: 16.2.0
     dev: false
+
+  /@gwhitney/detect-indent@7.0.1:
+    resolution: {integrity: sha512-7bQW+gkKa2kKZPeJf6+c6gFK9ARxQfn+FKy9ScTBppyKRWH2KzsmweXUoklqeEiHiNVWaeP5csIdsNq6w7QhzA==}
+    engines: {node: '>=12.20'}
+    dev: true
 
   /@humanwhocodes/config-array@0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}
@@ -2405,6 +2403,67 @@ packages:
       picocolors: 1.0.0
       tiny-glob: 0.2.9
       tslib: 2.5.0
+    dev: true
+
+  /@pnpm/constants@6.2.0:
+    resolution: {integrity: sha512-GlDVUkeTR2WK0oZAM+wtDY6RBMLw6b0Z/5qKgBbDszx4e+R7CHyfG7JofyypogRCfeWXeAXp2C2FkFTh+sNgIg==}
+    engines: {node: '>=14.6'}
+    dev: true
+
+  /@pnpm/error@4.0.1:
+    resolution: {integrity: sha512-6UFakGqUDhnZVzYCfN+QaG1epxtBVS1M9mb9RzoBuvWxcimBYTT04fdYuyk1Nay8y/TvAVl3AVB/lCziWG0+2w==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      '@pnpm/constants': 6.2.0
+    dev: true
+
+  /@pnpm/graceful-fs@2.1.0:
+    resolution: {integrity: sha512-cCUDP2jSm+Y44tVtZncrue0jXb6NrJWETQS/CQKguj/nnOqwX4Uk+9mXuhf0e/V/3ZIKe4TyDGFP1FjvWgKp1A==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      graceful-fs: 4.2.11
+    dev: true
+
+  /@pnpm/read-project-manifest@4.1.4:
+    resolution: {integrity: sha512-4z3q4gHjpIxa/yVQFdhCIEqHjaP+cecyahsLIleVjV92nevzjw6MnV8+uBNvEKS0Ssp7Uac0mvjym4uppiX7Nw==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      '@gwhitney/detect-indent': 7.0.1
+      '@pnpm/error': 4.0.1
+      '@pnpm/graceful-fs': 2.1.0
+      '@pnpm/text.comments-parser': 1.0.0
+      '@pnpm/types': 8.10.0
+      '@pnpm/write-project-manifest': 4.1.2
+      fast-deep-equal: 3.1.3
+      is-windows: 1.0.2
+      json5: 2.2.3
+      parse-json: 5.2.0
+      read-yaml-file: 2.1.0
+      sort-keys: 4.2.0
+      strip-bom: 4.0.0
+    dev: true
+
+  /@pnpm/text.comments-parser@1.0.0:
+    resolution: {integrity: sha512-iG0qrFcObze3uK+HligvzaTocZKukqqIj1dC3NOH58NeMACUW1NUitSKBgeWuNIE4LJT3SPxnyLEBARMMcqVKA==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      strip-comments-strings: 1.2.0
+    dev: true
+
+  /@pnpm/types@8.10.0:
+    resolution: {integrity: sha512-A4pcNNvFJdkMXArEjTCOIYNL2VxD4uBynWZ6cBIELXb5qJ0tUzwKsaSz4J953I0rQFqnsFpUYqaWIquI10W1sw==}
+    engines: {node: '>=14.6'}
+    dev: true
+
+  /@pnpm/write-project-manifest@4.1.2:
+    resolution: {integrity: sha512-/C0j7SsE9tGoj++f0dwePIV7zNZHcX8TcYL6pXNvZZCq4HsOMCBsIlcU9oMI/AGe+KMDfHFQSayWPO9QUuGE5w==}
+    engines: {node: '>=14.6'}
+    dependencies:
+      '@pnpm/text.comments-parser': 1.0.0
+      '@pnpm/types': 8.10.0
+      json5: 2.2.3
+      write-file-atomic: 5.0.0
+      write-yaml-file: 4.2.0
     dev: true
 
   /@protobufjs/aspromise@1.1.2:
@@ -4418,7 +4477,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       globby: 10.0.2
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
       is-glob: 4.0.3
       is-path-cwd: 2.2.0
       is-path-inside: 3.0.3
@@ -5626,10 +5685,6 @@ packages:
       get-intrinsic: 1.2.0
     dev: true
 
-  /graceful-fs@4.2.10:
-    resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
-    dev: true
-
   /graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
@@ -5910,11 +5965,6 @@ packages:
     dependencies:
       parent-module: 1.0.1
       resolve-from: 4.0.0
-    dev: true
-
-  /import-from@4.0.0:
-    resolution: {integrity: sha512-P9J71vT5nLlDeV8FHs5nNxaLbrpfAV5cF5srvbZfpwpcJoM/xZR3hiv+q+SAnuSmuGbXMWud063iIMx/V/EWZQ==}
-    engines: {node: '>=12.2'}
     dev: true
 
   /import-lazy@4.0.0:
@@ -6281,6 +6331,11 @@ packages:
     resolution: {integrity: sha512-qctsuLZmIQ0+vSSMfoVvyFe2+GSEvnmZ2ezTup1SBse9+twCCeial6EEi3Nc2KFcf6+qz2FBPnjXsk8xhKSaPQ==}
     dependencies:
       call-bind: 1.0.2
+    dev: true
+
+  /is-windows@1.0.2:
+    resolution: {integrity: sha512-eXK1UInq2bPmjyX6e3VHIzMLobc4J94i4AWn+Hpq3OU5KkrRC96OAcR3PRJ/pGu6m8TRnBHP9dkXQVsT/COVIA==}
+    engines: {node: '>=0.10.0'}
     dev: true
 
   /is-wsl@2.2.0:
@@ -8255,6 +8310,14 @@ packages:
       type-fest: 0.6.0
     dev: true
 
+  /read-yaml-file@2.1.0:
+    resolution: {integrity: sha512-UkRNRIwnhG+y7hpqnycCL/xbTk7+ia9VuVTC0S+zVbwd65DI9eUpRMfsWIGrCWxTU/mi+JW8cHQCrv+zfCbEPQ==}
+    engines: {node: '>=10.13'}
+    dependencies:
+      js-yaml: 4.1.0
+      strip-bom: 4.0.0
+    dev: true
+
   /read@1.0.7:
     resolution: {integrity: sha512-rSOKNYUmaxy0om1BNjMN4ezNT6VKK+2xF4GBhc81mkH7L60i6dp8qPYrkndNLT3QPphoII3maL9PVC9XmhHwVQ==}
     engines: {node: '>=0.8'}
@@ -8398,13 +8461,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       global-dirs: 0.1.1
-    dev: true
-
-  /resolve-pkg@2.0.0:
-    resolution: {integrity: sha512-+1lzwXehGCXSeryaISr6WujZzowloigEofRB+dj75y9RRa/obVcYgbHJd53tdYw8pvZj8GojXaaENws8Ktw/hQ==}
-    engines: {node: '>=8'}
-    dependencies:
-      resolve-from: 5.0.0
     dev: true
 
   /resolve@1.22.1:
@@ -9078,6 +9134,10 @@ packages:
   /strip-bom@4.0.0:
     resolution: {integrity: sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==}
     engines: {node: '>=8'}
+    dev: true
+
+  /strip-comments-strings@1.2.0:
+    resolution: {integrity: sha512-zwF4bmnyEjZwRhaak9jUWNxc0DoeKBJ7lwSN/LEc8dQXZcUFG6auaaTQJokQWXopLdM3iTx01nQT8E4aL29DAQ==}
     dev: true
 
   /strip-final-newline@2.0.0:
@@ -10062,6 +10122,14 @@ packages:
       sort-keys: 2.0.0
       type-fest: 0.4.1
       write-json-file: 3.2.0
+    dev: true
+
+  /write-yaml-file@4.2.0:
+    resolution: {integrity: sha512-LwyucHy0uhWqbrOkh9cBluZBeNVxzHjDaE9mwepZG3n3ZlbM4v3ndrFw51zW/NXYFFqP+QWZ72ihtLWTh05e4Q==}
+    engines: {node: '>=10.13'}
+    dependencies:
+      js-yaml: 4.1.0
+      write-file-atomic: 3.0.3
     dev: true
 
   /ws@8.11.0:
