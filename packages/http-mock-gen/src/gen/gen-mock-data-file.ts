@@ -3,7 +3,7 @@ import type { IPrettierOptions } from '@liangskyli/utils';
 import { colors, prettierData } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import type { JSONSchemaFakerOptions } from 'json-schema-faker';
-import jsf from 'json-schema-faker';
+import { JSONSchemaFaker } from 'json-schema-faker';
 import path from 'path';
 
 type IOpts = {
@@ -33,8 +33,8 @@ const genMockDataFile = async (opts: IOpts) => {
     fillProperties: false,
   });
 
-  jsf.option(jsonSchemaFakerOptions);
-  const mockData = jsf.generate(schemaDefinition as any);
+  JSONSchemaFaker.option(jsonSchemaFakerOptions);
+  const mockData = JSONSchemaFaker.generate(schemaDefinition as any);
   const mockDataString = JSON.stringify(mockData, mockDataReplace, 2);
   const mockDataAbsolutePath = path.join(genMockAbsolutePath, 'mock-data.json');
   fs.writeFileSync(
