@@ -24,7 +24,7 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,css,less}": [
+    "*.{js,jsx,ts,tsx}": [
       "prettier --write",
       "node script/lint"
     ]
@@ -50,7 +50,6 @@
     "rollup": "^3.19.1",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
-    "stylelint": "^15.4.0",
     "typescript": "^5.0.3"
   },
   "packageManager": "pnpm@8.1.0",
