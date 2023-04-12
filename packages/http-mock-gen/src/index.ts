@@ -38,6 +38,7 @@ const getMockData = <T = any>(
   return json;
 };
 
+export { commandCodeGenCli } from './cli/http-mock-code-gen';
 export type { IGenMockDataOpts, IGenMockDataOptsCLI } from './gen/index';
 export { getMockData };
 export type {
