@@ -10,9 +10,9 @@
   <body>
     <script type="text/javascript">
       //const url = 'ws://localhost:8002';
-      const url = 'ws://localhost:8002/namespace';
+      const url = 'ws://localhost:8002/tvwall';
       const socket = io(url, {
-        path: '/socket.io/',
+        path: '/trade-zxkp-ws/socket.io/',
         query: {
           id: "3"
         }
@@ -28,6 +28,12 @@
 
       socket.on('disconnect', () => {
         console.log('disconnect!');
+      });
+      socket.on('connect_error', (err) => {
+        console.log('connect_error!',err);
+      });
+      socket.on('reconnect_error', (err) => {
+        console.log('reconnect_error!',err);
       });
 
       function send(){

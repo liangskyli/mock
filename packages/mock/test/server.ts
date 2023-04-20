@@ -9,11 +9,11 @@ mockServer({
   port: 8002,
   socketConfig: {
     enable: true,
-    namespaceList: ['/namespace'],
+    namespaceList: ['/tvwall'],
     opts: {
-      path: '/socket.io/',
+      path: '/trade-zxkp-ws/socket.io/',
       cors: {
-        origin: ['http://localhost:63342'],
+        origin: ['http://localhost:9527', 'http://localhost:63342'],
         credentials: true,
       },
     },
