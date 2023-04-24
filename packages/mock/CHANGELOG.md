@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-beta.0](https://github.com/liangskyli/mock/compare/v1.6.0...v2.0.0-beta.0) (2023-04-24)
+
+
+### Features
+
+* add register, move cross-spawn,ts-node to devDependencies ([ad2c90d](https://github.com/liangskyli/mock/commit/ad2c90db6f288fdff18e63850d46b51e5040a006))
+
+
+
 ## [1.6.0](https://github.com/liangskyli/mock/compare/v1.5.0...v1.6.0) (2023-02-25)
 
 
