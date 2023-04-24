@@ -33,19 +33,6 @@ yarn http-mock-gen
 yarn http-mock-gen -c ./mock.config2.ts
 ```
 
-- 注意：如果项目里tsconfig.json，module不是CommonJS，则要求配置ts-node节点
-
-```json
-{
-  "ts-node": {
-    "compilerOptions": {
-      "allowJs": false,
-      "module": "CommonJS"
-    }
-  }
-}
-```
-
 ### 命令参数
 
 | 参数               | 说明                     | 默认值                |

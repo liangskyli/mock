@@ -94,12 +94,6 @@ export default config;
 
 ## 2、函数调用方式
 
-- node命令调用自己写的文件（如：grpc-mock-gen.ts）
-
-```base
-node -r ts-node/register ./grpc-mock-gen.ts
-```
-
 ```ts
 import { grpcMockCodeGen } from '@liangskyli/grpc-mock';
 
@@ -134,4 +128,3 @@ grpcMockCodeGen({
   - 对象类型：对象里基础类型数据生成
   - 基础数组类型：生成第一个数组基础数据
   - 多维数组：proto目前不支持
-  
