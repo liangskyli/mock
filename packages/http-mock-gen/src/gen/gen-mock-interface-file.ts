@@ -88,7 +88,7 @@ const genMockInterfaceFile = async (opts: IOpts) => {
     mockPathPrefix = '',
   } = opts;
 
-  const mockData = await import(mockDataAbsolutePath);
+  const mockData = fs.readJSONSync(mockDataAbsolutePath);
   // 生成自定义数据模版
   const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
 

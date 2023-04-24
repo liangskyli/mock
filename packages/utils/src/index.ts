@@ -7,6 +7,7 @@ import type { prettierData } from './tools';
 
 export { default as getConfig } from './config';
 export { default as parseRequireDeps } from './parse-require-deps/parse-require-deps';
+export * as register from './register';
 export {
   copyOptions,
   getAbsolutePath,
