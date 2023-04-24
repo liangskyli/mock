@@ -1,13 +1,10 @@
-import { parseRequireDeps, winPath } from '@liangskyli/utils';
+import { register, winPath } from '@liangskyli/utils';
 import type { FSWatcher } from 'chokidar';
 import type { NextFunction, Request, Response } from 'express';
-import fs from 'fs-extra';
 import { isAbsolute, join } from 'path';
 import createMiddleware from '../mock/createMiddleware';
 import { getMockData } from '../mock/utils';
 import { killProcess } from '../tools';
-
-const register = require('@babel/register');
 
 export type IOpts = {
   mockDir?: string;
@@ -30,45 +27,11 @@ const getMiddleware = async (
     return { middleware, middlewareWatcher: undefined };
   }
 
-  const projectTsconfigName = join(process.cwd(), './tsconfig.json');
-  let projectConfig: any = {};
-  if (fs.existsSync(projectTsconfigName)) {
-    projectConfig.project = projectTsconfigName;
-  } else {
-    projectConfig.skipProject = true;
-  }
-
-  require('ts-node').register({
-    dir: join(cwd, './mock'),
-    emit: false,
-    transpileOnly: true,
-    compilerOptions: {
-      allowJs: true,
+  register.register({
+    hookMatcher: (filename) => {
+      return filename.startsWith(join(cwd, './mock'));
     },
-    ...projectConfig,
   });
-
-  const registerBabel = (paths: string[]): void => {
-    // support
-    // clear require cache and set babel register
-    const requireDeps = paths.reduce((memo: string[], file) => {
-      memo = memo.concat(parseRequireDeps(file));
-      return memo;
-    }, []);
-    requireDeps.forEach((f) => {
-      if (require.cache[f]) {
-        delete require.cache[f];
-      }
-    });
-    register({
-      plugins: [require.resolve('@babel/plugin-transform-modules-commonjs')],
-      ignore: [/node_modules/],
-      only: [...paths, ...requireDeps],
-      extensions: ['.jsx', '.js', '.ts', '.tsx'],
-      babelrc: false,
-      cache: false,
-    });
-  };
 
   const ignore = [
     // ignore mock files under node_modules
@@ -82,7 +45,6 @@ const getMiddleware = async (
   const mockOpts = getMockData({
     cwd,
     ignore,
-    registerBabel,
   });
   const { middleware, watcher: middlewareWatcher } = createMiddleware({
     ...mockOpts,
@@ -90,7 +52,6 @@ const getMiddleware = async (
       getMockData({
         cwd,
         ignore,
-        registerBabel,
       }),
   });
   if (process.env.WATCH_FILES === 'false' || !watch) {

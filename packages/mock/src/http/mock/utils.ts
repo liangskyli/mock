@@ -16,15 +16,6 @@ const debug = createDebug('mock:utils');
 interface IGetMockPaths {
   cwd: string;
   ignore?: string[];
-  registerBabel?: (paths: string[]) => void;
-  paths?: {
-    cwd?: string;
-    absNodeModulesPath?: string;
-    absSrcPath?: string;
-    absPagesPath?: string;
-    absOutputPath?: string;
-    absTmpPath?: string;
-  };
 }
 
 export interface IMockDataItem {
@@ -161,12 +152,12 @@ function decodeParam(val: any) {
  * .umirc.mock.ts
  * src/** or pages/**
  *
- * @param param
+ * @param opts
  */
 export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = (
   opts,
 ) => {
-  const { cwd, ignore = [], registerBabel = () => {} } = opts;
+  const { cwd, ignore = [] } = opts;
   const mockPaths = [
     ...(glob.sync('mock/**/*.[jt]s', {
       cwd,
@@ -184,9 +175,6 @@ export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = (
     .map((path) => winPath(path));
 
   debug(`load mock data including files ${JSON.stringify(mockPaths)}`);
-
-  // register babel
-  registerBabel(mockPaths);
 
   // get mock data
   const mockData = normalizeConfig(getMockConfig(mockPaths));
