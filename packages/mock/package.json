@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/mock",
-  "version": "1.6.0",
+  "version": "2.0.0-beta.0",
   "description": "mockServer for web",
   "keywords": [
     "mock",
@@ -31,7 +31,6 @@
     "lib",
     "bin",
     "docs",
-    "script",
     "CHANGELOG.md",
     "LICENSE",
     "README.md",
@@ -46,24 +45,18 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
-    "@babel/core": "^7.21.4",
-    "@babel/plugin-transform-modules-commonjs": "^7.21.2",
-    "@babel/register": "^7.21.0",
-    "@liangskyli/utils": "^1.6.0",
+    "@liangskyli/utils": "workspace:^2.0.0-beta.0",
     "@types/express": "^4.17.17",
     "@types/fs-extra": "^11.0.1",
     "body-parser": "^1.20.2",
     "chokidar": "^3.5.3",
     "commander": "^10.0.0",
-    "cross-spawn": "^7.0.3",
     "express": "^4.18.2",
     "fs-extra": "^11.1.1",
     "glob": "^9.3.4",
     "multer": "^1.4.5-lts.1",
     "path-to-regexp": "^6.2.1",
-    "socket.io": "^4.6.1",
-    "ts-node": "^10.9.1",
-    "tslib": "^2.5.0"
+    "socket.io": "^4.6.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
@@ -71,8 +64,10 @@
     "@types/glob": "^8.1.0",
     "@types/mockjs": "^1.0.7",
     "@types/multer": "^1.4.7",
+    "cross-spawn": "^7.0.3",
     "mockjs": "^1.1.0",
     "socket.io-client": "^4.6.1",
+    "ts-node": "^10.9.1",
     "webpack": "^5.78.0",
     "webpack-dev-server": "^4.13.2"
   },

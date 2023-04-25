@@ -1,19 +1,5 @@
 #!/usr/bin/env node
-const path = require('path');
-const spawn = require('cross-spawn');
+const { commandHttpCli } = require('../lib/index.cjs');
+const { version } = require('../package.json');
 
-const args = process.argv.slice(2);
-
-const result = spawn.sync(
-  'node',
-  [
-    '-r',
-    'ts-node/register',
-    '--trace-warnings',
-    require.resolve(path.join('../script/http')),
-  ].concat(args),
-  {
-    stdio: 'inherit',
-  },
-);
-process.exit(result.status);
+commandHttpCli(version);

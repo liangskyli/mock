@@ -1,8 +1,9 @@
 import colors from 'colors';
+import { register, restore } from './register';
 
 const getConfig = (configFile: string) => {
   let config: any = null;
-
+  register({});
   try {
     config = require(configFile).default;
   } catch (err: any) {
@@ -11,6 +12,8 @@ const getConfig = (configFile: string) => {
     } else {
       throw err;
     }
+  } finally {
+    restore();
   }
   return config;
 };

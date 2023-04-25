@@ -11,6 +11,7 @@ const baseConfig = (packageJSON) => {
   return {
     input: ['./src/index.ts'],
     external: [
+      'esbuild-register/dist/node',
       ...Object.keys(packageJSON.dependencies || {}),
       ...Object.keys(packageJSON.peerDependencies || {}),
       ...Object.keys(packageJSON.optionalDependencies || {}),

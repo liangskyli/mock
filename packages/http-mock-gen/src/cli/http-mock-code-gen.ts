@@ -2,7 +2,7 @@ import { colors, getAbsolutePath, getConfig, lodash } from '@liangskyli/utils';
 import { program } from 'commander';
 import fs from 'fs-extra';
 import type { IGenMockDataOpts, IGenMockDataOptsCLI } from '../gen';
-import genMockData from '../index';
+import genMockData from '../gen';
 
 const commandCodeGenCli = (version: string) => {
   program

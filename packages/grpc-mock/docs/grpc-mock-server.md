@@ -14,6 +14,10 @@ yarn grpc-mock server-start -c ./mock.config.cli.ts
 
 ## 2、函数调用方式（更加灵活）
 
+- 注意：
+  - 如果使用ts-node，需要手动安装
+  - 可以灵活使用程序代码调用
+
 ```base
 node -r ts-node/register --trace-warnings grpc-mock/index.ts
 ```
