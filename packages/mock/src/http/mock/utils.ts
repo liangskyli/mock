@@ -3,7 +3,7 @@ import assert from 'assert';
 import bodyParser from 'body-parser';
 import type { NextFunction, Request, RequestHandler } from 'express';
 import { existsSync } from 'fs';
-import glob from 'glob';
+import { globSync } from 'glob';
 import multer from 'multer';
 import { join } from 'path';
 import { pathToRegexp } from 'path-to-regexp';
@@ -159,11 +159,11 @@ export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = (
 ) => {
   const { cwd, ignore = [] } = opts;
   const mockPaths = [
-    ...(glob.sync('mock/**/*.[jt]s', {
+    ...(globSync('mock/**/*.[jt]s', {
       cwd,
       ignore,
     }) || []),
-    ...(glob.sync('**/_mock.[jt]s', {
+    ...(globSync('**/_mock.[jt]s', {
       cwd,
       ignore,
     }) || []),
