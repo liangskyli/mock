@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-beta.1](https://github.com/liangskyli/mock/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2023-04-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* drop support for Node 14, now support >=16.10.0
+
+### Miscellaneous Chores
+
+* drop support for Node 14 ([8f825b2](https://github.com/liangskyli/mock/commit/8f825b27fed596f7a9e5ab10b2265a75bdcb6504))
+
+
+
 ## [2.0.0-beta.0](https://github.com/liangskyli/mock/compare/v1.6.0...v2.0.0-beta.0) (2023-04-24)
 
 
