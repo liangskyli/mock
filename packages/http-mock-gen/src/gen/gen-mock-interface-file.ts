@@ -2,7 +2,7 @@ import type { IPrettierOptions } from '@liangskyli/utils';
 import { colors, copyOptions, prettierData, winPath } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import path from 'path';
-import { fileTip, packageName } from '../utils';
+import { fileTip, methodList, packageName } from '../utils';
 
 type IOpts = {
   interfaceApiRelativePath: string;
@@ -19,8 +19,31 @@ type IDefaultOpts = {
   prettierOptions?: IPrettierOptions;
 };
 
-const getMediaTypeData = (content: any) => {
-  return content?.['application/json'] ?? content?.['text/plain'] ?? {};
+const getMethodData = (itemValue: any) => {
+  // support all openapi method
+  let method = '';
+  let data: any = '';
+  let responseMediaType = '';
+  methodList.forEach((item) => {
+    if (itemValue?.[item]) {
+      method = item;
+      const responsesProperties = itemValue[item]?.responses;
+      // first use responses 200, then use responses default
+      let responseCode: '200' | 'default' = '200';
+      if (!responsesProperties?.['200']) {
+        responseCode = 'default';
+      }
+      // first use responses 200, then use responses default
+      const responsesContent = responsesProperties?.[responseCode]?.content;
+      if (responsesContent) {
+        // responses content only use first key
+        responseMediaType = Object.keys(responsesContent)[0];
+      }
+
+      data = responsesContent?.[responseMediaType] ?? {};
+    }
+  });
+  return { method, data };
 };
 
 const genDefaultCustomData = async (opts: IDefaultOpts) => {
@@ -32,16 +55,7 @@ const genDefaultCustomData = async (opts: IDefaultOpts) => {
   } = opts;
   if (!fs.pathExistsSync(path.join(genCustomDataPath, 'index.ts'))) {
     const firstPath = Object.keys(mockData)[0];
-    const itemValue = mockData[firstPath];
-    let responseData = {};
-    if (itemValue.get) {
-      const content = itemValue.get?.responses?.['200']?.content;
-      responseData = getMediaTypeData(content);
-    }
-    if (itemValue.post) {
-      const content = itemValue.post?.responses?.['200']?.content;
-      responseData = getMediaTypeData(content);
-    }
+    const { data: responseData } = getMethodData(mockData[firstPath]);
 
     fs.ensureDirSync(genCustomDataPath);
     // 生成默认自定义mock数据入口文件
@@ -114,20 +128,7 @@ const genMockInterfaceFile = async (opts: IOpts) => {
 
   interfaceMockData.push('\n export default {');
   Object.keys(mockData).forEach((item) => {
-    const itemValue = mockData[item];
-    // method 只支持 get post
-    let method = '';
-    let data: any = '';
-    if (itemValue.get) {
-      method = 'GET';
-      const content = itemValue.get?.responses?.['200']?.content;
-      data = getMediaTypeData(content);
-    }
-    if (itemValue.post) {
-      method = 'POST';
-      const content = itemValue.post?.responses?.['200']?.content;
-      data = getMediaTypeData(content);
-    }
+    const { method, data } = getMethodData(mockData[item]);
     if (method) {
       interfaceMockData.push(`'${method} ${mockPathPrefix}${item}': (req: Request, res: Response) => {
         type IData = IApi['${item}']['Response'];

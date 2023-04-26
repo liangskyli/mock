@@ -70,3 +70,14 @@ export const mergeObject = (object: any, source: any) => {
   const result = mergeUndefined(tempData, object);
   return result;
 };
+
+export const methodList = [
+  'get',
+  'put',
+  'post',
+  'delete',
+  'options',
+  'head',
+  'patch',
+  'trace',
+];
