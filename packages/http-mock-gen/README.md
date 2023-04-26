@@ -91,7 +91,7 @@ export default config;
 ```
 
 - openapi v3 YAML or JSON 格式的文件[示例](https://github.com/liangskyli/openapi-ts/blob/master/packages/openapi-gen-ts/docs/openapiv3-example.json) ，[openapi](https://www.openapis.org/) 需要自己根据业务逻辑生成。
-- openapi v3 method 只支持 get post接口，只生成application/json响应数据
+- openapi v3 method 支持任意接口类型，生成responses 200或default的第一个响应数据（优先200）
 - 如果你的http接口使用routing-controllers,可以使用[@liangskyli/routing-controllers-openapi 工具生成openapi文件](https://github.com/liangskyli/routing-controllers-openapi)
 - openpai 生成数据类型和接口使用说明，详见[使用说明](https://github.com/liangskyli/openapi-ts)
 - 生成mock 数据结构，最终使用interface-mock-data.ts文件
