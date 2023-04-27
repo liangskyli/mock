@@ -29,7 +29,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     prettierOptions,
     jsonSchemaFakerOptions,
     mockDataReplace,
-    requestFilePath,
+    requestFile,
     requestQueryOmit = [],
     requestBodyOmit = [],
     mockPathPrefix,
@@ -52,7 +52,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     genTsDir,
     openapiPath,
     prettierOptions: copyOptions(prettierOptions),
-    requestFilePath,
+    requestFile,
     requestQueryOmit,
     requestBodyOmit,
   });

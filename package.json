@@ -52,6 +52,11 @@
     "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^5.0.4"
   },
+  "pnpm": {
+    "overrides": {
+      "undici": "5.21.2"
+    }
+  },
   "packageManager": "pnpm@8.1.0",
   "engines": {
     "node": ">=16.14.0",

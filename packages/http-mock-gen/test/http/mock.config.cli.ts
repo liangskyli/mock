@@ -1,4 +1,4 @@
-import type { IGenMockDataOptsCLI } from '@liangskyli/http-mock-gen';
+import type { IGenMockDataOptsCLI } from '../../src';
 
 const config: IGenMockDataOptsCLI = [
   {
