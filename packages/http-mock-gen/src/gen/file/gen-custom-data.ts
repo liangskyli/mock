@@ -26,10 +26,18 @@ export class GenCustomData {
     const { data: responseData } = getMethodData(mockData[firstPath]);
 
     // 生成默认自定义mock数据入口文件
-    const templateData = fs.readFileSync(
-      path.join(__dirname, '../custom-data-template/template-data.tpl'),
-      { encoding: 'utf-8' },
+    let templatePath = path.join(
+      __dirname,
+      '../custom-data-template/template-data.tpl',
     );
+    if (!fs.pathExistsSync(templatePath)) {
+      // build path
+      templatePath = path.join(
+        __dirname,
+        './gen/custom-data-template/template-data.tpl',
+      );
+    }
+    const templateData = fs.readFileSync(templatePath, { encoding: 'utf-8' });
     let IApiRelativePath = winPath(interfaceApiRelativePath);
     if (!IApiRelativePath.startsWith('.')) {
       IApiRelativePath = `./${IApiRelativePath}`;
@@ -51,8 +59,19 @@ export class GenCustomData {
   }
   private writeIndexFile() {
     const { genCustomDataPath, prettierOptions } = this.opts;
+    let templatePath = path.join(
+      __dirname,
+      '../custom-data-template/index.tpl',
+    );
+    if (!fs.pathExistsSync(templatePath)) {
+      // build path
+      templatePath = path.join(
+        __dirname,
+        './gen/custom-data-template/index.tpl',
+      );
+    }
     const data = fs
-      .readFileSync(path.join(__dirname, '../custom-data-template/index.tpl'), {
+      .readFileSync(templatePath, {
         encoding: 'utf-8',
       })
       .replace('packageName', packageName);

@@ -38,10 +38,18 @@ const genDefaultCustomData = (
   if (!fs.pathExistsSync(path.join(genCustomDataPath, 'index.ts'))) {
     fs.ensureDirSync(genCustomDataPath);
     // 生成默认自定义mock数据入口文件
-    const templateData = fs.readFileSync(
-      path.join(__dirname, './custom-data-template/template-data.tpl'),
-      { encoding: 'utf-8' },
+    let templatePath = path.join(
+      __dirname,
+      './custom-data-template/template-data.tpl',
     );
+    if (!fs.pathExistsSync(templatePath)) {
+      // build path
+      templatePath = path.join(
+        __dirname,
+        './grpc/custom-data-template/template-data.tpl',
+      );
+    }
+    const templateData = fs.readFileSync(templatePath, { encoding: 'utf-8' });
     fs.writeFileSync(
       path.join(genCustomDataPath, 'template-data.ts'),
       prettierData(
@@ -49,10 +57,20 @@ const genDefaultCustomData = (
         copyOptions(prettierOptions),
       ),
     );
-    const templateIndexData = fs.readFileSync(
-      path.join(__dirname, './custom-data-template/index.tpl'),
-      { encoding: 'utf-8' },
+    let templateIndexPath = path.join(
+      __dirname,
+      './custom-data-template/index.tpl',
     );
+    if (!fs.pathExistsSync(templateIndexPath)) {
+      // build path
+      templateIndexPath = path.join(
+        __dirname,
+        './grpc/custom-data-template/index.tpl',
+      );
+    }
+    const templateIndexData = fs.readFileSync(templateIndexPath, {
+      encoding: 'utf-8',
+    });
     fs.writeFileSync(
       path.join(genCustomDataPath, 'index.ts'),
       prettierData(
