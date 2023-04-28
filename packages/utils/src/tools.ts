@@ -1,16 +1,24 @@
+import fs from 'fs-extra';
 import path from 'path';
 import prettier from 'prettier';
-import fs from 'fs-extra';
 
 export const getAbsolutePath = (pathName: string) => {
-  return path.isAbsolute(pathName) ? pathName : path.join(process.cwd(), pathName);
+  return path.isAbsolute(pathName)
+    ? pathName
+    : path.join(process.cwd(), pathName);
 };
 
-export const getRelativePath = (absolutePath1: string, absolutePath2: string) => {
+export const getRelativePath = (
+  absolutePath1: string,
+  absolutePath2: string,
+) => {
   return path.relative(absolutePath1, absolutePath2);
 };
 
-export const prettierData = async (fileContent: string, options?: prettier.Options) => {
+export const prettierData = (
+  fileContent: string,
+  options?: prettier.Options,
+) => {
   let configFile;
   try {
     configFile = prettier.resolveConfigFile.sync();
@@ -20,7 +28,7 @@ export const prettierData = async (fileContent: string, options?: prettier.Optio
 
   let configFileOptions: prettier.Options | null = null;
   if (configFile !== null) {
-    configFileOptions = await prettier.resolveConfig(configFile);
+    configFileOptions = prettier.resolveConfig.sync(configFile);
   }
   if (options === undefined) {
     options = { parser: 'typescript' };

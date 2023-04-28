@@ -46,7 +46,7 @@ const getMethodData = (itemValue: any) => {
   return { method, data };
 };
 
-const genDefaultCustomData = async (opts: IDefaultOpts) => {
+const genDefaultCustomData = (opts: IDefaultOpts) => {
   const {
     mockData,
     genCustomDataPath,
@@ -69,7 +69,7 @@ const genDefaultCustomData = async (opts: IDefaultOpts) => {
     }
     fs.writeFileSync(
       path.join(genCustomDataPath, 'template-data.ts'),
-      await prettierData(
+      prettierData(
         templateData
           .replace('packageName', packageName)
           .replace(/{{IApiRelativePath}}/gi, winPath(IApiRelativePath))
@@ -84,7 +84,7 @@ const genDefaultCustomData = async (opts: IDefaultOpts) => {
     );
     fs.writeFileSync(
       path.join(genCustomDataPath, 'index.ts'),
-      await prettierData(
+      prettierData(
         templateIndexData.replace('packageName', packageName),
         copyOptions(prettierOptions),
       ),
@@ -93,7 +93,7 @@ const genDefaultCustomData = async (opts: IDefaultOpts) => {
   }
 };
 
-const genMockInterfaceFile = async (opts: IOpts) => {
+const genMockInterfaceFile = (opts: IOpts) => {
   const {
     interfaceApiRelativePath,
     mockDataAbsolutePath,
@@ -106,7 +106,7 @@ const genMockInterfaceFile = async (opts: IOpts) => {
   // 生成自定义数据模版
   const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
 
-  await genDefaultCustomData({
+  genDefaultCustomData({
     mockData,
     genCustomDataPath,
     interfaceApiRelativePath: path.join('../', interfaceApiRelativePath),
@@ -147,7 +147,7 @@ const genMockInterfaceFile = async (opts: IOpts) => {
   );
   fs.writeFileSync(
     interfaceMockDataAbsolutePath,
-    await prettierData(interfaceMockData.join(''), prettierOptions),
+    prettierData(interfaceMockData.join(''), prettierOptions),
   );
   console.info(
     colors.green('Generate mock/interface-mock-data.ts file success'),

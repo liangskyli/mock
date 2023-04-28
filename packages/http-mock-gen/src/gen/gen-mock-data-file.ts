@@ -14,7 +14,7 @@ type IOpts = {
   mockDataReplace?: (this: any, key: string, value: any) => any;
 };
 
-const genMockDataFile = async (opts: IOpts) => {
+const genMockDataFile = (opts: IOpts) => {
   const { genMockAbsolutePath, schemaDefinition, mockDataReplace } = opts;
   let { prettierOptions, jsonSchemaFakerOptions } = opts;
   if (prettierOptions === undefined) {
@@ -39,7 +39,7 @@ const genMockDataFile = async (opts: IOpts) => {
   const mockDataAbsolutePath = path.join(genMockAbsolutePath, 'mock-data.json');
   fs.writeFileSync(
     mockDataAbsolutePath,
-    await prettierData(mockDataString, prettierOptions),
+    prettierData(mockDataString, prettierOptions),
   );
 
   console.info(colors.green('Generate mock/mock-data.json success'));

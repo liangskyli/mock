@@ -82,7 +82,7 @@ const genProtoJson = async (opts: GenProtoOptions) => {
   prettierOptions = Object.assign(prettierOptions, { parser: 'json' });
   fs.writeFileSync(
     jsonPath,
-    await prettierData(JSON.stringify(allJson), prettierOptions),
+    prettierData(JSON.stringify(allJson), prettierOptions),
   );
   console.info(
     colors.green(`Generate proto root.json success in ${genMockPath}`),

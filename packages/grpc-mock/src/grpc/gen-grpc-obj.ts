@@ -14,7 +14,7 @@ type GenGrpcObjOptions = {
   prettierOptions?: IPrettierOptions;
 };
 
-const genGrpcObj = async (opt: GenGrpcObjOptions) => {
+const genGrpcObj = (opt: GenGrpcObjOptions) => {
   const {
     grpcNpmName,
     genMockPath,
@@ -52,10 +52,7 @@ const genGrpcObj = async (opt: GenGrpcObjOptions) => {
     'export default grpcObjectGroup;',
   ].join('\n');
 
-  fs.writeFileSync(
-    grpcObjPath,
-    await prettierData(fileContent, prettierOptions),
-  );
+  fs.writeFileSync(grpcObjPath, prettierData(fileContent, prettierOptions));
   console.info(colors.green(`Generate grpc-obj.ts success in ${genMockPath}`));
 };
 

@@ -31,7 +31,7 @@ export type GenMockDataOptions = {
   prettierOptions?: IPrettierOptions;
 };
 
-const genDefaultCustomData = async (
+const genDefaultCustomData = (
   genCustomDataPath: string,
   prettierOptions?: IPrettierOptions,
 ) => {
@@ -44,7 +44,7 @@ const genDefaultCustomData = async (
     );
     fs.writeFileSync(
       path.join(genCustomDataPath, 'template-data.ts'),
-      await prettierData(
+      prettierData(
         templateData.replace('packageName', packageName),
         copyOptions(prettierOptions),
       ),
@@ -55,7 +55,7 @@ const genDefaultCustomData = async (
     );
     fs.writeFileSync(
       path.join(genCustomDataPath, 'index.ts'),
-      await prettierData(
+      prettierData(
         templateIndexData.replace('packageName', packageName),
         copyOptions(prettierOptions),
       ),
@@ -85,7 +85,7 @@ const genMockData = async (
   console.info(colors.green(`Clean dir: ${genMockPath}`));
 
   const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
-  await genDefaultCustomData(genCustomDataPath, prettierOptions);
+  genDefaultCustomData(genCustomDataPath, prettierOptions);
 
   const genProtoPath = path.join(genMockAbsolutePath, 'proto');
   fs.ensureDirSync(genProtoPath);
@@ -167,10 +167,7 @@ const genMockData = async (
           );
           fs.writeFileSync(
             filePath,
-            await prettierData(
-              protoServiceContent,
-              copyOptions(prettierOptions),
-            ),
+            prettierData(protoServiceContent, copyOptions(prettierOptions)),
           );
 
           serviceMockContent.push(
@@ -202,7 +199,7 @@ export default ${spaceServerNameMock};
       const filePath = path.join(genServerPath, `${spaceServerNameMock}.ts`);
       fs.writeFileSync(
         filePath,
-        await prettierData(
+        prettierData(
           serviceMockContent.join('\n'),
           copyOptions(prettierOptions),
         ),
@@ -221,13 +218,13 @@ export default ${spaceServerNameMock};
   const filePath = path.join(genMockPath, 'index.ts');
   fs.writeFileSync(
     filePath,
-    await prettierData(indexContent.join('\n'), copyOptions(prettierOptions)),
+    prettierData(indexContent.join('\n'), copyOptions(prettierOptions)),
   );
   grpcServiceMockConfigList.push('}');
   const fileConfigPath = path.join(genMockPath, 'grpc-service.mock.config.js');
   fs.writeFileSync(
     fileConfigPath,
-    await prettierData(
+    prettierData(
       grpcServiceMockConfigList.join('\n'),
       copyOptions(prettierOptions),
     ),

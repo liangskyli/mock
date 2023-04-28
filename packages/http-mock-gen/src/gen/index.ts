@@ -58,7 +58,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
   });
 
   // 生成mock数据文件
-  const mockDataAbsolutePath = await genMockDataFile({
+  const mockDataAbsolutePath = genMockDataFile({
     genMockAbsolutePath,
     schemaDefinition: schemaDefinition as any,
     prettierOptions: copyOptions(prettierOptions),
@@ -71,7 +71,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     'interface-api',
   );
   // 生成mock接口文件
-  await genMockInterfaceFile({
+  genMockInterfaceFile({
     interfaceApiRelativePath,
     mockDataAbsolutePath,
     genMockAbsolutePath,
