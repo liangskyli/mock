@@ -8,8 +8,8 @@ config.plugins.push(
   copy({
     targets: [
       {
-        src: 'src/grpc/custom-data-template/**/*',
-        dest: 'lib/grpc/custom-data-template',
+        src: 'src/gen/custom-data-template/**/*',
+        dest: 'lib/gen/custom-data-template',
       },
     ],
   }),

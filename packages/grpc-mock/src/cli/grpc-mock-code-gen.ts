@@ -1,8 +1,8 @@
 import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
 import { program } from 'commander';
 import fs from 'fs-extra';
-import type { ConfigFileOptionsCLI } from '../grpc/gen';
-import { gen } from '../grpc/gen';
+import type { ConfigFileOptionsCLI } from '../gen/gen';
+import { gen } from '../gen/gen';
 
 const commandCodeGenCli = (version: string) => {
   program

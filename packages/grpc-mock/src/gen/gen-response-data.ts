@@ -1,9 +1,9 @@
 import type { Enum, ReflectionObject, Root, Type } from 'protobufjs';
 import {
-  longsType,
   PROTO_TYPE_2_TS_TYPE_MAP,
   TS_TYPE_2_DEFAULT_MAP,
-} from './utils';
+  longsType,
+} from '../utils';
 
 type IOpts = {
   typeMessage: Type;

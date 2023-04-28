@@ -11,16 +11,16 @@ import {
 import * as fs from 'fs-extra';
 import path from 'path';
 import protobufjs from 'protobufjs';
-import type { ProtoConfig } from './gen-proto-json';
-import genProtoJson from './gen-proto-json';
-import type { IInspectNamespace } from './pbjs';
-import { genImplementationData, inspectNamespace } from './pbjs';
 import {
   fileTip,
   firstUpperCaseOfWord,
   firstWordNeedLetter,
   packageName,
-} from './utils';
+} from '../utils';
+import type { ProtoConfig } from './gen-proto-json';
+import genProtoJson from './gen-proto-json';
+import type { IInspectNamespace } from './pbjs';
+import { genImplementationData, inspectNamespace } from './pbjs';
 
 export type GenMockDataOptions = {
   grpcMockDir?: string;
@@ -46,7 +46,7 @@ const genDefaultCustomData = (
       // build path
       templatePath = path.join(
         __dirname,
-        './grpc/custom-data-template/template-data.tpl',
+        './gen/custom-data-template/template-data.tpl',
       );
     }
     const templateData = fs.readFileSync(templatePath, { encoding: 'utf-8' });
@@ -65,7 +65,7 @@ const genDefaultCustomData = (
       // build path
       templateIndexPath = path.join(
         __dirname,
-        './grpc/custom-data-template/index.tpl',
+        './gen/custom-data-template/index.tpl',
       );
     }
     const templateIndexData = fs.readFileSync(templateIndexPath, {

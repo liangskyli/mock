@@ -3,7 +3,7 @@ import type { IPrettierOptions } from '@liangskyli/utils';
 import { colors, getAbsolutePath, prettierData } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
-import { fileTip, getImportPath, packageName, tslintDisable } from './utils';
+import { fileTip, getImportPath, packageName, tslintDisable } from '../utils';
 
 type GenGrpcObjOptions = {
   genMockPath: string;

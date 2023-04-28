@@ -13,8 +13,8 @@ import type {
   Service,
   Type,
 } from 'protobufjs';
+import type { TEnum, TField, TMessage, TMethod, TService } from '../types';
 import genResponseData from './gen-response-data';
-import type { TEnum, TField, TMessage, TMethod, TService } from './types';
 
 interface HasName {
   name: string;

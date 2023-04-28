@@ -1,4 +1,4 @@
-import type { ConfigFileOptions } from '../../src/grpc/gen';
+import type { ConfigFileOptions } from '../../src/gen/gen';
 
 const config: ConfigFileOptions = {
   loaderOptions: {
