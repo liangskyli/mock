@@ -1,7 +1,7 @@
 import type genTsData from '@liangskyli/openapi-gen-ts/lib/gen';
 import type { IGenMockDataOpts } from '../index';
 import { GenInterfaceMockData } from './gen-interface-mock-data';
-import { genMockDataJson } from './gen-mock-data-json';
+import { GenCustomData } from './gen-mock-data-json';
 
 type IGeneratorFile = IGenMockDataOpts & {
   genMockAbsolutePath: string;
@@ -18,13 +18,13 @@ const generatorMockFile = (opts: IGeneratorFile) => {
     mockPathPrefix,
   } = opts;
   // 生成mock数据文件
-  const mockDataAbsolutePath = genMockDataJson({
+  const mockDataAbsolutePath = new GenCustomData({
     genMockAbsolutePath,
     schemaDefinition: schemaDefinition!,
     prettierOptions,
     jsonSchemaFakerOptions,
     mockDataReplace,
-  });
+  }).mockDataAbsolutePath;
 
   // 生成mock接口文件
   new GenInterfaceMockData({

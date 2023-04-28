@@ -1,12 +1,12 @@
 import type { Definition } from '@liangskyli/openapi-gen-ts';
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { colors, copyOptions, prettierData } from '@liangskyli/utils';
-import fs from 'fs-extra';
+import { copyOptions } from '@liangskyli/utils';
 import type { JSONSchemaFakerOptions, Schema } from 'json-schema-faker';
 import { JSONSchemaFaker } from 'json-schema-faker';
 import path from 'path';
+import { writePrettierFile } from '../../utils';
 
-type IOpts = {
+type IGenCustomDataOpts = {
   genMockAbsolutePath: string;
   schemaDefinition: Definition;
   prettierOptions?: IPrettierOptions;
@@ -14,41 +14,59 @@ type IOpts = {
   mockDataReplace?: (this: any, key: string, value: any) => any;
 };
 
-const genMockDataJson = (opts: IOpts) => {
-  const { genMockAbsolutePath, schemaDefinition, mockDataReplace } = opts;
-  const { prettierOptions: defaultPrettierOptions } = opts;
-  let prettierOptions = copyOptions(defaultPrettierOptions);
-  if (prettierOptions === undefined) {
-    prettierOptions = { parser: 'json' };
-  }
-  prettierOptions = Object.assign(prettierOptions, { parser: 'json' });
+export class GenCustomData {
+  private readonly opts: IGenCustomDataOpts;
+  private mockDataString: string;
+  public mockDataAbsolutePath: string;
 
-  let jsonSchemaFakerOptions = opts.jsonSchemaFakerOptions;
-  if (jsonSchemaFakerOptions === undefined) {
-    jsonSchemaFakerOptions = {
+  constructor(opts: IGenCustomDataOpts) {
+    this.opts = opts;
+    this.mockDataString = '';
+    this.mockDataAbsolutePath = '';
+    this.generator();
+    this.writeFile();
+  }
+  private generator() {
+    const { schemaDefinition, mockDataReplace } = this.opts;
+
+    let jsonSchemaFakerOptions = this.opts.jsonSchemaFakerOptions;
+    if (jsonSchemaFakerOptions === undefined) {
+      jsonSchemaFakerOptions = {
+        alwaysFakeOptionals: true,
+        fillProperties: false,
+      };
+    }
+    jsonSchemaFakerOptions = Object.assign(jsonSchemaFakerOptions, {
       alwaysFakeOptionals: true,
       fillProperties: false,
-    };
+    });
+
+    JSONSchemaFaker.option(jsonSchemaFakerOptions);
+    const mockData = JSONSchemaFaker.generate(
+      schemaDefinition as unknown as Schema,
+    );
+    this.mockDataString = JSON.stringify(mockData, mockDataReplace, 2);
   }
-  jsonSchemaFakerOptions = Object.assign(jsonSchemaFakerOptions, {
-    alwaysFakeOptionals: true,
-    fillProperties: false,
-  });
 
-  JSONSchemaFaker.option(jsonSchemaFakerOptions);
-  const mockData = JSONSchemaFaker.generate(
-    schemaDefinition as unknown as Schema,
-  );
-  const mockDataString = JSON.stringify(mockData, mockDataReplace, 2);
-  const mockDataAbsolutePath = path.join(genMockAbsolutePath, 'mock-data.json');
-  fs.writeFileSync(
-    mockDataAbsolutePath,
-    prettierData(mockDataString, prettierOptions),
-  );
+  private writeFile() {
+    const { genMockAbsolutePath, prettierOptions: defaultPrettierOptions } =
+      this.opts;
 
-  console.info(colors.green('Generate mock/mock-data.json success'));
+    let prettierOptions = copyOptions(defaultPrettierOptions);
+    if (prettierOptions === undefined) {
+      prettierOptions = { parser: 'json' };
+    }
+    prettierOptions = Object.assign(prettierOptions, { parser: 'json' });
 
-  return mockDataAbsolutePath;
-};
+    const absolutePath = path.join(genMockAbsolutePath, 'mock-data.json');
 
-export { genMockDataJson };
+    writePrettierFile({
+      prettierOptions,
+      absolutePath,
+      data: this.mockDataString,
+      successTip: 'Generate mock/mock-data.json success',
+    });
+
+    this.mockDataAbsolutePath = absolutePath;
+  }
+}
