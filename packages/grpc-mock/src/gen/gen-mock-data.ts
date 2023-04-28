@@ -17,6 +17,7 @@ import {
   firstWordNeedLetter,
   packageName,
 } from '../utils';
+import { GenCustomData } from './file/gen-custom-data';
 import type { ProtoConfig } from './file/gen-root-json';
 import { GenRootJson } from './file/gen-root-json';
 import type { IInspectNamespace } from './pbjs';
@@ -29,56 +30,6 @@ export type GenMockDataOptions = {
   rootPath: ProtoConfig | string;
   rootPathServerNameMap?: Record<string, string>;
   prettierOptions?: IPrettierOptions;
-};
-
-const genDefaultCustomData = (
-  genCustomDataPath: string,
-  prettierOptions?: IPrettierOptions,
-) => {
-  if (!fs.pathExistsSync(path.join(genCustomDataPath, 'index.ts'))) {
-    fs.ensureDirSync(genCustomDataPath);
-    // 生成默认自定义mock数据入口文件
-    let templatePath = path.join(
-      __dirname,
-      './custom-data-template/template-data.tpl',
-    );
-    if (!fs.pathExistsSync(templatePath)) {
-      // build path
-      templatePath = path.join(
-        __dirname,
-        './gen/custom-data-template/template-data.tpl',
-      );
-    }
-    const templateData = fs.readFileSync(templatePath, { encoding: 'utf-8' });
-    fs.writeFileSync(
-      path.join(genCustomDataPath, 'template-data.ts'),
-      prettierData(
-        templateData.replace('packageName', packageName),
-        copyOptions(prettierOptions),
-      ),
-    );
-    let templateIndexPath = path.join(
-      __dirname,
-      './custom-data-template/index.tpl',
-    );
-    if (!fs.pathExistsSync(templateIndexPath)) {
-      // build path
-      templateIndexPath = path.join(
-        __dirname,
-        './gen/custom-data-template/index.tpl',
-      );
-    }
-    const templateIndexData = fs.readFileSync(templateIndexPath, {
-      encoding: 'utf-8',
-    });
-    fs.writeFileSync(
-      path.join(genCustomDataPath, 'index.ts'),
-      prettierData(
-        templateIndexData.replace('packageName', packageName),
-        copyOptions(prettierOptions),
-      ),
-    );
-  }
 };
 
 const genMockData = async (
@@ -103,7 +54,7 @@ const genMockData = async (
   console.info(colors.green(`Clean dir: ${genMockPath}`));
 
   const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
-  genDefaultCustomData(genCustomDataPath, prettierOptions);
+  new GenCustomData({ genMockPath, genCustomDataPath, prettierOptions });
 
   const genProtoPath = path.join(genMockAbsolutePath, 'proto');
   fs.ensureDirSync(genProtoPath);
