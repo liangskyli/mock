@@ -18,10 +18,12 @@ import {
   packageName,
 } from '../utils';
 import { GenCustomData } from './file/gen-custom-data';
+import { GenProtoMockData } from './file/gen-proto-mock-data';
 import type { ProtoConfig } from './file/gen-root-json';
 import { GenRootJson } from './file/gen-root-json';
+import { GenServiceMockData } from './file/gen-service-mock-data';
 import type { IInspectNamespace } from './pbjs';
-import { genImplementationData, inspectNamespace } from './pbjs';
+import { inspectNamespace } from './pbjs';
 
 export type GenMockDataOptions = {
   grpcMockDir?: string;
@@ -89,13 +91,10 @@ const genMockData = async (
       const root = protobufjs.Root.fromJSON(rootObject[spaceServerName]);
       const result: IInspectNamespace = inspectNamespace(root);
       const { services, methods } = result!;
-      const serviceMockContent = [];
-      serviceMockContent.push(fileTip);
-      serviceMockContent.push(
-        `import type { IMockService } from '${packageName}';`,
-      );
-      const protoItem: string[] = [];
-      const uniqueServiceCodeNameList: string[] = [];
+      const genServiceMockData = new GenServiceMockData({
+        genServerPath,
+        prettierOptions,
+      });
       const longsTypeToString = loaderOptions.longs === String;
 
       await Promise.all(
@@ -103,62 +102,37 @@ const genMockData = async (
           const protoName = service.fullName.split('.')[0];
           const protoPath = `${spaceServerName}.${service.fullName}`;
           const serviceCodeName = firstWordNeedLetter(service.name);
-          let uniqueServiceCodeName = serviceCodeName;
 
-          // 导出服务变量名唯一处理
-          if (uniqueServiceCodeNameList.indexOf(uniqueServiceCodeName) > -1) {
-            uniqueServiceCodeName = `${uniqueServiceCodeName}${index}`;
-          }
-          uniqueServiceCodeNameList.push(uniqueServiceCodeName);
-
-          const protoServiceContent = `${fileTip}
-            // 自定义mock数据，请在custom-data文件夹下编写，详细见custom-data/index.ts文件说明
-            import type { IProtoItem } from '${packageName}';
-            import CustomData from '${winPath(genCustomDataPath)}/index';
-            
-            const ${serviceCodeName}: IProtoItem = {
-              path: '${protoPath}',
-              implementationData: ${genImplementationData(
-                protoPath,
-                methods,
-                protoName,
-                root,
-                longsTypeToString,
-              )}
-            };
-            export default ${serviceCodeName};
-            `;
-          fs.ensureDirSync(path.join(genProtoPath, serverName, protoName));
-          const filePath = path.join(
+          new GenProtoMockData({
+            index,
+            genCustomDataPath,
+            serviceCodeName,
+            protoPath,
+            methods,
+            protoName,
+            root,
+            longsTypeToString,
+            prettierOptions,
             genProtoPath,
             serverName,
-            protoName,
-            `${serviceCodeName}.ts`,
-          );
-          fs.writeFileSync(
-            filePath,
-            prettierData(protoServiceContent, copyOptions(prettierOptions)),
-          );
+          });
 
-          serviceMockContent.push(
-            `import ${uniqueServiceCodeName} from '../proto/${serverName}/${protoName}/${serviceCodeName}';`,
-          );
-          protoItem.push(`{ ...${uniqueServiceCodeName} },`);
+          genServiceMockData.importService({
+            index,
+            serverName,
+            protoName,
+            serviceCodeName,
+          });
         }),
       );
       const spaceServerNameMock = `${firstUpperCaseOfWord(
         spaceServerName,
       )}Mock`;
-      serviceMockContent.push(`
-const ${spaceServerNameMock}: IMockService = {
-  serviceName: '${serverName}',
-  servicePort: ${servicePort},
-  protoList: [
-    ${protoItem.join('\n')}
-  ],
-};
-export default ${spaceServerNameMock};
-    `);
+      genServiceMockData.mockServerCode({
+        spaceServerNameMock,
+        serverName,
+        servicePort,
+      });
       grpcServiceMockConfigList.push(
         ` '${serverName}': {
     'host': '127.0.0.1',
@@ -166,14 +140,7 @@ export default ${spaceServerNameMock};
   },`,
       );
       servicePort++;
-      const filePath = path.join(genServerPath, `${spaceServerNameMock}.ts`);
-      fs.writeFileSync(
-        filePath,
-        prettierData(
-          serviceMockContent.join('\n'),
-          copyOptions(prettierOptions),
-        ),
-      );
+      genServiceMockData.writeFile(spaceServerNameMock);
       spaceServerNameMockList.push(spaceServerNameMock);
       indexContent.push(
         `import ${spaceServerNameMock} from './server/${spaceServerNameMock}';`,

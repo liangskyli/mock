@@ -91,7 +91,7 @@ type IWriteFileOpts = {
   prettierOptions: IPrettierOptions;
   absolutePath: string;
   data: string;
-  successTip: string;
+  successTip?: string;
 };
 export const writePrettierFile = (opts: IWriteFileOpts) => {
   const { absolutePath, prettierOptions, data, successTip } = opts;
@@ -101,5 +101,7 @@ export const writePrettierFile = (opts: IWriteFileOpts) => {
     prettierData(data, copyOptions(prettierOptions)),
   );
 
-  console.info(colors.green(successTip));
+  if (successTip) {
+    console.info(colors.green(successTip));
+  }
 };
