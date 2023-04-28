@@ -17,8 +17,8 @@ import {
   firstWordNeedLetter,
   packageName,
 } from '../utils';
-import type { ProtoConfig } from './gen-proto-json';
-import genProtoJson from './gen-proto-json';
+import type { ProtoConfig } from './file/gen-root-json';
+import { GenRootJson } from './file/gen-root-json';
 import type { IInspectNamespace } from './pbjs';
 import { genImplementationData, inspectNamespace } from './pbjs';
 
@@ -110,12 +110,13 @@ const genMockData = async (
   const genServerPath = path.join(genMockAbsolutePath, 'server');
   fs.ensureDirSync(genServerPath);
   if (typeof rootPath !== 'string') {
-    rootPath = await genProtoJson({
+    const genRootJson = new GenRootJson({
       genMockPath,
       ...rootPath,
-      loaderOptions: copyOptions(loaderOptions),
-      prettierOptions: copyOptions(prettierOptions),
+      loaderOptions,
+      prettierOptions,
     });
+    rootPath = genRootJson.writeFile();
   }
   rootPath = getAbsolutePath(rootPath);
 
