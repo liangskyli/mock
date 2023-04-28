@@ -4,14 +4,12 @@ import {
   colors,
   copyOptions,
   getAbsolutePath,
-  getRelativePath,
   removeFilesSync,
 } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import type { JSONSchemaFakerOptions } from 'json-schema-faker';
 import path from 'path';
-import { genMockDataFile } from './gen-mock-data-file';
-import { genMockInterfaceFile } from './gen-mock-interface-file';
+import generatorMockFile from './file';
 
 export type IGenMockDataOpts = IGenTsDataOpts & {
   mockDir?: string;
@@ -27,12 +25,9 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     mockDir = './',
     openapiPath,
     prettierOptions,
-    jsonSchemaFakerOptions,
-    mockDataReplace,
     requestFile,
     requestQueryOmit = [],
     requestBodyOmit = [],
-    mockPathPrefix,
   } = opts;
   const genTsDir = opts.genTsDir ?? `${opts.mockDir}/mock`;
 
@@ -48,7 +43,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
   fs.ensureDirSync(genMockAbsolutePath);
 
   // openapi gen ts file
-  const { schemaDefinition, genTsAbsolutePath } = await genTsData({
+  const tsData = await genTsData({
     genTsDir,
     openapiPath,
     prettierOptions: copyOptions(prettierOptions),
@@ -57,26 +52,10 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     requestBodyOmit,
   });
 
-  // 生成mock数据文件
-  const mockDataAbsolutePath = genMockDataFile({
+  generatorMockFile({
+    ...opts,
+    ...tsData,
     genMockAbsolutePath,
-    schemaDefinition: schemaDefinition as any,
-    prettierOptions: copyOptions(prettierOptions),
-    jsonSchemaFakerOptions,
-    mockDataReplace,
-  });
-
-  const interfaceApiRelativePath = path.join(
-    getRelativePath(genMockAbsolutePath, genTsAbsolutePath),
-    'interface-api',
-  );
-  // 生成mock接口文件
-  genMockInterfaceFile({
-    interfaceApiRelativePath,
-    mockDataAbsolutePath,
-    genMockAbsolutePath,
-    prettierOptions: copyOptions(prettierOptions),
-    mockPathPrefix,
   });
 };
 

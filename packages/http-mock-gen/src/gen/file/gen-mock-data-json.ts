@@ -1,8 +1,8 @@
 import type { Definition } from '@liangskyli/openapi-gen-ts';
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { colors, prettierData } from '@liangskyli/utils';
+import { colors, copyOptions, prettierData } from '@liangskyli/utils';
 import fs from 'fs-extra';
-import type { JSONSchemaFakerOptions } from 'json-schema-faker';
+import type { JSONSchemaFakerOptions, Schema } from 'json-schema-faker';
 import { JSONSchemaFaker } from 'json-schema-faker';
 import path from 'path';
 
@@ -14,14 +14,16 @@ type IOpts = {
   mockDataReplace?: (this: any, key: string, value: any) => any;
 };
 
-const genMockDataFile = (opts: IOpts) => {
+const genMockDataJson = (opts: IOpts) => {
   const { genMockAbsolutePath, schemaDefinition, mockDataReplace } = opts;
-  let { prettierOptions, jsonSchemaFakerOptions } = opts;
+  const { prettierOptions: defaultPrettierOptions } = opts;
+  let prettierOptions = copyOptions(defaultPrettierOptions);
   if (prettierOptions === undefined) {
     prettierOptions = { parser: 'json' };
   }
   prettierOptions = Object.assign(prettierOptions, { parser: 'json' });
 
+  let jsonSchemaFakerOptions = opts.jsonSchemaFakerOptions;
   if (jsonSchemaFakerOptions === undefined) {
     jsonSchemaFakerOptions = {
       alwaysFakeOptionals: true,
@@ -34,7 +36,9 @@ const genMockDataFile = (opts: IOpts) => {
   });
 
   JSONSchemaFaker.option(jsonSchemaFakerOptions);
-  const mockData = JSONSchemaFaker.generate(schemaDefinition as any);
+  const mockData = JSONSchemaFaker.generate(
+    schemaDefinition as unknown as Schema,
+  );
   const mockDataString = JSON.stringify(mockData, mockDataReplace, 2);
   const mockDataAbsolutePath = path.join(genMockAbsolutePath, 'mock-data.json');
   fs.writeFileSync(
@@ -47,4 +51,4 @@ const genMockDataFile = (opts: IOpts) => {
   return mockDataAbsolutePath;
 };
 
-export { genMockDataFile };
+export { genMockDataJson };
