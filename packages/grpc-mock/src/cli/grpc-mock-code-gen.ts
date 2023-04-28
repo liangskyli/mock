@@ -1,8 +1,8 @@
 import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
 import { program } from 'commander';
 import fs from 'fs-extra';
-import type { ConfigFileOptionsCLI } from '../gen/gen';
-import { gen } from '../gen/gen';
+import type { ConfigFileOptionsCLI } from '../gen';
+import { grpcMockCodeGen } from '../gen';
 
 const commandCodeGenCli = (version: string) => {
   program
@@ -31,7 +31,7 @@ const commandCodeGenCli = (version: string) => {
   }
 
   try {
-    gen({ ...otherOptions, configFilePath }).then();
+    grpcMockCodeGen({ ...otherOptions, configFilePath }).then();
   } catch (err: any) {
     console.error(err);
   }

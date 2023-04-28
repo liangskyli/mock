@@ -5,8 +5,8 @@ export { commandServerStartCli } from './cli/grpc-mock-server-start';
 export {
   ConfigFileOptionsCLI,
   defaultLoaderOptions,
-  gen as grpcMockCodeGen,
-} from './gen/gen';
+  grpcMockCodeGen,
+} from './gen/index';
 export type {
   ICustomData,
   IImplementationData,

@@ -3,7 +3,7 @@ import { program } from 'commander';
 import spawn from 'cross-spawn';
 import fs from 'fs-extra';
 import path from 'path';
-import type { ConfigFileOptionsCLI } from '../gen/gen';
+import type { ConfigFileOptionsCLI } from '../gen';
 
 const commandServerStartCli = (version: string) => {
   program
