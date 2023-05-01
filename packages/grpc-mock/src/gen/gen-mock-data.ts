@@ -1,23 +1,13 @@
 import type { Options } from '@grpc/proto-loader';
 import type { IPrettierOptions } from '@liangskyli/utils';
-import {
-  colors,
-  copyOptions,
-  getAbsolutePath,
-  prettierData,
-  removeFilesSync,
-  winPath,
-} from '@liangskyli/utils';
+import { colors, getAbsolutePath, removeFilesSync } from '@liangskyli/utils';
 import * as fs from 'fs-extra';
 import path from 'path';
 import protobufjs from 'protobufjs';
-import {
-  fileTip,
-  firstUpperCaseOfWord,
-  firstWordNeedLetter,
-  packageName,
-} from '../utils';
+import { firstUpperCaseOfWord, firstWordNeedLetter } from '../utils';
 import { GenCustomData } from './file/gen-custom-data';
+import { GenGrpcServiceMockConfig } from './file/gen-grpc-service-mock-config';
+import { GenIndex } from './file/gen-index';
 import { GenProtoMockData } from './file/gen-proto-mock-data';
 import type { ProtoConfig } from './file/gen-root-json';
 import { GenRootJson } from './file/gen-root-json';
@@ -75,13 +65,14 @@ const genMockData = async (
 
   // mock 服务端口开始自动生成(默认从50000开始)
   let servicePort = port;
-  const grpcServiceMockConfigList: string[] = [];
-  grpcServiceMockConfigList.push(fileTip);
-  grpcServiceMockConfigList.push('module.exports = {');
-  const spaceServerNameMockList: string[] = [];
-  const indexContent: string[] = [];
-  indexContent.push(fileTip);
-  indexContent.push(`import grpcMockInit from '${packageName}';`);
+  const genGrpcServiceMockConfig = new GenGrpcServiceMockConfig({
+    genMockPath,
+    prettierOptions,
+  });
+  const genIndex = new GenIndex({
+    genMockPath,
+    prettierOptions,
+  });
 
   const rootObject = require(rootPath);
   await Promise.all(
@@ -133,39 +124,17 @@ const genMockData = async (
         serverName,
         servicePort,
       });
-      grpcServiceMockConfigList.push(
-        ` '${serverName}': {
-    'host': '127.0.0.1',
-    'port': ${servicePort},
-  },`,
-      );
+      genGrpcServiceMockConfig.body({ serverName, servicePort });
       servicePort++;
       genServiceMockData.writeFile(spaceServerNameMock);
-      spaceServerNameMockList.push(spaceServerNameMock);
-      indexContent.push(
-        `import ${spaceServerNameMock} from './server/${spaceServerNameMock}';`,
-      );
+      genIndex.importServiceMock({ spaceServerNameMock });
     }),
   );
   // index.ts
-  indexContent.push('');
-  indexContent.push(`grpcMockInit([
-  ${spaceServerNameMockList.join(',')}
-],'${winPath(genMockPath)}');`);
-  const filePath = path.join(genMockPath, 'index.ts');
-  fs.writeFileSync(
-    filePath,
-    prettierData(indexContent.join('\n'), copyOptions(prettierOptions)),
-  );
-  grpcServiceMockConfigList.push('}');
-  const fileConfigPath = path.join(genMockPath, 'grpc-service.mock.config.js');
-  fs.writeFileSync(
-    fileConfigPath,
-    prettierData(
-      grpcServiceMockConfigList.join('\n'),
-      copyOptions(prettierOptions),
-    ),
-  );
+  genIndex.writeFile();
+
+  genGrpcServiceMockConfig.writeFile();
+
   console.info(colors.green(`Generate mock data success in ${genMockPath}`));
 
   return { rootPath, genMockPath };
