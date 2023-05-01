@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-beta.2](https://github.com/liangskyli/mock/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2023-05-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* prettierData change async to sync
+
+### Code Refactoring
+
+* prettierData change async to sync ([15ff688](https://github.com/liangskyli/mock/commit/15ff688131f8a21ba86be69edea0dc4f88844f2d))
+
+
+
 ## [2.0.0-beta.1](https://github.com/liangskyli/mock/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2023-04-25)
 
 

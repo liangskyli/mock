@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-beta.2](https://github.com/liangskyli/mock/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2023-05-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* prettierData change async to sync
+* requestFilePath and requestParamsType configuration change to requestFile
+
+### Features
+
+* **grpc-mock:** directory structure change ([003525f](https://github.com/liangskyli/mock/commit/003525f1ba9519d6b3725ef16a6cf1946bff55e0))
+* **http-mock-gen:** support all openapi method and responseMediaType ([de557e5](https://github.com/liangskyli/mock/commit/de557e5c48c9352df080c1feadeafd9326cc05e4))
+* upgrade @liangskyli/openapi-gen-ts ([87ad6c3](https://github.com/liangskyli/mock/commit/87ad6c356f2bd3ded066ba3aecb6f431db6583c8))
+
+
+### Bug Fixes
+
+* generator custom-data-template(grpc-mock,htp-mock-gen) ([4c56b0f](https://github.com/liangskyli/mock/commit/4c56b0f7fd40d33ddfab4d638f334b072f2d80c0))
+
+
+### Code Refactoring
+
+* prettierData change async to sync ([15ff688](https://github.com/liangskyli/mock/commit/15ff688131f8a21ba86be69edea0dc4f88844f2d))
+
+
+
 ## [2.0.0-beta.1](https://github.com/liangskyli/mock/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2023-04-25)
 
 
