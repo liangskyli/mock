@@ -39,7 +39,7 @@
   "scripts": {
     "build": "rollup --bundleConfigAsCjs --config=./rollup.config.js",
     "start": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/server.ts",
-    "test-http-cli": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http-cli.ts",
+    "test-http-cli": "cross-env DEBUG=mock:utils node bin/index.js -d ./test -e mock/b.ts -c ./test/mock.config.ts",
     "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/middleware.ts",
     "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/webpack-middleware.ts",
     "update:deps": "pnpm update --interactive --latest"
@@ -60,10 +60,8 @@
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
-    "@types/cross-spawn": "^6.0.2",
     "@types/mockjs": "^1.0.7",
     "@types/multer": "^1.4.7",
-    "cross-spawn": "^7.0.3",
     "mockjs": "^1.1.0",
     "socket.io-client": "^4.6.1",
     "ts-node": "^10.9.1",

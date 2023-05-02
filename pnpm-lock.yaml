@@ -157,15 +157,9 @@ importers:
       '@liangskyli/http-mock-gen':
         specifier: workspace:^2.0.0-beta.2
         version: 'link:'
-      '@types/cross-spawn':
-        specifier: ^6.0.2
-        version: 6.0.2
       '@types/express':
         specifier: ^4.17.17
         version: 4.17.17
-      cross-spawn:
-        specifier: ^7.0.3
-        version: 7.0.3
       ts-node:
         specifier: ^10.9.1
         version: 10.9.1(@types/node@18.16.0)(typescript@5.0.4)
@@ -212,18 +206,12 @@ importers:
       '@types/body-parser':
         specifier: ^1.19.2
         version: 1.19.2
-      '@types/cross-spawn':
-        specifier: ^6.0.2
-        version: 6.0.2
       '@types/mockjs':
         specifier: ^1.0.7
         version: 1.0.7
       '@types/multer':
         specifier: ^1.4.7
         version: 1.4.7
-      cross-spawn:
-        specifier: ^7.0.3
-        version: 7.0.3
       mockjs:
         specifier: ^1.1.0
         version: 1.1.0

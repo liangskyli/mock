@@ -35,7 +35,7 @@
   "scripts": {
     "build": "rollup --bundleConfigAsCjs --config=./rollup.config.js",
     "test-http-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen.ts",
-    "test-http-mock-code-gen-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen-cli.ts",
+    "test-http-mock-code-gen-cli": "node bin/index.js -c ./test/http/mock.config.cli.ts",
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
@@ -50,9 +50,7 @@
   },
   "devDependencies": {
     "@liangskyli/http-mock-gen": "workspace:^2.0.0-beta.2",
-    "@types/cross-spawn": "^6.0.2",
     "@types/express": "^4.17.17",
-    "cross-spawn": "^7.0.3",
     "ts-node": "^10.9.1"
   },
   "engines": {
