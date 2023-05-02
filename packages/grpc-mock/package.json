@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/grpc-mock",
-  "version": "2.0.0-beta.2",
+  "version": "2.0.0-beta.3",
   "description": "grpc mock for bff",
   "keywords": [
     "grpc",
@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@grpc/proto-loader": "^0.7.6",
-    "@liangskyli/utils": "workspace:^2.0.0-beta.2",
+    "@liangskyli/utils": "workspace:^2.0.0-beta.3",
     "@types/fs-extra": "^11.0.1",
     "commander": "^10.0.1",
     "cross-spawn": "^7.0.3",
@@ -53,7 +53,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
-    "@liangskyli/grpc-mock": "workspace:^2.0.0-beta.2",
+    "@liangskyli/grpc-mock": "workspace:^2.0.0-beta.3",
     "@types/cross-spawn": "^6.0.2",
     "@types/express": "^4.17.17",
     "@types/mockjs": "^1.0.7",

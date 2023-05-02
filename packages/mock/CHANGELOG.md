@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.0-beta.3](https://github.com/liangskyli/mock/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2023-05-02)
+
+
+### ⚠ BREAKING CHANGES
+
+* register use Unique key, restore all register
+
+### Features
+
+* register use Unique key, restore all register ([359fe62](https://github.com/liangskyli/mock/commit/359fe62ac5d9d4c0021626757e6c8b9b613020ca))
+
+
+
 ## [2.0.0-beta.2](https://github.com/liangskyli/mock/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2023-05-01)
 
 **Note:** Version bump only for package @liangskyli/mock
