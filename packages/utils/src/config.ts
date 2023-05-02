@@ -1,9 +1,9 @@
 import colors from 'colors';
-import { register, restore } from './register';
+import { register } from './register';
 
 const getConfig = (configFile: string) => {
   let config: any = null;
-  register({});
+  const { unregister } = register({ key: 'utils-getConfig' });
   try {
     config = require(configFile).default;
   } catch (err: any) {
@@ -13,7 +13,7 @@ const getConfig = (configFile: string) => {
       throw err;
     }
   } finally {
-    restore();
+    unregister();
   }
   return config;
 };

@@ -27,7 +27,10 @@ const getMiddleware = async (
     return { middleware, middlewareWatcher: undefined };
   }
 
+  const registerKey = 'mock-getMiddleware';
+
   register.register({
+    key: registerKey,
     hookMatcher: (filename) => {
       return filename.startsWith(join(cwd, './mock'));
     },
@@ -56,6 +59,7 @@ const getMiddleware = async (
   });
   if (process.env.WATCH_FILES === 'false' || !watch) {
     await middlewareWatcher?.close?.();
+    register.unregister(registerKey);
   }
   killProcess(middlewareWatcher);
   return { middleware, middlewareWatcher };
