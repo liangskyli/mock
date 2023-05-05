@@ -1,4 +1,4 @@
-import type genTsData from '@liangskyli/openapi-gen-ts/lib/gen';
+import type genTsData from '@liangskyli/openapi-gen-ts';
 import type { IGenMockDataOpts } from '../index';
 import { GenInterfaceMockData } from './gen-interface-mock-data';
 import { GenCustomData } from './gen-mock-data-json';
