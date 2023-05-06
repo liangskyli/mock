@@ -13,7 +13,7 @@ describe('Generate mock/interface-mock-data.ts file', () => {
       ),
       mockDataAbsolutePath: path.join(
         __dirname,
-        './__test__snapshots__/mock-data-example.json',
+        './__test__snapshots__/example/mock-data.json',
       ),
       genMockAbsolutePath,
     });
@@ -40,7 +40,7 @@ describe('Generate mock/interface-mock-data.ts file', () => {
       genTsAbsolutePath: path.join(__dirname, './server/schema-api'),
       mockDataAbsolutePath: path.join(
         __dirname,
-        './__test__snapshots__/mock-data-example.json',
+        './__test__snapshots__/example/mock-data.json',
       ),
       genMockAbsolutePath,
     });
