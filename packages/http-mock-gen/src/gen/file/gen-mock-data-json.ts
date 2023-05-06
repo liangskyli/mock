@@ -6,7 +6,7 @@ import { JSONSchemaFaker } from 'json-schema-faker';
 import path from 'path';
 import { writePrettierFile } from '../../utils';
 
-type IGenCustomDataOpts = {
+type IGenMockDataJsonOpts = {
   genMockAbsolutePath: string;
   schemaDefinition: Definition;
   prettierOptions?: IPrettierOptions;
@@ -14,12 +14,12 @@ type IGenCustomDataOpts = {
   mockDataReplace?: (this: any, key: string, value: any) => any;
 };
 
-export class GenCustomData {
-  private readonly opts: IGenCustomDataOpts;
+export class GenMockDataJson {
+  private readonly opts: IGenMockDataJsonOpts;
   private mockDataString: string;
   public mockDataAbsolutePath: string;
 
-  constructor(opts: IGenCustomDataOpts) {
+  constructor(opts: IGenMockDataJsonOpts) {
     this.opts = opts;
     this.mockDataString = '';
     this.mockDataAbsolutePath = '';
