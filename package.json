@@ -6,6 +6,7 @@
     "url": "git+https://github.com/liangskyli/mock.git"
   },
   "scripts": {
+    "test": "lerna run test",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
     "test-http-cli": "lerna run --scope @liangskyli/mock test-http-cli",
@@ -39,6 +40,7 @@
     "@types/node": "^18.16.0",
     "@types/prettier": "^2.7.2",
     "@umijs/lint": "^4.0.66",
+    "@vitest/coverage-c8": "^0.31.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.39.0",
     "husky": "^8.0.3",
@@ -51,7 +53,8 @@
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-typescript2": "^0.34.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vitest": "^0.31.0"
   },
   "pnpm": {
     "overrides": {

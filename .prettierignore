@@ -4,3 +4,4 @@ package.json
 /packages/mock/test/socket.io.js
 /packages/mock/test/socket.io-2.5.0.js
 /packages/mock/test/socket.io-3.1.3.js
+**/__test__snapshots__

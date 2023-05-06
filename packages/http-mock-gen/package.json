@@ -33,6 +33,8 @@
     "package.json"
   ],
   "scripts": {
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "build": "rollup --bundleConfigAsCjs --config=./rollup.config.js",
     "test-http-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/http/gen.ts",
     "test-http-mock-code-gen-cli": "node bin/index.js -c ./test/http/mock.config.cli.ts",

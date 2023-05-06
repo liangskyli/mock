@@ -6,3 +6,4 @@ node_modules
 /packages/http-mock-gen/test/genHttpMock/mock/schema-api
 /packages/http-mock-gen/test/genHttpMock2/mock/schema-api
 /packages/mock/test/genHttpMock/mock/schema-api
+**/__test__snapshots__
