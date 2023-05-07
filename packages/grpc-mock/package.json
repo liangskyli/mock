@@ -43,7 +43,7 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
-    "@grpc/proto-loader": "^0.7.6",
+    "@grpc/proto-loader": "^0.7.7",
     "@liangskyli/utils": "workspace:*",
     "@types/fs-extra": "^11.0.1",
     "commander": "^10.0.1",

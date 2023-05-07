@@ -20,7 +20,7 @@ const generatorMockFile = (opts: IGeneratorFile) => {
   // 生成mock数据文件
   const mockDataAbsolutePath = new GenMockDataJson({
     genMockAbsolutePath,
-    schemaDefinition: schemaDefinition!,
+    schemaDefinition,
     prettierOptions,
     jsonSchemaFakerOptions,
     mockDataReplace,
