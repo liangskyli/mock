@@ -2,8 +2,8 @@ import type { IGenMockDataOptsCLI } from '../../src';
 
 const config: IGenMockDataOptsCLI = [
   {
-    mockDir: './test/genHttpMock',
-    openapiPath: './test/openapi/openapiv3-example.json',
+    mockDir: './test/all-gen-dirs/genHttpMock',
+    openapiPath: './test/example/openapi/openapiv3-example.json',
     jsonSchemaFakerOptions: {
       minItems: 1,
       maxItems: 1,
@@ -22,8 +22,8 @@ const config: IGenMockDataOptsCLI = [
     },
   },
   {
-    mockDir: './test/genHttpMock2',
-    openapiPath: './test/openapi/openapiv3-example.json',
+    mockDir: './test/all-gen-dirs/genHttpMock2',
+    openapiPath: './test/example/openapi/openapiv3-example.json',
   },
 ];
 export default config;

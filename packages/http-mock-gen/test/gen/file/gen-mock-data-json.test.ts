@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { describe, expect, test, vi } from 'vitest';
-import { GenMockDataJson } from './gen-mock-data-json';
+import { GenMockDataJson } from '../../../src/gen/file/gen-mock-data-json';
 
 describe('Generate mock/mock-data.json file', () => {
   test('Generate mock/mock-data.json file 1', () => {

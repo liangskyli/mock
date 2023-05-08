@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import path from 'path';
 import { describe, expect, test, vi } from 'vitest';
-import { GenInterfaceMockData } from './gen-interface-mock-data';
+import { GenInterfaceMockData } from '../../../src/gen/file/gen-interface-mock-data';
 
 describe('Generate mock/interface-mock-data.ts file', () => {
   test('Generate mock/interface-mock-data.ts file 1', async () => {

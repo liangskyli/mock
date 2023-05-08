@@ -1,3 +1,3 @@
-/test/genHttpMock/mock
-/test/genHttpMock2/mock
-/test/openapi/openapiv3.json
+/test/all-gen-dirs/genHttpMock/mock
+/test/all-gen-dirs/genHttpMock2/mock
+/test/example/openapi/openapiv3.json

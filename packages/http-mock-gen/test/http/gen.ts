@@ -2,10 +2,10 @@ import genMockData from '../../src/index';
 //import * as path from 'path';
 
 genMockData({
-  mockDir: './test/genHttpMock',
+  mockDir: './test/all-gen-dirs/genHttpMock',
   mockPathPrefix: '/mockPathPrefix',
-  //genTsDir: './test/genHttpMock',
-  openapiPath: './test/openapi/openapiv3-example2.json',
+  //genTsDir: './test/all-gen-dirs/genHttpMock',
+  openapiPath: './test/example/openapi/openapiv3-example2.json',
   jsonSchemaFakerOptions: {
     minItems: 1,
     maxItems: 1,
