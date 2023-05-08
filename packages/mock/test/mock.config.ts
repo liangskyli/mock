@@ -3,8 +3,8 @@ import type { IOpts } from '../src/http/server/server';
 
 const config: IOpts = {
   mockDir: path.join(__dirname, '/'),
-  //mockDir: path.join(__dirname, '/genHttpMock'),
-  //mockDir: path.join(__dirname, '../../http-mock-gen/test/genHttpMock/'),
+  //mockDir: path.join(__dirname, '/gen-mock'),
+  //mockDir: path.join(__dirname, '../../http-mock-gen/test/gen-mock/'),
   port: 8002,
   socketConfig: {
     enable: true,

@@ -35,7 +35,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
   const genMockAbsolutePath = getAbsolutePath(genMockPath);
   if (!fs.existsSync(getAbsolutePath(mockDir))) {
     console.error(colors.red(`mockDir not exits: ${mockDir}`));
-    process.exit(1);
+    throw new Error('mockDir not exits!');
   }
 
   removeFilesSync(genMockAbsolutePath);
