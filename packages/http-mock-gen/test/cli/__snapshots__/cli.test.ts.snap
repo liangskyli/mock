@@ -10,5 +10,7 @@ exports[`CLI > CLI test 1`] = `
 [32mGenerate schema-api/interface-api.ts file success[39m
 [32mGenerate schema-api/request-api.ts file success[39m
 [32mGenerate mock/mock-data.json success[39m
+[32mGenerate mock/custom-data/index.ts file success[39m
+[32mGenerate mock/custom-data/template-data.ts file success[39m
 [32mGenerate mock/interface-mock-data.ts file success[39m"
 `;
