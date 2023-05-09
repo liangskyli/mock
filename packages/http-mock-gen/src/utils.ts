@@ -20,7 +20,12 @@ const customizer: AssignCustomizer = (value, srcValue) => {
     if (lodash.isArray(value)) {
       if (lodash.isArray(srcValue) && srcValue.length > 0) {
         return value.map((item) => {
-          return lodash.mergeWith(item, srcValue[0], customizer);
+          if (lodash.isObject(item)) {
+            return lodash.mergeWith(item, srcValue[0], customizer);
+          } else {
+            // simple array data, no merge, use new value
+            return item;
+          }
         });
       } else {
         return value;
