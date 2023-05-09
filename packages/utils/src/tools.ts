@@ -19,13 +19,7 @@ export const prettierData = (
   fileContent: string,
   options?: prettier.Options,
 ) => {
-  let configFile;
-  try {
-    configFile = prettier.resolveConfigFile.sync();
-  } catch {
-    configFile = null;
-  }
-
+  const configFile = prettier.resolveConfigFile.sync();
   let configFileOptions: prettier.Options | null = null;
   if (configFile !== null) {
     configFileOptions = prettier.resolveConfig.sync(configFile);

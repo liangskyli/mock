@@ -25,6 +25,8 @@
     "package.json"
   ],
   "scripts": {
+    "test": "vitest run",
+    "coverage": "vitest run --coverage",
     "build": "rollup --bundleConfigAsCjs --config=./rollup.config.js",
     "update:deps": "pnpm update --interactive --latest"
   },
