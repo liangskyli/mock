@@ -39,7 +39,7 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
-    "@liangskyli/openapi-gen-ts": "^1.0.0",
+    "@liangskyli/openapi-gen-ts": "^1.0.1",
     "@liangskyli/utils": "workspace:*",
     "@types/fs-extra": "^11.0.1",
     "axios": "^1.4.0",
