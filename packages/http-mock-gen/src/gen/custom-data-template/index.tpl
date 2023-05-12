@@ -1,5 +1,5 @@
 // 自定义mock数据入口，文件不可删除。
-import type { ICustomsData } from 'packageName';
+import type { ICustomsData } from '{{packageName}}';
 import { TemplateData } from './template-data';
 
 const CustomData: ICustomsData = {

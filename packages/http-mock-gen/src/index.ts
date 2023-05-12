@@ -1,5 +1,5 @@
 import type { IAPIRequest, PartialAll } from '@liangskyli/openapi-gen-ts';
-import type { Request } from 'express';
+import type { Request, Response } from 'express';
 import genMockData from './gen/index';
 import type {
   ICustomData,
@@ -47,5 +47,7 @@ export type {
   ICustomsData,
   IAPIRequest,
   PartialAll,
+  Request,
+  Response,
 };
 export default genMockData;

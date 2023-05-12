@@ -2,8 +2,8 @@ import type {
   ICustomDataValue,
   ICustomsData,
   PartialAll,
+  Request,
 } from '@liangskyli/http-mock-gen';
-import type { Request } from 'express';
 import type { IApi } from '../schema-api/interface-api';
 
 export const TemplateData: ICustomsData<{

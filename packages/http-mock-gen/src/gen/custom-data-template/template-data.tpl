@@ -1,5 +1,4 @@
-import type { ICustomsData, PartialAll, ICustomDataValue } from 'packageName';
-import type { Request } from 'express';
+import type { ICustomsData, PartialAll, ICustomDataValue, Request } from '{{packageName}}';
 import type { IApi } from '{{IApiRelativePath}}';
 
 export const TemplateData: ICustomsData<{

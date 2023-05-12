@@ -36,10 +36,9 @@ export class GenInterfaceMockData {
     }
     const interfaceMockData: string[] = [];
     interfaceMockData.push(`${fileTip}
-    import type { Request, Response } from "express";
     import CustomData from "./custom-data";
     import { getMockData } from "${packageName}";
-    import type { ICustomData, PartialAll } from "${packageName}";
+    import type { ICustomData, PartialAll, Request, Response } from "${packageName}";
     import type { IApi } from '${IApiRelativePath}';
   `);
 

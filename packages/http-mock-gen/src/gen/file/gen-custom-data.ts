@@ -43,7 +43,7 @@ export class GenCustomData {
       IApiRelativePath = `./${IApiRelativePath}`;
     }
     return templateData
-      .replace('packageName', packageName)
+      .replace(/{{packageName}}/gi, packageName)
       .replace(/{{IApiRelativePath}}/gi, winPath(IApiRelativePath))
       .replace(/{{firstPath}}/gi, firstPath)
       .replace(/{{responseData}}/gi, JSON.stringify(responseData));
@@ -74,7 +74,7 @@ export class GenCustomData {
       .readFileSync(templatePath, {
         encoding: 'utf-8',
       })
-      .replace('packageName', packageName);
+      .replace(/{{packageName}}/gi, packageName);
     const absolutePath = path.join(genCustomDataPath, 'index.ts');
 
     writePrettierFile({
