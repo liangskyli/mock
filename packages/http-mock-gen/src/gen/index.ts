@@ -1,3 +1,4 @@
+import type { JSONSchemaFakerOptions } from '@liangskyli/json-schema-faker';
 import type { IGenTsDataOpts } from '@liangskyli/openapi-gen-ts';
 import genTsData from '@liangskyli/openapi-gen-ts';
 import {
@@ -7,7 +8,6 @@ import {
   removeFilesSync,
 } from '@liangskyli/utils';
 import fs from 'fs-extra';
-import type { JSONSchemaFakerOptions } from 'json-schema-faker';
 import path from 'path';
 import generatorMockFile from './file';
 

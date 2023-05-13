@@ -1,8 +1,11 @@
+import type {
+  JSONSchemaFakerOptions,
+  Schema,
+} from '@liangskyli/json-schema-faker';
+import { JSONSchemaFaker } from '@liangskyli/json-schema-faker';
 import type { Definition } from '@liangskyli/openapi-gen-ts';
 import type { IPrettierOptions } from '@liangskyli/utils';
 import { copyOptions } from '@liangskyli/utils';
-import type { JSONSchemaFakerOptions, Schema } from 'json-schema-faker';
-import { JSONSchemaFaker } from 'json-schema-faker';
 import path from 'path';
 import { writePrettierFile } from '../../utils';
 
