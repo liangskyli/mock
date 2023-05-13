@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/http-mock-gen",
-  "version": "2.0.0-beta.4",
+  "version": "2.0.0-beta.5",
   "description": "http mock gen for web mockServer",
   "keywords": [
     "mock",
@@ -39,6 +39,7 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
+    "@liangskyli/json-schema-faker": "^0.5.0-rcv.48",
     "@liangskyli/openapi-gen-ts": "^1.0.1",
     "@liangskyli/utils": "workspace:*",
     "@types/express": "^4.17.17",
@@ -46,8 +47,7 @@
     "axios": "^1.4.0",
     "commander": "^10.0.1",
     "express": "^4.18.2",
-    "fs-extra": "^11.1.1",
-    "@liangskyli/json-schema-faker": "^0.5.0-rcv.48"
+    "fs-extra": "^11.1.1"
   },
   "devDependencies": {
     "@liangskyli/http-mock-gen": "workspace:*"
