@@ -49,8 +49,7 @@
   - custom-data/template-data.ts
   
   ```ts
-  import type { ICustomsData, PartialAll, ICustomDataValue } from '@liangskyli/http-mock-gen';
-  import type { Request } from 'express';
+  import type { ICustomsData, PartialAll, ICustomDataValue, Request } from '@liangskyli/http-mock-gen';
   import type { IApi } from '../schema-api/interface-api';
   
   export const TemplateData: ICustomsData<{
@@ -176,8 +175,7 @@ export type ICustomsData<
 - custom-data/template-data.ts
 
 ```ts
-import type { ICustomsData, PartialAll, ICustomDataValue } from '@liangskyli/http-mock-gen';
-import type { Request } from 'express';
+import type { ICustomsData, PartialAll, ICustomDataValue, Request } from '@liangskyli/http-mock-gen';
 import type { IApi } from '../schema-api/interface-api';
 
 export const TemplateData: ICustomsData<{
