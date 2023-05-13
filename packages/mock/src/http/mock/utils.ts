@@ -8,8 +8,18 @@ import multer from 'multer';
 import { join } from 'path';
 import { pathToRegexp } from 'path-to-regexp';
 
-const VALID_METHODS = ['get', 'post', 'put', 'patch', 'delete'];
-const BODY_PARSED_METHODS = ['post', 'put', 'patch', 'delete'];
+// support all openapi method
+const VALID_METHODS = [
+  'get',
+  'put',
+  'post',
+  'delete',
+  'options',
+  'head',
+  'patch',
+  'trace',
+];
+const BODY_PARSED_METHODS = VALID_METHODS.filter((item) => item !== 'get');
 
 const debug = createDebug('mock:utils');
 

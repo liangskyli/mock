@@ -22,8 +22,8 @@ mockServer({
 });
 //mockServer({port: 9001 });
 //mockServer({hostname: '127.0.0.1',port: 9001 });
-//console.log(path.join(__dirname, '../../http-mock-gen/test/gen-mock/'));
+//console.log(path.join(__dirname, '../../http-mock-gen/test/all-gen-dirs/gen-mock/'));
 /*mockServer({
   port: 7010,
-  mockDir: path.join(__dirname, '../../http-mock-gen/test/gen-mock/'),
+  mockDir: path.join(__dirname, '../../http-mock-gen/test/all-gen-dirs/gen-mock/'),
 });*/
