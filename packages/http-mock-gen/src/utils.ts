@@ -1,4 +1,4 @@
-import type { IGenTsDataOpts } from '@liangskyli/openapi-gen-ts';
+import type { IPrettierOptions } from '@liangskyli/utils';
 import { colors, copyOptions, lodash, prettierData } from '@liangskyli/utils';
 import fs from 'fs-extra';
 
@@ -90,7 +90,7 @@ export const methodList = [
 ];
 
 type IWriteFileOpts = {
-  prettierOptions: IGenTsDataOpts['prettierOptions'];
+  prettierOptions?: IPrettierOptions;
   absolutePath: string;
   data: string;
   successTip: string;
