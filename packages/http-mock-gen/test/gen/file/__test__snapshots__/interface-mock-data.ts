@@ -10,7 +10,7 @@ import CustomData from './custom-data';
 import type { IApi } from './schema-api/interface-api';
 
 export default {
-  'get /root/getQueryParam-v3/{id}': (req: Request, res: Response) => {
+  'GET /root/getQueryParam-v3/{id}': (req: Request, res: Response) => {
     type IData = IApi['/root/getQueryParam-v3/{id}']['Response'];
     const data = (CustomData as ICustomData<PartialAll<IData>>)[
       '/root/getQueryParam-v3/{id}'

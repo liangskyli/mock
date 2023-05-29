@@ -46,7 +46,8 @@ export class GenInterfaceMockData {
     Object.keys(mockData).forEach((item) => {
       const { method, data } = getMethodData(mockData[item]);
       if (method) {
-        interfaceMockData.push(`'${method} ${mockPathPrefix}${item}': (req: Request, res: Response) => {
+        // method toUpperCase for express method
+        interfaceMockData.push(`'${method.toUpperCase()} ${mockPathPrefix}${item}': (req: Request, res: Response) => {
         type IData = IApi['${item}']['Response'];
         const data = (CustomData as ICustomData<PartialAll<IData>>)['${item}'];
         const json = getMockData<IData>(${JSON.stringify(data)},req, data);
