@@ -46,8 +46,13 @@ export class GenInterfaceMockData {
     Object.keys(mockData).forEach((item) => {
       const { method, data } = getMethodData(mockData[item]);
       if (method) {
+        // router path to express path, example: /path1/{path2} to /path1/:path2
+        const urlPath = `${mockPathPrefix}${item}`.replace(
+          /(\/)?{(\w+)}(\(.*?\))?(\*)?(\?)?/g,
+          '$1:$2',
+        );
         // method toUpperCase for express method
-        interfaceMockData.push(`'${method.toUpperCase()} ${mockPathPrefix}${item}': (req: Request, res: Response) => {
+        interfaceMockData.push(`'${method.toUpperCase()} ${urlPath}': (req: Request, res: Response) => {
         type IData = IApi['${item}']['Response'];
         const data = (CustomData as ICustomData<PartialAll<IData>>)['${item}'];
         const json = getMockData<IData>(${JSON.stringify(data)},req, data);
