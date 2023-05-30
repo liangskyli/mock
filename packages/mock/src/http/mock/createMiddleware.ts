@@ -7,7 +7,7 @@ import { cleanRequireCache, matchMock } from './utils';
 const debug = createDebug('mock:createMiddleware');
 
 export interface IMockOpts extends IGetMockDataResult {
-  updateMockData: () => Promise<IGetMockDataResult>;
+  updateMockData: () => IGetMockDataResult;
 }
 
 interface ICreateMiddleware {
@@ -20,7 +20,6 @@ export default function (opts = {} as IMockOpts): ICreateMiddleware {
   let data = mockData;
 
   // watcher
-  const errors: Error[] = [];
   debug('mockWatcherPaths', mockWatcherPaths);
   const watcher = chokidar.watch(mockWatcherPaths, {
     ignoreInitial: true,
@@ -32,12 +31,19 @@ export default function (opts = {} as IMockOpts): ICreateMiddleware {
       // debounce avoiding too much file change events
       lodash.debounce(async (event: any, file: any) => {
         debug(`[${event}] ${file}, reload mock data`);
-        errors.splice(0, errors.length);
-        cleanRequireCache(mockWatcherPaths);
-        // refresh data
-        data = (await updateMockData())?.mockData;
-        if (!errors.length) {
+        let hasError = false;
+        try {
+          cleanRequireCache(mockWatcherPaths);
+          // refresh data
+          data = updateMockData()?.mockData;
+        } catch (e) {
+          signale.error(e);
+          hasError = true;
+        }
+        if (!hasError) {
           signale.success('Mock files parse success');
+        } else {
+          signale.error('Mock files parse error');
         }
       }, 300),
     );

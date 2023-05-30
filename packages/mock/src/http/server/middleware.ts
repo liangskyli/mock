@@ -51,7 +51,7 @@ const getMiddleware = async (
   });
   const { middleware, watcher: middlewareWatcher } = createMiddleware({
     ...mockOpts,
-    updateMockData: async () =>
+    updateMockData: () =>
       getMockData({
         cwd,
         ignore,

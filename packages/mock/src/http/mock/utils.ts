@@ -32,7 +32,7 @@ export interface IMockDataItem {
   method: string;
   path: string;
   re: RegExp;
-  keys: any[];
+  keys: NonNullable<Parameters<typeof pathToRegexp>[1]>;
   handler: RequestHandler;
 }
 
@@ -42,8 +42,8 @@ export interface IGetMockDataResult {
   mockWatcherPaths: string[];
 }
 
-export function getMockConfig(files: string[]): object {
-  return files.reduce((memo, mockFile) => {
+export function getMockConfig(files: string[]) {
+  return files.reduce<Record<string, any>>((memo, mockFile) => {
     try {
       const m = require(mockFile); // eslint-disable-line
       memo = {
@@ -57,7 +57,7 @@ export function getMockConfig(files: string[]): object {
   }, {});
 }
 
-export const cleanRequireCache = (paths: string[]): void => {
+export const cleanRequireCache = (paths: string[]) => {
   Object.keys(require.cache).forEach((file) => {
     if (
       paths.some((path) => {
@@ -116,8 +116,8 @@ function createHandler(method: any, path: any, handler: any) {
   } as unknown as RequestHandler;
 }
 
-function normalizeConfig(config: any) {
-  return Object.keys(config).reduce((memo: any, key) => {
+function normalizeConfig(config: Record<string, any>) {
+  return Object.keys(config).reduce<IMockDataItem[]>((memo, key) => {
     const handler = config[key];
     const type = typeof handler;
     assert(
@@ -125,7 +125,7 @@ function normalizeConfig(config: any) {
       `mock value of ${key} should be function or object, but got ${type}`,
     );
     const { method, path } = parseKey(key);
-    const keys: any[] = [];
+    const keys: IMockDataItem['keys'] = [];
     const re = pathToRegexp(path, keys);
     memo.push({
       method,
@@ -217,8 +217,10 @@ export const matchMock = (
           const key = keys[i - 1];
           const prop = key.name;
           const val = decodeParam(match[i]);
-          // @ts-ignore
-          if (val !== undefined || !hasOwnProdperty.call(params, prop)) {
+          if (
+            val !== undefined ||
+            !Object.prototype.hasOwnProperty.call(params, prop)
+          ) {
             params[prop] = val;
           }
         }
