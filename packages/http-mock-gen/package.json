@@ -39,7 +39,7 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
-    "@liangskyli/json-schema-faker": "^0.5.0-rcv.48",
+    "json-schema-faker": "^0.5.2",
     "@liangskyli/openapi-gen-ts": "^1.1.0",
     "@liangskyli/utils": "workspace:*",
     "@types/express": "^4.17.17",

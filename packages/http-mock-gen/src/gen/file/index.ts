@@ -1,11 +1,13 @@
 import type genTsData from '@liangskyli/openapi-gen-ts';
-import type { IGenMockDataOpts } from '../index';
+import type { IGenTsDataOpts } from '@liangskyli/openapi-gen-ts';
+import type { IGenMockDataBaseOpts } from '../index';
 import { GenInterfaceMockData } from './gen-interface-mock-data';
 import { GenMockDataJson } from './gen-mock-data-json';
 
-type IGeneratorFile = IGenMockDataOpts & {
-  genMockAbsolutePath: string;
-} & Awaited<ReturnType<typeof genTsData>>;
+type IGeneratorFile = IGenMockDataBaseOpts &
+  Pick<IGenTsDataOpts, 'prettierOptions'> & {
+    genMockAbsolutePath: string;
+  } & Awaited<ReturnType<typeof genTsData>>;
 
 const generatorMockFile = (opts: IGeneratorFile) => {
   const {

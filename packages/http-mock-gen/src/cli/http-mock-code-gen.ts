@@ -32,13 +32,6 @@ const commandCodeGenCli = (version: string) => {
       }
       for (let i = 0; i < opts.length; i++) {
         const singleOpts = opts[i];
-        if (!singleOpts.openapiPath) {
-          console.error(
-            colors.red(
-              `http mock config file need openapiPath field: ${configFile}`,
-            ),
-          );
-        }
         await genMockData(singleOpts);
       }
     } catch (err: any) {

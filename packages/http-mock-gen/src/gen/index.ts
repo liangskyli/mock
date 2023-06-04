@@ -1,4 +1,3 @@
-import type { JSONSchemaFakerOptions } from '@liangskyli/json-schema-faker';
 import type { IGenTsDataOpts } from '@liangskyli/openapi-gen-ts';
 import genTsData from '@liangskyli/openapi-gen-ts';
 import {
@@ -8,26 +7,29 @@ import {
   removeFilesSync,
 } from '@liangskyli/utils';
 import fs from 'fs-extra';
+import type { JSONSchemaFakerOptions } from 'json-schema-faker';
 import path from 'path';
 import generatorMockFile from './file';
 
-export type IGenMockDataOpts = IGenTsDataOpts & {
+export type IGenMockDataBaseOpts = {
   mockDir?: string;
   mockPathPrefix?: string;
   jsonSchemaFakerOptions?: JSONSchemaFakerOptions;
   mockDataReplace?: (this: any, key: string, value: any) => any;
 };
+export type IGenMockDataOpts = IGenTsDataOpts & IGenMockDataBaseOpts;
 
 export type IGenMockDataOptsCLI = IGenMockDataOpts | IGenMockDataOpts[];
 
 const genMockData = async (opts: IGenMockDataOpts) => {
   const {
     mockDir = './',
-    openapiPath,
+    mockPathPrefix,
+    jsonSchemaFakerOptions,
+    mockDataReplace,
+    //openapiPath,
     prettierOptions,
-    requestFile,
-    requestQueryOmit = [],
-    requestBodyOmit = [],
+    ...genTsDataOpts
   } = opts;
   const genTsDir = opts.genTsDir ?? `${opts.mockDir}/mock`;
 
@@ -44,16 +46,16 @@ const genMockData = async (opts: IGenMockDataOpts) => {
 
   // openapi gen ts file
   const tsData = await genTsData({
+    ...genTsDataOpts,
     genTsDir,
-    openapiPath,
     prettierOptions: copyOptions(prettierOptions),
-    requestFile,
-    requestQueryOmit,
-    requestBodyOmit,
   });
 
   generatorMockFile({
-    ...opts,
+    mockDir,
+    mockPathPrefix,
+    jsonSchemaFakerOptions,
+    mockDataReplace,
     ...tsData,
     genMockAbsolutePath,
   });
