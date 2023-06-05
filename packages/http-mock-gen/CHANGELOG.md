@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.0](https://github.com/liangskyli/mock/compare/v2.0.0...v2.1.0) (2023-06-05)
+
+
+### Features
+
+* **http-mock-gen:** generate interface-mock-data.ts method toUpperCase for express method ([698ec95](https://github.com/liangskyli/mock/commit/698ec95babf5199fcac36dbbbeec115a0f58a7b4))
+* **http-mock-gen:** support router path interface-mock-data.ts generator ([b21b5f3](https://github.com/liangskyli/mock/commit/b21b5f341ffce432636e350db903d2f1e904afca))
+* **http-mock-gen:** use json-schema-faker and @liangskyli/openapi-gen-ts@1.1.0 support swagger2 ([5dcd03e](https://github.com/liangskyli/mock/commit/5dcd03e8c56ec958c62b7316453c7b947e29886a))
+
+
+
 ## [2.0.0](https://github.com/liangskyli/mock/compare/v2.0.0-beta.5...v2.0.0) (2023-05-13)
 
 **Note:** Version bump only for package @liangskyli/http-mock-gen
