@@ -45,14 +45,14 @@ export class GenIndex {
     return this.indexContent.join('\n');
   }
 
-  public writeFile() {
+  public async writeFile() {
     const { genMockPath, prettierOptions } = this.opts;
 
     this.footer();
 
     const absolutePath = path.join(genMockPath, 'index.ts');
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data: this.toStirng(),

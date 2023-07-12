@@ -51,7 +51,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     prettierOptions: copyOptions(prettierOptions),
   });
 
-  generatorMockFile({
+  await generatorMockFile({
     mockDir,
     mockPathPrefix,
     jsonSchemaFakerOptions,

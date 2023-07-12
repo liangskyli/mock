@@ -16,7 +16,6 @@ export class GenCustomData {
 
   constructor(opts: IGenCustomDataOpts) {
     this.opts = opts;
-    this.generator();
   }
 
   private genTemplateData() {
@@ -48,16 +47,16 @@ export class GenCustomData {
       .replace(/{{firstPath}}/gi, firstPath)
       .replace(/{{responseData}}/gi, JSON.stringify(responseData));
   }
-  private generator() {
+  public async generator() {
     const { genCustomDataPath } = this.opts;
     if (!fs.pathExistsSync(path.join(genCustomDataPath, 'index.ts'))) {
       fs.ensureDirSync(genCustomDataPath);
 
-      this.writeIndexFile();
-      this.writeTemplateDataFile();
+      await this.writeIndexFile();
+      await this.writeTemplateDataFile();
     }
   }
-  private writeIndexFile() {
+  private async writeIndexFile() {
     const { genCustomDataPath, prettierOptions } = this.opts;
     let templatePath = path.join(
       __dirname,
@@ -77,19 +76,19 @@ export class GenCustomData {
       .replace(/{{packageName}}/gi, packageName);
     const absolutePath = path.join(genCustomDataPath, 'index.ts');
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data,
       successTip: 'Generate mock/custom-data/index.ts file success',
     });
   }
-  private writeTemplateDataFile() {
+  private async writeTemplateDataFile() {
     const { genCustomDataPath, prettierOptions } = this.opts;
     const data = this.genTemplateData();
     const absolutePath = path.join(genCustomDataPath, 'template-data.ts');
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data,

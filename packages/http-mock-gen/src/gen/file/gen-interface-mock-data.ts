@@ -23,7 +23,6 @@ export class GenInterfaceMockData {
 
   constructor(opts: IGenInterfaceMockDataOpts) {
     this.opts = opts;
-    this.generator();
   }
   private genInterfaceMockData(
     mockData: any,
@@ -64,7 +63,7 @@ export class GenInterfaceMockData {
     interfaceMockData.push('}');
     return interfaceMockData.join('');
   }
-  private generator() {
+  public async generator() {
     const {
       genTsAbsolutePath,
       mockDataAbsolutePath,
@@ -80,28 +79,28 @@ export class GenInterfaceMockData {
     const mockData = fs.readJSONSync(mockDataAbsolutePath);
     // 生成自定义数据模版
     const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
-    new GenCustomData({
+    await new GenCustomData({
       mockData,
       genCustomDataPath,
       interfaceApiRelativePath: path.join('../', interfaceApiRelativePath),
       prettierOptions,
-    });
+    }).generator();
 
     const interfaceMockData = this.genInterfaceMockData(
       mockData,
       interfaceApiRelativePath,
     );
-    this.writeFile(interfaceMockData);
+    await this.writeFile(interfaceMockData);
   }
 
-  private writeFile(data: string) {
+  private async writeFile(data: string) {
     const { genMockAbsolutePath, prettierOptions } = this.opts;
     const absolutePath = path.join(
       genMockAbsolutePath,
       'interface-mock-data.ts',
     );
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data,

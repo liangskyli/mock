@@ -42,11 +42,11 @@ const mockData = {
 };
 describe('Generate mock/custom-data files', () => {
   test('Generate mock/custom-data files 1', async () => {
-    new GenCustomData({
+    await new GenCustomData({
       mockData,
       genCustomDataPath: '/custom-data',
       interfaceApiRelativePath: '../schema-api/interface-api',
-    });
+    }).generator();
 
     let args = vi.mocked(fs.writeFileSync).mock.calls[0];
     expect(winPath(args[0] as string)).toBe('/custom-data/index.ts');
@@ -68,11 +68,11 @@ describe('Generate mock/custom-data files', () => {
     );
   });
   test('Generate mock/custom-data files 2', async () => {
-    new GenCustomData({
+    await new GenCustomData({
       mockData,
       genCustomDataPath: '/custom-data',
       interfaceApiRelativePath: 'schema-api/interface-api',
-    });
+    }).generator();
 
     let args = vi.mocked(fs.writeFileSync).mock.calls[0];
     expect(winPath(args[0] as string)).toBe('/custom-data/index.ts');
@@ -93,15 +93,15 @@ describe('Generate mock/custom-data files', () => {
       'Generate mock/custom-data/template-data.ts file success',
     );
   });
-  test('Generate mock/custom-data files custom-data has exist', () => {
-    new GenCustomData({
+  test('Generate mock/custom-data files custom-data has exist', async () => {
+    await new GenCustomData({
       mockData,
       genCustomDataPath: path.join(
         __dirname,
         './__test__snapshots__/custom-data',
       ),
       interfaceApiRelativePath: 'schema-api/interface-api',
-    });
+    }).generator();
     expect(vi.mocked(fs.writeFileSync).mock.calls.length).toBe(0);
   });
 });

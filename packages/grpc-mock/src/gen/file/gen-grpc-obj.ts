@@ -24,10 +24,9 @@ export class GenGrpcObj {
 
   constructor(opts: IGenGenGrpcObjOpts) {
     this.opts = opts;
-    this.generator();
   }
 
-  private generator() {
+  public async generator() {
     const { grpcNpmName, genMockPath, rootPath, configFilePath } = this.opts;
     const grpcObjPath = getAbsolutePath(path.join(genMockPath, 'grpc-obj.ts'));
 
@@ -59,12 +58,12 @@ export class GenGrpcObj {
       'export default grpcObjectGroup;',
     ].join('\n');
 
-    this.writeFile(fileContent, grpcObjPath);
+    await this.writeFile(fileContent, grpcObjPath);
   }
-  private writeFile(data: string, absolutePath: string) {
+  private async writeFile(data: string, absolutePath: string) {
     const { genMockPath, prettierOptions } = this.opts;
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data,

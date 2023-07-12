@@ -40,14 +40,14 @@ export class GenGrpcServiceMockConfig {
     return this.grpcServiceMockConfigList.join('\n');
   }
 
-  public writeFile() {
+  public async writeFile() {
     const { genMockPath, prettierOptions } = this.opts;
 
     this.footer();
 
     const absolutePath = path.join(genMockPath, 'grpc-service.mock.config.js');
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data: this.toStirng(),

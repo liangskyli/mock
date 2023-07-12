@@ -6,7 +6,7 @@ import { GenInterfaceMockData } from '../../../src/gen/file/gen-interface-mock-d
 describe('Generate mock/interface-mock-data.ts file', () => {
   test('Generate mock/interface-mock-data.ts file 1', async () => {
     const genMockAbsolutePath = path.join(__dirname, './__test__snapshots__');
-    new GenInterfaceMockData({
+    await new GenInterfaceMockData({
       genTsAbsolutePath: path.join(
         __dirname,
         './__test__snapshots__/schema-api',
@@ -16,7 +16,7 @@ describe('Generate mock/interface-mock-data.ts file', () => {
         './__test__snapshots__/example/mock-data.json',
       ),
       genMockAbsolutePath,
-    });
+    }).generator();
 
     const args = vi.mocked(fs.writeFileSync).mock.calls[0];
     expect(args[0] as string).toBe(
@@ -34,16 +34,16 @@ describe('Generate mock/interface-mock-data.ts file', () => {
       'Generate mock/interface-mock-data.ts file success',
     );
   });
-  test('Generate mock/interface-mock-data.ts file 2', () => {
+  test('Generate mock/interface-mock-data.ts file 2', async () => {
     const genMockAbsolutePath = path.join(__dirname, './__test__snapshots__');
-    new GenInterfaceMockData({
+    await new GenInterfaceMockData({
       genTsAbsolutePath: path.join(__dirname, './server/schema-api'),
       mockDataAbsolutePath: path.join(
         __dirname,
         './__test__snapshots__/example/mock-data.json',
       ),
       genMockAbsolutePath,
-    });
+    }).generator();
 
     const args = vi.mocked(fs.writeFileSync).mock.calls[0];
     expect(args[0] as string).toBe(

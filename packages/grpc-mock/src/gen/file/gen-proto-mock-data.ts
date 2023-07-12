@@ -26,10 +26,9 @@ export class GenProtoMockData {
 
   constructor(opts: IGenProtoMockDataOpts) {
     this.opts = opts;
-    this.generator();
   }
 
-  private generator() {
+  public async generator() {
     const {
       genCustomDataPath,
       serviceCodeName,
@@ -56,10 +55,10 @@ export class GenProtoMockData {
             };
             export default ${serviceCodeName};
             `;
-    this.writeFile(protoMockContent);
+    await this.writeFile(protoMockContent);
   }
 
-  public writeFile(data: string) {
+  private async writeFile(data: string) {
     const {
       genProtoPath,
       serverName,
@@ -77,7 +76,7 @@ export class GenProtoMockData {
       `${serviceCodeName}.ts`,
     );
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data,

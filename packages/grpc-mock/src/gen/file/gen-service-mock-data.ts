@@ -83,12 +83,12 @@ export default ${spaceServerNameMock};
     return this.serviceMockContent.join('\n');
   }
 
-  public writeFile(spaceServerNameMock: string) {
+  public async writeFile(spaceServerNameMock: string) {
     const { genServerPath, prettierOptions } = this.opts;
 
     const absolutePath = path.join(genServerPath, `${spaceServerNameMock}.ts`);
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data: this.toString(),

@@ -13,10 +13,9 @@ export class GenTsConfigMock {
 
   constructor(opts: IGenTsConfigMockOpts) {
     this.opts = opts;
-    this.generator();
   }
 
-  private generator() {
+  public async generator() {
     const { genMockPath } = this.opts;
     const genMockPathArray = path.join(genMockPath).split(path.sep);
     // 生成tsconfig.mock.json文件
@@ -29,9 +28,9 @@ export class GenTsConfigMock {
     include: ["${genMockPathArray[genMockPathArray.length - 1]}/**/*"],
     exclude: ['node_modules'],
   }`;
-    this.writeFile(tsconfigMockConfigData);
+    await this.writeFile(tsconfigMockConfigData);
   }
-  private writeFile(data: string) {
+  private async writeFile(data: string) {
     const { genMockPath, prettierOptions: defaultPrettierOptions } = this.opts;
     let prettierOptions = copyOptions(defaultPrettierOptions);
     if (prettierOptions === undefined) {
@@ -41,7 +40,7 @@ export class GenTsConfigMock {
 
     const absolutePath = path.join(genMockPath, 'tsconfig.mock.json');
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data,

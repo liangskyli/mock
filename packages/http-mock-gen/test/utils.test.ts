@@ -119,8 +119,8 @@ describe('utils', () => {
     });
   });
 
-  test('writePrettierFile', () => {
-    writePrettierFile({
+  test('writePrettierFile', async () => {
+    await writePrettierFile({
       absolutePath: '/absolutePath',
       data: 'const test={a:1,b:\'b\'}',
       successTip: 'successTip',

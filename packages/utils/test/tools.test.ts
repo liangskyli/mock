@@ -28,9 +28,9 @@ describe('utils', () => {
     const path = '\\\\?\\c:\\aaaa\\bbbb';
     expect(winPath(path)).toEqual(path);
   });
-  test('prettierData', () => {
-    expect(prettierData('const a=1')).toEqual('const a = 1;\n');
-    expect(prettierData('const a=\'1\'', { singleQuote: false })).toEqual(
+  test('prettierData', async () => {
+    expect(await prettierData('const a=1')).toEqual('const a = 1;\n');
+    expect(await prettierData('const a=\'1\'', { singleQuote: false })).toEqual(
       'const a = "1";\n',
     );
   });

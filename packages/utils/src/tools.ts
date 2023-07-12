@@ -15,14 +15,14 @@ export const getRelativePath = (
   return path.relative(absolutePath1, absolutePath2);
 };
 
-export const prettierData = (
+export const prettierData = async (
   fileContent: string,
   options?: prettier.Options,
 ) => {
-  const configFile = prettier.resolveConfigFile.sync();
+  const configFile = await prettier.resolveConfigFile();
   let configFileOptions: prettier.Options | null = null;
   if (configFile !== null) {
-    configFileOptions = prettier.resolveConfig.sync(configFile);
+    configFileOptions = await prettier.resolveConfig(configFile);
   }
   if (options === undefined) {
     options = { parser: 'typescript' };

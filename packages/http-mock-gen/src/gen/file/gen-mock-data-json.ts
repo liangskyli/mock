@@ -17,14 +17,11 @@ type IGenMockDataJsonOpts = {
 export class GenMockDataJson {
   private readonly opts: IGenMockDataJsonOpts;
   private mockDataString: string;
-  public mockDataAbsolutePath: string;
 
   constructor(opts: IGenMockDataJsonOpts) {
     this.opts = opts;
     this.mockDataString = '';
-    this.mockDataAbsolutePath = '';
     this.generator();
-    this.writeFile();
   }
   private generator() {
     const { schemaDefinition, mockDataReplace } = this.opts;
@@ -48,7 +45,7 @@ export class GenMockDataJson {
     this.mockDataString = JSON.stringify(mockData, mockDataReplace, 2);
   }
 
-  private writeFile() {
+  public async writeFile() {
     const { genMockAbsolutePath, prettierOptions: defaultPrettierOptions } =
       this.opts;
 
@@ -60,13 +57,13 @@ export class GenMockDataJson {
 
     const absolutePath = path.join(genMockAbsolutePath, 'mock-data.json');
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data: this.mockDataString,
       successTip: 'Generate mock/mock-data.json success',
     });
 
-    this.mockDataAbsolutePath = absolutePath;
+    return { mockDataAbsolutePath: absolutePath };
   }
 }

@@ -9,16 +9,16 @@ const generatorFiles = async (opts: GenOptions, loaderOptions: Options) => {
   // 生成mock数据
   const { rootPath, genMockPath } = await genMockData(opts, loaderOptions);
   // 生成 genGrpcObj服务文件
-  new GenGrpcObj({
+  await new GenGrpcObj({
     grpcNpmName: 'grpc',
     genMockPath,
     rootPath,
     loaderOptions,
     configFilePath,
     prettierOptions,
-  });
+  }).generator();
   // 生成tsconfig
-  new GenTsConfigMock({ genMockPath, prettierOptions });
+  await new GenTsConfigMock({ genMockPath, prettierOptions }).generator();
 };
 
 export default generatorFiles;

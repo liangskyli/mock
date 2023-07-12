@@ -88,7 +88,7 @@ export class GenRootJson {
       this.allJson[serverName] = res.toJSON({ keepComments: true });
     });
   }
-  public writeFile() {
+  public async writeFile() {
     const { genMockPath, prettierOptions: defaultPrettierOptions } = this.opts;
     let prettierOptions = copyOptions(defaultPrettierOptions);
     if (prettierOptions === undefined) {
@@ -98,7 +98,7 @@ export class GenRootJson {
 
     const absolutePath = path.join(genMockPath, 'root.json');
 
-    writePrettierFile({
+    await writePrettierFile({
       prettierOptions,
       absolutePath,
       data: JSON.stringify(this.allJson),

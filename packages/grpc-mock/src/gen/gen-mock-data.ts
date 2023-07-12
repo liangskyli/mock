@@ -46,7 +46,11 @@ const genMockData = async (
   console.info(colors.green(`Clean dir: ${genMockPath}`));
 
   const genCustomDataPath = path.join(genMockAbsolutePath, 'custom-data');
-  new GenCustomData({ genMockPath, genCustomDataPath, prettierOptions });
+  await new GenCustomData({
+    genMockPath,
+    genCustomDataPath,
+    prettierOptions,
+  }).generator();
 
   const genProtoPath = path.join(genMockAbsolutePath, 'proto');
   fs.ensureDirSync(genProtoPath);
@@ -59,7 +63,7 @@ const genMockData = async (
       loaderOptions,
       prettierOptions,
     });
-    rootPath = genRootJson.writeFile();
+    rootPath = await genRootJson.writeFile();
   }
   rootPath = getAbsolutePath(rootPath);
 
@@ -94,7 +98,7 @@ const genMockData = async (
           const protoPath = `${spaceServerName}.${service.fullName}`;
           const serviceCodeName = firstWordNeedLetter(service.name);
 
-          new GenProtoMockData({
+          await new GenProtoMockData({
             index,
             genCustomDataPath,
             serviceCodeName,
@@ -106,7 +110,7 @@ const genMockData = async (
             prettierOptions,
             genProtoPath,
             serverName,
-          });
+          }).generator();
 
           genServiceMockData.importService({
             index,
@@ -126,14 +130,14 @@ const genMockData = async (
       });
       genGrpcServiceMockConfig.body({ serverName, servicePort });
       servicePort++;
-      genServiceMockData.writeFile(spaceServerNameMock);
+      await genServiceMockData.writeFile(spaceServerNameMock);
       genIndex.importServiceMock({ spaceServerNameMock });
     }),
   );
   // index.ts
-  genIndex.writeFile();
+  await genIndex.writeFile();
 
-  genGrpcServiceMockConfig.writeFile();
+  await genGrpcServiceMockConfig.writeFile();
 
   console.info(colors.green(`Generate mock data success in ${genMockPath}`));
 

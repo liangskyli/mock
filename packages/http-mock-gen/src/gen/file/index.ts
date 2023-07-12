@@ -9,7 +9,7 @@ type IGeneratorFile = IGenMockDataBaseOpts &
     genMockAbsolutePath: string;
   } & Awaited<ReturnType<typeof genTsData>>;
 
-const generatorMockFile = (opts: IGeneratorFile) => {
+const generatorMockFile = async (opts: IGeneratorFile) => {
   const {
     genMockAbsolutePath,
     prettierOptions,
@@ -20,22 +20,22 @@ const generatorMockFile = (opts: IGeneratorFile) => {
     mockPathPrefix,
   } = opts;
   // 生成mock数据文件
-  const mockDataAbsolutePath = new GenMockDataJson({
+  const { mockDataAbsolutePath } = await new GenMockDataJson({
     genMockAbsolutePath,
     schemaDefinition,
     prettierOptions,
     jsonSchemaFakerOptions,
     mockDataReplace,
-  }).mockDataAbsolutePath;
+  }).writeFile();
 
   // 生成mock接口文件
-  new GenInterfaceMockData({
+  await new GenInterfaceMockData({
     genTsAbsolutePath,
     mockDataAbsolutePath,
     genMockAbsolutePath,
     prettierOptions,
     mockPathPrefix,
-  });
+  }).generator();
 };
 
 export default generatorMockFile;

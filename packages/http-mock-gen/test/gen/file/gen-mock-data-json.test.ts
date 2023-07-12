@@ -4,15 +4,15 @@ import { describe, expect, test, vi } from 'vitest';
 import { GenMockDataJson } from '../../../src/gen/file/gen-mock-data-json';
 
 describe('Generate mock/mock-data.json file', () => {
-  test('Generate mock/mock-data.json file 1', () => {
+  test('Generate mock/mock-data.json file 1', async () => {
     const genMockAbsolutePath = path.join(__dirname, './__test__snapshots__');
     const schemaDefinition = fs.readJSONSync(
       path.join(__dirname, './__test__snapshots__/example/schema.json'),
     );
-    const mockDataAbsolutePath = new GenMockDataJson({
+    const { mockDataAbsolutePath } = await new GenMockDataJson({
       genMockAbsolutePath,
       schemaDefinition,
-    }).mockDataAbsolutePath;
+    }).writeFile();
 
     const args = vi.mocked(fs.writeFileSync).mock.calls[0];
     expect(args[0] as string).toBe(
@@ -28,12 +28,12 @@ describe('Generate mock/mock-data.json file', () => {
       'Generate mock/mock-data.json success',
     );
   });
-  test('Generate mock/mock-data.json file 2', /*async*/ () => {
+  test('Generate mock/mock-data.json file 2', async () => {
     const genMockAbsolutePath = path.join(__dirname, './__test__snapshots__');
     const schemaDefinition = fs.readJSONSync(
       path.join(__dirname, './__test__snapshots__/example/schema.json'),
     );
-    const mockDataAbsolutePath = new GenMockDataJson({
+    const { mockDataAbsolutePath } = await new GenMockDataJson({
       genMockAbsolutePath,
       schemaDefinition,
       jsonSchemaFakerOptions: {
@@ -52,7 +52,7 @@ describe('Generate mock/mock-data.json file', () => {
         }
         return value;
       },
-    }).mockDataAbsolutePath;
+    }).writeFile();
 
     const args = vi.mocked(fs.writeFileSync).mock.calls[0];
     expect(args[0] as string).toBe(
