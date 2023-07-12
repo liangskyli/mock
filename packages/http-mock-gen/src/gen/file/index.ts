@@ -26,7 +26,7 @@ const generatorMockFile = async (opts: IGeneratorFile) => {
     prettierOptions,
     jsonSchemaFakerOptions,
     mockDataReplace,
-  }).writeFile();
+  } as any).writeFile();
 
   // 生成mock接口文件
   await new GenInterfaceMockData({
@@ -35,7 +35,7 @@ const generatorMockFile = async (opts: IGeneratorFile) => {
     genMockAbsolutePath,
     prettierOptions,
     mockPathPrefix,
-  }).generator();
+  } as any).generator();
 };
 
 export default generatorMockFile;
