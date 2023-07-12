@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.0](https://github.com/liangskyli/mock/compare/v2.1.0...v3.0.0-beta.0) (2023-07-12)
+
+
+### Bug Fixes
+
+* prettier V3 prettierOptions type use any ([42b818d](https://github.com/liangskyli/mock/commit/42b818d6e96165f7847733f3ae4f1cec54a008cd))
+
+
+
 ## [2.1.0](https://github.com/liangskyli/mock/compare/v2.0.0...v2.1.0) (2023-06-05)
 
 
