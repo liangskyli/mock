@@ -39,13 +39,15 @@
     "esbuild-register": "^3.4.2",
     "fs-extra": "^11.1.1",
     "lodash": "^4.17.21",
-    "prettier": "^3.0.0",
     "signale": "^1.4.0"
   },
   "devDependencies": {
     "@types/debug": "^4.1.8",
     "@types/fs-extra": "^11.0.1",
     "@types/signale": "^1.4.4"
+  },
+  "peerDependencies": {
+    "prettier": "^2.0.0 || ^3.0.0"
   },
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
