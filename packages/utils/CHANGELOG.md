@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.0-beta.1](https://github.com/liangskyli/mock/compare/v3.0.0-beta.0...v3.0.0-beta.1) (2023-07-15)
+
+
+### Features
+
+* prettier from dependencies to peerDependencies,support v2 and v3 ([16f48d5](https://github.com/liangskyli/mock/commit/16f48d59c84b654efe9085d5d9e6000aa2a0d49b))
+
+
+
 ## [3.0.0-beta.0](https://github.com/liangskyli/mock/compare/v2.1.0...v3.0.0-beta.0) (2023-07-12)
 
 **Note:** Version bump only for package @liangskyli/utils
