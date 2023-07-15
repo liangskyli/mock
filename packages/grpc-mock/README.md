@@ -14,6 +14,10 @@
 yarn add @liangskyli/grpc-mock --dev
 ```
 
+如果项目没有安装prettier，需要安装prettier(^2.0.0 || ^3.0.0)
+```bash
+yarn add prettier --dev
+```
 
 ## 使用文档
 

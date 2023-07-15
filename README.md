@@ -38,6 +38,12 @@ yarn add @liangskyli/mock --dev
 ```bash
 yarn add @liangskyli/http-mock-gen --dev
 ```
+
+如果项目没有安装prettier，需要安装prettier(^2.0.0 || ^3.0.0)
+```bash
+yarn add prettier --dev
+```
+
 - [文档](packages/http-mock-gen/README.md)
 
 
@@ -50,6 +56,11 @@ yarn add @liangskyli/http-mock-gen --dev
 ### 安装:
 ```bash
 yarn add @liangskyli/grpc-mock --dev
+```
+
+如果项目没有安装prettier，需要安装prettier(^2.0.0 || ^3.0.0)
+```bash
+yarn add prettier --dev
 ```
 
 - 基于node.js 实现 grpc mock 数据生成 [文档](packages/grpc-mock/docs/gen-grpc-mock.md)
