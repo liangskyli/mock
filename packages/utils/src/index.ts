@@ -1,4 +1,4 @@
-import address from 'address';
+import { ip } from 'address';
 import colors from 'colors';
 import createDebug from 'debug';
 import lodash from 'lodash';
@@ -15,5 +15,5 @@ export {
   removeFilesSync,
   winPath,
 } from './tools';
-export { address, colors, lodash, signale, createDebug };
+export { colors, createDebug, ip, lodash, signale };
 export type IPrettierOptions = Parameters<typeof prettierData>[1];

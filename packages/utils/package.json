@@ -31,20 +31,20 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.197",
-    "address": "^1.2.2",
+    "@types/lodash": "^4.14.200",
+    "address": "^2.0.1",
     "colors": "^1.4.0",
     "debug": "^4.3.4",
-    "esbuild": "^0.19.2",
-    "esbuild-register": "^3.4.2",
+    "esbuild": "^0.19.5",
+    "esbuild-register": "^3.5.0",
     "fs-extra": "^11.1.1",
     "lodash": "^4.17.21",
     "signale": "^1.4.0"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.8",
-    "@types/fs-extra": "^11.0.1",
-    "@types/signale": "^1.4.4"
+    "@types/debug": "^4.1.10",
+    "@types/fs-extra": "^11.0.3",
+    "@types/signale": "^1.4.6"
   },
   "peerDependencies": {
     "prettier": "^2.0.0 || ^3.0.0"

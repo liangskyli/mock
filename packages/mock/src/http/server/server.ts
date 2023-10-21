@@ -1,8 +1,8 @@
-import type http from 'http';
+import { colors, ip } from '@liangskyli/utils';
 import express from 'express';
-import { address, colors } from '@liangskyli/utils';
-import getMiddleware from './middleware';
+import type http from 'http';
 import { killProcess } from '../tools';
+import getMiddleware from './middleware';
 import type { ISocketConfig } from './socket-server';
 import initSocketServer from './socket-server';
 
@@ -31,7 +31,11 @@ const mockServer = async (opts: IOpts = {}) => {
 
   try {
     const init = async () => {
-      const { middleware, middlewareWatcher } = await getMiddleware({ mockDir, watch, exclude });
+      const { middleware, middlewareWatcher } = await getMiddleware({
+        mockDir,
+        watch,
+        exclude,
+      });
       app.use(middleware);
       app.get('/', (req: any, res: any) => {
         res.end(HOME_PAGE);
@@ -56,9 +60,10 @@ const mockServer = async (opts: IOpts = {}) => {
     };
 
     init().then((result) => {
-      const lanIp = address.ip();
+      const lanIp = ip();
       const protocol = 'http';
-      const hostName = result.hostname === '0.0.0.0' ? 'localhost' : result.hostname;
+      const hostName =
+        result.hostname === '0.0.0.0' ? 'localhost' : result.hostname;
       const localUrl = `${protocol}://${hostName}:${result.port}`;
       const lanUrl = `${protocol}://${lanIp}:${result.port}`;
 

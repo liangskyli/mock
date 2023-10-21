@@ -1,4 +1,4 @@
-import { address, colors, winPath } from '@liangskyli/utils';
+import { colors, ip, winPath } from '@liangskyli/utils';
 import type { FSWatcher } from 'chokidar';
 import type http from 'http';
 import { isAbsolute, join } from 'path';
@@ -42,10 +42,11 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
   // socket server
   const io = new SocketServer(server, {
     serveClient: false,
+    // @ts-ignore
     allowEIO3: true,
     ...socketConfig.opts,
   });
-  const lanIp = address.ip();
+  const lanIp = ip();
   const protocol = 'http';
   const hostName = hostname === '0.0.0.0' ? 'localhost' : hostname;
   const localUrl = `${protocol}://${hostName}:${port}`;
@@ -75,10 +76,9 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
     }
     const socketControllerMainPath = winPath(mockControllerUrl);
 
-    const {
-      default: socketMain,
-      socketNamespaceController,
-    } = require(socketControllerMainPath);
+    const { default: socketMain, socketNamespaceController } = require(
+      socketControllerMainPath,
+    );
     return { socketMain, socketNamespaceController };
   };
 
