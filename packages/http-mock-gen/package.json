@@ -1,6 +1,6 @@
 {
   "name": "@liangskyli/http-mock-gen",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "http mock gen for web mockServer",
   "keywords": [
     "mock",
