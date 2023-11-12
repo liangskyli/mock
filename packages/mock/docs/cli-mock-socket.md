@@ -1,11 +1,13 @@
 # CLI mock socket 例子
 
 - mock 配置文件
+  - 使用defineConfig定义配置支持ts类型
 
 ```ts
+import { defineConfig } from '@liangskyli/mock';
 import path from 'path';
 
-export default {
+export default defineConfig({
   mockDir: path.join(__dirname, '/'),
   socketConfig: {
     enable: true,
@@ -19,7 +21,7 @@ export default {
     },
     mockControllerUrl: 'mock/socket/sock2.js',
   },
-};
+});
 ```
 
 - CLI 运行命令

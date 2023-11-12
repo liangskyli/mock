@@ -1,11 +1,13 @@
 # socket mock 迁入已有的express服务
 
 - mock 配置文件
+  - 使用defineConfig定义配置支持ts类型
 
 ```ts
+import { defineConfig } from '@liangskyli/mock';
 import path from 'path';
 
-export default {
+export default defineConfig({
   socketConfig: {
     enable: true,
     // 自定义命名空间
@@ -18,7 +20,7 @@ export default {
     },
     mockControllerUrl: 'mock/socket/sock.ts',
   },
-};
+});
 ```
 
 - socket mock 服务代码

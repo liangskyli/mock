@@ -73,23 +73,23 @@ yarn grpc-mock code-gen -c ./mock.config.cli.ts
 
 
 - configFile mock配置文件示例
+  - 使用defineConfig定义配置支持ts类型
 
 ```ts
-import type { ConfigFileOptionsCLI } from '@liangskyli/grpc-mock';
+import { defineConfig } from '@liangskyli/grpc-mock';
 
-const config: ConfigFileOptionsCLI = {
-  rootPath: {
-    grpcProtoServes: [
-      { serverName: 'serverName1', serverDir: './src/proto-servers/server1' },
-      { serverName: 'serverName2', serverDir: './src/proto-servers/server2' },
-    ],
-  },
-  loaderOptions: {
-    longs: String,
-  },
-  prettierOptions: { singleQuote: true },
-};
-export default config;
+export default defineConfig({
+    rootPath: {
+        grpcProtoServes: [
+            { serverName: 'serverName1', serverDir: './src/proto-servers/server1' },
+            { serverName: 'serverName2', serverDir: './src/proto-servers/server2' },
+        ],
+    },
+    loaderOptions: {
+        longs: String,
+    },
+    prettierOptions: { singleQuote: true },
+});
 ```
 
 ## 2、函数调用方式
