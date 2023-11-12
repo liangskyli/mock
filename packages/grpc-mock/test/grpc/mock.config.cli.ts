@@ -1,6 +1,6 @@
-import type { ConfigFileOptionsCLI } from '../../src';
+import { defineConfig } from '../../lib/index.esm';
 
-const config: ConfigFileOptionsCLI = {
+export default defineConfig({
   rootPath: './test/grpc/root2.json',
   grpcMockDir: './test',
   grpcMockFolderName: 'grpc-mock',
@@ -16,5 +16,4 @@ const config: ConfigFileOptionsCLI = {
     longs: String,
   },
   prettierOptions: { singleQuote: true },
-};
-export default config;
+});

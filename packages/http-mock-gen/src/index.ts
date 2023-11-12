@@ -1,5 +1,6 @@
 import type { IAPIRequest, PartialAll } from '@liangskyli/openapi-gen-ts';
 import type { Request, Response } from 'express';
+import type { IGenMockDataOpts, IGenMockDataOptsCLI } from './gen';
 import genMockData from './gen/index';
 import type {
   ICustomData,
@@ -38,14 +39,19 @@ const getMockData = <T = any>(
   return json;
 };
 
+const defineConfig = (config: IGenMockDataOptsCLI) => {
+  return config;
+};
+
 export { commandCodeGenCli } from './cli/http-mock-code-gen';
-export type { IGenMockDataOpts, IGenMockDataOptsCLI } from './gen/index';
-export { getMockData };
+export { defineConfig, getMockData };
 export type {
+  IAPIRequest,
   ICustomData,
   ICustomDataValue,
   ICustomsData,
-  IAPIRequest,
+  IGenMockDataOpts,
+  IGenMockDataOptsCLI,
   PartialAll,
   Request,
   Response,

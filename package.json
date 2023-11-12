@@ -6,6 +6,7 @@
     "url": "git+https://github.com/liangskyli/mock.git"
   },
   "scripts": {
+    "build": "lerna run build",
     "test": "lerna run test",
     "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",

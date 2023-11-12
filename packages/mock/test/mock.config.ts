@@ -1,7 +1,7 @@
+import { defineConfig } from '@liangskyli/mock';
 import path from 'path';
-import type { IOpts } from '../src/http/server/server';
 
-const config: IOpts = {
+export default defineConfig({
   mockDir: path.join(__dirname, '/'),
   //mockDir: path.join(__dirname, '/gen-mock'),
   //mockDir: path.join(__dirname, '../../http-mock-gen/test/all-gen-dirs/gen-mock/'),
@@ -19,6 +19,4 @@ const config: IOpts = {
     //mockControllerUrl: 'mock/socket/sock2.js',
     mockControllerUrl: 'mock/socket/sock3.ts',
   },
-};
-
-export default config;
+});
