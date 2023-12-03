@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.1.0 (2023-12-03)
+
+* chore: upgrade dependencies ([f6251cd](https://github.com/liangskyli/mock/commit/f6251cd))
+* chore: vitest file rename ([952e3ff](https://github.com/liangskyli/mock/commit/952e3ff))
+* docs: update doc ([4600742](https://github.com/liangskyli/mock/commit/4600742))
+* docs: update doc ([9553979](https://github.com/liangskyli/mock/commit/9553979))
+* feat: add defineConfig config support ts type ([19dcae9](https://github.com/liangskyli/mock/commit/19dcae9))
+
+
+
+
+
 ## [3.0.1](https://github.com/liangskyli/mock/compare/v3.0.0...v3.0.1) (2023-10-21)
 
 **Note:** Version bump only for package @liangskyli/http-mock-gen
