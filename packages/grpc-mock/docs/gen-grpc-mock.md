@@ -73,7 +73,7 @@ yarn grpc-mock code-gen -c ./mock.config.cli.ts
 
 
 - configFile mock配置文件示例
-  - 使用defineConfig定义配置支持ts类型
+  - 配置文件支持使用defineConfig定义ts类型
 
 ```ts
 import { defineConfig } from '@liangskyli/grpc-mock';

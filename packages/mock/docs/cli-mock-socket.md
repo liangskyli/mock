@@ -1,7 +1,7 @@
 # CLI mock socket 例子
 
 - mock 配置文件
-  - 使用defineConfig定义配置支持ts类型
+  - 配置文件支持使用defineConfig定义ts类型
 
 ```ts
 import { defineConfig } from '@liangskyli/mock';

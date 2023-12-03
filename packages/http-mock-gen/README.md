@@ -59,7 +59,7 @@ yarn http-mock-gen -c ./mock.config2.ts
 | 其它属性参数                 | 其它属性参数依赖仓库[@liangskyli/openapi-gen-ts](https://github.com/liangskyli/openapi-ts) | 详情配置见 [openapi-ts文档IGenTsDataOpts 参数属性](https://github.com/liangskyli/openapi-ts#igentsdataopts-%E5%8F%82%E6%95%B0%E5%B1%9E%E6%80%A7)  |                                                        |
 
 - configFile mock数据生成配置文件示例
-  - 使用defineConfig定义配置支持ts类型
+  - 配置文件支持使用defineConfig定义ts类型
 
 ```ts
 import { defineConfig } from '@liangskyli/http-mock-gen';
