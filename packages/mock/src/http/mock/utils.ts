@@ -2,11 +2,14 @@ import { createDebug, winPath } from '@liangskyli/utils';
 import assert from 'assert';
 import bodyParser from 'body-parser';
 import type { NextFunction, Request, RequestHandler } from 'express';
-import { existsSync } from 'fs';
 import { globSync } from 'glob';
 import multer from 'multer';
-import { join } from 'path';
+import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+import { join } from 'node:path';
 import { pathToRegexp } from 'path-to-regexp';
+
+const require = createRequire(import.meta.url);
 
 // support all openapi method
 const VALID_METHODS = [

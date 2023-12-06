@@ -5,7 +5,7 @@
 
 ```ts
 import { defineConfig } from '@liangskyli/mock';
-import path from 'path';
+import path from 'node:path';
 
 export default defineConfig({
   socketConfig: {
@@ -26,9 +26,9 @@ export default defineConfig({
 - webpack.config.ts 文件
 
 ```ts
-import type WebpackDevServer from 'webpack-dev-server';
+import { getMiddleware, initSocketServer } from '@liangskyli/mock';
 import type Webpack from 'webpack';
-import {getMiddleware, initSocketServer} from '../src';
+import type WebpackDevServer from 'webpack-dev-server';
 import mockConfig from './mock.config';
 
 const socketConfig = mockConfig.socketConfig;
@@ -42,28 +42,31 @@ const webpackConfig: Webpack.Configuration = {
     host,
     port,
     onBeforeSetupMiddleware: (devServer: WebpackDevServer) => {
-      if (!devServer) {
+      if (!devServer || !devServer.app) {
         throw new Error('webpack-dev-server is not defined');
       }
 
-      getMiddleware().then(({ middleware, middlewareWatcher }) => {
-        devServer.app.use(middleware);
+      getMiddleware({ mockDir: mockConfig.mockDir }).then(
+        ({ middleware, middlewareWatcher }) => {
+          devServer.app!.use(middleware);
 
-        devServer.app.get('/', (req, res) => {
-          res.send('homepage');
-        });
-        console.log('look in http://localhost:4000/');
-
-        if (socketConfig && socketConfig.enable) {
-          initSocketServer({
-            socketConfig,
-            server: devServer.server,
-            port,
-            hostname: host,
-            middlewareWatcher,
+          devServer.app!.get('/', (req, res) => {
+            res.send('homepage');
           });
-        }
-      });
+          console.log(`look in http://localhost:${port}/`);
+
+          if (socketConfig && socketConfig.enable) {
+            initSocketServer({
+              mockDir: mockConfig.mockDir,
+              socketConfig,
+              server: devServer.server!,
+              port,
+              hostname: host,
+              middlewareWatcher,
+            });
+          }
+        },
+      );
     },
   },
 };

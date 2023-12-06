@@ -1,6 +1,5 @@
-// @ts-ignore
+import { getMiddleware, initSocketServer } from '@liangskyli/mock';
 import express from 'express';
-import { getMiddleware, initSocketServer } from '../src';
 import mockConfig from './mock.config';
 
 const app = express();

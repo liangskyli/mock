@@ -5,7 +5,7 @@
 
 ```ts
 import { defineConfig } from '@liangskyli/mock';
-import path from 'path';
+import path from 'node:path';
 
 export default defineConfig({
   mockDir: path.join(__dirname, '/'),

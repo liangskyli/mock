@@ -20,12 +20,21 @@
   },
   "license": "MIT",
   "author": "liangsky <640634387@qq.com>",
-  "main": "./lib/index.cjs.js",
-  "module": "./lib/index.esm.js",
+  "type": "module",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "typings": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs"
+    }
+  },
   "bin": {
-    "mock-server": "./bin/index.js"
+    "mock-server": "./bin/index.js",
+    "mock-server-cjs": "./bin/index.cjs"
   },
   "files": [
     "lib",
@@ -37,9 +46,14 @@
     "package.json"
   ],
   "scripts": {
-    "build": "rollup --bundleConfigAsCjs --config=./rollup.config.js",
-    "start": "cross-env DEBUG=mock:utils cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/server.ts",
-    "test-http-cli": "cross-env DEBUG=mock:utils node bin/index.js -d ./test -e mock/b.ts -c ./test/mock.config.ts",
+    "build": "rollup --config=./rollup.config.js",
+    "start-esm": "cross-env DEBUG=mock:* cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/esm/server.ts",
+    "start-esm-mock": "cross-env DEBUG=mock:* cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/esm/server-mock-esm.ts",
+    "start": "cross-env DEBUG=mock:* cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/server.ts",
+    "test-http-cli": "cross-env DEBUG=mock:* node bin/index.js -d ./test -e mock/b.ts -c ./test/mock.config.ts",
+    "test-http-cli-esm-config": "cross-env DEBUG=mock:* node bin/index.js -d ./test -e mock/b.ts -c ./test/esm/mock.config.ts",
+    "test-http-cli-esm-mock": "cross-env DEBUG=mock:* node bin/index.js -e mock/b.ts -c ./test/esm/mock-esm.config.ts",
+    "test-http-cli-cjs": "cross-env DEBUG=mock:* node bin/index.cjs -d ./test -e mock/b.ts -c ./test/mock.config.ts",
     "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/middleware.ts",
     "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/webpack-middleware.ts",
     "update:deps": "pnpm update --interactive --latest"

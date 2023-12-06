@@ -1,6 +1,6 @@
-import type WebpackDevServer from 'webpack-dev-server';
+import { getMiddleware, initSocketServer } from '@liangskyli/mock';
 import type Webpack from 'webpack';
-import { getMiddleware, initSocketServer } from '../src';
+import type WebpackDevServer from 'webpack-dev-server';
 import mockConfig from './mock.config';
 
 const socketConfig = mockConfig.socketConfig;
@@ -18,24 +18,27 @@ const webpackConfig: Webpack.Configuration = {
         throw new Error('webpack-dev-server is not defined');
       }
 
-      getMiddleware({ mockDir: mockConfig.mockDir }).then(({ middleware, middlewareWatcher }) => {
-        devServer.app!.use(middleware);
+      getMiddleware({ mockDir: mockConfig.mockDir }).then(
+        ({ middleware, middlewareWatcher }) => {
+          devServer.app!.use(middleware);
 
-        devServer.app!.get('/', (req, res) => {
-          res.send('homepage');
-        });
-        console.log(`look in http://localhost:${port}/`);
-
-        if (socketConfig && socketConfig.enable) {
-          initSocketServer({
-            socketConfig,
-            server: devServer.server!,
-            port,
-            hostname: host,
-            middlewareWatcher,
+          devServer.app!.get('/', (req, res) => {
+            res.send('homepage');
           });
-        }
-      });
+          console.log(`look in http://localhost:${port}/`);
+
+          if (socketConfig && socketConfig.enable) {
+            initSocketServer({
+              mockDir: mockConfig.mockDir,
+              socketConfig,
+              server: devServer.server!,
+              port,
+              hostname: host,
+              middlewareWatcher,
+            });
+          }
+        },
+      );
     },
   },
 };

@@ -1,9 +1,12 @@
 import { colors, ip, winPath } from '@liangskyli/utils';
 import type { FSWatcher } from 'chokidar';
-import type http from 'http';
-import { isAbsolute, join } from 'path';
+import type http from 'node:http';
+import { createRequire } from 'node:module';
+import { isAbsolute, join } from 'node:path';
 import type { ServerOptions, Socket } from 'socket.io';
 import { Server as SocketServer } from 'socket.io';
+
+const require = createRequire(import.meta.url);
 
 export type ISocketConfig = {
   enable: boolean;

@@ -1,6 +1,6 @@
 import { colors, ip } from '@liangskyli/utils';
 import express from 'express';
-import type http from 'http';
+import type http from 'node:http';
 import { killProcess } from '../tools';
 import getMiddleware from './middleware';
 import type { ISocketConfig } from './socket-server';

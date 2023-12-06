@@ -1,8 +1,7 @@
 import { defineConfig } from '@liangskyli/mock';
-import path from 'node:path';
 
 export default defineConfig({
-  mockDir: path.join(__dirname, '/'),
+  //mockDir: path.join(curDirName, '../'),
   //mockDir: path.join(__dirname, '/gen-mock'),
   //mockDir: path.join(__dirname, '../../http-mock-gen/test/all-gen-dirs/gen-mock/'),
   port: 8002,

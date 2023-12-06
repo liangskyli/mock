@@ -1,8 +1,8 @@
-import mockjs from 'mockjs';
 import type {
   ISocketDefaultController,
   ISocketNamespaceController,
-} from '../../../src';
+} from '@liangskyli/mock';
+import mockjs from 'mockjs';
 
 const socketDefaultController: ISocketDefaultController = (socket) => {
   const data = mockjs.mock({
@@ -19,7 +19,7 @@ const socketDefaultController: ISocketDefaultController = (socket) => {
 
   // 接收客户端数据
   socket.on('toServer', (clientData) => {
-    console.log('from client:', clientData);
+    console.log('from client default namespace:', clientData);
   });
 };
 
@@ -38,7 +38,7 @@ const socketNamespaceController: ISocketNamespaceController = () => {
 
       // 接收客户端数据
       socket.on('toServer', (clientData) => {
-        console.log('from client:', clientData);
+        console.log('from client custom namespace:', clientData);
       });
     },
   };

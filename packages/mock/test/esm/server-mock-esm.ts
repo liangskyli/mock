@@ -1,10 +1,13 @@
 import mockServer from '@liangskyli/mock';
-import * as path from 'node:path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 //mockServer();
 //mockServer({ mockDir: 'test' });
 mockServer({
-  mockDir: path.join(__dirname, '/'),
+  mockDir: path.join(__dirname, '../../'),
   exclude: ['mock/b.ts'],
   port: 8002,
   socketConfig: {

@@ -1,7 +1,7 @@
 import { register, winPath } from '@liangskyli/utils';
 import type { FSWatcher } from 'chokidar';
 import type { NextFunction, Request, Response } from 'express';
-import { isAbsolute, join } from 'path';
+import { isAbsolute, join } from 'node:path';
 import createMiddleware from '../mock/createMiddleware';
 import { getMockData } from '../mock/utils';
 import { killProcess } from '../tools';
