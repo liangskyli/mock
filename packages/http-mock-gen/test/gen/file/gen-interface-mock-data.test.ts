@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import path from 'path';
+import path from 'node:path';
 import { describe, expect, test, vi } from 'vitest';
 import { GenInterfaceMockData } from '../../../src/gen/file/gen-interface-mock-data';
 

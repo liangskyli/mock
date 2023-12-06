@@ -1,6 +1,6 @@
 import { winPath } from '@liangskyli/utils';
 import fs from 'fs-extra';
-import path from 'path';
+import path from 'node:path';
 import { describe, expect, test, vi } from 'vitest';
 import { GenCustomData } from '../../../src/gen/file/gen-custom-data';
 

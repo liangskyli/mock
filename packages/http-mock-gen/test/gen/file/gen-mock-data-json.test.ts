@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import path from 'path';
+import path from 'node:path';
 import { describe, expect, test, vi } from 'vitest';
 import { GenMockDataJson } from '../../../src/gen/file/gen-mock-data-json';
 

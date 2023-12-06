@@ -1,4 +1,7 @@
+import { createRequire } from 'node:module';
 import { register } from './register';
+
+const require = createRequire(import.meta.url);
 
 const getConfig = (configFile: string) => {
   let config: any = null;

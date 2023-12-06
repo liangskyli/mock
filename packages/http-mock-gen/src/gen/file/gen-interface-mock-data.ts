@@ -1,7 +1,7 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
 import { getRelativePath, winPath } from '@liangskyli/utils';
 import fs from 'fs-extra';
-import path from 'path';
+import path from 'node:path';
 import {
   fileTip,
   getMethodData,
