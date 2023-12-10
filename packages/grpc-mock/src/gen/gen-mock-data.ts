@@ -84,59 +84,65 @@ const genMockData = async (
   const rootObject = require(rootPath);
   await Promise.all(
     Object.keys(rootObject).map(async (spaceServerName) => {
-      const serverName: string =
-        rootPathServerNameMap?.[spaceServerName] ?? spaceServerName;
-      const root = protobufjs.Root.fromJSON(rootObject[spaceServerName]);
-      const result: IInspectNamespace = inspectNamespace(root);
-      const { services, methods } = result!;
-      const genServiceMockData = new GenServiceMockData({
-        genServerPath,
-        prettierOptions,
-      });
-      const longsTypeToString = loaderOptions.longs === String;
-
-      await Promise.all(
-        services.map(async (service, index) => {
-          const protoName = service.fullName.split('.')[0];
-          const protoPath = `${spaceServerName}.${service.fullName}`;
-          const serviceCodeName = firstWordNeedLetter(service.name);
-
-          await new GenProtoMockData({
-            index,
-            genCustomDataPath,
-            serviceCodeName,
-            protoPath,
-            methods,
-            protoName,
-            root,
-            longsTypeToString,
-            prettierOptions,
-            genProtoPath,
-            serverName,
-          }).generator();
-
-          genServiceMockData.importService({
-            index,
-            serverName,
-            protoName,
-            serviceCodeName,
-          });
-        }),
-      );
-      const spaceServerNameMock = `${firstUpperCaseOfWord(
-        spaceServerName,
-      )}Mock`;
-      genServiceMockData.mockServerCode({
-        spaceServerNameMock,
-        serverName,
-        servicePort,
-      });
-      genGrpcServiceMockConfig.body({ serverName, servicePort });
-      servicePort++;
-      await genServiceMockData.writeFile(spaceServerNameMock);
-      genIndex.importServiceMock({ spaceServerNameMock });
+      return { spaceServerName, servicePort: servicePort++ };
     }),
-  );
+  ).then(async (serverItems) => {
+    return await Promise.all(
+      serverItems.map(async (curServer) => {
+        const { spaceServerName, servicePort } = curServer;
+        const serverName: string =
+          rootPathServerNameMap?.[spaceServerName] ?? spaceServerName;
+        const root = protobufjs.Root.fromJSON(rootObject[spaceServerName]);
+        const result: IInspectNamespace = inspectNamespace(root);
+        const { services, methods } = result!;
+        const genServiceMockData = new GenServiceMockData({
+          genServerPath,
+          prettierOptions,
+        });
+        const longsTypeToString = loaderOptions.longs === String;
+
+        await Promise.all(
+          services.map(async (service, index) => {
+            const protoName = service.fullName.split('.')[0];
+            const protoPath = `${spaceServerName}.${service.fullName}`;
+            const serviceCodeName = firstWordNeedLetter(service.name);
+
+            await new GenProtoMockData({
+              index,
+              genCustomDataPath,
+              serviceCodeName,
+              protoPath,
+              methods,
+              protoName,
+              root,
+              longsTypeToString,
+              prettierOptions,
+              genProtoPath,
+              serverName,
+            }).generator();
+
+            genServiceMockData.importService({
+              index,
+              serverName,
+              protoName,
+              serviceCodeName,
+            });
+          }),
+        );
+        const spaceServerNameMock = `${firstUpperCaseOfWord(
+          spaceServerName,
+        )}Mock`;
+        genServiceMockData.mockServerCode({
+          spaceServerNameMock,
+          serverName,
+          servicePort,
+        });
+        genGrpcServiceMockConfig.body({ serverName, servicePort });
+        await genServiceMockData.writeFile(spaceServerNameMock);
+        genIndex.importServiceMock({ spaceServerNameMock });
+      }),
+    );
+  });
   // index.ts
   await genIndex.writeFile();
 
