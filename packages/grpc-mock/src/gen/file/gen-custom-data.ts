@@ -1,7 +1,10 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
 import fs from 'fs-extra';
-import path from 'path';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { packageName, writePrettierFile } from '../../utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export type IGenCustomDataOpts = {
   genMockPath: string;

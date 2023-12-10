@@ -17,12 +17,21 @@
   },
   "license": "MIT",
   "author": "liangsky <640634387@qq.com>",
-  "main": "./lib/index.cjs.js",
-  "module": "./lib/index.esm.js",
+  "type": "module",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "typings": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs"
+    }
+  },
   "bin": {
-    "grpc-mock": "./bin/index.js"
+    "grpc-mock": "./bin/index.js",
+    "grpc-mock-cjs": "./bin/index.cjs"
   },
   "files": [
     "lib",
@@ -34,12 +43,18 @@
     "package.json"
   ],
   "scripts": {
-    "build": "rollup --bundleConfigAsCjs --config=./rollup.config.js",
+    "build": "rollup --config=./rollup.config.js",
     "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
+    "//use test-grpc-mock-code-gen": "test/package.json set type commonjs",
     "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen.ts",
+    "//use test-grpc-mock-code-gen-esm": "test/package.json set type module",
+    "test-grpc-mock-code-gen-esm": "cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/grpc/gen.ts",
     "test-grpc-mock-code-gen-cli": "node bin/index.js code-gen -c ./test/grpc/mock.config.cli.ts",
+    "test-grpc-mock-code-gen-cli-cjs": "node bin/index.cjs code-gen -c ./test/grpc/mock.config.cli.ts",
+    "//use test-grpc-mock-server": "grpc-mock in type commonjs",
     "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
     "test-grpc-mock-server-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node bin/index.js server-start -w true -c ./test/grpc/mock.config.cli.ts",
+    "test-grpc-mock-server-cli-cjs": "cross-env TS_NODE_PROJECT=test/tsconfig.json node bin/index.cjs server-start -w true -c ./test/grpc/mock.config.cli.ts",
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {

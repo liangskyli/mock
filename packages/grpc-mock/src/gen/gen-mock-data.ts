@@ -1,8 +1,9 @@
 import type { Options } from '@grpc/proto-loader';
 import type { IPrettierOptions } from '@liangskyli/utils';
 import { colors, getAbsolutePath, removeFilesSync } from '@liangskyli/utils';
-import * as fs from 'fs-extra';
-import path from 'path';
+import fs from 'fs-extra';
+import { createRequire } from 'node:module';
+import path from 'node:path';
 import protobufjs from 'protobufjs';
 import { firstUpperCaseOfWord, firstWordNeedLetter } from '../utils';
 import { GenCustomData } from './file/gen-custom-data';
@@ -14,6 +15,8 @@ import { GenRootJson } from './file/gen-root-json';
 import { GenServiceMockData } from './file/gen-service-mock-data';
 import type { IInspectNamespace } from './pbjs';
 import { inspectNamespace } from './pbjs';
+
+const require = createRequire(import.meta.url);
 
 export type GenMockDataOptions = {
   grpcMockDir?: string;

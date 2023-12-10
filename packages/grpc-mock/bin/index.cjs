@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { createRequire } from 'node:module';
-import { commandCodeGenCli, commandServerStartCli } from '../lib/index.js';
-
-const require = createRequire(import.meta.url);
+const {
+  commandCodeGenCli,
+  commandServerStartCli,
+} = require('../lib/index.cjs');
 const { version } = require('../package.json');
 
 const script = process.argv[2];

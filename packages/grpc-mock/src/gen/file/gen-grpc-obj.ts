@@ -1,7 +1,7 @@
 import type { Options } from '@grpc/proto-loader';
 import type { IPrettierOptions } from '@liangskyli/utils';
 import { getAbsolutePath } from '@liangskyli/utils';
-import path from 'path';
+import path from 'node:path';
 import {
   fileTip,
   getImportPath,

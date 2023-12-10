@@ -1,9 +1,12 @@
 import { colors, lodash } from '@liangskyli/utils';
-import * as fs from 'fs';
 import type { Metadata } from 'grpc';
 import * as grpc from 'grpc';
-import * as path from 'path';
+import fs from 'node:fs';
+import { createRequire } from 'node:module';
+import path from 'node:path';
 import type { IMetadataMap, IMockService, IProtoItem } from './service-type';
+
+const require = createRequire(import.meta.url);
 
 type IImplementation = Record<string, (call: any, callback: any) => void>;
 

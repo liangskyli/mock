@@ -1,6 +1,6 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
 import { copyOptions } from '@liangskyli/utils';
-import path from 'path';
+import path from 'node:path';
 import { writePrettierFile } from '../../utils';
 
 export type IGenTsConfigMockOpts = {

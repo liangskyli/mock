@@ -1,6 +1,17 @@
-import { defineConfig } from '../../lib/index.esm';
+import { defineConfig } from '@liangskyli/grpc-mock';
 
 export default defineConfig({
+  rootPath: './docs/root.json',
+  grpcMockDir: './test',
+  grpcMockFolderName: 'grpc-mock',
+  loaderOptions: {
+    defaults: false,
+    longs: String,
+  },
+  prettierOptions: { singleQuote: true },
+});
+
+/*export default defineConfig({
   rootPath: './test/grpc/root2.json',
   grpcMockDir: './test',
   grpcMockFolderName: 'grpc-mock',
@@ -16,4 +27,4 @@ export default defineConfig({
     longs: String,
   },
   prettierOptions: { singleQuote: true },
-});
+});*/

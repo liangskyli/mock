@@ -1,7 +1,7 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
 import { winPath } from '@liangskyli/utils';
-import * as fs from 'fs-extra';
-import path from 'path';
+import fs from 'fs-extra';
+import path from 'node:path';
 import type { Root } from 'protobufjs';
 import type { TMethod } from '../../types';
 import { fileTip, packageName, writePrettierFile } from '../../utils';
