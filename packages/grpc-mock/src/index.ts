@@ -8,6 +8,7 @@ const defineConfig = (config: ConfigFileOptionsCLI) => {
 
 export { commandCodeGenCli } from './cli/grpc-mock-code-gen';
 export { commandServerStartCli } from './cli/grpc-mock-server-start';
+export { mockServerLoadScript } from './mock-service/index';
 export type {
   ICustomData,
   IImplementationData,

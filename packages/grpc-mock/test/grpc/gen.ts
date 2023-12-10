@@ -9,7 +9,7 @@ grpcMockCodeGen({
     ],
   },
   prettierOptions: { singleQuote: true },
-  //configFilePath:'./test/grpc/mock.config.ts',
+  configFilePath: './test/grpc/mock.config.ts',
 });
 
 /*grpcMockCodeGen({

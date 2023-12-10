@@ -48,12 +48,15 @@
     "//use test-grpc-mock-code-gen": "test/package.json set type commonjs",
     "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen.ts",
     "//use test-grpc-mock-code-gen-esm": "test/package.json set type module",
-    "test-grpc-mock-code-gen-esm": "cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/grpc/gen.ts",
+    "test-grpc-mock-code-gen-esm": "cross-env TS_NODE_PROJECT=test/esm/tsconfig-cjs.json node --loader ts-node/esm test/grpc/gen.ts",
     "test-grpc-mock-code-gen-cli": "node bin/index.js code-gen -c ./test/grpc/mock.config.cli.ts",
     "test-grpc-mock-code-gen-cli-cjs": "node bin/index.cjs code-gen -c ./test/grpc/mock.config.cli.ts",
     "//use test-grpc-mock-server": "grpc-mock in type commonjs",
-    "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc-mock/index.ts",
+    "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node test/grpc/server.mjs",
+    "//use test-grpc-mock-server-esm": "test/package.json set type module",
+    "test-grpc-mock-server-esm": "cross-env TS_NODE_PROJECT=test/esm/tsconfig-cjs.json node --loader ts-node/esm test/grpc/server.ts",
     "test-grpc-mock-server-cli": "cross-env TS_NODE_PROJECT=test/tsconfig.json node bin/index.js server-start -w true -c ./test/grpc/mock.config.cli.ts",
+    "test-grpc-mock-server-cli-esm-dir": "cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node bin/index.js server-start -w true -c ./test/grpc/mock.config.cli.ts",
     "test-grpc-mock-server-cli-cjs": "cross-env TS_NODE_PROJECT=test/tsconfig.json node bin/index.cjs server-start -w true -c ./test/grpc/mock.config.cli.ts",
     "update:deps": "pnpm update --interactive --latest"
   },
@@ -64,14 +67,15 @@
     "commander": "^11.1.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^11.2.0",
-    "protobufjs": "^7.2.5",
-    "ts-node-dev": "^2.0.0"
+    "nodemon": "^3.0.2",
+    "protobufjs": "^7.2.5"
   },
   "devDependencies": {
     "@liangskyli/grpc-mock": "workspace:*",
     "@types/cross-spawn": "^6.0.6",
     "@types/express": "^4.17.21",
     "@types/mockjs": "^1.0.10",
+    "@types/nodemon": "^1.19.6",
     "express": "^4.18.2",
     "mockjs": "^1.1.0",
     "ts-node": "^10.9.1"
