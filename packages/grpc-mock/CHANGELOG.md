@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.2.0-beta.0 (2023-12-10)
+
+* fix(grpc-mock): stable generation servicePort ([1a8c68c](https://github.com/liangskyli/mock/commit/1a8c68c))
+* feat(grpc-mock): add "type": "module" as default,for support esm ([e047f40](https://github.com/liangskyli/mock/commit/e047f40))
+* feat(grpc-mock): support esm,remove ts-node-dev and use nodemon for hot reload,fix no watch server ([9b8dfc7](https://github.com/liangskyli/mock/commit/9b8dfc7))
+
+
+
+
+
 ## 3.1.0 (2023-12-03)
 
 * chore: upgrade dependencies ([f6251cd](https://github.com/liangskyli/mock/commit/f6251cd))

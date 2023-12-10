@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.2.0-beta.0 (2023-12-10)
+
+* feat: http-mock-gen and utils package add "type": "module" as default ([e616e6f](https://github.com/liangskyli/mock/commit/e616e6f))
+
+
+
+
+
 ## 3.1.0 (2023-12-03)
 
 * chore: upgrade dependencies ([f6251cd](https://github.com/liangskyli/mock/commit/f6251cd))

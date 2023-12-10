@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 3.2.0-beta.0 (2023-12-10)
+
+* fix(grpc-mock): stable generation servicePort ([1a8c68c](https://github.com/liangskyli/mock/commit/1a8c68c))
+* feat: http-mock-gen and utils package add "type": "module" as default ([e616e6f](https://github.com/liangskyli/mock/commit/e616e6f))
+* feat(grpc-mock): add "type": "module" as default,for support esm ([e047f40](https://github.com/liangskyli/mock/commit/e047f40))
+* feat(grpc-mock): support esm,remove ts-node-dev and use nodemon for hot reload,fix no watch server ([9b8dfc7](https://github.com/liangskyli/mock/commit/9b8dfc7))
+* feat(mock): add "type": "module" as default,for support esm ([593854e](https://github.com/liangskyli/mock/commit/593854e))
+
+
+
+
+
 ## 3.1.0 (2023-12-03)
 
 * chore: pluginSearchDirs in API options has been removed in Prettier 3.0 ([0d838ff](https://github.com/liangskyli/mock/commit/0d838ff))
