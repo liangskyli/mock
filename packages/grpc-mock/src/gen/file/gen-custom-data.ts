@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { packageName, writePrettierFile } from '../../utils';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const curDirName = path.dirname(fileURLToPath(import.meta.url));
 
 export type IGenCustomDataOpts = {
   genMockPath: string;
@@ -31,13 +31,13 @@ export class GenCustomData {
   private async writeIndexFile() {
     const { genMockPath, genCustomDataPath, prettierOptions } = this.opts;
     let templatePath = path.join(
-      __dirname,
+      curDirName,
       '../custom-data-template/index.tpl',
     );
     if (!fs.pathExistsSync(templatePath)) {
       // build path
       templatePath = path.join(
-        __dirname,
+        curDirName,
         './gen/custom-data-template/index.tpl',
       );
     }
@@ -60,13 +60,13 @@ export class GenCustomData {
 
     // 生成默认自定义mock数据入口文件
     let templatePath = path.join(
-      __dirname,
+      curDirName,
       '../custom-data-template/template-data.tpl',
     );
     if (!fs.pathExistsSync(templatePath)) {
       // build path
       templatePath = path.join(
-        __dirname,
+        curDirName,
         './gen/custom-data-template/template-data.tpl',
       );
     }

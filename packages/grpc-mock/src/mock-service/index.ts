@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import nodemon from 'nodemon';
 import type { ConfigFileOptionsCLI } from '../gen';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const curDirName = path.dirname(fileURLToPath(import.meta.url));
 
 type IMockServerLoadScript = {
   /** 是否监听mock文件改动 */
@@ -44,7 +44,7 @@ const mockServerLoadScript = (opts: IMockServerLoadScript) => {
   }
 
   const mockServerLoadScript = path.join(
-    __dirname,
+    curDirName,
     './cli/grpc-mock-server-load.mjs',
   );
 
