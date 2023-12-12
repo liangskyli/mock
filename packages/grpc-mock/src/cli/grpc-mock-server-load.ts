@@ -6,12 +6,13 @@ const require = createRequire(import.meta.url);
 const loadMockServer = () => {
   const registerKey = 'grpc-mock-load';
 
-  register.register({
+  const { unregister } = register.register({
     key: registerKey,
   });
 
   const genMockIndexFile = process.argv[2];
   require(genMockIndexFile);
+  unregister();
 };
 
 loadMockServer();
