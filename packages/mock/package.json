@@ -27,7 +27,7 @@
   "typings": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
+      "types": "./lib/index.d.ts",
       "import": "./lib/index.js",
       "require": "./lib/index.cjs"
     }
