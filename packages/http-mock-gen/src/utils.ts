@@ -108,12 +108,11 @@ export const writePrettierFile = async (opts: IWriteFileOpts) => {
 
 export const getMethodData = (itemValue: any) => {
   // support all openapi method
-  let method = '';
-  let data: any = '';
+  let result: { method: string; data: any }[] = [];
   let responseMediaType = '';
   methodList.forEach((item) => {
     if (itemValue?.[item]) {
-      method = item;
+      const method = item;
       const responsesProperties = itemValue[item]?.responses;
       // first use responses 200, then use responses default
       let responseCode: '200' | 'default' = '200';
@@ -127,8 +126,9 @@ export const getMethodData = (itemValue: any) => {
         responseMediaType = Object.keys(responsesContent)[0];
       }
 
-      data = responsesContent?.[responseMediaType] ?? {};
+      const data = responsesContent?.[responseMediaType] ?? {};
+      result.push({ method, data });
     }
   });
-  return { method, data };
+  return result;
 };

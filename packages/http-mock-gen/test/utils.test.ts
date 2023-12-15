@@ -21,16 +21,18 @@ describe('utils', () => {
         },
       },
     };
-    expect(getMethodData(data)).toEqual({
-      method: 'get',
-      data: {
-        code: 0,
+    expect(getMethodData(data)).toEqual([
+      {
+        method: 'get',
         data: {
-          a33: 'a33',
+          code: 0,
+          data: {
+            a33: 'a33',
+          },
+          msg: 'msg',
         },
-        msg: 'msg',
       },
-    });
+    ]);
     data = {
       get: {
         responses: {
@@ -39,11 +41,38 @@ describe('utils', () => {
           },
         },
       },
+      post: {
+        responses: {
+          '200': {
+            content: {
+              'application/json': {
+                code: 0,
+                data: {
+                  a33: 'a33',
+                },
+                msg: 'msg',
+              },
+            },
+          },
+        },
+      },
     };
-    expect(getMethodData(data)).toEqual({
-      method: 'get',
-      data: {},
-    });
+    expect(getMethodData(data)).toEqual([
+      {
+        method: 'get',
+        data: {},
+      },
+      {
+        method: 'post',
+        data: {
+          code: 0,
+          data: {
+            a33: 'a33',
+          },
+          msg: 'msg',
+        },
+      },
+    ]);
   });
 
   test('mergeObject', () => {

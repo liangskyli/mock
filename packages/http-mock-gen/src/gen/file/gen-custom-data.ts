@@ -25,7 +25,9 @@ export class GenCustomData {
     const { mockData, interfaceApiRelativePath } = this.opts;
 
     const firstPath = Object.keys(mockData)[0];
-    const { data: responseData } = getMethodData(mockData[firstPath]);
+    const resultData = getMethodData(mockData[firstPath]);
+    // get first method
+    const { data: responseData } = resultData[0];
 
     // 生成默认自定义mock数据入口文件
     let templatePath = path.join(

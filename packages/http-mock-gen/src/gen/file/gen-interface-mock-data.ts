@@ -43,7 +43,9 @@ export class GenInterfaceMockData {
 
     interfaceMockData.push('\n export default {');
     Object.keys(mockData).forEach((item) => {
-      const { method, data } = getMethodData(mockData[item]);
+      const resultData = getMethodData(mockData[item]);
+      // get first method
+      const { method, data } = resultData[0];
       if (method) {
         // router path to express path, example: /path1/{path2} to /path1/:path2
         const urlPath = `${mockPathPrefix}${item}`.replace(
