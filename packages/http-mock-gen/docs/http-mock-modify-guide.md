@@ -49,37 +49,39 @@
   - custom-data/template-data.ts
   
   ```ts
-  import type { ICustomsData, PartialAll, ICustomDataValue, Request } from '@liangskyli/http-mock-gen';
+  import type {
+    ICustomDataMethods,
+    ICustomsData,
+    PartialAll,
+    Request,
+  } from '@liangskyli/http-mock-gen';
   import type { IApi } from '../schema-api/interface-api';
   
   export const TemplateData: ICustomsData<{
-    '/v1/building/get-list': ICustomDataValue<PartialAll<IApi['/v1/building/get-list']['Response']>>;
+    '/root/getQueryParam-v3/{id}': ICustomDataMethods<
+      PartialAll<IApi['/root/getQueryParam-v3/{id}']['get']['Response']>,
+      'get'
+    >;
   }> = {
-    '/v1/building/get-list': {
-      /** mock 响应数据(函数调用，支持动态生成数据) */
-      response: {
-        retCode: 0,
-        data: { blockList: [{ isBindErp: false, buildingName: 'buildingName' }], isFuLi: false },
-        retMsg: 'retMsg',
+    '/root/getQueryParam-v3/{id}': {
+      get: {
+        /** mock 响应数据(函数调用，支持动态生成数据) */
+        response: { code: 0, data: { a33: 'a33' }, msg: 'msg' },
+        /** mock 多场景响应数据 */
+        sceneData: [
+          {
+            // eslint-disable-next-line
+            requestCase: (request: Request) => {
+              // request 为http传入参数，可以根据不同参数配置不同场景数据
+              // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
+              return false;
+            },
+            response: { code: 0, data: { a33: 'a33' }, msg: 'msg' },
+          },
+        ],
       },
-      /** mock 多场景响应数据 */
-      sceneData: [
-        {
-          // eslint-disable-next-line
-          requestCase: (request: Request) => {
-            // request 为http传入参数，可以根据不同参数配置不同场景数据
-            // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
-            return false;
-          },
-          response: {
-            retCode: 0,
-            data: { blockList: [{ isBindErp: false, buildingName: 'buildingName' }], isFuLi: false },
-            retMsg: 'retMsg',
-          },
-        },
-      ],
     },
-  }; 
+  };
   ```
   
 - ICustomData 数据结构，里面可以按格式要求，配置响应数据，及多场景相关数据。
@@ -131,38 +133,46 @@
 - 相关类型定义说明
 
 ```ts
+import type { IOpenapiMethod } from '@liangskyli/openapi-gen-ts';
 import type { Request } from 'express';
 
-type IResponseData<T = any> = {
+interface IResponseData<T = any> {
   /** mock 响应数据(函数调用，支持动态生成数据) */
   response: T | (() => T);
-};
-
+}
 export interface ISceneDataItem<T> extends IResponseData<T> {
   /** mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配 */
   requestCase: (request: Request) => boolean;
 }
 
-export type ICustomDataValue<T = any> = IResponseData<T> & {
+export type ICustomDataValue<T> = IResponseData<T> & {
   /** mock 多场景响应数据 */
   sceneData?: ISceneDataItem<T>[];
 };
+export type ICustomDataMethods<
+  T = any,
+  M extends IOpenapiMethod = any,
+> = Partial<Record<M, ICustomDataValue<T>>>;
 
-export type ICustomData<T = any, K extends keyof any = string> = Record<
+export type ICustomData<
+  T = any,
+  K extends keyof any = string,
+  M extends IOpenapiMethod = any,
+> = Record<
   /** http 接口路径 */
   K,
-  ICustomDataValue<T> | undefined
+  ICustomDataMethods<T, M> | undefined
 >;
 
 export type ICustomsData<
   T extends Record<
     /** http 接口路径 */
     string,
-    ICustomDataValue
+    ICustomDataMethods
   > = Record<
     /** http 接口路径 */
     string,
-    ICustomDataValue
+    ICustomDataMethods
   >,
 > = T;
 ```
@@ -175,37 +185,38 @@ export type ICustomsData<
 - custom-data/template-data.ts
 
 ```ts
-import type { ICustomsData, PartialAll, ICustomDataValue, Request } from '@liangskyli/http-mock-gen';
+import type {
+  ICustomDataMethods,
+  ICustomsData,
+  PartialAll,
+  Request,
+} from '@liangskyli/http-mock-gen';
 import type { IApi } from '../schema-api/interface-api';
+import mockjs from 'mockjs';
 
 export const TemplateData: ICustomsData<{
-  '/v1/building/get-list': ICustomDataValue<PartialAll<IApi['/v1/building/get-list']['Response']>>;
+  '/root/getQueryParam-v3/{id}': ICustomDataMethods<
+    PartialAll<IApi['/root/getQueryParam-v3/{id}']['get']['Response']>,
+    'get'
+  >;
 }> = {
-  '/v1/building/get-list': {
-    /** mock 响应数据(函数调用，支持动态生成数据) */
-    response: () => {
-      return {
-        retCode: 0,
-        data: { blockList: [{ isBindErp: false, buildingName: mockjs.Random.string(3) }], isFuLi: false },
-        retMsg: 'retMsg',
-      };
+  '/root/getQueryParam-v3/{id}': {
+    get: {
+      /** mock 响应数据(函数调用，支持动态生成数据) */
+      response: { code: 0, data: { a33: mockjs.Random.string(3) }, msg: 'msg' },
+      /** mock 多场景响应数据 */
+      sceneData: [
+        {
+          // eslint-disable-next-line
+          requestCase: (request: Request) => {
+            // request 为http传入参数，可以根据不同参数配置不同场景数据
+            // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
+            return false;
+          },
+          response: { code: 0, data: { a33: 'a33' }, msg: 'msg' },
+        },
+      ],
     },
-    /** mock 多场景响应数据 */
-    sceneData: [
-      {
-        // eslint-disable-next-line
-        requestCase: (request: Request) => {
-          // request 为http传入参数，可以根据不同参数配置不同场景数据
-          // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
-          return false;
-        },
-        response: {
-          retCode: 0,
-          data: { blockList: [{ isBindErp: false, buildingName: 'buildingName' }], isFuLi: false },
-          retMsg: 'retMsg',
-        },
-      },
-    ],
   },
 };
 ```
