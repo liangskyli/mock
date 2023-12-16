@@ -1,0 +1,10 @@
+POST http://localhost:8002/mockPathPrefix/root/v1/getQueryParams1
+Content-Type: application/json
+
+{}
+
+###
+GET http://localhost:8002/mockPathPrefix/root/v1/getQueryParams1
+Accept: application/json
+
+###

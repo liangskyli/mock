@@ -1,3 +1,4 @@
+import { methodList } from '@liangskyli/openapi-gen-ts';
 import type { IPrettierOptions } from '@liangskyli/utils';
 import { colors, copyOptions, lodash, prettierData } from '@liangskyli/utils';
 import fs from 'fs-extra';
@@ -77,17 +78,6 @@ export const mergeObject = (object: any, source: any) => {
   const result = mergeUndefined(tempData, object);
   return result;
 };
-
-export const methodList = [
-  'get',
-  'put',
-  'post',
-  'delete',
-  'options',
-  'head',
-  'patch',
-  'trace',
-];
 
 type IWriteFileOpts = {
   prettierOptions?: IPrettierOptions;

@@ -1,4 +1,5 @@
 import type { IGenTsDataOpts } from '@liangskyli/openapi-gen-ts';
+import genTsData from '@liangskyli/openapi-gen-ts';
 import {
   colors,
   copyOptions,
@@ -7,12 +8,8 @@ import {
 } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import type { JSONSchemaFakerOptions } from 'json-schema-faker';
-import { createRequire } from 'node:module';
 import path from 'node:path';
 import generatorMockFile from './file';
-
-const require = createRequire(import.meta.url);
-const genTsData = require('@liangskyli/openapi-gen-ts').default;
 
 export type IGenMockDataBaseOpts = {
   mockDir?: string;

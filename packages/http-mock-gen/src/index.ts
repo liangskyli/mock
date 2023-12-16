@@ -4,6 +4,7 @@ import type { IGenMockDataOpts, IGenMockDataOptsCLI } from './gen';
 import genMockData from './gen/index';
 import type {
   ICustomData,
+  ICustomDataMethods,
   ICustomDataValue,
   ICustomsData,
 } from './gen/mock-interface-type';
@@ -12,7 +13,7 @@ import { mergeObject } from './utils';
 const getMockData = <T = any>(
   defaultData: T,
   req: Request,
-  data?: ICustomData<PartialAll<T>>['string'],
+  data?: ICustomDataValue<PartialAll<T>>,
 ) => {
   let json = data?.response;
   if (typeof json === 'function') {
@@ -48,7 +49,7 @@ export { defineConfig, getMockData };
 export type {
   IAPIRequest,
   ICustomData,
-  ICustomDataValue,
+  ICustomDataMethods,
   ICustomsData,
   IGenMockDataOpts,
   IGenMockDataOptsCLI,

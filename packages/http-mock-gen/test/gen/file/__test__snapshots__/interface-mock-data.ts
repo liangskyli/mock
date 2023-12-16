@@ -11,12 +11,48 @@ import type { IApi } from './schema-api/interface-api';
 
 export default {
   'GET /root/getQueryParam-v3/:id': (req: Request, res: Response) => {
-    type IData = IApi['/root/getQueryParam-v3/{id}']['Response'];
-    const data = (CustomData as ICustomData<PartialAll<IData>>)[
-      '/root/getQueryParam-v3/{id}'
-    ];
+    type IData = IApi['/root/getQueryParam-v3/{id}']['get']['Response'];
+    const data = (
+      CustomData as ICustomData<
+        PartialAll<IData>,
+        '/root/getQueryParam-v3/{id}',
+        'get'
+      >
+    )['/root/getQueryParam-v3/{id}']?.get;
     const json = getMockData<IData>(
       { code: 0, data: { a33: 'a33' }, msg: 'msg' },
+      req,
+      data,
+    );
+    res.json(json);
+  },
+  'GET /root/v1/getQueryParams1': (req: Request, res: Response) => {
+    type IData = IApi['/root/v1/getQueryParams1']['get']['Response'];
+    const data = (
+      CustomData as ICustomData<
+        PartialAll<IData>,
+        '/root/v1/getQueryParams1',
+        'get'
+      >
+    )['/root/v1/getQueryParams1']?.get;
+    const json = getMockData<IData>(
+      { code: 0, data: { a: 'a' }, msg: 'msg' },
+      req,
+      data,
+    );
+    res.json(json);
+  },
+  'POST /root/v1/getQueryParams1': (req: Request, res: Response) => {
+    type IData = IApi['/root/v1/getQueryParams1']['post']['Response'];
+    const data = (
+      CustomData as ICustomData<
+        PartialAll<IData>,
+        '/root/v1/getQueryParams1',
+        'post'
+      >
+    )['/root/v1/getQueryParams1']?.post;
+    const json = getMockData<IData>(
+      { code: 0, data: { a2: 'a2' }, msg: 'msg' },
       req,
       data,
     );

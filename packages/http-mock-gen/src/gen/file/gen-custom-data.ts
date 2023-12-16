@@ -27,7 +27,7 @@ export class GenCustomData {
     const firstPath = Object.keys(mockData)[0];
     const resultData = getMethodData(mockData[firstPath]);
     // get first method
-    const { data: responseData } = resultData[0];
+    const { method, data: responseData } = resultData[0];
 
     // 生成默认自定义mock数据入口文件
     let templatePath = path.join(
@@ -50,6 +50,7 @@ export class GenCustomData {
       .replace(/{{packageName}}/gi, packageName)
       .replace(/{{IApiRelativePath}}/gi, winPath(IApiRelativePath))
       .replace(/{{firstPath}}/gi, firstPath)
+      .replace(/{{method}}/gi, method)
       .replace(/{{responseData}}/gi, JSON.stringify(responseData));
   }
   public async generator() {

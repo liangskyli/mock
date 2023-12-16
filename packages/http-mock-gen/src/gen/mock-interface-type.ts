@@ -1,3 +1,4 @@
+import type { IOpenapiMethod } from '@liangskyli/openapi-gen-ts';
 import type { Request } from 'express';
 
 interface IResponseData<T = any> {
@@ -9,25 +10,33 @@ export interface ISceneDataItem<T> extends IResponseData<T> {
   requestCase: (request: Request) => boolean;
 }
 
-export type ICustomDataValue<T = any> = IResponseData<T> & {
+export type ICustomDataValue<T> = IResponseData<T> & {
   /** mock 多场景响应数据 */
   sceneData?: ISceneDataItem<T>[];
 };
+export type ICustomDataMethods<
+  T = any,
+  M extends IOpenapiMethod = any,
+> = Partial<Record<M, ICustomDataValue<T>>>;
 
-export type ICustomData<T = any, K extends keyof any = string> = Record<
+export type ICustomData<
+  T = any,
+  K extends keyof any = string,
+  M extends IOpenapiMethod = any,
+> = Record<
   /** http 接口路径 */
   K,
-  ICustomDataValue<T> | undefined
+  ICustomDataMethods<T, M> | undefined
 >;
 
 export type ICustomsData<
   T extends Record<
     /** http 接口路径 */
     string,
-    ICustomDataValue
+    ICustomDataMethods
   > = Record<
     /** http 接口路径 */
     string,
-    ICustomDataValue
+    ICustomDataMethods
   >,
 > = T;
