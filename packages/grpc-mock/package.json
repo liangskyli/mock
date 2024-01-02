@@ -74,10 +74,9 @@
     "@liangskyli/grpc-mock": "workspace:*",
     "@types/cross-spawn": "^6.0.6",
     "@types/express": "^4.17.21",
-    "@types/mockjs": "^1.0.10",
     "@types/nodemon": "^1.19.6",
+    "better-mock": "^0.3.7",
     "express": "^4.18.2",
-    "mockjs": "^1.1.0",
     "ts-node": "^10.9.1"
   },
   "optionalDependencies": {

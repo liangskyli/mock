@@ -31,7 +31,7 @@ yarn mock-server -p 8001 -c ./mock.config.ts
 ```
 
 - mockControllerUrl 逻辑
-  - 可以使用mockjs库生成随机数据，支持js,ts文件，热更新。灵活模拟 socket 场景数据。
+  - 可以使用better-mock库生成随机数据，支持js,ts文件，热更新。灵活模拟 socket 场景数据。
 
 ```ts
 import type { ISocketDefaultController } from '@liangskyli/mock';

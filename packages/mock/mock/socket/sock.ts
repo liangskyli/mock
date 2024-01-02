@@ -2,7 +2,7 @@ import type {
   ISocketDefaultController,
   ISocketNamespaceController,
 } from '@liangskyli/mock';
-import mockjs from 'mockjs';
+import mockjs from 'better-mock';
 
 const socketDefaultController: ISocketDefaultController = (socket) => {
   const data = mockjs.mock({

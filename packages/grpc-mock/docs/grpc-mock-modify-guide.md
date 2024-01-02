@@ -102,16 +102,16 @@ export type IImplementationData = Record<
 >;
 ```
 
-## 引入 Mock.js
+## 引入 better-mock
 
-[Mock.js](http://mockjs.com/) 是常用的辅助生成模拟数据的三方库，借助他可以提升我们的 mock 数据能力。
+[better-mock](https://github.com/lavyun/better-mock) 是常用的辅助生成模拟数据的三方库，借助他可以提升我们的 mock 数据能力。
 
 比如：
 - custom-data/template-data.ts
 
 ```ts
 import type { IImplementationData } from '@liangskyli/grpc-mock';
-import mockjs from 'mockjs';
+import mockjs from 'better-mock';
 
 export const ActivityServiceData: IImplementationData = {
   Create: {

@@ -57,17 +57,17 @@ export default {
 - 也可以通过环境变量临时关闭
 
 
-## 引入 Mock.js
+## 引入 better-mock
 
-[Mock.js](http://mockjs.com/) 是常用的辅助生成模拟数据的三方库，借助他可以提升我们的 mock 数据能力。
+[better-mock](https://github.com/lavyun/better-mock) 是常用的辅助生成模拟数据的三方库，借助他可以提升我们的 mock 数据能力。
 
 比如：
 
 ```js
-import mockjs from 'mockjs';
+import mockjs from 'better-mock';
 
 export default {
-  // 使用 mockjs 等三方库
+  // 使用 better-mock 等三方库
   'GET /api/tags': mockjs.mock({
     'list|100': [{ name: '@city', 'value|1-100': 50, 'type|0-2': 1 }],
   }),

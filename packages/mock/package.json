@@ -75,9 +75,8 @@
   "devDependencies": {
     "@liangskyli/mock": "workspace:*",
     "@types/body-parser": "^1.19.5",
-    "@types/mockjs": "^1.0.10",
     "@types/multer": "^1.4.11",
-    "mockjs": "^1.1.0",
+    "better-mock": "^0.3.7",
     "socket.io-client": "^4.7.2",
     "ts-node": "^10.9.1",
     "webpack": "^5.89.0",
