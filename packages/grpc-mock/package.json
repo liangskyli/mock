@@ -67,8 +67,8 @@
     "commander": "^11.1.0",
     "cross-spawn": "^7.0.3",
     "fs-extra": "^11.2.0",
-    "nodemon": "^3.0.2",
-    "protobufjs": "^7.2.5"
+    "nodemon": "^3.1.0",
+    "protobufjs": "^7.2.6"
   },
   "devDependencies": {
     "@liangskyli/grpc-mock": "workspace:*",
@@ -77,7 +77,7 @@
     "@types/nodemon": "^1.19.6",
     "better-mock": "^0.3.7",
     "express": "^4.18.2",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.2"
   },
   "optionalDependencies": {
     "grpc": "^1.24.11"
