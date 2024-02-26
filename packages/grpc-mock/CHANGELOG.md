@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-beta.0](https://github.com/liangskyli/mock/compare/v3.2.0-beta.0...v4.0.0-beta.0) (2024-02-26)
+
+
+### Features
+
+* **grpc-mock:** add unregister after require ([9904cae](https://github.com/liangskyli/mock/commit/9904caec2929dfb685679a4b5f93df8a490e8c6c))
+
+
+
 ## 3.2.0-beta.0 (2023-12-10)
 
 * fix(grpc-mock): stable generation servicePort ([1a8c68c](https://github.com/liangskyli/mock/commit/1a8c68c))

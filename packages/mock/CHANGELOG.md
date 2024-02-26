@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-beta.0](https://github.com/liangskyli/mock/compare/v3.2.0-beta.0...v4.0.0-beta.0) (2024-02-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **http-mock-gen:** generator file structure change in type,request and mock data
+
+### Features
+
+* **http-mock-gen:** update @liangskyli/openapi-gen-ts, support mock data same url multiple method ([6d798fb](https://github.com/liangskyli/mock/commit/6d798fbb57e3cdd9041b6e0bdac5785acd1f13bd))
+
+
+### Bug Fixes
+
+* **mock:** exports types path ([696a110](https://github.com/liangskyli/mock/commit/696a1105a8ed80a15ffb6c8364e83df39e1c03d6))
+
+
+
 ## 3.2.0-beta.0 (2023-12-10)
 
 * feat(mock): add "type": "module" as default,for support esm ([593854e](https://github.com/liangskyli/mock/commit/593854e))

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.0-beta.0](https://github.com/liangskyli/mock/compare/v3.2.0-beta.0...v4.0.0-beta.0) (2024-02-26)
+
+**Note:** Version bump only for package @liangskyli/utils
+
+
+
+
+
 ## 3.2.0-beta.0 (2023-12-10)
 
 * feat: http-mock-gen and utils package add "type": "module" as default ([e616e6f](https://github.com/liangskyli/mock/commit/e616e6f))
