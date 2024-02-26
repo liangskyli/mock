@@ -9,7 +9,7 @@
   "scripts": {
     "build": "lerna run build",
     "test": "lerna run test",
-    "prepare": "husky install",
+    "prepare": "husky",
     "preinstall": "npx only-allow pnpm",
     "test-http-cli": "lerna run --scope @liangskyli/mock test-http-cli",
     "test:middleware": "lerna run --scope @liangskyli/mock test:middleware",
@@ -44,7 +44,7 @@
     "cross-env": "^7.0.3",
     "eslint": "^8.55.0",
     "execa": "^8.0.1",
-    "husky": "^8.0.3",
+    "husky": "^9.0.11",
     "lerna": "7.4.1",
     "lint-staged": "^15.1.0",
     "prettier": "^3.1.0",
