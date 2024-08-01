@@ -43,9 +43,9 @@ export default function genResponseData(opts: IOpts): string {
     if (fieldKeyType) {
       // map key only support string and int32
       if (fieldKeyType === 'int32') {
-        fieldValue = `{1:${fieldValue}}`;
+        fieldValue = `{${TS_TYPE_2_DEFAULT_MAP['number']}:${fieldValue}}`;
       } else {
-        fieldValue = `{string:${fieldValue}}`;
+        fieldValue = `{${TS_TYPE_2_DEFAULT_MAP['mapString']}:${fieldValue}}`;
       }
     }
     return fieldValue;

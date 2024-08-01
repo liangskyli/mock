@@ -38,6 +38,8 @@ export const TS_TYPE_2_DEFAULT_MAP: Record<string, any> = {
   boolean: false,
   string: '""',
   stringNumber: '"1"',
+  /** only use map field value generate */
+  mapString: '"string"',
 };
 
 export const genSpace = (num: number) => {
