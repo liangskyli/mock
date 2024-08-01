@@ -19,15 +19,25 @@
             "comment": "活动服务"
           },
           "CreateActivityRequest": {
-            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "fields": {
+              "activityId": { "type": "string", "id": 1, "comment": "活动Id" }
+            },
             "comment": null
           },
           "CreateActivityResponse": {
-            "fields": { "activityName": { "type": "string", "id": 1, "comment": "活动名称" } },
+            "fields": {
+              "activityName": {
+                "type": "string",
+                "id": 1,
+                "comment": "活动名称"
+              }
+            },
             "comment": null
           },
           "UpdateActivityRequest": {
-            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "fields": {
+              "activityId": { "type": "string", "id": 1, "comment": "活动Id" }
+            },
             "comment": null
           },
           "ActivityService2": {
@@ -41,11 +51,19 @@
             "comment": "活动服务"
           },
           "CreateActivityRequest2": {
-            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "fields": {
+              "activityId": { "type": "string", "id": 1, "comment": "活动Id" }
+            },
             "comment": null
           },
           "CreateActivityResponse2": {
-            "fields": { "activityName": { "type": "string", "id": 1, "comment": "活动名称" } },
+            "fields": {
+              "activityName": {
+                "type": "string",
+                "id": 1,
+                "comment": "活动名称"
+              }
+            },
             "comment": null
           }
         }
@@ -78,15 +96,25 @@
             "comment": "活动服务"
           },
           "CreateActivityRequest": {
-            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "fields": {
+              "activityId": { "type": "string", "id": 1, "comment": "活动Id" }
+            },
             "comment": null
           },
           "CreateActivityResponse": {
-            "fields": { "activityName": { "type": "string", "id": 1, "comment": "活动名称" } },
+            "fields": {
+              "activityName": {
+                "type": "string",
+                "id": 1,
+                "comment": "活动名称"
+              }
+            },
             "comment": null
           },
           "UpdateActivityRequest": {
-            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "fields": {
+              "activityId": { "type": "string", "id": 1, "comment": "活动Id" }
+            },
             "comment": null
           },
           "ActivityService2": {
@@ -100,11 +128,48 @@
             "comment": "活动服务"
           },
           "CreateActivityRequest2": {
-            "fields": { "activityId": { "type": "string", "id": 1, "comment": "活动Id" } },
+            "fields": {
+              "activityId": { "type": "string", "id": 1, "comment": "活动Id" }
+            },
             "comment": null
           },
           "CreateActivityResponse2": {
-            "fields": { "activityName": { "type": "string", "id": 1, "comment": "活动名称" } },
+            "fields": {
+              "activityName": {
+                "type": "string",
+                "id": 1,
+                "comment": "活动名称"
+              },
+              "activityResourceProviders": {
+                "keyType": "string",
+                "type": "ResourceProviders",
+                "id": 2,
+                "comment": "key:活动ID, value: 资源提供方(0:配置 1:分销通:中介门店 2:分销通项目地址)\n@required"
+              },
+              "templates": {
+                "keyType": "string",
+                "type": "string",
+                "id": 3,
+                "comment": "微信订阅通知模板列表\n{\n\"a-id\": \"模板a\",\n\"b-id\": \"模板b\",\n}\n@required"
+              },
+              "intKeyTemplates": {
+                "keyType": "int32",
+                "type": "string",
+                "id": 4,
+                "comment": "@required"
+              }
+            },
+            "comment": null
+          },
+          "ResourceProviders": {
+            "fields": {
+              "resourceProviders": {
+                "rule": "repeated",
+                "type": "int32",
+                "id": 1,
+                "comment": "@required"
+              }
+            },
             "comment": null
           }
         }

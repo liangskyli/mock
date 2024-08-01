@@ -1,4 +1,4 @@
-import type { Enum, ReflectionObject, Root, Type } from 'protobufjs';
+import type { Enum, MapField, ReflectionObject, Root, Type } from 'protobufjs';
 import {
   PROTO_TYPE_2_TS_TYPE_MAP,
   TS_TYPE_2_DEFAULT_MAP,
@@ -36,11 +36,31 @@ export default function genResponseData(opts: IOpts): string {
     return { firstValue, enumCommentStr };
   };
 
+  const generateWithMapFieldValue = (
+    fieldKeyType: string | undefined,
+    fieldValue: string,
+  ) => {
+    if (fieldKeyType) {
+      // map key only support string and int32
+      if (fieldKeyType === 'int32') {
+        fieldValue = `{1:${fieldValue}}`;
+      } else {
+        fieldValue = `{string:${fieldValue}}`;
+      }
+    }
+    return fieldValue;
+  };
+
   const genFieldObj = (type: Type) => {
     const { fields } = type;
     const jsonArr: string[] = [];
     Object.keys(fields).forEach((field) => {
-      const { type: fieldType, repeated, comment } = fields[field];
+      const {
+        type: fieldType,
+        keyType: fieldKeyType,
+        repeated,
+        comment,
+      } = fields[field] as unknown as MapField;
       const originalTsType = PROTO_TYPE_2_TS_TYPE_MAP[fieldType];
       let tsType = originalTsType;
       const stringNumber =
@@ -70,9 +90,13 @@ export default function genResponseData(opts: IOpts): string {
           fieldValue = TS_TYPE_2_DEFAULT_MAP[tsType];
         }
         if (repeated) {
-          jsonArr.push(`${field}: [${fieldValue}],`);
+          jsonArr.push(
+            `${field}: [${generateWithMapFieldValue(fieldKeyType, fieldValue)}],`,
+          );
         } else {
-          jsonArr.push(`${field}: ${fieldValue},`);
+          jsonArr.push(
+            `${field}: ${generateWithMapFieldValue(fieldKeyType, fieldValue)},`,
+          );
         }
       } else {
         repeatList.push(fieldType);
@@ -96,14 +120,18 @@ export default function genResponseData(opts: IOpts): string {
               str = `{${dataObj.join('\n')}}`;
             }
 
-            jsonArr.push(`${field}: ${str},`);
+            jsonArr.push(
+              `${field}: ${generateWithMapFieldValue(fieldKeyType, str)},`,
+            );
           }
           if (typeof asEnum.values !== 'undefined') {
             const dataEnumObj = genEnumObj(asEnum);
             if (dataEnumObj.enumCommentStr) {
               jsonArr.push(dataEnumObj.enumCommentStr);
             }
-            jsonArr.push(`${field}: ${dataEnumObj.firstValue},`);
+            jsonArr.push(
+              `${field}: ${generateWithMapFieldValue(fieldKeyType, dataEnumObj.firstValue)},`,
+            );
           }
         } else {
           if (repeated) {

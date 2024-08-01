@@ -17,4 +17,22 @@ message CreateActivityRequest2 {
 message CreateActivityResponse2 {
   // 活动名称
   string activityName = 1;
+  // key:活动ID, value: 资源提供方(0:配置 1:分销通:中介门店 2:分销通项目地址)
+  // @required
+  map<string,ResourceProviders> activityResourceProviders = 2;
+
+  // 微信订阅通知模板列表
+  //  {
+  //    "a-id": "模板a",
+  //    "b-id": "模板b",
+  //  }
+  // @required
+  map<string,string> templates = 3;
+  // @required
+  map<int32,string> intKeyTemplates = 4;
+}
+
+message ResourceProviders{
+  // @required
+  repeated int32 resourceProviders = 1;
 }
