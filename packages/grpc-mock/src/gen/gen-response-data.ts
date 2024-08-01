@@ -1,20 +1,22 @@
 import type { Enum, MapField, ReflectionObject, Root, Type } from 'protobufjs';
 import {
   PROTO_TYPE_2_TS_TYPE_MAP,
-  TS_TYPE_2_DEFAULT_MAP,
+  getDefaultMockData,
   longsType,
+  type IDefaultMockData,
 } from '../utils';
 
 type IOpts = {
   typeMessage: Type;
   root: Root;
   longsTypeToString: boolean;
+  defaultMockData?: Partial<IDefaultMockData>;
 };
 
 let repeatList: string[] = [];
 
 export default function genResponseData(opts: IOpts): string {
-  const { typeMessage, root, longsTypeToString } = opts;
+  const { typeMessage, root, longsTypeToString, defaultMockData = {} } = opts;
 
   const commentReg = /(@optional)|(@option)|[\r\n]/g;
   repeatList = [];
@@ -43,9 +45,9 @@ export default function genResponseData(opts: IOpts): string {
     if (fieldKeyType) {
       // map key only support string and int32
       if (fieldKeyType === 'int32') {
-        fieldValue = `{${TS_TYPE_2_DEFAULT_MAP['number']}:${fieldValue}}`;
+        fieldValue = `{${getDefaultMockData('number', defaultMockData)}:${fieldValue}}`;
       } else {
-        fieldValue = `{${TS_TYPE_2_DEFAULT_MAP['mapString']}:${fieldValue}}`;
+        fieldValue = `{${getDefaultMockData('mapString', defaultMockData)}:${fieldValue}}`;
       }
     }
     return fieldValue;
@@ -83,11 +85,11 @@ export default function genResponseData(opts: IOpts): string {
           fieldValue = `'${field}'`;
           if (originalTsType) {
             if (stringNumber) {
-              fieldValue = TS_TYPE_2_DEFAULT_MAP['stringNumber'];
+              fieldValue = getDefaultMockData('stringNumber', defaultMockData);
             }
           }
         } else {
-          fieldValue = TS_TYPE_2_DEFAULT_MAP[tsType];
+          fieldValue = getDefaultMockData(tsType as any, defaultMockData);
         }
         if (repeated) {
           jsonArr.push(

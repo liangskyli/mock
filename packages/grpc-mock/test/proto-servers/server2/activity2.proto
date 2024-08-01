@@ -30,6 +30,12 @@ message CreateActivityResponse2 {
   map<string,string> templates = 3;
   // @required
   map<int32,string> intKeyTemplates = 4;
+  // number类型
+  int32 count = 5;
+  // string 转 number类型
+  int64 longCount = 6;
+  // bool类型
+  bool isGood = 7;
 }
 
 message ResourceProviders{

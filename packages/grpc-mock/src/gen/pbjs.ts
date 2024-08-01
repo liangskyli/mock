@@ -14,6 +14,7 @@ import type {
   Type,
 } from 'protobufjs';
 import type { TEnum, TField, TMessage, TMethod, TService } from '../types';
+import type { IDefaultMockData } from '../utils';
 import genResponseData from './gen-response-data';
 
 interface HasName {
@@ -303,13 +304,18 @@ export function inspectNamespace(
   return null;
 }
 
-export const genImplementationData = (
-  path: string,
-  methods: TMethod[],
-  protoName: string,
-  root: protobufjs.Root,
-  longsTypeToString: boolean,
-) => {
+type IGenImplementationDataOpts = {
+  path: string;
+  methods: TMethod[];
+  protoName: string;
+  root: protobufjs.Root;
+  longsTypeToString: boolean;
+  defaultMockData?: Partial<IDefaultMockData>;
+};
+
+export const genImplementationData = (opts: IGenImplementationDataOpts) => {
+  const { path, methods, protoName, root, longsTypeToString, defaultMockData } =
+    opts;
   const data: string[] = [];
   methods.forEach((item) => {
     const serviceNamePath = item.fullName.substring(
@@ -329,6 +335,7 @@ export const genImplementationData = (
         typeMessage,
         root,
         longsTypeToString,
+        defaultMockData,
       });
 
       data.push(

@@ -9,6 +9,12 @@ export default defineConfig({
     longs: String,
   },
   prettierOptions: { singleQuote: true },
+  /*defaultMockData: {
+    number: 2,
+    boolean: true,
+    stringNumber: '"5"',
+    mapString: 'mapString',
+  },*/
 });
 
 /*export default defineConfig({

@@ -157,7 +157,14 @@
                 "type": "string",
                 "id": 4,
                 "comment": "@required"
-              }
+              },
+              "count": { "type": "int32", "id": 5, "comment": "number类型" },
+              "longCount": {
+                "type": "int64",
+                "id": 6,
+                "comment": "string 转 number类型"
+              },
+              "isGood": { "type": "bool", "id": 7, "comment": "bool类型" }
             },
             "comment": null
           },

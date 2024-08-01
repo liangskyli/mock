@@ -5,6 +5,7 @@ import fs from 'fs-extra';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import protobufjs from 'protobufjs';
+import type { IDefaultMockData } from '../utils';
 import { firstUpperCaseOfWord, firstWordNeedLetter } from '../utils';
 import { GenCustomData } from './file/gen-custom-data';
 import { GenGrpcServiceMockConfig } from './file/gen-grpc-service-mock-config';
@@ -25,6 +26,7 @@ export type GenMockDataOptions = {
   rootPath: ProtoConfig | string;
   rootPathServerNameMap?: Record<string, string>;
   prettierOptions?: IPrettierOptions;
+  defaultMockData?: Partial<IDefaultMockData>;
 };
 
 const genMockData = async (
@@ -40,6 +42,7 @@ const genMockData = async (
     port = 50000,
     rootPathServerNameMap,
     prettierOptions,
+    defaultMockData,
   } = opts;
   let { rootPath } = opts;
   const genMockPath = path.join(grpcMockDir, grpcMockFolderName);
@@ -119,6 +122,7 @@ const genMockData = async (
               prettierOptions,
               genProtoPath,
               serverName,
+              defaultMockData,
             }).generator();
 
             genServiceMockData.importService({

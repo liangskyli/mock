@@ -10,6 +10,12 @@ grpcMockCodeGen({
   },
   prettierOptions: { singleQuote: true },
   configFilePath: './test/grpc/mock.config.ts',
+  defaultMockData: {
+    number: 2,
+    boolean: true,
+    stringNumber: '"5"',
+    //mapString: 'mapString',
+  },
 });
 
 /*grpcMockCodeGen({

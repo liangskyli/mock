@@ -4,7 +4,12 @@ import fs from 'fs-extra';
 import path from 'node:path';
 import type { Root } from 'protobufjs';
 import type { TMethod } from '../../types';
-import { fileTip, packageName, writePrettierFile } from '../../utils';
+import {
+  fileTip,
+  packageName,
+  writePrettierFile,
+  type IDefaultMockData,
+} from '../../utils';
 import { genImplementationData } from '../pbjs';
 
 export type IGenProtoMockDataOpts = {
@@ -19,6 +24,7 @@ export type IGenProtoMockDataOpts = {
   prettierOptions?: IPrettierOptions;
   genProtoPath: string;
   serverName: string;
+  defaultMockData?: Partial<IDefaultMockData>;
 };
 
 export class GenProtoMockData {
@@ -37,6 +43,7 @@ export class GenProtoMockData {
       protoName,
       root,
       longsTypeToString,
+      defaultMockData,
     } = this.opts;
     const protoMockContent = `${fileTip}
             // 自定义mock数据，请在custom-data文件夹下编写，详细见custom-data/index.ts文件说明
@@ -45,13 +52,14 @@ export class GenProtoMockData {
             
             const ${serviceCodeName}: IProtoItem = {
               path: '${protoPath}',
-              implementationData: ${genImplementationData(
-                protoPath,
+              implementationData: ${genImplementationData({
+                path: protoPath,
                 methods,
                 protoName,
                 root,
                 longsTypeToString,
-              )}
+                defaultMockData,
+              })}
             };
             export default ${serviceCodeName};
             `;

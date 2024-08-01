@@ -33,13 +33,31 @@ export const PROTO_TYPE_2_TS_TYPE_MAP: Record<string, string> = {
   bytes: 'string',
 };
 
-export const TS_TYPE_2_DEFAULT_MAP: Record<string, any> = {
+export type IDefaultMockData = {
+  number: number;
+  boolean: boolean;
+  /** string类型，默认生成key作为值 */
+  // string: string;
+  /** int64等长数字 转 string类型，值需要“”包裹 */
+  stringNumber: string;
+  /** only use map field value generate */
+  mapString: string;
+};
+
+const TS_TYPE_2_DEFAULT_MAP: Record<keyof IDefaultMockData, any> = {
   number: 0,
   boolean: false,
-  string: '""',
+  // string: '""',
   stringNumber: '"1"',
-  /** only use map field value generate */
-  mapString: '"string"',
+  mapString: 'string',
+};
+
+export const getDefaultMockData = (
+  mapKey: keyof IDefaultMockData,
+  customMockData: Partial<IDefaultMockData>,
+) => {
+  const mergeMockData = { ...TS_TYPE_2_DEFAULT_MAP, ...customMockData };
+  return mergeMockData[mapKey] ?? TS_TYPE_2_DEFAULT_MAP[mapKey];
 };
 
 export const genSpace = (num: number) => {
