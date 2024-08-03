@@ -65,22 +65,22 @@
     "body-parser": "^1.20.2",
     "chokidar": "^3.6.0",
     "commander": "^11.1.0",
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "fs-extra": "^11.2.0",
     "glob": "^10.3.10",
     "multer": "^1.4.5-lts.1",
-    "path-to-regexp": "^6.2.1",
-    "socket.io": "^4.7.4"
+    "path-to-regexp": "^7.1.0",
+    "socket.io": "^4.7.5"
   },
   "devDependencies": {
     "@liangskyli/mock": "workspace:*",
     "@types/body-parser": "^1.19.5",
     "@types/multer": "^1.4.11",
     "better-mock": "^0.3.7",
-    "socket.io-client": "^4.7.4",
+    "socket.io-client": "^4.7.5",
     "ts-node": "^10.9.2",
-    "webpack": "^5.90.3",
-    "webpack-dev-server": "^4.15.1"
+    "webpack": "^5.93.0",
+    "webpack-dev-server": "^4.15.2"
   },
   "engines": {
     "node": ">=16.10.0"

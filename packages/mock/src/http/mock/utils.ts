@@ -35,7 +35,7 @@ export interface IMockDataItem {
   method: string;
   path: string;
   re: RegExp;
-  keys: NonNullable<Parameters<typeof pathToRegexp>[1]>;
+  keys: ReturnType<typeof pathToRegexp>['keys'];
   handler: RequestHandler;
 }
 
@@ -128,8 +128,8 @@ function normalizeConfig(config: Record<string, any>) {
       `mock value of ${key} should be function or object, but got ${type}`,
     );
     const { method, path } = parseKey(key);
-    const keys: IMockDataItem['keys'] = [];
-    const re = pathToRegexp(path, keys);
+    const re = pathToRegexp(path);
+    const keys: IMockDataItem['keys'] = re.keys;
     memo.push({
       method,
       path,
