@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.1](https://github.com/liangskyli/mock/compare/v4.0.0...v4.0.1) (2024-08-03)
+
+
+### Features
+
+* **http-mock-gen:** support modify default value config by add defaultMockData attribute ([ff9fa28](https://github.com/liangskyli/mock/commit/ff9fa288311b6a6f34c81a060032d93270900f0f))
+
+
+### Bug Fixes
+
+* **http-mock-gen:** support map type mock data generater ([a16fec4](https://github.com/liangskyli/mock/commit/a16fec40eff1a90fd172a247f294d4232e7ba602))
+
+
+
 ## [4.0.0](https://github.com/liangskyli/mock/compare/v4.0.0-beta.0...v4.0.0) (2024-02-28)
 
 **Note:** Version bump only for package @liangskyli/grpc-mock
