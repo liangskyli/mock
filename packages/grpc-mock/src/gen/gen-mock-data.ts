@@ -97,7 +97,7 @@ const genMockData = async (
           rootPathServerNameMap?.[spaceServerName] ?? spaceServerName;
         const root = protobufjs.Root.fromJSON(rootObject[spaceServerName]);
         const result: IInspectNamespace = inspectNamespace(root);
-        const { services, methods } = result!;
+        const { services } = result!;
         const genServiceMockData = new GenServiceMockData({
           genServerPath,
           prettierOptions,
@@ -109,6 +109,7 @@ const genMockData = async (
             const protoName = service.fullName.split('.')[0];
             const protoPath = `${spaceServerName}.${service.fullName}`;
             const serviceCodeName = firstWordNeedLetter(service.name);
+            const methods = service.methods ?? [];
 
             await new GenProtoMockData({
               index,
