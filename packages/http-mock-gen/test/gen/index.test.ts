@@ -13,7 +13,10 @@ describe('genMockData', () => {
       mockDir: './test/all-gen-dirs/gen-mock',
       mockPathPrefix: '/mockPathPrefix',
       //genTsDir: './test/all-gen-dirs/gen-mock',
-      openapiPath: './test/example/openapi/openapiv3-example2.json',
+      openapiPath: new URL(
+        '../example/openapi/openapiv3-example2.json',
+        import.meta.url,
+      ),
       jsonSchemaFakerOptions: {
         minItems: 1,
         maxItems: 1,
@@ -45,7 +48,10 @@ describe('genMockData', () => {
     await expect(
       genMockData({
         mockDir: './test/all-gen-dirs/gen-mock-error',
-        openapiPath: './test/example/openapi/openapiv3-example2.json',
+        openapiPath: new URL(
+          '../example/openapi/openapiv3-example2.json',
+          import.meta.url,
+        ),
       }),
     ).rejects.toThrow('mockDir not exits!');
   });
