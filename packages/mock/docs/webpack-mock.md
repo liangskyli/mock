@@ -16,7 +16,7 @@ const webpackConfig: Webpack.Configuration = {
   devServer: {
     host,
     port,
-    onBeforeSetupMiddleware: (devServer: WebpackDevServer) => {
+    setupMiddlewares: (middlewares, devServer) => {
       if (!devServer || !devServer.app) {
         throw new Error('webpack-dev-server is not defined');
       }
@@ -32,6 +32,8 @@ const webpackConfig: Webpack.Configuration = {
           
         },
       );
+
+      return middlewares;
     },
   },
 };

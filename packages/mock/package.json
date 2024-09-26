@@ -60,29 +60,29 @@
   },
   "dependencies": {
     "@liangskyli/utils": "workspace:*",
-    "@types/express": "^4.17.21",
+    "@types/express": "^5.0.0",
     "@types/fs-extra": "^11.0.4",
-    "body-parser": "^1.20.2",
-    "chokidar": "^3.6.0",
-    "commander": "^11.1.0",
-    "express": "^4.19.2",
+    "body-parser": "^1.20.3",
+    "chokidar": "^4.0.1",
+    "commander": "^12.1.0",
+    "express": "^4.21.0",
     "fs-extra": "^11.2.0",
-    "glob": "^10.3.10",
+    "glob": "^11.0.0",
     "multer": "^1.4.5-lts.1",
-    "path-to-regexp": "^7.1.0",
-    "socket.io": "^4.7.5"
+    "path-to-regexp": "^8.2.0",
+    "socket.io": "^4.8.0"
   },
   "devDependencies": {
     "@liangskyli/mock": "workspace:*",
     "@types/body-parser": "^1.19.5",
-    "@types/multer": "^1.4.11",
+    "@types/multer": "^1.4.12",
     "better-mock": "^0.3.7",
-    "socket.io-client": "^4.7.5",
+    "socket.io-client": "^4.8.0",
     "ts-node": "^10.9.2",
-    "webpack": "^5.93.0",
-    "webpack-dev-server": "^4.15.2"
+    "webpack": "^5.95.0",
+    "webpack-dev-server": "^5.1.0"
   },
   "engines": {
-    "node": ">=16.10.0"
+    "node": ">=18.0.0"
   }
 }

@@ -1,4 +1,3 @@
-// @ts-ignore
 import express from 'express';
 import { start, start2 } from './get-grpc-client';
 

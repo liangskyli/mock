@@ -1,6 +1,5 @@
 import { getMiddleware, initSocketServer } from '@liangskyli/mock';
 import type Webpack from 'webpack';
-import type WebpackDevServer from 'webpack-dev-server';
 import mockConfig from './mock.config';
 
 const socketConfig = mockConfig.socketConfig;
@@ -13,7 +12,7 @@ const webpackConfig: Webpack.Configuration = {
   devServer: {
     host,
     port,
-    onBeforeSetupMiddleware: (devServer: WebpackDevServer) => {
+    setupMiddlewares: (middlewares, devServer) => {
       if (!devServer || !devServer.app) {
         throw new Error('webpack-dev-server is not defined');
       }
@@ -39,6 +38,8 @@ const webpackConfig: Webpack.Configuration = {
           }
         },
       );
+
+      return middlewares;
     },
   },
 };

@@ -45,7 +45,6 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
   // socket server
   const io = new SocketServer(server, {
     serveClient: false,
-    // @ts-ignore
     allowEIO3: true,
     ...socketConfig.opts,
   });

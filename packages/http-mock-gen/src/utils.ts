@@ -98,7 +98,7 @@ export const writePrettierFile = async (opts: IWriteFileOpts) => {
 
 export const getMethodData = (itemValue: any) => {
   // support all openapi method
-  let result: { method: string; data: any }[] = [];
+  const result: { method: string; data: any }[] = [];
   let responseMediaType = '';
   methodList.forEach((item) => {
     if (itemValue?.[item]) {

@@ -1,4 +1,5 @@
 import { createDebug, lodash, signale } from '@liangskyli/utils';
+import type { FSWatcher } from 'chokidar';
 import chokidar from 'chokidar';
 import type { NextFunction, Request, RequestHandler } from 'express';
 import type { IGetMockDataResult } from './utils';
@@ -12,7 +13,7 @@ export interface IMockOpts extends IGetMockDataResult {
 
 interface ICreateMiddleware {
   middleware: RequestHandler;
-  watcher: chokidar.FSWatcher;
+  watcher: FSWatcher;
 }
 
 export default function (opts = {} as IMockOpts): ICreateMiddleware {
@@ -57,7 +58,7 @@ export default function (opts = {} as IMockOpts): ICreateMiddleware {
       const match = data && matchMock(req, data);
       if (match) {
         debug(`mock matched: [${match.method}] ${match.path}`);
-        // @ts-ignore
+        // @ts-expect-error res property correct
         return match.handler(req, res, next);
       } else {
         return next();

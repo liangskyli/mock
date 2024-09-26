@@ -34,8 +34,7 @@ interface IGetMockPaths {
 export interface IMockDataItem {
   method: string;
   path: string;
-  re: RegExp;
-  keys: ReturnType<typeof pathToRegexp>['keys'];
+  pathToRegexpData: ReturnType<typeof pathToRegexp>;
   handler: RequestHandler;
 }
 
@@ -48,7 +47,7 @@ export interface IGetMockDataResult {
 export function getMockConfig(files: string[]) {
   return files.reduce<Record<string, any>>((memo, mockFile) => {
     try {
-      const m = require(mockFile); // eslint-disable-line
+      const m = require(mockFile);
       memo = {
         ...memo,
         ...(m.default || m),
@@ -78,7 +77,7 @@ function parseKey(key: string) {
   if (/\s+/.test(key)) {
     const splited = key.split(/\s+/);
     method = splited[0].toLowerCase();
-    path = splited[1]; // eslint-disable-line
+    path = splited[1];
   }
   assert(
     VALID_METHODS.includes(method),
@@ -94,7 +93,6 @@ function createHandler(method: any, path: any, handler: any) {
   return function (req: Request, res: any, next: NextFunction) {
     function sendData() {
       if (typeof handler === 'function') {
-        // @ts-ignore
         multer().any()(req, res, () => {
           handler(req, res, next);
         });
@@ -128,13 +126,11 @@ function normalizeConfig(config: Record<string, any>) {
       `mock value of ${key} should be function or object, but got ${type}`,
     );
     const { method, path } = parseKey(key);
-    const re = pathToRegexp(path);
-    const keys: IMockDataItem['keys'] = re.keys;
+    const pathToRegexpData = pathToRegexp(path);
     memo.push({
       method,
       path,
-      re,
-      keys,
+      pathToRegexpData,
       handler: createHandler(method, path, handler),
     });
     return memo;
@@ -150,9 +146,9 @@ function decodeParam(val: any) {
   } catch (err) {
     if (err instanceof URIError) {
       err.message = `Failed to decode param ' ${val} '`;
-      // @ts-ignore
+      // @ts-expect-error have property
       err.status = 400;
-      // @ts-ignore
+      // @ts-expect-error have property
       err.statusCode = 400;
     }
     throw err;
@@ -211,9 +207,12 @@ export const matchMock = (
   const targetMethod = method.toLowerCase();
 
   for (const mock of mockData) {
-    const { method: mockMethod, re, keys } = mock;
+    const {
+      method: mockMethod,
+      pathToRegexpData: { regexp, keys },
+    } = mock;
     if (mockMethod === targetMethod) {
-      const match = re.exec(targetPath);
+      const match = regexp.exec(targetPath);
       if (match) {
         const params: Record<any, any> = {};
         for (let i = 1; i < match.length; i += 1) {
