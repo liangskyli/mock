@@ -1,6 +1,6 @@
-import type { ConfigFileOptions } from '../../src/gen';
+import type { ConfigFileOptionsCLI } from '@liangskyli/grpc-mock';
 
-const config: ConfigFileOptions = {
+const config: Pick<ConfigFileOptionsCLI, 'loaderOptions'> = {
   loaderOptions: {
     defaults: false,
     longs: String,
