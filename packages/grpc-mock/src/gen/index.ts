@@ -1,11 +1,8 @@
 import type { Options } from '@grpc/proto-loader';
-import { colors, getAbsolutePath } from '@liangskyli/utils';
+import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
 import fs from 'fs-extra';
-import { createRequire } from 'node:module';
 import generatorFiles from './file';
 import type { GenMockDataOptions } from './gen-mock-data';
-
-const require = createRequire(import.meta.url);
 
 export type GenOptions = GenMockDataOptions & {
   configFilePath?: string;
@@ -23,9 +20,7 @@ export async function grpcMockCodeGen(opts: GenOptions) {
   if (configFilePath) {
     const configFileAbsolutePath = getAbsolutePath(configFilePath);
     if (fs.existsSync(configFileAbsolutePath)) {
-      const configData: ConfigFileOptions = require(
-        configFileAbsolutePath,
-      ).default;
+      const configData: ConfigFileOptions = getConfig(configFileAbsolutePath);
       if (configData.loaderOptions) {
         loaderOptions = Object.assign(
           defaultLoaderOptions,

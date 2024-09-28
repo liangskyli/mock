@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.3](https://github.com/liangskyli/mock/compare/v4.0.2...v4.0.3) (2024-09-28)
+
+
+### Bug Fixes
+
+* **grpc-mock:** grpcMockCodeGen function support module type load configFilePath ([cf67529](https://github.com/liangskyli/mock/commit/cf67529579c54b72869d74203ebf1590c8e2ce47))
+
+
+
 ## [4.0.2](https://github.com/liangskyli/mock/compare/v4.0.1...v4.0.2) (2024-08-18)
 
 
