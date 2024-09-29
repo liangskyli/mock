@@ -11,9 +11,11 @@ import {
 } from '../../utils';
 import type { GenOptions } from '../index';
 
-export type IGenGenGrpcObjOpts = Pick<GenOptions, 'configFilePath'> & {
+export type IGenGenGrpcObjOpts = Pick<
+  GenOptions,
+  'configFilePath' | 'grpcNpmName'
+> & {
   genMockPath: string;
-  grpcNpmName: 'grpc';
   rootPath: string;
   loaderOptions: Options;
   prettierOptions?: IPrettierOptions;
@@ -27,7 +29,12 @@ export class GenGrpcObj {
   }
 
   public async generator() {
-    const { grpcNpmName, genMockPath, rootPath, configFilePath } = this.opts;
+    const {
+      grpcNpmName = 'grpc',
+      genMockPath,
+      rootPath,
+      configFilePath,
+    } = this.opts;
     const grpcObjPath = getAbsolutePath(path.join(genMockPath, 'grpc-obj.ts'));
 
     const fileContent = [
@@ -35,7 +42,7 @@ export class GenGrpcObj {
       tslintDisable,
       `import * as grpc from '${grpcNpmName}';`,
       'import { fromJSON } from "@grpc/proto-loader";',
-      'import type { GrpcObject } from "grpc";',
+      `import type { GrpcObject } from '${grpcNpmName}';`,
       `import { defaultLoaderOptions } from '${packageName}';`,
       configFilePath ? 'import * as fs from "fs-extra";\n' : '',
       `const root = require('${getImportPath(grpcObjPath, rootPath)}');\n`,

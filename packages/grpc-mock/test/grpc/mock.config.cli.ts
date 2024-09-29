@@ -4,6 +4,7 @@ export default defineConfig({
   rootPath: './docs/root.json',
   grpcMockDir: './test',
   grpcMockFolderName: 'grpc-mock',
+  grpcNpmName: '@grpc/grpc-js',
   loaderOptions: {
     defaults: false,
     longs: String,

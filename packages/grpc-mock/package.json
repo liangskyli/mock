@@ -45,6 +45,7 @@
   "scripts": {
     "build": "rollup --config=./rollup.config.js",
     "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
+    "test-grpc-express-app2": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app-2.ts",
     "//use test-grpc-mock-code-gen": "test/package.json set type commonjs",
     "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen.ts",
     "//use test-grpc-mock-code-gen-esm": "test/package.json set type module",
@@ -78,7 +79,16 @@
     "ts-node": "^10.9.2"
   },
   "optionalDependencies": {
-    "grpc": "^1.24.11"
+    "grpc": "^1.24.11",
+    "@grpc/grpc-js": "^1.11.3"
+  },
+  "peerDependenciesMeta": {
+    "grpc": {
+      "optional": true
+    },
+    "@grpc/grpc-js": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=18.0.0"

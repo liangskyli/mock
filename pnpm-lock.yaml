@@ -114,6 +114,9 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0
     optionalDependencies:
+      '@grpc/grpc-js':
+        specifier: ^1.11.3
+        version: 1.11.3
       grpc:
         specifier: ^1.24.11
         version: 1.24.11
@@ -1234,6 +1237,16 @@ packages:
       levn: 0.4.1
     dev: true
 
+  /@grpc/grpc-js@1.11.3:
+    resolution: {integrity: sha512-i9UraDzFHMR+Iz/MhFLljT+fCpgxZ3O6CxwGJ8YuNYHJItIHUzKJpW2LvoFZNnGPwqc9iWy9RAucxV0JoR9aUQ==}
+    engines: {node: '>=12.10.0'}
+    requiresBuild: true
+    dependencies:
+      '@grpc/proto-loader': 0.7.13
+      '@js-sdsl/ordered-map': 4.4.2
+    dev: false
+    optional: true
+
   /@grpc/proto-loader@0.7.13:
     resolution: {integrity: sha512-AiXO/bfe9bmxBjxxtYxFAXGZvMaN5s8kO+jBHAJCON8rJoB5YS/D6X7ZNc6XQkuHNmyl4CYaMI1fJ/Gn27RGGw==}
     engines: {node: '>=6'}
@@ -1332,6 +1345,11 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  /@js-sdsl/ordered-map@4.4.2:
+    resolution: {integrity: sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw==}
+    dev: false
+    optional: true
 
   /@jsonjoy.com/base64@1.1.2(tslib@2.7.0):
     resolution: {integrity: sha512-q6XAnWQDIMA3+FTiOYajoYqySkO+JSat0ytXGSuRdq9uXE7o92gzuQwQM14xaCRlBLGq3v5miDGC4vkVTn54xA==}

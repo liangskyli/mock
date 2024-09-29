@@ -1,6 +1,4 @@
 import { colors, lodash } from '@liangskyli/utils';
-import type { Metadata } from 'grpc';
-import * as grpc from 'grpc';
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -10,7 +8,7 @@ const require = createRequire(import.meta.url);
 
 type IImplementation = Record<string, (call: any, callback: any) => void>;
 
-const toMetadata = (metadata?: IMetadataMap): Metadata => {
+const toMetadata = (grpc: any, metadata?: IMetadataMap): any => {
   const metadataIns = new grpc.Metadata();
   if (metadata && typeof metadata === 'object') {
     Object.keys(metadata).forEach((keyName) => {
@@ -20,7 +18,10 @@ const toMetadata = (metadata?: IMetadataMap): Metadata => {
   return metadataIns;
 };
 
-const getImplementation: (proto: IProtoItem) => IImplementation = (proto) => {
+const getImplementation: (proto: IProtoItem, grpc: any) => IImplementation = (
+  proto,
+  grpc,
+) => {
   const implementationData = proto.implementationData;
   const implementation: IImplementation = {};
   Object.keys(implementationData).forEach((key) => {
@@ -55,24 +56,33 @@ const getImplementation: (proto: IProtoItem) => IImplementation = (proto) => {
           return false;
         });
       }
-      callback(error, response, toMetadata(metadata));
+      callback(error, response, toMetadata(grpc, metadata));
     };
   });
   return implementation;
 };
 
-const start = (grpcObject: any, mock: IMockService) => {
+const start = (
+  grpcObject: any,
+  mock: IMockService,
+  grpc: any,
+  grpcNpmName: 'grpc' | '@grpc/grpc-js',
+) => {
   const server = new grpc.Server();
   mock.protoList.forEach((proto) => {
     const { service } = lodash.get<any, string>(grpcObject, proto.path);
-    server.addService(service, getImplementation(proto));
+    server.addService(service, getImplementation(proto, grpc));
   });
 
   server.bindAsync(
     `0.0.0.0:${mock.servicePort}`,
     grpc.ServerCredentials.createInsecure(),
     () => {
-      server.start();
+      if (grpcNpmName === 'grpc') {
+        // Deprecated: No longer needed as of version @grpc/grpc-js@1.10.x
+        server.start();
+      }
+
       console.info(
         colors.green(`grpc mock服务${mock.serviceName}启动,端口号:`),
         mock.servicePort,
@@ -85,14 +95,20 @@ const start = (grpcObject: any, mock: IMockService) => {
  * grpc server mock 服务
  * @param mockList mock服务列表
  * @param baseDir  grpc mock代码生成路径
+ * @param grpcNpmName  grpc npm包名
  */
-const grpcMockInit = (mockList: IMockService[], baseDir: string) => {
+const grpcMockInit = (
+  mockList: IMockService[],
+  baseDir: string,
+  grpcNpmName: 'grpc' | '@grpc/grpc-js' = 'grpc',
+) => {
   const grpcObjPath = path.join(process.cwd(), baseDir, 'grpc-obj');
   if (fs.existsSync(require.resolve(grpcObjPath))) {
     const grpcObject = require(grpcObjPath).default;
+    const grpc = require(grpcNpmName);
     // start server
     mockList.forEach((mock) => {
-      start(grpcObject, mock);
+      start(grpcObject, mock, grpc, grpcNpmName);
     });
   } else {
     console.error(colors.red('请先生成grpc mock 代码'));

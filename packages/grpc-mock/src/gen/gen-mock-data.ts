@@ -27,6 +27,7 @@ export type GenMockDataOptions = {
   rootPathServerNameMap?: Record<string, string>;
   prettierOptions?: IPrettierOptions;
   defaultMockData?: Partial<IDefaultMockData>;
+  grpcNpmName?: 'grpc' | '@grpc/grpc-js';
 };
 
 const genMockData = async (
@@ -43,6 +44,7 @@ const genMockData = async (
     rootPathServerNameMap,
     prettierOptions,
     defaultMockData,
+    grpcNpmName = 'grpc',
   } = opts;
   let { rootPath } = opts;
   const genMockPath = path.join(grpcMockDir, grpcMockFolderName);
@@ -80,6 +82,7 @@ const genMockData = async (
     prettierOptions,
   });
   const genIndex = new GenIndex({
+    grpcNpmName,
     genMockPath,
     prettierOptions,
   });
