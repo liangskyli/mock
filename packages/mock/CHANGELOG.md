@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/liangskyli/mock/compare/v4.0.3...v4.0.4) (2024-09-30)
+
+
+### Features
+
+* **mock:** add Request, Response type export ([929c612](https://github.com/liangskyli/mock/commit/929c61281868095adb2077ecaae4239223440e67))
+
+
+
 ## [4.0.1](https://github.com/liangskyli/mock/compare/v4.0.0...v4.0.1) (2024-08-03)
 
 **Note:** Version bump only for package @liangskyli/mock

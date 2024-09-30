@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.4](https://github.com/liangskyli/mock/compare/v4.0.3...v4.0.4) (2024-09-30)
+
+
+### Features
+
+* **mock:** add Request, Response type export ([929c612](https://github.com/liangskyli/mock/commit/929c61281868095adb2077ecaae4239223440e67))
+
+
+### Bug Fixes
+
+* esbuild 0.23.0 to 0.20.1, support node16 ([0eb0972](https://github.com/liangskyli/mock/commit/0eb0972f0d7fd0e4f2f160e7d1669f8a85e4be30))
+
+
+
 ## [4.0.3](https://github.com/liangskyli/mock/compare/v4.0.2...v4.0.3) (2024-09-28)
 
 
