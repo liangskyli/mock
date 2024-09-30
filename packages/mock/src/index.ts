@@ -1,3 +1,4 @@
+import type { Request, Response } from 'express';
 import type { IOpts } from './http/server/server';
 import mockServer from './http/server/server';
 
@@ -15,3 +16,4 @@ export type {
   ISocketDefaultController,
   ISocketNamespaceController,
 } from './http/server/socket-server';
+export type { Request, Response };
