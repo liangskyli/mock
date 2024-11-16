@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.5](https://github.com/liangskyli/mock/compare/v4.0.4...v4.0.5) (2024-11-16)
+
+
+### Bug Fixes
+
+* **grpc-mock:** repeat judge only in repeated ([d0e3c4b](https://github.com/liangskyli/mock/commit/d0e3c4b5634265983da72839f74ce49a94ac1c98))
+
+
+
 ## [4.0.4](https://github.com/liangskyli/mock/compare/v4.0.3...v4.0.4) (2024-09-30)
 
 **Note:** Version bump only for package @liangskyli/grpc-mock
