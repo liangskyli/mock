@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0](https://github.com/liangskyli/mock/compare/v4.0.5...v5.0.0) (2024-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **mock:** drop node < 18, support node>=18
+* **http-mock-gen:** drop node < 18, support node>=18
+
+### Features
+
+* **http-mock-gen:** update @liangskyli/openapi-gen-ts@3 ([4c030fe](https://github.com/liangskyli/mock/commit/4c030fe695f4ff02bf925bd524765b782907fca1))
+
+
+### Miscellaneous Chores
+
+* **mock:** upgrade dependencies and eslint@9 support ([772021e](https://github.com/liangskyli/mock/commit/772021ea1e0dc6e2942f0653e8fca6a132dca644))
+
+
+
 ## [4.0.4](https://github.com/liangskyli/mock/compare/v4.0.3...v4.0.4) (2024-09-30)
 
 **Note:** Version bump only for package @liangskyli/http-mock-gen

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0](https://github.com/liangskyli/mock/compare/v4.0.5...v5.0.0) (2024-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **grpc-mock:** drop node < 18, support node>=18
+* **mock:** drop node < 18, support node>=18
+
+### Features
+
+* **grpc-mock:** support grpcNpmName config, add @grpc/grpc-js support ([dce4b9e](https://github.com/liangskyli/mock/commit/dce4b9e42b52218d47660cfaab3bea5415c45706))
+
+
+### Miscellaneous Chores
+
+* **grpc-mock:** upgrade dependencies ([a604e71](https://github.com/liangskyli/mock/commit/a604e71a601709345f1b6436ec194c973b28c057))
+* **mock:** upgrade dependencies and eslint@9 support ([772021e](https://github.com/liangskyli/mock/commit/772021ea1e0dc6e2942f0653e8fca6a132dca644))
+
+
+
 ## [4.0.5](https://github.com/liangskyli/mock/compare/v4.0.4...v4.0.5) (2024-11-16)
 
 

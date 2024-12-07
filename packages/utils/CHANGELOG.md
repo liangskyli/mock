@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.0](https://github.com/liangskyli/mock/compare/v4.0.5...v5.0.0) (2024-12-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* **utils:** drop node < 18, support node>=18
+
+### Miscellaneous Chores
+
+* **utils:** upgrade dependencies ([6f35f20](https://github.com/liangskyli/mock/commit/6f35f20bfe36a3ed32be59a43886fdadd8964bf7))
+
+
+
 ## [4.0.4](https://github.com/liangskyli/mock/compare/v4.0.3...v4.0.4) (2024-09-30)
 
 
