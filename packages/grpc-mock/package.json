@@ -65,7 +65,7 @@
     "@liangskyli/utils": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "commander": "^12.1.0",
-    "cross-spawn": "^7.0.3",
+    "cross-spawn": "^7.0.6",
     "fs-extra": "^11.2.0",
     "nodemon": "^3.1.7",
     "protobufjs": "^7.4.0"
@@ -75,12 +75,12 @@
     "@types/cross-spawn": "^6.0.6",
     "@types/express": "^5.0.0",
     "better-mock": "^0.3.7",
-    "express": "^4.21.0",
+    "express": "^4.21.2",
     "ts-node": "^10.9.2"
   },
   "optionalDependencies": {
-    "grpc": "^1.24.11",
-    "@grpc/grpc-js": "^1.11.3"
+    "@grpc/grpc-js": "^1.12.4",
+    "grpc": "^1.24.11"
   },
   "peerDependenciesMeta": {
     "grpc": {
