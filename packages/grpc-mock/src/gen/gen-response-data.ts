@@ -13,13 +13,11 @@ type IOpts = {
   defaultMockData?: Partial<IDefaultMockData>;
 };
 
-let repeatList: string[] = [];
-
 export default function genResponseData(opts: IOpts): string {
   const { typeMessage, root, longsTypeToString, defaultMockData = {} } = opts;
 
   const commentReg = /(@optional)|(@option)|[\r\n]/g;
-  repeatList = [];
+  let repeatList: string[] = [];
 
   const genEnumObj = (type: Enum) => {
     const { valuesById, comments } = type;
@@ -101,12 +99,14 @@ export default function genResponseData(opts: IOpts): string {
           );
         }
       } else {
-        repeatList.push(fieldType);
+        if (repeated) {
+          repeatList.push(fieldType);
+        }
         const repeatCount = repeatList.filter((value) => {
           return value === fieldType;
         }).length;
         // 防止死循环
-        if (repeatCount < 2) {
+        if (!repeated || (repeatCount < 2 && repeated)) {
           const typePath = `${fieldType}`;
           const lookupTypeOrEnumMessage = root.lookupTypeOrEnum(
             typePath,
@@ -136,11 +136,8 @@ export default function genResponseData(opts: IOpts): string {
             );
           }
         } else {
-          if (repeated) {
-            jsonArr.push(`${field}: [],`);
-          } else {
-            jsonArr.push(`${field}: {},`);
-          }
+          // only repeated
+          jsonArr.push(`${field}: [],`);
         }
       }
     });
