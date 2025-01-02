@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.0.6](https://github.com/liangskyli/mock/compare/v4.0.5...v4.0.6) (2025-01-02)
+
+
+### Bug Fixes
+
+* node engines from 16.10.0 to 16.0.0 ([243466c](https://github.com/liangskyli/mock/commit/243466cadcfa813add8e99bc759b7dd43e44dfa8))
+
+
+
 ## [4.0.5](https://github.com/liangskyli/mock/compare/v4.0.4...v4.0.5) (2024-11-16)
 
 
