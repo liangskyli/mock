@@ -63,6 +63,6 @@
     "@liangskyli/http-mock-gen": "workspace:*"
   },
   "engines": {
-    "node": ">=16.10.0"
+    "node": ">=16.0.0"
   }
 }
