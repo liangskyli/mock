@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.0.1](https://github.com/liangskyli/mock/compare/v5.0.0...v5.0.1) (2025-01-02)
+
+
+### Bug Fixes
+
+* glob 11 to 10, support node 18 ([71844c0](https://github.com/liangskyli/mock/commit/71844c0ff04413890f8671f2b11dfdc007982617))
+
+
+
 ## [5.0.0](https://github.com/liangskyli/mock/compare/v4.0.5...v5.0.0) (2024-12-07)
 
 
