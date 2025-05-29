@@ -17,7 +17,7 @@ const commandHttpCli = (version: string) => {
     )
     .option('-p, --port [port]', 'mock servicePort start begin')
     .option<number | undefined>(
-      '-host, --hostname [hostname]',
+      '-H, --hostname [hostname]',
       'mock hostname',
       (port) => {
         return parseInt(port);
