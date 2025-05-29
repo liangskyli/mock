@@ -39,13 +39,13 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
-    "@types/lodash": "^4.17.13",
+    "@types/lodash": "^4.17.17",
     "address": "^2.0.3",
     "colors": "^1.4.0",
-    "debug": "^4.4.0",
-    "esbuild": "^0.24.0",
+    "debug": "^4.4.1",
+    "esbuild": "^0.25.5",
     "esbuild-register": "^3.6.0",
-    "fs-extra": "^11.2.0",
+    "fs-extra": "^11.3.0",
     "lodash": "^4.17.21",
     "signale": "^1.4.0"
   },
