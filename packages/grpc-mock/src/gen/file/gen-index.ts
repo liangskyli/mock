@@ -4,7 +4,6 @@ import path from 'node:path';
 import { fileTip, packageName, writePrettierFile } from '../../utils';
 
 export type IGenIndexOpts = {
-  grpcNpmName: 'grpc' | '@grpc/grpc-js';
   genMockPath: string;
   prettierOptions?: IPrettierOptions;
 };
@@ -35,11 +34,11 @@ export class GenIndex {
   }
 
   private footer() {
-    const { genMockPath, grpcNpmName } = this.opts;
+    const { genMockPath } = this.opts;
     this.indexContent.push('');
     this.indexContent.push(`grpcMockInit([
   ${this.spaceServerNameMockList.join(',')}
-],'${winPath(genMockPath)}','${grpcNpmName}');`);
+],'${winPath(genMockPath)}');`);
   }
 
   private toStirng() {

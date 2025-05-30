@@ -24,7 +24,6 @@ yarn grpc-mock code-gen -c ./mock.config.cli.ts
 | loaderOptions         | proto loader 参数                                                      | `详细配置见`[proto-loader](https://hub.fastgit.org/grpc/grpc-node/blob/master/packages/proto-loader/README.md) | {defaults: true} |
 | prettierOptions       | 生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置 | 详情配置见 [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md)                        |                  |
 | defaultMockData       | 生成mock数据默认值覆盖配置                                                      | `见下面defaultMockData参数`                                                                                    |                  |
-| grpcNpmName           | grpc npm包名                                                           | `'grpc' \| '@grpc/grpc-js'`                                                                               | `grpc`           |
 
 ### configFile rootPath参数属性（string 或 ProtoConfig 类型）
 
@@ -122,17 +121,16 @@ grpcMockCodeGen({
 
 - grpcMockCodeGen 方法参数
 
-| 属性                    | 说明                                                                   | 类型                                                                                 | 默认值         |
-|-----------------------|----------------------------------------------------------------------|------------------------------------------------------------------------------------|-------------|
-| grpcMockDir           | mock文件夹所在目录                                                          | `string`                                                                           | `./`        |
-| grpcMockFolderName    | mock文件夹名                                                             | `string`                                                                           | `grpc-mock` |
-| port                  | 端口号                                                                  | `number`                                                                           | `50000`     |
+| 属性                    | 说明                                                                   | 类型                                                                                 | 默认值             |
+|-----------------------|----------------------------------------------------------------------|------------------------------------------------------------------------------------|-----------------|
+| grpcMockDir           | mock文件夹所在目录                                                          | `string`                                                                           | `./`            |
+| grpcMockFolderName    | mock文件夹名                                                             | `string`                                                                           | `grpc-mock`     |
+| port                  | 端口号                                                                  | `number`                                                                           | `50000`         |
 | rootPath              | rootPath                                                             | `和命令方式rootPath参数一致`                                                                |
 | rootPathServerNameMap | rootPathServerNameMap                                                | `和命令方式rootPathServerNameMap参数一致`                                                   |
 | configFilePath        | 配置文件路径                                                               | `文件内配置参数和CLI 命令方式configFile里loaderOptions参数属性一致`                                   |
-| prettierOptions       | 生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置 | 详情配置见 [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md) |             |
-| defaultMockData       | 生成mock数据默认值覆盖配置                                                      | `和命令方式defaultMockData参数一致`                                                         |             |
-| grpcNpmName           | grpc npm包名                                                           | `'grpc' \| '@grpc/grpc-js'`                                                        | `grpc`      |
+| prettierOptions       | 生成文件格式化，默认取项目配置，该配置优先级更高，会合并覆盖项目prettier配置文件，如项目有prettier配置文件，这里无需配置 | 详情配置见 [prettier文档](https://github.com/prettier/prettier/blob/main/docs/options.md) |                 |
+| defaultMockData       | 生成mock数据默认值覆盖配置                                                      | `和命令方式defaultMockData参数一致`                                                         |                 |
 
 - mock数据默认生成规则
   - number: 0

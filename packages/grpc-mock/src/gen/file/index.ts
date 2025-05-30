@@ -5,12 +5,11 @@ import { GenGrpcObj } from './gen-grpc-obj';
 import { GenTsConfigMock } from './gen-tsconfig-mock';
 
 const generatorFiles = async (opts: GenOptions, loaderOptions: Options) => {
-  const { configFilePath, prettierOptions, grpcNpmName } = opts;
+  const { configFilePath, prettierOptions } = opts;
   // 生成mock数据
   const { rootPath, genMockPath } = await genMockData(opts, loaderOptions);
   // 生成 genGrpcObj服务文件
   await new GenGrpcObj({
-    grpcNpmName,
     genMockPath,
     rootPath,
     loaderOptions,

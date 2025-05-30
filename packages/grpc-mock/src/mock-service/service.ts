@@ -62,12 +62,7 @@ const getImplementation: (proto: IProtoItem, grpc: any) => IImplementation = (
   return implementation;
 };
 
-const start = (
-  grpcObject: any,
-  mock: IMockService,
-  grpc: any,
-  grpcNpmName: 'grpc' | '@grpc/grpc-js',
-) => {
+const start = (grpcObject: any, mock: IMockService, grpc: any) => {
   const server = new grpc.Server();
   mock.protoList.forEach((proto) => {
     const { service } = lodash.get<any, string>(grpcObject, proto.path);
@@ -78,11 +73,6 @@ const start = (
     `0.0.0.0:${mock.servicePort}`,
     grpc.ServerCredentials.createInsecure(),
     () => {
-      if (grpcNpmName === 'grpc') {
-        // Deprecated: No longer needed as of version @grpc/grpc-js@1.10.x
-        server.start();
-      }
-
       console.info(
         colors.green(`grpc mock服务${mock.serviceName}启动,端口号:`),
         mock.servicePort,
@@ -95,20 +85,15 @@ const start = (
  * grpc server mock 服务
  * @param mockList mock服务列表
  * @param baseDir  grpc mock代码生成路径
- * @param grpcNpmName  grpc npm包名
  */
-const grpcMockInit = (
-  mockList: IMockService[],
-  baseDir: string,
-  grpcNpmName: 'grpc' | '@grpc/grpc-js' = 'grpc',
-) => {
+const grpcMockInit = (mockList: IMockService[], baseDir: string) => {
   const grpcObjPath = path.join(process.cwd(), baseDir, 'grpc-obj');
   if (fs.existsSync(require.resolve(grpcObjPath))) {
     const grpcObject = require(grpcObjPath).default;
-    const grpc = require(grpcNpmName);
+    const grpc = require('@grpc/grpc-js');
     // start server
     mockList.forEach((mock) => {
-      start(grpcObject, mock, grpc, grpcNpmName);
+      start(grpcObject, mock, grpc);
     });
   } else {
     console.error(colors.red('请先生成grpc mock 代码'));
