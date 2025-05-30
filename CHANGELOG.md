@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-beta.0](https://github.com/liangskyli/mock/compare/v5.0.1...v6.0.0-beta.0) (2025-05-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* **grpc-mock:** remove grpcNpmName, grpc not support, default use @grpc/grpc-js
+* **mock:** change the CLI command parameter - host to - H
+
+### Features
+
+* **grpc-mock:** commander@13 support,optionalDependencies to peerDependencies ([263df27](https://github.com/liangskyli/mock/commit/263df27610a2a75b5b5fd5d8420de98647621d02))
+* **grpc-mock:** remove grpcNpmName, grpc not support, default use @grpc/grpc-js ([ab347b9](https://github.com/liangskyli/mock/commit/ab347b93d736df320b94ab2b4f93097ac4c8ffe5))
+
+
+### Bug Fixes
+
+* **grpc-mock:** windows build error TS2578: Unused '[@ts-expect-error](https://github.com/ts-expect-error)' directive ([abaacf6](https://github.com/liangskyli/mock/commit/abaacf607a011e60e3f3a88beedf9c31d4e5d069))
+
+
+### Miscellaneous Chores
+
+* **mock:** upgrade dependencies ([ddc3404](https://github.com/liangskyli/mock/commit/ddc3404e815d9f0bb9c21c56a49a172f4ccf6c13))
+
+
+
 ## [5.0.1](https://github.com/liangskyli/mock/compare/v5.0.0...v5.0.1) (2025-01-02)
 
 

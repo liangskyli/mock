@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.0-beta.0](https://github.com/liangskyli/mock/compare/v5.0.1...v6.0.0-beta.0) (2025-05-30)
+
+**Note:** Version bump only for package @liangskyli/http-mock-gen
+
+
+
+
+
 ## [5.0.0](https://github.com/liangskyli/mock/compare/v4.0.5...v5.0.0) (2024-12-07)
 
 
