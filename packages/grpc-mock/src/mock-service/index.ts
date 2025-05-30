@@ -68,7 +68,6 @@ const mockServerLoadScript = (opts: IMockServerLoadScript) => {
         script: mockServerLoadScript,
         watch: [genMockFileDir],
         ext: 'js,mjs,json,cjs,ts,cts,mts',
-        // @ts-expect-error have property
         args: [genMockIndexFile],
       }).on('log', (msg) => {
         console.log(msg.colour);
