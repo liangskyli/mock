@@ -4,11 +4,11 @@ import fs from 'fs-extra';
 import type { ConfigFileOptionsCLI } from '../gen';
 import { grpcMockCodeGen } from '../gen';
 
-const commandCodeGenCli = (version: string) => {
+const commandCodeGenCli = (version: string, script: string) => {
   program
     .version(version)
     .option('-c, --configFile [configFile]', 'grpc mock config file')
-    .parse(process.argv);
+    .parse(process.argv.filter((item) => item !== script));
 
   let { configFile } = program.opts();
 

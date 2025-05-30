@@ -9,11 +9,11 @@ const script = process.argv[2];
 
 switch (script) {
   case 'code-gen': {
-    commandCodeGenCli(version);
+    commandCodeGenCli(version, script);
     break;
   }
   case 'server-start':
-    commandServerStartCli(version);
+    commandServerStartCli(version, script);
     break;
   default:
     console.log(`Unknown script "${script}".`);

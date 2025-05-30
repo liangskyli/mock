@@ -71,15 +71,17 @@
     "protobufjs": "^7.4.0"
   },
   "devDependencies": {
+    "@grpc/grpc-js": "^1.13.4",
     "@liangskyli/grpc-mock": "workspace:*",
     "@types/cross-spawn": "^6.0.6",
     "@types/express": "^5.0.0",
     "better-mock": "^0.3.7",
     "express": "^5.1.0",
+    "grpc": "^1.24.11",
     "ts-node": "^10.9.2"
   },
-  "optionalDependencies": {
-    "@grpc/grpc-js": "^1.13.4",
+  "peerDependencies": {
+    "@grpc/grpc-js": "^1.12.4",
     "grpc": "^1.24.11"
   },
   "peerDependenciesMeta": {

@@ -1,2 +1,8 @@
 packages:
-  - "packages/*"
+  - packages/*
+ignoredBuiltDependencies:
+  - esbuild
+  - nx
+  - protobufjs
+onlyBuiltDependencies:
+  - grpc
