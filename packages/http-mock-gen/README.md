@@ -67,7 +67,10 @@ import { defineConfig } from '@liangskyli/http-mock-gen';
 export default defineConfig([
     {
         mockDir: './',
-        openapiPath: './openapi/openapiv3-example.json',
+        openapiPath: new URL(
+           './openapi/openapiv3-example.json',
+           import.meta.url,
+        ),
         jsonSchemaFakerOptions: {
             minItems: 1,
             maxItems: 1,
