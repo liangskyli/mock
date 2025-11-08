@@ -26,12 +26,12 @@
     ".": {
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js",
-      "require": "./lib/index.cjs"
+      "require": "./lib/index.cjs",
+      "default": "./lib/index.js"
     }
   },
   "bin": {
-    "grpc-mock": "./bin/index.js",
-    "grpc-mock-cjs": "./bin/index.cjs"
+    "grpc-mock": "./bin/index.js"
   },
   "files": [
     "lib",
@@ -50,13 +50,11 @@
     "//use test-grpc-mock-code-gen-esm": "test/package.json set type module",
     "test-grpc-mock-code-gen-esm": "cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/grpc/gen.ts",
     "test-grpc-mock-code-gen-cli": "node bin/index.js code-gen -c ./test/grpc/mock.config.cli.ts",
-    "test-grpc-mock-code-gen-cli-cjs": "node bin/index.cjs code-gen -c ./test/grpc/mock.config.cli.ts",
     "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node test/grpc/server.mjs",
     "//use test-grpc-mock-server-esm": "test/package.json set type module",
     "test-grpc-mock-server-esm": "cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/grpc/server.ts",
     "test-grpc-mock-server-cli": "node bin/index.js server-start -w true -c ./test/grpc/mock.config.cli.ts",
     "test-grpc-mock-server-cli-esm-dir": "node bin/index.js server-start -w true -c ./test/grpc/mock.config.cli.ts",
-    "test-grpc-mock-server-cli-cjs": "node bin/index.cjs server-start -w true -c ./test/grpc/mock.config.cli.ts",
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {

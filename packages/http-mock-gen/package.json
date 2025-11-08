@@ -25,12 +25,12 @@
     ".": {
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js",
-      "require": "./lib/index.cjs"
+      "require": "./lib/index.cjs",
+      "default": "./lib/index.js"
     }
   },
   "bin": {
-    "http-mock-gen": "bin/index.js",
-    "http-mock-gen-cjs": "bin/index.cjs"
+    "http-mock-gen": "bin/index.js"
   },
   "files": [
     "lib",

@@ -21,18 +21,4 @@ describe('CLI', () => {
     );
     await expect(winPath(stdout)).toMatchSnapshot();
   });
-
-  test('CLI test cjs', async () => {
-    await fs.remove(
-      path.join(__dirname, '../all-gen-dirs/gen-mock-cli/mock/custom-data'),
-    );
-    const { stdout } = await execa(
-      cmd,
-      ['./bin/index.cjs', '-c', './test/cli/mock.config.cli.ts'],
-      {
-        cwd,
-      },
-    );
-    await expect(winPath(stdout)).toMatchSnapshot();
-  });
 });
