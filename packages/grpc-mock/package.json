@@ -50,20 +50,20 @@
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
-    "@grpc/proto-loader": "^0.7.13",
+    "@grpc/proto-loader": "^0.8.0",
     "@liangskyli/utils": "workspace:*",
     "@types/fs-extra": "^11.0.4",
     "commander": "^13.1.0",
     "cross-spawn": "^7.0.6",
-    "fs-extra": "^11.2.0",
-    "nodemon": "^3.1.7",
-    "protobufjs": "^7.4.0"
+    "fs-extra": "^11.3.2",
+    "nodemon": "^3.1.11",
+    "protobufjs": "^7.5.4"
   },
   "devDependencies": {
-    "@grpc/grpc-js": "^1.13.4",
+    "@grpc/grpc-js": "^1.14.1",
     "@liangskyli/grpc-mock": "workspace:*",
     "@types/cross-spawn": "^6.0.6",
-    "@types/express": "^5.0.0",
+    "@types/express": "^5.0.5",
     "better-mock": "^0.3.7",
     "express": "^5.1.0",
     "grpc": "^1.24.11"
