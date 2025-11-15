@@ -1,12 +1,9 @@
-import { colors, ip, winPath } from '@liangskyli/utils';
+import { colors, ip, tsImport, winPath } from '@liangskyli/utils';
 import type { FSWatcher } from 'chokidar';
 import type http from 'node:http';
-import { createRequire } from 'node:module';
 import { isAbsolute, join } from 'node:path';
 import type { ServerOptions, Socket } from 'socket.io';
 import { Server as SocketServer } from 'socket.io';
-
-const require = createRequire(import.meta.url);
 
 export type ISocketConfig = {
   enable: boolean;
@@ -64,7 +61,7 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
       .join('\n'),
   );
 
-  const getSocketController = () => {
+  const getSocketController = async () => {
     if (!socketConfig.mockControllerUrl) {
       return;
     }
@@ -78,14 +75,15 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
     }
     const socketControllerMainPath = winPath(mockControllerUrl);
 
-    const { default: socketMain, socketNamespaceController } = require(
+    const { default: socketMain, socketNamespaceController } = await tsImport(
       socketControllerMainPath,
+      import.meta.url,
     );
     return { socketMain, socketNamespaceController };
   };
 
-  const runDefaultSocketController = (socket: Socket) => {
-    const controllerData = getSocketController();
+  const runDefaultSocketController = async (socket: Socket) => {
+    const controllerData = await getSocketController();
     if (!controllerData) {
       return;
     }
@@ -97,11 +95,11 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
     socketMain(socket);
   };
 
-  const runCustomNamespaceSocketController = (
+  const runCustomNamespaceSocketController = async (
     namespace: string,
     socket: Socket,
   ) => {
-    const controllerData = getSocketController();
+    const controllerData = await getSocketController();
     if (!controllerData) {
       return;
     }

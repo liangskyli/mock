@@ -1,5 +1,5 @@
 import express from 'express';
-import { start, start2 } from './get-grpc-client-1';
+import { start, start2 } from './get-grpc-client-1.mjs';
 
 const app = express();
 

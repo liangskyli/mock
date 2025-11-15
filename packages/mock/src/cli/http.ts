@@ -1,10 +1,10 @@
-import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
+import { colors, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import { program } from 'commander';
 import fs from 'fs-extra';
 import type { IOpts } from '../http/server/server';
 import mockServer from '../http/server/server';
 
-const commandHttpCli = (version: string) => {
+const commandHttpCli = async (version: string) => {
   program
     .version(version)
     .option('-d, --dir [dir]', 'Base dir of the mock folder')
@@ -55,7 +55,8 @@ const commandHttpCli = (version: string) => {
       process.exit(1);
     }
 
-    const data: IOpts = getConfig(configFilePath);
+    const data: IOpts = (await tsImport(configFilePath, import.meta.url))
+      .default;
     opt = {
       ...opt,
       ...data,

@@ -9,7 +9,7 @@ grpcMockCodeGen({
     ],
   },
   prettierOptions: { singleQuote: true },
-  configFilePath: './test/grpc/mock.config.ts',
+  configFilePath: './test/grpc/mock.config.mts',
   defaultMockData: {
     number: 2,
     boolean: true,
@@ -39,5 +39,5 @@ grpcMockCodeGen({
     'component-center_cc_file_box':'cc_file_box',
   },
   prettierOptions: { singleQuote: true },
-  configFilePath:'./test/grpc/mock.config.ts',
+  configFilePath:'./test/grpc/mock.config.mts',
 });*/

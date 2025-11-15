@@ -1,4 +1,4 @@
-import { colors, lodash } from '@liangskyli/utils';
+import { colors, lodash, tsImport } from '@liangskyli/utils';
 import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
@@ -86,10 +86,12 @@ const start = (grpcObject: any, mock: IMockService, grpc: any) => {
  * @param mockList mock服务列表
  * @param baseDir  grpc mock代码生成路径
  */
-const grpcMockInit = (mockList: IMockService[], baseDir: string) => {
-  const grpcObjPath = path.join(process.cwd(), baseDir, 'grpc-obj');
-  if (fs.existsSync(require.resolve(grpcObjPath))) {
-    const grpcObject = require(grpcObjPath).default;
+const grpcMockInit = async (mockList: IMockService[], baseDir: string) => {
+  const grpcObjPath = path.join(process.cwd(), baseDir, 'grpc-obj.ts');
+  if (fs.existsSync(grpcObjPath)) {
+    const getGrpcObjectGroup = (await tsImport(grpcObjPath, import.meta.url))
+      .default;
+    const grpcObject = await getGrpcObjectGroup();
     const grpc = require('@grpc/grpc-js');
     // start server
     mockList.forEach((mock) => {

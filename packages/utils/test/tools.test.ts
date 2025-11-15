@@ -9,6 +9,7 @@ import {
   removeFilesSync,
   winPath,
 } from '../src';
+import { writePrettierFile } from '../src/tools';
 
 describe('utils', () => {
   test('getAbsolutePath', () => {
@@ -76,6 +77,20 @@ describe('utils', () => {
     expect(fs.existsSync(tempDir)).toBeTruthy();
     expect(fs.existsSync(customDataDir)).toBeTruthy();
     expect(fs.existsSync(otherFile)).toBeFalsy();
+    fs.removeSync(tempDir);
+  });
+  test('writePrettierFile', async () => {
+    const tempDir = './test/temp1';
+    fs.mkdirsSync(tempDir);
+    await writePrettierFile({
+      prettierOptions: undefined,
+      absolutePath: path.join(__dirname, `../${tempDir}/test.txt`),
+      data: 'const a=1',
+      successTip: 'successTip',
+    });
+    expect(
+      fs.existsSync(path.join(__dirname, `../${tempDir}/test.txt`)),
+    ).toBeTruthy();
     fs.removeSync(tempDir);
   });
 });

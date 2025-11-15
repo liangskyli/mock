@@ -1,17 +1,14 @@
-import { createDebug, winPath } from '@liangskyli/utils';
+import { createDebug, tsImport, winPath } from '@liangskyli/utils';
 import assert from 'assert';
 import bodyParser from 'body-parser';
 import type { NextFunction, Request, RequestHandler } from 'express';
 import { globSync } from 'glob';
 import multer from 'multer';
 import { existsSync } from 'node:fs';
-import { createRequire } from 'node:module';
 import { join } from 'node:path';
 import { pathToRegexp } from 'path-to-regexp';
 
-const require = createRequire(import.meta.url);
-
-// support all openapi method
+// support all openapi methods
 const VALID_METHODS = [
   'get',
   'put',
@@ -44,32 +41,24 @@ export interface IGetMockDataResult {
   mockWatcherPaths: string[];
 }
 
-export function getMockConfig(files: string[]) {
-  return files.reduce<Record<string, any>>((memo, mockFile) => {
-    try {
-      const m = require(mockFile);
-      memo = {
-        ...memo,
-        ...(m.default || m),
-      };
-      return memo;
-    } catch (e: any) {
-      throw new Error(e.stack);
-    }
-  }, {});
+export async function getMockConfig(files: string[]) {
+  const result = await files.reduce<Promise<Record<string, any>>>(
+    async (memoPromise, mockFile) => {
+      const memo = await memoPromise; // 等待之前的结果
+      try {
+        const m = await tsImport(mockFile, import.meta.url);
+        return {
+          ...memo,
+          ...(m.default || m),
+        };
+      } catch (e: any) {
+        throw new Error(e.stack);
+      }
+    },
+    Promise.resolve({}), // 初始值需要是 Promise
+  );
+  return result;
 }
-
-export const cleanRequireCache = (paths: string[]) => {
-  Object.keys(require.cache).forEach((file) => {
-    if (
-      paths.some((path) => {
-        return winPath(file).indexOf(path) > -1;
-      })
-    ) {
-      delete require.cache[file];
-    }
-  });
-};
 
 function parseKey(key: string) {
   let method = 'get';
@@ -163,16 +152,16 @@ function decodeParam(val: any) {
  *
  * @param opts
  */
-export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = (
-  opts,
-) => {
+export const getMockData: (
+  opts: IGetMockPaths,
+) => Promise<IGetMockDataResult> = async (opts) => {
   const { cwd, ignore = [] } = opts;
   const mockPaths = [
-    ...(globSync('mock/**/*.[jt]s', {
+    ...(globSync('mock/**/*.{js,mjs,ts,mts}', {
       cwd,
       ignore,
     }) || []),
-    ...(globSync('**/_mock.[jt]s', {
+    ...(globSync('**/_mock.{js,mjs,ts,mts}', {
       cwd,
       ignore,
     }) || []),
@@ -186,7 +175,7 @@ export const getMockData: (opts: IGetMockPaths) => IGetMockDataResult = (
   debug(`load mock data including files ${JSON.stringify(mockPaths)}`);
 
   // get mock data
-  const mockData = normalizeConfig(getMockConfig(mockPaths));
+  const mockData = normalizeConfig(await getMockConfig(mockPaths));
 
   const mockWatcherPaths = [...(mockPaths || []), join(cwd, 'mock')]
     .filter((path) => path && existsSync(path))

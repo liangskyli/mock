@@ -1,6 +1,3 @@
-import type { IPrettierOptions } from '@liangskyli/utils';
-import { colors, copyOptions, prettierData } from '@liangskyli/utils';
-import fs from 'fs-extra';
 import path from 'node:path';
 
 export const fileTip =
@@ -106,22 +103,3 @@ export function getImportPath(fromPath: string, toPath: string) {
 }
 
 export const packageName = '@liangskyli/grpc-mock';
-
-type IWriteFileOpts = {
-  prettierOptions: IPrettierOptions;
-  absolutePath: string;
-  data: string;
-  successTip?: string;
-};
-export const writePrettierFile = async (opts: IWriteFileOpts) => {
-  const { absolutePath, prettierOptions, data, successTip } = opts;
-
-  fs.writeFileSync(
-    absolutePath,
-    await prettierData(data, copyOptions(prettierOptions)),
-  );
-
-  if (successTip) {
-    console.info(colors.green(successTip));
-  }
-};

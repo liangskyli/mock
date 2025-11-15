@@ -8,6 +8,7 @@ const curDirName = path.dirname(fileURLToPath(import.meta.url));
 //mockServer({ mockDir: 'test' });
 mockServer({
   mockDir: path.join(curDirName, '../'),
+  //mockDir: path.join(curDirName, '../../'),
   exclude: ['mock/b.ts'],
   port: 8002,
   socketConfig: {
@@ -20,7 +21,8 @@ mockServer({
         credentials: true,
       },
     },
-    mockControllerUrl: 'mock/socket/sock.ts',
+    mockControllerUrl: 'mock/socket/sock.mts',
+    //mockControllerUrl: 'mock/socket/sock.ts',
   },
 });
 //mockServer({port: 9001 });

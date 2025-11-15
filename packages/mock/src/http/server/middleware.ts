@@ -1,4 +1,4 @@
-import { register, winPath } from '@liangskyli/utils';
+import { winPath } from '@liangskyli/utils';
 import type { FSWatcher } from 'chokidar';
 import type { NextFunction, Request, Response } from 'express';
 import { isAbsolute, join } from 'node:path';
@@ -27,15 +27,6 @@ const getMiddleware = async (
     return { middleware, middlewareWatcher: undefined };
   }
 
-  const registerKey = 'mock-getMiddleware';
-
-  register.register({
-    key: registerKey,
-    hookMatcher: (filename) => {
-      return filename.startsWith(join(cwd, './mock'));
-    },
-  });
-
   const ignore = [
     // ignore mock files under node_modules
     'node_modules/**',
@@ -45,21 +36,20 @@ const getMiddleware = async (
     ...(exclude || []),
   ];
 
-  const mockOpts = getMockData({
+  const mockOpts = await getMockData({
     cwd,
     ignore,
   });
   const { middleware, watcher: middlewareWatcher } = createMiddleware({
     ...mockOpts,
-    updateMockData: () =>
-      getMockData({
+    updateMockData: async () =>
+      await getMockData({
         cwd,
         ignore,
       }),
   });
   if (process.env.WATCH_FILES === 'false' || !watch) {
     await middlewareWatcher?.close?.();
-    register.unregister(registerKey);
   }
   killProcess(middlewareWatcher);
   return { middleware, middlewareWatcher };

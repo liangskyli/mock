@@ -1,7 +1,7 @@
 import type { Metadata } from '@grpc/grpc-js';
 import * as grpc from '@grpc/grpc-js';
 import { lodash } from '@liangskyli/utils';
-import grpcObject from '../grpc-mock/grpc-obj';
+import getGrpcObjectGroup from '../grpc-mock/grpc-obj';
 
 type MetadataMap = Record<string, string | number | Buffer>;
 
@@ -16,6 +16,7 @@ function toMetadata(metadata: MetadataMap): Metadata {
 }
 
 export const start = async (): Promise<unknown> => {
+  const grpcObject = await getGrpcObjectGroup();
   const proto = lodash.get<any, string>(
     grpcObject,
     'trade_trade_zxkp.trade_zxkp_proto',
@@ -40,6 +41,7 @@ export const start = async (): Promise<unknown> => {
 };
 
 export const start2 = async (): Promise<unknown> => {
+  const grpcObject = await getGrpcObjectGroup();
   const proto = lodash.get<any, string>(
     grpcObject,
     'serverName1.activity_package',

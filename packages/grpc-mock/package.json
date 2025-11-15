@@ -18,7 +18,6 @@
   "license": "MIT",
   "author": "liangsky <640634387@qq.com>",
   "type": "module",
-  "main": "./lib/index.cjs",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "typings": "./lib/index.d.ts",
@@ -26,7 +25,6 @@
     ".": {
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js",
-      "require": "./lib/index.cjs",
       "default": "./lib/index.js"
     }
   },
@@ -44,17 +42,11 @@
   ],
   "scripts": {
     "build": "rollup --config=./rollup.config.js",
-    "test-grpc-express-app": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register --trace-warnings test/grpc/app.ts",
-    "//use test-grpc-mock-code-gen": "test/package.json set type commonjs",
-    "test-grpc-mock-code-gen": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/grpc/gen.ts",
-    "//use test-grpc-mock-code-gen-esm": "test/package.json set type module",
-    "test-grpc-mock-code-gen-esm": "cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/grpc/gen.ts",
-    "test-grpc-mock-code-gen-cli": "node bin/index.js code-gen -c ./test/grpc/mock.config.cli.ts",
-    "test-grpc-mock-server": "cross-env TS_NODE_PROJECT=test/tsconfig.json node test/grpc/server.mjs",
-    "//use test-grpc-mock-server-esm": "test/package.json set type module",
-    "test-grpc-mock-server-esm": "cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/grpc/server.ts",
-    "test-grpc-mock-server-cli": "node bin/index.js server-start -w true -c ./test/grpc/mock.config.cli.ts",
-    "test-grpc-mock-server-cli-esm-dir": "node bin/index.js server-start -w true -c ./test/grpc/mock.config.cli.ts",
+    "test-grpc-express-app": "tsx test/grpc/app.mts",
+    "test-grpc-mock-code-gen": "tsx test/grpc/gen.mts",
+    "test-grpc-mock-code-gen-cli": "node bin/index.js code-gen -c test/grpc/mock.config.cli.mts",
+    "test-grpc-mock-server": "tsx test/grpc/server.mts",
+    "test-grpc-mock-server-cli": "node bin/index.js server-start -w true -c test/grpc/mock.config.cli.mts",
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
@@ -74,8 +66,7 @@
     "@types/express": "^5.0.0",
     "better-mock": "^0.3.7",
     "express": "^5.1.0",
-    "grpc": "^1.24.11",
-    "ts-node": "^10.9.2"
+    "grpc": "^1.24.11"
   },
   "peerDependencies": {
     "@grpc/grpc-js": "^1.12.4"

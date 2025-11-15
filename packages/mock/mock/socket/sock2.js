@@ -9,4 +9,4 @@ const socketDefaultController = (socket) => {
   });
 };
 
-exports.default = socketDefaultController;
+export default socketDefaultController;

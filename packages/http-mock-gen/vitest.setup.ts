@@ -12,7 +12,7 @@ vi.mock('fs-extra', async (importOriginal) => {
   };
 });
 
-vi.mock('./src/utils.ts', async (importOriginal) => {
+vi.mock('@liangskyli/utils', async (importOriginal) => {
   const mod = await importOriginal<any>();
   return {
     ...mod,

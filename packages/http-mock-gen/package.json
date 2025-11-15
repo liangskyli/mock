@@ -17,7 +17,6 @@
   "license": "MIT",
   "author": "liangsky <640634387@qq.com>",
   "type": "module",
-  "main": "./lib/index.cjs",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "typings": "./lib/index.d.ts",
@@ -25,7 +24,6 @@
     ".": {
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js",
-      "require": "./lib/index.cjs",
       "default": "./lib/index.js"
     }
   },

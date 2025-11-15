@@ -1,17 +1,18 @@
 import type genTsData from '@liangskyli/openapi-gen-ts';
 import type { IGenTsDataOpts } from '@liangskyli/openapi-gen-ts';
+import { GenPackageJson, getAbsolutePath } from '@liangskyli/utils';
 import type { IGenMockDataBaseOpts } from '../index';
 import { GenInterfaceMockData } from './gen-interface-mock-data';
 import { GenMockDataJson } from './gen-mock-data-json';
 
 type IGeneratorFile = IGenMockDataBaseOpts &
   Pick<IGenTsDataOpts, 'prettierOptions'> & {
-    genMockAbsolutePath: string;
+    genMockPath: string;
   } & Awaited<ReturnType<typeof genTsData>>;
 
 const generatorMockFile = async (opts: IGeneratorFile) => {
   const {
-    genMockAbsolutePath,
+    genMockPath,
     prettierOptions,
     schemaDefinition,
     jsonSchemaFakerOptions,
@@ -19,6 +20,7 @@ const generatorMockFile = async (opts: IGeneratorFile) => {
     genTsAbsolutePath,
     mockPathPrefix,
   } = opts;
+  const genMockAbsolutePath = getAbsolutePath(genMockPath);
   // 生成mock数据文件
   const { mockDataAbsolutePath } = await new GenMockDataJson({
     genMockAbsolutePath,
@@ -36,6 +38,12 @@ const generatorMockFile = async (opts: IGeneratorFile) => {
     prettierOptions,
     mockPathPrefix,
   } as any).generator();
+
+  // 生成package.json
+  await new GenPackageJson({
+    genFilePath: genMockPath,
+    prettierOptions,
+  }).generator();
 };
 
 export default generatorMockFile;

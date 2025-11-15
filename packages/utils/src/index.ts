@@ -3,10 +3,10 @@ import colors from 'colors';
 import createDebug from 'debug';
 import lodash from 'lodash';
 import signale from 'signale';
-import type { prettierData } from './tools';
+import { tsImport } from 'tsx/esm/api';
+import type { IPrettierOptions } from './tools';
 
-export { default as getConfig } from './config';
-export * as register from './register';
+export { GenPackageJson } from './gen-package-json';
 export {
   copyOptions,
   getAbsolutePath,
@@ -14,6 +14,6 @@ export {
   prettierData,
   removeFilesSync,
   winPath,
+  writePrettierFile,
 } from './tools';
-export { colors, createDebug, ip, lodash, signale };
-export type IPrettierOptions = Parameters<typeof prettierData>[1];
+export { colors, createDebug, ip, IPrettierOptions, lodash, signale, tsImport };

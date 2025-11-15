@@ -11,7 +11,7 @@ const baseConfig = (packageJSON) => {
   return {
     input: ['./src/index.ts'],
     external: [
-      'esbuild-register/dist/node',
+      'tsx/esm/api',
       ...Object.keys(packageJSON.dependencies || {}),
       ...Object.keys(packageJSON.peerDependencies || {}),
       ...Object.keys(packageJSON.optionalDependencies || {}),
@@ -27,18 +27,14 @@ const baseConfig = (packageJSON) => {
 };
 
 // 需要导出的模块类型
-const outputBaseMap = (packageJSON) => [
-  {
-    file: packageJSON.main, // 通用模块
-    format: 'cjs',
-    exports: 'named',
-    interop: 'auto',
-  },
-  {
-    file: packageJSON.module, // es6模块
-    format: 'esm',
-  },
-];
+const outputBaseMap = (packageJSON) => {
+  return [
+    {
+      file: packageJSON.module, // es6模块
+      format: 'esm',
+    },
+  ];
+};
 
 const createConfig = (packageJSON) => {
   return {

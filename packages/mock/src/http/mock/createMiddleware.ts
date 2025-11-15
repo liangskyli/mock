@@ -3,12 +3,12 @@ import type { FSWatcher } from 'chokidar';
 import chokidar from 'chokidar';
 import type { NextFunction, Request, RequestHandler } from 'express';
 import type { IGetMockDataResult } from './utils';
-import { cleanRequireCache, matchMock } from './utils';
+import { matchMock } from './utils';
 
 const debug = createDebug('mock:createMiddleware');
 
 export interface IMockOpts extends IGetMockDataResult {
-  updateMockData: () => IGetMockDataResult;
+  updateMockData: () => Promise<IGetMockDataResult>;
 }
 
 interface ICreateMiddleware {
@@ -34,9 +34,8 @@ export default function (opts = {} as IMockOpts): ICreateMiddleware {
         debug(`[${event}] ${file}, reload mock data`);
         let hasError = false;
         try {
-          cleanRequireCache(mockWatcherPaths);
           // refresh data
-          data = updateMockData()?.mockData;
+          data = (await updateMockData())?.mockData;
         } catch (e) {
           signale.error(e);
           hasError = true;

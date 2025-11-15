@@ -1,3 +1,4 @@
+import colors from 'colors';
 import fs from 'fs-extra';
 import path from 'node:path';
 import prettier from 'prettier';
@@ -65,4 +66,25 @@ export const removeFilesSync = (dir: string) => {
       fs.removeSync(path.join(dir, item));
     }
   });
+};
+
+export type IPrettierOptions = Parameters<typeof prettierData>[1];
+
+type IWriteFileOpts = {
+  prettierOptions?: IPrettierOptions;
+  absolutePath: string;
+  data: string;
+  successTip?: string;
+};
+export const writePrettierFile = async (opts: IWriteFileOpts) => {
+  const { absolutePath, prettierOptions, data, successTip } = opts;
+
+  fs.writeFileSync(
+    absolutePath,
+    await prettierData(data, copyOptions(prettierOptions)),
+  );
+
+  if (successTip) {
+    console.info(colors.green(successTip));
+  }
 };

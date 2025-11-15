@@ -1,6 +1,6 @@
 import { getMiddleware, initSocketServer } from '@liangskyli/mock';
 import express from 'express';
-import mockConfig from './mock.config';
+import mockConfig from './mock.config.mjs';
 
 const app = express();
 

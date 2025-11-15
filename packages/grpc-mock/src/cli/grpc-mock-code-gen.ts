@@ -1,10 +1,10 @@
-import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
+import { colors, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import { program } from 'commander';
 import fs from 'fs-extra';
 import type { ConfigFileOptionsCLI } from '../gen';
 import { grpcMockCodeGen } from '../gen';
 
-const commandCodeGenCli = (version: string, script: string) => {
+const commandCodeGenCli = async (version: string, script: string) => {
   program
     .version(version)
     .option('-c, --configFile [configFile]', 'grpc mock config file')
@@ -21,7 +21,9 @@ const commandCodeGenCli = (version: string, script: string) => {
     process.exit(1);
   }
 
-  const data: ConfigFileOptionsCLI = getConfig(configFilePath);
+  const data: ConfigFileOptionsCLI = (
+    await tsImport(configFilePath, import.meta.url)
+  ).default;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { loaderOptions, ...otherOptions } = data;
   if (!otherOptions.rootPath) {

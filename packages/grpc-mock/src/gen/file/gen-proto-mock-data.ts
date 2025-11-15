@@ -1,15 +1,10 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { winPath } from '@liangskyli/utils';
+import { winPath, writePrettierFile } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import path from 'node:path';
 import type { Root } from 'protobufjs';
 import type { TMethod } from '../../types';
-import {
-  fileTip,
-  packageName,
-  writePrettierFile,
-  type IDefaultMockData,
-} from '../../utils';
+import { fileTip, packageName, type IDefaultMockData } from '../../utils';
 import { genImplementationData } from '../pbjs';
 
 export type IGenProtoMockDataOpts = {

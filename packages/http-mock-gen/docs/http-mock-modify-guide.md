@@ -16,7 +16,8 @@
     |   ├── request-api.ts // 请求接口文件
     |   ├── schema.ts // ts类型文件生成json schema文件
     |   └── ts-schema.ts // openapi 生成ts类型文件
-    ├── interface-mock-data.ts // 生成最终的http mock 默认数据  
+    ├── interface-mock-data.ts // 生成最终的http mock 默认数据
+    ├── package.json // 生成的package.json文件,仅支持esm
     └── mock-data.ts // 生成mock数据文件
 ```
 

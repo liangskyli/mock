@@ -1,11 +1,14 @@
 import mockServer from '@liangskyli/mock';
 import * as path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const curDirName = path.dirname(fileURLToPath(import.meta.url));
 
 //mockServer();
 //mockServer({ mockDir: 'test' });
 mockServer({
-  mockDir: path.join(__dirname, '/'),
-  exclude: ['mock/b.ts'],
+  mockDir: path.join(curDirName, '/'),
+  exclude: ['mock/b.mts'],
   port: 8002,
   socketConfig: {
     enable: true,
@@ -17,7 +20,7 @@ mockServer({
         credentials: true,
       },
     },
-    mockControllerUrl: 'mock/socket/sock.ts',
+    mockControllerUrl: 'mock/socket/sock.mts',
   },
 });
 //mockServer({port: 9001 });

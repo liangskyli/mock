@@ -1,6 +1,7 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
+import { writePrettierFile } from '@liangskyli/utils';
 import path from 'node:path';
-import { fileTip, writePrettierFile } from '../../utils';
+import { fileTip } from '../../utils';
 
 export type IGenGrpcServiceMockConfigOpts = {
   genMockPath: string;
@@ -45,13 +46,27 @@ export class GenGrpcServiceMockConfig {
 
     this.footer();
 
-    const absolutePath = path.join(genMockPath, 'grpc-service.mock.config.js');
+    const absolutePathCjs = path.join(
+      genMockPath,
+      'grpc-service.mock.config.cjs',
+    );
+    const absolutePathMjs = path.join(
+      genMockPath,
+      'grpc-service.mock.config.mjs',
+    );
 
     await writePrettierFile({
       prettierOptions,
-      absolutePath,
+      absolutePath: absolutePathCjs,
       data: this.toStirng(),
-      successTip: `Generate grpc-service.mock.config.js success in ${genMockPath}`,
+      successTip: `Generate grpc-service.mock.config.cjs success in ${genMockPath}`,
+    });
+
+    await writePrettierFile({
+      prettierOptions,
+      absolutePath: absolutePathMjs,
+      data: this.toStirng().replace('module.exports = {', 'export default {'),
+      successTip: `Generate grpc-service.mock.config.mjs success in ${genMockPath}`,
     });
   }
 }

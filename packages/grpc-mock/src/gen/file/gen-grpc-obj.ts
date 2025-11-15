@@ -1,13 +1,12 @@
 import type { Options } from '@grpc/proto-loader';
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { getAbsolutePath } from '@liangskyli/utils';
+import { getAbsolutePath, writePrettierFile } from '@liangskyli/utils';
 import path from 'node:path';
 import {
   fileTip,
   getImportPath,
   packageName,
   tslintDisable,
-  writePrettierFile,
 } from '../../utils';
 import type { GenOptions } from '../index';
 
@@ -28,33 +27,50 @@ export class GenGrpcObj {
   public async generator() {
     const { genMockPath, rootPath, configFilePath } = this.opts;
     const grpcObjPath = getAbsolutePath(path.join(genMockPath, 'grpc-obj.ts'));
+    const absoluteConfigFilePath = configFilePath
+      ? getAbsolutePath(configFilePath)
+      : undefined;
 
     const fileContent = [
       fileTip,
       tslintDisable,
-      'import * as grpc from \'@grpc/grpc-js\';',
-      'import { fromJSON } from "@grpc/proto-loader";',
-      'import type { GrpcObject } from \'@grpc/grpc-js\';',
-      `import { defaultLoaderOptions } from '${packageName}';`,
-      configFilePath ? 'import * as fs from "fs-extra";\n' : '',
-      `const root = require('${getImportPath(grpcObjPath, rootPath)}');\n`,
-      'let config: any;',
-      configFilePath
-        ? `if (fs.existsSync(require.resolve('${getImportPath(
-            grpcObjPath,
-            configFilePath,
-          )}'))) {
-  config = require('${getImportPath(grpcObjPath, configFilePath)}').default;
-}`
-        : '',
-      'const grpcObjectGroup: Record<string, GrpcObject> = {};',
-      'Object.keys(root).forEach((key: string) => {',
-      '  grpcObjectGroup[key] = (grpc.loadPackageDefinition as any)(fromJSON(',
-      '    root[key],',
-      '   Object.assign(defaultLoaderOptions, config && config.loaderOptions),',
-      '  ));',
-      '});\n',
-      'export default grpcObjectGroup;',
+      `import * as grpc from '@grpc/grpc-js';
+import { fromJSON } from "@grpc/proto-loader";
+import type { GrpcObject } from '@grpc/grpc-js';
+import { defaultLoaderOptions } from '${packageName}';
+${configFilePath ? 'import fs from "fs-extra";' : ''}
+import { createRequire } from 'node:module';
+import { tsImport } from '@liangskyli/utils';
+
+const require = createRequire(import.meta.url);
+const root = require('${getImportPath(grpcObjPath, rootPath)}');
+
+const getGrpcObjectGroup = async () => {
+  let config: any;
+  ${
+    absoluteConfigFilePath
+      ? `
+  if (fs.existsSync('${absoluteConfigFilePath}')) {
+    const configData = await tsImport('${absoluteConfigFilePath}', import.meta.url);
+    config = configData.default;
+  }
+  `
+      : ''
+  }
+  const grpcObjectGroup: Record<string, GrpcObject> = {};
+  Object.keys(root).forEach((key: string) => {
+    grpcObjectGroup[key] = (grpc.loadPackageDefinition as any)(
+        fromJSON(
+            root[key],
+            Object.assign(defaultLoaderOptions, config && config.loaderOptions),
+        )
+    );
+  });
+  return grpcObjectGroup;
+};
+
+export default getGrpcObjectGroup;
+`,
     ].join('\n');
 
     await this.writeFile(fileContent, grpcObjPath);

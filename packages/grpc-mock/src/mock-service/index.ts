@@ -1,4 +1,4 @@
-import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
+import { colors, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import spawn from 'cross-spawn';
 import fs from 'fs-extra';
 import path from 'node:path';
@@ -14,7 +14,7 @@ type IMockServerLoadScript = {
   /** mock配置文件 */
   configFile: string;
 };
-const mockServerLoadScript = (opts: IMockServerLoadScript) => {
+const mockServerLoadScript = async (opts: IMockServerLoadScript) => {
   const { watch = true } = opts;
   let { configFile } = opts;
 
@@ -27,7 +27,9 @@ const mockServerLoadScript = (opts: IMockServerLoadScript) => {
     process.exit(1);
   }
 
-  const data: ConfigFileOptionsCLI = getConfig(configFilePath);
+  const data: ConfigFileOptionsCLI = (
+    await tsImport(configFilePath, import.meta.url)
+  ).default;
   const { grpcMockDir = './', grpcMockFolderName = 'grpc-mock' } = data;
 
   const genMockIndexFile = getAbsolutePath(
@@ -63,11 +65,10 @@ const mockServerLoadScript = (opts: IMockServerLoadScript) => {
       const genMockFileDir = getAbsolutePath(
         path.join(grpcMockDir, grpcMockFolderName),
       );
-
       nodemon({
         script: mockServerLoadScript,
         watch: [genMockFileDir],
-        ext: 'js,mjs,json,cjs,ts,cts,mts',
+        ext: 'js,mjs,json,ts,mts',
         args: [genMockIndexFile],
       }).on('log', (msg) => {
         console.log(msg.colour);

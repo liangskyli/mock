@@ -18,8 +18,10 @@
     |   └── Severname1Mock.ts // mock服务配置代码
     ├── root.json // 生成的proto对应的json文件
     ├── index.ts // grpc-mock服务启动文件
+    ├── package.json // 生成的package.json文件,仅支持esm
     ├── grpc-obj.ts // grpc-mock服务依赖文件
-    └── grpc-service.mock.config.js // grpc-mock服务名和端口配置文件
+    ├── grpc-service.mock.config.cjs // grpc-mock服务名和端口配置文件
+    └── grpc-service.mock.config.mjs // grpc-mock服务名和端口配置文件
 ```
 
 - proto 数据修改，例如：在上图结构中 grpc-mock/proto/serverName1/ 下的文件不要修改，请转移到custom-data目录下，进行自定义数据修改。

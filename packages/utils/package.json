@@ -14,7 +14,6 @@
   "license": "MIT",
   "author": "liangsky <640634387@qq.com>",
   "type": "module",
-  "main": "./lib/index.cjs",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "typings": "./lib/index.d.ts",
@@ -22,7 +21,6 @@
     ".": {
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js",
-      "require": "./lib/index.cjs",
       "default": "./lib/index.js"
     }
   },
@@ -44,11 +42,10 @@
     "address": "^2.0.3",
     "colors": "^1.4.0",
     "debug": "^4.4.1",
-    "esbuild": "^0.25.5",
-    "esbuild-register": "^3.6.0",
     "fs-extra": "^11.3.0",
     "lodash": "^4.17.21",
-    "signale": "^1.4.0"
+    "signale": "^1.4.0",
+    "tsx": "^4.20.6"
   },
   "devDependencies": {
     "@types/debug": "^4.1.12",

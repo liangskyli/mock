@@ -1,6 +1,6 @@
 import { getMiddleware, initSocketServer } from '@liangskyli/mock';
 import type Webpack from 'webpack';
-import mockConfig from './mock.config';
+import mockConfig from './mock.config.mjs';
 
 const socketConfig = mockConfig.socketConfig;
 const host = '0.0.0.0';

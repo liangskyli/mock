@@ -1,6 +1,5 @@
-import fs from 'fs-extra';
-import { describe, expect, test, vi } from 'vitest';
-import { getMethodData, mergeObject, writePrettierFile } from '../src/utils';
+import { describe, expect, test } from 'vitest';
+import { getMethodData, mergeObject } from '../src/utils';
 
 describe('utils', () => {
   test('getMethodData', () => {
@@ -146,22 +145,5 @@ describe('utils', () => {
       d: ['d', 1],
       e: false,
     });
-  });
-
-  test('writePrettierFile', async () => {
-    await writePrettierFile({
-      absolutePath: '/absolutePath',
-      data: 'const test={a:1,b:\'b\'}',
-      successTip: 'successTip',
-      prettierOptions: {
-        singleQuote: false,
-        trailingComma: 'all',
-        endOfLine: 'lf',
-      },
-    });
-    const args = vi.mocked(fs.writeFileSync).mock.calls[0];
-    expect(args[0] as string).toBe('/absolutePath');
-    expect(args[1] as string).toBe(`const test = { a: 1, b: "b" };
-`);
   });
 });

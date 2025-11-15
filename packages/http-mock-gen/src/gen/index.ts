@@ -27,7 +27,6 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     mockPathPrefix,
     jsonSchemaFakerOptions,
     mockDataReplace,
-    //openapiPath,
     prettierOptions,
     ...genTsDataOpts
   } = opts;
@@ -57,7 +56,7 @@ const genMockData = async (opts: IGenMockDataOpts) => {
     jsonSchemaFakerOptions,
     mockDataReplace,
     ...tsData,
-    genMockAbsolutePath,
+    genMockPath,
   });
 };
 

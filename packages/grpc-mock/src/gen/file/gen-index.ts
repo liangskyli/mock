@@ -1,7 +1,7 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { winPath } from '@liangskyli/utils';
+import { winPath, writePrettierFile } from '@liangskyli/utils';
 import path from 'node:path';
-import { fileTip, packageName, writePrettierFile } from '../../utils';
+import { fileTip, packageName } from '../../utils';
 
 export type IGenIndexOpts = {
   genMockPath: string;

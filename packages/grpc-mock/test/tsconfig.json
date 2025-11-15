@@ -7,10 +7,5 @@
   "include": [
     "../mock/**/*.ts",
     "../test/**/*.ts"
-  ],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
-  }
+  ]
 }

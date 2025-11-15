@@ -1,10 +1,9 @@
 import type { Definition } from '@liangskyli/openapi-gen-ts';
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { copyOptions } from '@liangskyli/utils';
+import { copyOptions, writePrettierFile } from '@liangskyli/utils';
 import type { JSONSchemaFakerOptions, Schema } from 'json-schema-faker';
 import { JSONSchemaFaker } from 'json-schema-faker';
 import path from 'node:path';
-import { writePrettierFile } from '../../utils';
 
 type IGenMockDataJsonOpts = {
   genMockAbsolutePath: string;

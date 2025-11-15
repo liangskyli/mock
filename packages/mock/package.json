@@ -21,7 +21,6 @@
   "license": "MIT",
   "author": "liangsky <640634387@qq.com>",
   "type": "module",
-  "main": "./lib/index.cjs",
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "typings": "./lib/index.d.ts",
@@ -29,7 +28,6 @@
     ".": {
       "types": "./lib/index.d.ts",
       "import": "./lib/index.js",
-      "require": "./lib/index.cjs",
       "default": "./lib/index.js"
     }
   },
@@ -47,14 +45,12 @@
   ],
   "scripts": {
     "build": "rollup --config=./rollup.config.js",
-    "start-esm": "cross-env DEBUG=mock:* cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/esm/server.ts",
-    "start-esm-mock": "cross-env DEBUG=mock:* cross-env TS_NODE_PROJECT=test/esm/tsconfig.json node --loader ts-node/esm test/esm/server-mock-esm.ts",
-    "start": "cross-env DEBUG=mock:* cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/server.ts",
-    "test-http-cli": "cross-env DEBUG=mock:* node bin/index.js -d ./test -e mock/b.ts -c ./test/mock.config.ts",
-    "test-http-cli-esm-config": "cross-env DEBUG=mock:* node bin/index.js -d ./test -e mock/b.ts -c ./test/esm/mock.config.ts",
-    "test-http-cli-esm-mock": "cross-env DEBUG=mock:* node bin/index.js -e mock/b.ts -c ./test/esm/mock-esm.config.ts",
-    "test:middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/middleware.ts",
-    "test:webpack-middleware": "cross-env TS_NODE_PROJECT=test/tsconfig.json node -r ts-node/register test/webpack-middleware.ts",
+    "start-esm": "cross-env DEBUG=mock:* tsx test/esm/server.ts",
+    "start": "cross-env DEBUG=mock:* tsx test/server.mts",
+    "test-http-cli": "cross-env DEBUG=mock:* node bin/index.js -d ./test -e mock/b.mts -c test/mock.config.mts",
+    "test-http-cli-esm-config": "cross-env DEBUG=mock:* node bin/index.js -d ./test -c ./test/esm/mock.config.ts",
+    "test:middleware": "tsx test/middleware.ts",
+    "test:webpack-middleware": "tsx test/webpack-middleware.ts",
     "update:deps": "pnpm update --interactive --latest"
   },
   "dependencies": {
@@ -77,7 +73,6 @@
     "@types/multer": "^1.4.12",
     "better-mock": "^0.3.7",
     "socket.io-client": "^4.8.1",
-    "ts-node": "^10.9.2",
     "webpack": "^5.97.1",
     "webpack-dev-server": "^5.1.0"
   },

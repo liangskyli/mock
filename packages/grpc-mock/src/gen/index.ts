@@ -1,5 +1,5 @@
 import type { Options } from '@grpc/proto-loader';
-import { colors, getAbsolutePath, getConfig } from '@liangskyli/utils';
+import { colors, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import fs from 'fs-extra';
 import generatorFiles from './file';
 import type { GenMockDataOptions } from './gen-mock-data';
@@ -20,7 +20,10 @@ export async function grpcMockCodeGen(opts: GenOptions) {
   if (configFilePath) {
     const configFileAbsolutePath = getAbsolutePath(configFilePath);
     if (fs.existsSync(configFileAbsolutePath)) {
-      const configData: ConfigFileOptions = getConfig(configFileAbsolutePath);
+      const configData: ConfigFileOptions = await tsImport(
+        configFileAbsolutePath,
+        import.meta.url,
+      );
       if (configData.loaderOptions) {
         loaderOptions = Object.assign(
           defaultLoaderOptions,
