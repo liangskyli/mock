@@ -19,8 +19,6 @@
   "author": "liangsky <640634387@qq.com>",
   "type": "module",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "typings": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
