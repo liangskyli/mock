@@ -5,8 +5,7 @@ import genMockData from '../../src/gen';
 
 describe('genMockData', () => {
   beforeEach(() => {
-    vi.unmock('../../../utils/node_modules/fs-extra');
-    vi.unmock('./src/utils.ts');
+    vi.unmock('@liangskyli/utils');
   });
   test('genMockData gen-mock dir', async () => {
     await genMockData({
