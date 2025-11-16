@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0-beta.0](https://github.com/liangskyli/mock/compare/v6.0.0...v7.0.0-beta.0) (2025-11-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* all package build only support esm now, drop cjs format
+* remove bin script grpc-mock-cjs,http-mock-gen-cjs,mock-server-cjs
+
+### Features
+
+* all package build only support esm now, drop cjs format ([78085f9](https://github.com/liangskyli/mock/commit/78085f9d3189a0614cee23dfc7cf6e7b4efcbe30))
+* fs-extra use in utils ([a2199c5](https://github.com/liangskyli/mock/commit/a2199c5c1b28d0957cdfd4e8ee48eb548e4f2e51))
+* remove bin script grpc-mock-cjs,http-mock-gen-cjs,mock-server-cjs ([a5d5809](https://github.com/liangskyli/mock/commit/a5d58090218be8300b1345541bdd23b490e9eba8))
+
+
+
 ## [6.0.0](https://github.com/liangskyli/mock/compare/v6.0.0-beta.0...v6.0.0) (2025-05-30)
 
 **Note:** Version bump only for package root
