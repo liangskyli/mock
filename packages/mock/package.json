@@ -56,12 +56,10 @@
   "dependencies": {
     "@liangskyli/utils": "workspace:*",
     "@types/express": "^5.0.0",
-    "@types/fs-extra": "^11.0.4",
     "body-parser": "^2.2.0",
     "chokidar": "^4.0.1",
     "commander": "^13.1.0",
     "express": "^5.1.0",
-    "fs-extra": "^11.2.0",
     "glob": "^10.4.5",
     "multer": "^2.0.0",
     "path-to-regexp": "^8.2.0",

@@ -1,7 +1,11 @@
 import type { Options } from '@grpc/proto-loader';
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { colors, getAbsolutePath, removeFilesSync } from '@liangskyli/utils';
-import fs from 'fs-extra';
+import {
+  colors,
+  fs,
+  getAbsolutePath,
+  removeFilesSync,
+} from '@liangskyli/utils';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import protobufjs from 'protobufjs';

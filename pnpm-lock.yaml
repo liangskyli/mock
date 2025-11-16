@@ -95,18 +95,12 @@ importers:
       '@liangskyli/utils':
         specifier: workspace:*
         version: link:../utils
-      '@types/fs-extra':
-        specifier: ^11.0.4
-        version: 11.0.4
       commander:
         specifier: ^13.1.0
         version: 13.1.0
       cross-spawn:
         specifier: ^7.0.6
         version: 7.0.6
-      fs-extra:
-        specifier: ^11.3.2
-        version: 11.3.2
       nodemon:
         specifier: ^3.1.11
         version: 3.1.11
@@ -147,9 +141,6 @@ importers:
       '@types/express':
         specifier: ^5.0.2
         version: 5.0.5
-      '@types/fs-extra':
-        specifier: ^11.0.4
-        version: 11.0.4
       axios:
         specifier: ^1.7.9
         version: 1.13.2
@@ -159,9 +150,6 @@ importers:
       express:
         specifier: ^5.1.0
         version: 5.1.0
-      fs-extra:
-        specifier: ^11.2.0
-        version: 11.3.2
       json-schema-faker:
         specifier: ^0.5.8
         version: 0.5.9
@@ -178,9 +166,6 @@ importers:
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.5
-      '@types/fs-extra':
-        specifier: ^11.0.4
-        version: 11.0.4
       body-parser:
         specifier: ^2.2.0
         version: 2.2.0
@@ -193,9 +178,6 @@ importers:
       express:
         specifier: ^5.1.0
         version: 5.1.0
-      fs-extra:
-        specifier: ^11.2.0
-        version: 11.3.2
       glob:
         specifier: ^10.4.5
         version: 10.4.5
@@ -233,6 +215,9 @@ importers:
 
   packages/utils:
     dependencies:
+      '@types/fs-extra':
+        specifier: ^11.0.4
+        version: 11.0.4
       '@types/lodash':
         specifier: ^4.17.17
         version: 4.17.20
@@ -246,7 +231,7 @@ importers:
         specifier: ^4.4.1
         version: 4.4.3(supports-color@10.0.0)
       fs-extra:
-        specifier: ^11.3.0
+        specifier: ^11.3.2
         version: 11.3.2
       lodash:
         specifier: ^4.17.21
@@ -264,9 +249,6 @@ importers:
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
-      '@types/fs-extra':
-        specifier: ^11.0.4
-        version: 11.0.4
       '@types/signale':
         specifier: ^1.4.7
         version: 1.4.7

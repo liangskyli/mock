@@ -1,6 +1,5 @@
 import type { Options } from '@grpc/proto-loader';
-import { colors, getAbsolutePath, tsImport } from '@liangskyli/utils';
-import fs from 'fs-extra';
+import { colors, fs, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import generatorFiles from './file';
 import type { GenMockDataOptions } from './gen-mock-data';
 

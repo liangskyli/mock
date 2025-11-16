@@ -1,6 +1,5 @@
-import { winPath } from '@liangskyli/utils';
+import { fs, winPath } from '@liangskyli/utils';
 import { execa } from 'execa';
-import fs from 'fs-extra';
 import path from 'node:path';
 import { URL } from 'node:url';
 import { describe, expect, test } from 'vitest';

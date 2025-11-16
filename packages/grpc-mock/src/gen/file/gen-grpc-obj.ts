@@ -38,7 +38,7 @@ export class GenGrpcObj {
 import { fromJSON } from "@grpc/proto-loader";
 import type { GrpcObject } from '@grpc/grpc-js';
 import { defaultLoaderOptions } from '${packageName}';
-${configFilePath ? 'import fs from "fs-extra";' : ''}
+${configFilePath ? 'import { fs } from "@liangskyli/utils";' : ''}
 import { createRequire } from 'node:module';
 import { tsImport } from '@liangskyli/utils';
 

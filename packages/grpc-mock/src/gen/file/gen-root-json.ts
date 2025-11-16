@@ -2,10 +2,10 @@ import type { Options } from '@grpc/proto-loader';
 import type { IPrettierOptions } from '@liangskyli/utils';
 import {
   copyOptions,
+  fs,
   getAbsolutePath,
   writePrettierFile,
 } from '@liangskyli/utils';
-import fs from 'fs-extra';
 import path from 'node:path';
 import protobufjs from 'protobufjs';
 

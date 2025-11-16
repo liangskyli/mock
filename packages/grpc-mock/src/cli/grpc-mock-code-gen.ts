@@ -1,6 +1,5 @@
-import { colors, getAbsolutePath, tsImport } from '@liangskyli/utils';
+import { colors, fs, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import { program } from 'commander';
-import fs from 'fs-extra';
 import type { ConfigFileOptionsCLI } from '../gen';
 import { grpcMockCodeGen } from '../gen';
 

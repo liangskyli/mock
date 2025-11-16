@@ -3,10 +3,10 @@ import genTsData from '@liangskyli/openapi-gen-ts';
 import {
   colors,
   copyOptions,
+  fs,
   getAbsolutePath,
   removeFilesSync,
 } from '@liangskyli/utils';
-import fs from 'fs-extra';
 import type { JSONSchemaFakerOptions } from 'json-schema-faker';
 import path from 'node:path';
 import generatorMockFile from './file';

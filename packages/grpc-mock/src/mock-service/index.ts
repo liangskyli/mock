@@ -1,6 +1,5 @@
-import { colors, getAbsolutePath, tsImport } from '@liangskyli/utils';
+import { colors, fs, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import spawn from 'cross-spawn';
-import fs from 'fs-extra';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import nodemon from 'nodemon';

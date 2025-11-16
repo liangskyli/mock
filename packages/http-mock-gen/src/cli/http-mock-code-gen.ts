@@ -1,6 +1,11 @@
-import { colors, getAbsolutePath, lodash, tsImport } from '@liangskyli/utils';
+import {
+  colors,
+  fs,
+  getAbsolutePath,
+  lodash,
+  tsImport,
+} from '@liangskyli/utils';
 import { program } from 'commander';
-import fs from 'fs-extra';
 import type { IGenMockDataOpts, IGenMockDataOptsCLI } from '../gen';
 import genMockData from '../gen';
 

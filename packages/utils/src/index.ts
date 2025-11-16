@@ -1,6 +1,7 @@
 import { ip } from 'address';
 import colors from 'colors';
 import createDebug from 'debug';
+import fs from 'fs-extra';
 import lodash from 'lodash';
 import signale from 'signale';
 import { tsImport } from 'tsx/esm/api';
@@ -16,4 +17,13 @@ export {
   winPath,
   writePrettierFile,
 } from './tools';
-export { colors, createDebug, ip, IPrettierOptions, lodash, signale, tsImport };
+export {
+  colors,
+  createDebug,
+  fs,
+  ip,
+  IPrettierOptions,
+  lodash,
+  signale,
+  tsImport,
+};

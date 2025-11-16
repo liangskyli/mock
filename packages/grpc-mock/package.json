@@ -52,10 +52,8 @@
   "dependencies": {
     "@grpc/proto-loader": "^0.8.0",
     "@liangskyli/utils": "workspace:*",
-    "@types/fs-extra": "^11.0.4",
     "commander": "^13.1.0",
     "cross-spawn": "^7.0.6",
-    "fs-extra": "^11.3.2",
     "nodemon": "^3.1.11",
     "protobufjs": "^7.5.4"
   },

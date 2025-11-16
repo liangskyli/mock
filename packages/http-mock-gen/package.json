@@ -50,11 +50,9 @@
     "@liangskyli/openapi-gen-ts": "^4.0.1",
     "@liangskyli/utils": "workspace:*",
     "@types/express": "^5.0.2",
-    "@types/fs-extra": "^11.0.4",
     "axios": "^1.7.9",
     "commander": "^13.1.0",
     "express": "^5.1.0",
-    "fs-extra": "^11.2.0",
     "json-schema-faker": "^0.5.8"
   },
   "devDependencies": {

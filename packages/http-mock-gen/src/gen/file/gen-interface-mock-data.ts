@@ -1,6 +1,10 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { getRelativePath, winPath, writePrettierFile } from '@liangskyli/utils';
-import fs from 'fs-extra';
+import {
+  fs,
+  getRelativePath,
+  winPath,
+  writePrettierFile,
+} from '@liangskyli/utils';
 import path from 'node:path';
 import { fileTip, getMethodData, packageName } from '../../utils';
 import { GenCustomData } from './gen-custom-data';

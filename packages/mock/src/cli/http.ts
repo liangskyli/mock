@@ -1,6 +1,5 @@
-import { colors, getAbsolutePath, tsImport } from '@liangskyli/utils';
+import { colors, fs, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import { program } from 'commander';
-import fs from 'fs-extra';
 import type { IOpts } from '../http/server/server';
 import mockServer from '../http/server/server';
 

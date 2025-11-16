@@ -1,6 +1,6 @@
 import { beforeEach, vi } from 'vitest';
 
-vi.mock('fs-extra', async (importOriginal) => {
+vi.mock('../utils/node_modules/fs-extra', async (importOriginal) => {
   const mod = await importOriginal<any>();
   return {
     ...mod,

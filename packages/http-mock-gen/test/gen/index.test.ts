@@ -1,11 +1,11 @@
-import fs from 'fs-extra';
+import { fs } from '@liangskyli/utils';
 import path from 'node:path';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import genMockData from '../../src/gen';
 
 describe('genMockData', () => {
   beforeEach(() => {
-    vi.unmock('fs-extra');
+    vi.unmock('../../../utils/node_modules/fs-extra');
     vi.unmock('./src/utils.ts');
   });
   test('genMockData gen-mock dir', async () => {

@@ -1,6 +1,5 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { writePrettierFile } from '@liangskyli/utils';
-import fs from 'fs-extra';
+import { fs, writePrettierFile } from '@liangskyli/utils';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { packageName } from '../../utils';
