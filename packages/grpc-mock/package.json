@@ -61,8 +61,7 @@
     "@types/cross-spawn": "^6.0.6",
     "@types/express": "^5.0.5",
     "better-mock": "^0.3.7",
-    "express": "^5.1.0",
-    "grpc": "^1.24.11"
+    "express": "^5.1.0"
   },
   "peerDependencies": {
     "@grpc/grpc-js": "^1.12.4"
