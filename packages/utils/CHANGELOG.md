@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.0](https://github.com/liangskyli/mock/compare/v7.0.0-beta.1...v7.0.0) (2025-11-19)
+
+
+### Features
+
+* tsconfig moduleResolution, upgrade @liangskyli/openapi-gen-ts ([5449e3e](https://github.com/liangskyli/mock/commit/5449e3e97e828eb47a6346d39278296831a759bb))
+
+
+
 ## [7.0.0-beta.1](https://github.com/liangskyli/mock/compare/v7.0.0-beta.0...v7.0.0-beta.1) (2025-11-16)
 
 **Note:** Version bump only for package @liangskyli/utils
