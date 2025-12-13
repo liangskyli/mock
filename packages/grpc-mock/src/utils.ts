@@ -12,7 +12,10 @@ export const longsType = [
   'fixed64',
   'sfixed64',
 ];
-export const PROTO_TYPE_2_TS_TYPE_MAP: Record<string, string> = {
+export const PROTO_TYPE_2_TS_TYPE_MAP: Record<
+  string,
+  'number' | 'boolean' | 'string' | undefined
+> = {
   double: 'number',
   float: 'number',
   int32: 'number',
@@ -41,7 +44,7 @@ export type IDefaultMockData = {
   mapString: string;
 };
 
-const TS_TYPE_2_DEFAULT_MAP: Record<keyof IDefaultMockData, any> = {
+const TS_TYPE_2_DEFAULT_MAP = {
   number: 0,
   boolean: false,
   // string: '""',

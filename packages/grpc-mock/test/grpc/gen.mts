@@ -29,7 +29,7 @@ grpcMockCodeGen({
     'trade_trade_center':'trade_center',
   },
   prettierOptions: { singleQuote: true },
-  configFilePath:'./test/grpc/mock.config.ts',
+  configFilePath:'./test/grpc/mock.config.mts',
 });*/
 
 /*grpcMockCodeGen({

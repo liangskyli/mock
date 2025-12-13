@@ -50,8 +50,10 @@ export class GenServiceMockData {
     serverName: string;
     protoName: string;
     serviceCodeName: string;
+    serviceComment: string;
   }) {
-    const { index, serverName, protoName, serviceCodeName } = opts;
+    const { index, serverName, protoName, serviceCodeName, serviceComment } =
+      opts;
     const uniqueServiceCodeName = this.getUniqueServiceCodeName({
       index,
       serviceCodeName,
@@ -59,6 +61,9 @@ export class GenServiceMockData {
     this.serviceMockContent.push(
       `import ${uniqueServiceCodeName} from '../proto/${serverName}/${protoName}/${serviceCodeName}';`,
     );
+    if (serviceComment) {
+      this.protoItem.push(serviceComment);
+    }
     this.protoItem.push(`{ ...${uniqueServiceCodeName} },`);
   }
 

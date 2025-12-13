@@ -110,10 +110,11 @@ const genMockData = async (
 
         await Promise.all(
           services.map(async (service, index) => {
-            const protoName = service.fullName.split('.')[0];
-            const protoPath = `${spaceServerName}.${service.fullName}`;
-            const serviceCodeName = firstWordNeedLetter(service.name);
-            const methods = service.methods ?? [];
+            const { fullName, name, methods, comment } = service;
+            const protoName = fullName.split('.')[0];
+            const protoPath = `${spaceServerName}.${fullName}`;
+            const serviceCodeName = firstWordNeedLetter(name);
+            const serviceComment = comment ? `/** ${comment} */` : '';
 
             await new GenProtoMockData({
               index,
@@ -121,6 +122,7 @@ const genMockData = async (
               serviceCodeName,
               protoPath,
               methods,
+              serviceComment,
               protoName,
               root,
               longsTypeToString,
@@ -135,6 +137,7 @@ const genMockData = async (
               serverName,
               protoName,
               serviceCodeName,
+              serviceComment,
             });
           }),
         );

@@ -7,6 +7,7 @@ import {
   writePrettierFile,
 } from '@liangskyli/utils';
 import path from 'node:path';
+import type { INamespace } from 'protobufjs';
 import protobufjs from 'protobufjs';
 
 export type ProtoConfig = {
@@ -27,7 +28,7 @@ export type IGenRootJsonOpts = ProtoConfig & {
 
 export class GenRootJson {
   private readonly opts: IGenRootJsonOpts;
-  private allJson: Record<string, any>;
+  private allJson: Record<string, INamespace>;
 
   constructor(opts: IGenRootJsonOpts) {
     this.opts = opts;

@@ -54,7 +54,7 @@ const mockServerLoadScript = async (opts: IMockServerLoadScript) => {
       spawn.sync('node', [mockServerLoadScript, genMockIndexFile], {
         stdio: 'inherit',
       });
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
     }
   };
@@ -72,7 +72,7 @@ const mockServerLoadScript = async (opts: IMockServerLoadScript) => {
       }).on('log', (msg) => {
         console.log(msg.colour);
       });
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
     }
   };

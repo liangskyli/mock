@@ -57,7 +57,7 @@
       sceneData: [
         {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          requestCase: (request: any) => {
+          requestCase: (request) => {
             // request 为grpc传入参数，可以根据不同参数配置不同场景数据
             // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
             return false;
@@ -86,9 +86,9 @@ type IResponseData = {
     message: string;
   };
   /** mock 正常响应数据 */
-  response: any;
+  response: unknown;
   /** mock metadata数据 */
-  metadata?: IMetadataMap;
+  metadata?: IMetadataRecord;
 };
 
 export type IImplementationData = Record<
@@ -126,7 +126,7 @@ export const ActivityServiceData: IImplementationData = {
     sceneData: [
       {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        requestCase: (request: any) => {
+        requestCase: (request) => {
           // request 为grpc传入参数，可以根据不同参数配置不同场景数据
           // mock 场景数据判断,返回true时使用该场景，匹配成功后，跳出匹配
           return request.activityId === '10';

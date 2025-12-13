@@ -1,31 +1,34 @@
+import type {
+  GrpcObject,
+  UntypedServiceImplementation as IImplementation,
+  sendUnaryData,
+  ServerUnaryCall,
+  ServiceClientConstructor,
+} from '@grpc/grpc-js';
+import grpc from '@grpc/grpc-js';
 import { colors, lodash, tsImport } from '@liangskyli/utils';
 import fs from 'node:fs';
-import { createRequire } from 'node:module';
 import path from 'node:path';
-import type { IMetadataMap, IMockService, IProtoItem } from './service-type';
+import type { IMetadataRecord, IMockService, IProtoItem } from './service-type';
 
-const require = createRequire(import.meta.url);
-
-type IImplementation = Record<string, (call: any, callback: any) => void>;
-
-const toMetadata = (grpc: any, metadata?: IMetadataMap): any => {
+const toMetadata = (metadata?: IMetadataRecord) => {
   const metadataIns = new grpc.Metadata();
   if (metadata && typeof metadata === 'object') {
     Object.keys(metadata).forEach((keyName) => {
-      metadataIns.add(keyName, '' + metadata[keyName]);
+      metadataIns.add(keyName, metadata[keyName]);
     });
   }
   return metadataIns;
 };
 
-const getImplementation: (proto: IProtoItem, grpc: any) => IImplementation = (
-  proto,
-  grpc,
-) => {
+const getImplementation: (proto: IProtoItem) => IImplementation = (proto) => {
   const implementationData = proto.implementationData;
   const implementation: IImplementation = {};
   Object.keys(implementationData).forEach((key) => {
-    implementation[key] = (call: any, callback: any) => {
+    implementation[key] = (
+      call: ServerUnaryCall<unknown, unknown>,
+      callback: sendUnaryData<unknown>,
+    ) => {
       const { request, metadata: requestMetadata } = call;
       console.info(
         '-------grpc mock server-------',
@@ -56,17 +59,20 @@ const getImplementation: (proto: IProtoItem, grpc: any) => IImplementation = (
           return false;
         });
       }
-      callback(error, response, toMetadata(grpc, metadata));
+      callback(error, response, toMetadata(metadata));
     };
   });
   return implementation;
 };
 
-const start = (grpcObject: any, mock: IMockService, grpc: any) => {
+const start = (grpcObject: GrpcObject, mock: IMockService) => {
   const server = new grpc.Server();
   mock.protoList.forEach((proto) => {
-    const { service } = lodash.get<any, string>(grpcObject, proto.path);
-    server.addService(service, getImplementation(proto, grpc));
+    const { service } = lodash.get<GrpcObject, string>(
+      grpcObject,
+      proto.path,
+    ) as unknown as ServiceClientConstructor;
+    server.addService(service, getImplementation(proto));
   });
 
   server.bindAsync(
@@ -91,11 +97,10 @@ const grpcMockInit = async (mockList: IMockService[], baseDir: string) => {
   if (fs.existsSync(grpcObjPath)) {
     const getGrpcObjectGroup = (await tsImport(grpcObjPath, import.meta.url))
       .default;
-    const grpcObject = await getGrpcObjectGroup();
-    const grpc = require('@grpc/grpc-js');
+    const grpcObject = (await getGrpcObjectGroup()) as GrpcObject;
     // start server
     mockList.forEach((mock) => {
-      start(grpcObject, mock, grpc);
+      start(grpcObject, mock);
     });
   } else {
     console.error(colors.red('请先生成grpc mock 代码'));

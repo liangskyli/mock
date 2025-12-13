@@ -2,22 +2,22 @@ import type { IPrettierOptions } from '@liangskyli/utils';
 import { fs, winPath, writePrettierFile } from '@liangskyli/utils';
 import path from 'node:path';
 import type { Root } from 'protobufjs';
-import type { TMethod } from '../../types';
+import type { TService } from '../../types';
 import { fileTip, packageName, type IDefaultMockData } from '../../utils';
 import { genImplementationData } from '../pbjs';
 
-export type IGenProtoMockDataOpts = {
+export type IGenProtoMockDataOpts = Pick<TService, 'methods'> & {
   index: number;
   genCustomDataPath: string;
   serviceCodeName: string;
   protoPath: string;
-  methods: TMethod[];
   protoName: string;
   root: Root;
   longsTypeToString: boolean;
   prettierOptions?: IPrettierOptions;
   genProtoPath: string;
   serverName: string;
+  serviceComment: string;
   defaultMockData?: Partial<IDefaultMockData>;
 };
 
@@ -34,6 +34,7 @@ export class GenProtoMockData {
       serviceCodeName,
       protoPath,
       methods,
+      serviceComment,
       protoName,
       root,
       longsTypeToString,
@@ -44,6 +45,7 @@ export class GenProtoMockData {
             import type { IProtoItem } from '${packageName}';
             import CustomData from '${winPath(genCustomDataPath)}/index';
             
+            ${serviceComment}
             const ${serviceCodeName}: IProtoItem = {
               path: '${protoPath}',
               implementationData: ${genImplementationData({

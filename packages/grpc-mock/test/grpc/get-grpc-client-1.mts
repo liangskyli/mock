@@ -1,5 +1,5 @@
-import type { Metadata } from '@grpc/grpc-js';
-import * as grpc from '@grpc/grpc-js';
+import type { GrpcObject, Metadata , ServiceClientConstructor } from '@grpc/grpc-js';
+import grpc from '@grpc/grpc-js';
 import { lodash } from '@liangskyli/utils';
 import getGrpcObjectGroup from '../grpc-mock/grpc-obj';
 
@@ -17,11 +17,11 @@ function toMetadata(metadata: MetadataMap): Metadata {
 
 export const start = async (): Promise<unknown> => {
   const grpcObject = await getGrpcObjectGroup();
-  const proto = lodash.get<any, string>(
+  const proto = lodash.get<GrpcObject, string>(
     grpcObject,
     'trade_trade_zxkp.trade_zxkp_proto',
-  );
-  const client = new proto.ActivityService(
+  ) as GrpcObject;
+  const client = new (proto.ActivityService as ServiceClientConstructor)(
     'localhost:50003',
     grpc.credentials.createInsecure(),
   );
@@ -42,11 +42,11 @@ export const start = async (): Promise<unknown> => {
 
 export const start2 = async (): Promise<unknown> => {
   const grpcObject = await getGrpcObjectGroup();
-  const proto = lodash.get<any, string>(
+  const proto = lodash.get<GrpcObject, string>(
     grpcObject,
     'serverName1.activity_package',
-  );
-  const client = new proto.ActivityService(
+  ) as GrpcObject;
+  const client = new (proto.ActivityService as ServiceClientConstructor)(
     'localhost:50000',
     grpc.credentials.createInsecure(),
   );

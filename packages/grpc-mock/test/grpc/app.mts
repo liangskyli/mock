@@ -3,11 +3,11 @@ import { start, start2 } from './get-grpc-client-1.mjs';
 
 const app = express();
 
-app.get('/', (req: any, res: any) => {
+app.get('/', (_req, res) => {
   res.send('homepage');
 });
 
-app.get('/1', async (req: any, res: any) => {
+app.get('/1', async (_req, res) => {
   try {
     const result = await start();
     res.send(result);
@@ -16,7 +16,7 @@ app.get('/1', async (req: any, res: any) => {
   }
 });
 
-app.get('/2', async (req: any, res: any) => {
+app.get('/2', async (_req, res) => {
   try {
     const result = await start2();
     res.send(result);

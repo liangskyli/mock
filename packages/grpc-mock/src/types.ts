@@ -1,57 +1,48 @@
-export type TBase = {
-  projectId?: number;
-  branchOrTag?: string;
-  name: string;
-  fullName: string;
-  comment: string;
-};
+import type {
+  Enum,
+  Field,
+  INamespace,
+  IService,
+  IType,
+  Method,
+  ReflectionObject,
+  Service,
+} from 'protobufjs';
 
-export type TField = {
-  name: string;
-  type: string;
-  id: number;
-  comment: string;
-  required: boolean;
-  repeated: boolean;
-  defaultValue: any;
-  bytes: boolean;
-};
+type TBase = Pick<ReflectionObject, 'name' | 'fullName' | 'comment'>;
+
+export type TField = Pick<
+  Field,
+  | 'defaultValue'
+  | 'name'
+  | 'type'
+  | 'id'
+  | 'comment'
+  | 'required'
+  | 'repeated'
+  | 'bytes'
+>;
 
 export type TMessage = TBase & {
   fields: TField[];
   filename: string | null;
 };
+export type TNamespace = TBase & INamespace;
+export type TType = TBase & IType;
+export type TEnum = TBase & Pick<Enum, 'values' | 'filename' | 'comments'>;
+export type TServiceJson = TBase & IService;
+export type TMethod = TBase &
+  Pick<
+    Method,
+    | 'options'
+    | 'requestStream'
+    | 'requestType'
+    | 'responseStream'
+    | 'responseType'
+    | 'type'
+  >;
 
-export type TEnum = TBase & {
-  values: Record<string, any>;
-  comments: Record<string, string>;
-  filename: string | null;
-};
-
-export type TMethod = TBase & {
-  options?: any;
-  requestStream?: boolean;
-  requestType: string;
-  responseStream?: boolean;
-  responseType: string;
-  type?: string;
-  author?: string;
-};
-
-export type TService = TBase & {
-  options?: any;
-  methods?: TMethod[];
-  author: string;
-  filename: string | null;
-};
-
-/*export type TNamespace = {
-  messages?: { [name: string]: TMessage };
-  enums?: { [name: string]: TEnum };
-  nested?: { [name: string]: TNamespace };
-};
-
-export type InitStartServicesConfig = {
-  enable: boolean;
-  exclude?: string[];
-};*/
+export type TService = TBase &
+  Pick<Service, 'options' | 'filename'> & {
+    methods: TMethod[];
+  };

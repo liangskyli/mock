@@ -33,7 +33,7 @@ const commandCodeGenCli = async (version: string, script: string) => {
 
   try {
     grpcMockCodeGen({ ...otherOptions, configFilePath }).then();
-  } catch (err: any) {
+  } catch (err) {
     console.error(err);
   }
 };

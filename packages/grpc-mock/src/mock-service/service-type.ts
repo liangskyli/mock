@@ -1,4 +1,6 @@
-export type IMetadataMap = Record<string, string | number | Buffer>;
+import type { MetadataValue } from '@grpc/grpc-js';
+
+export type IMetadataRecord = Record<string, MetadataValue>;
 
 type IResponseData = {
   /** mock 错误数据 */
@@ -9,9 +11,9 @@ type IResponseData = {
     message: string;
   };
   /** mock 正常响应数据 */
-  response: any;
+  response: unknown;
   /** mock metadata数据 */
-  metadata?: IMetadataMap;
+  metadata?: IMetadataRecord;
 };
 
 export type IImplementationData = Record<

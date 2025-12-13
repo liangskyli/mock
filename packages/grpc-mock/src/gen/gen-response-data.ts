@@ -17,7 +17,7 @@ export default function genResponseData(opts: IOpts): string {
   const { typeMessage, root, longsTypeToString, defaultMockData = {} } = opts;
 
   const commentReg = /(@optional)|(@option)|[\r\n]/g;
-  let repeatList: string[] = [];
+  const repeatList: string[] = [];
 
   const genEnumObj = (type: Enum) => {
     const { valuesById, comments } = type;
@@ -28,7 +28,7 @@ export default function genResponseData(opts: IOpts): string {
         firstValue = value;
       }
       enumCommentArr.push(
-        `${value}:${comments[`${valuesById[value as any]}`]}`,
+        `${value}:${comments[`${valuesById[value as unknown as number]}`]}`,
       );
     });
     const enumCommentStr =
@@ -38,7 +38,7 @@ export default function genResponseData(opts: IOpts): string {
 
   const generateWithMapFieldValue = (
     fieldKeyType: string | undefined,
-    fieldValue: string,
+    fieldValue: string | number | boolean,
   ) => {
     if (fieldKeyType) {
       // map key only support string and int32
@@ -77,7 +77,7 @@ export default function genResponseData(opts: IOpts): string {
         jsonArr.push(commentStr);
       }
 
-      let fieldValue: any = null;
+      let fieldValue: ReturnType<typeof getDefaultMockData> = '';
       if (tsType !== undefined) {
         if (tsType === 'string') {
           fieldValue = `'${field}'`;
@@ -87,7 +87,10 @@ export default function genResponseData(opts: IOpts): string {
             }
           }
         } else {
-          fieldValue = getDefaultMockData(tsType as any, defaultMockData);
+          fieldValue = getDefaultMockData(
+            tsType as keyof IDefaultMockData,
+            defaultMockData,
+          );
         }
         if (repeated) {
           jsonArr.push(

@@ -37,7 +37,7 @@ export class GenGrpcObj {
       `import * as grpc from '@grpc/grpc-js';
 import { fromJSON } from "@grpc/proto-loader";
 import type { GrpcObject } from '@grpc/grpc-js';
-import { defaultLoaderOptions } from '${packageName}';
+import { type ConfigFileOptionsCLI, defaultLoaderOptions } from '${packageName}';
 ${configFilePath ? 'import { fs } from "@liangskyli/utils";' : ''}
 import { createRequire } from 'node:module';
 import { tsImport } from '@liangskyli/utils';
@@ -46,7 +46,7 @@ const require = createRequire(import.meta.url);
 const root = require('${getImportPath(grpcObjPath, rootPath)}');
 
 const getGrpcObjectGroup = async () => {
-  let config: any;
+  let config: Pick<ConfigFileOptionsCLI, 'loaderOptions'> | undefined;;
   ${
     absoluteConfigFilePath
       ? `
@@ -59,7 +59,7 @@ const getGrpcObjectGroup = async () => {
   }
   const grpcObjectGroup: Record<string, GrpcObject> = {};
   Object.keys(root).forEach((key: string) => {
-    grpcObjectGroup[key] = (grpc.loadPackageDefinition as any)(
+    grpcObjectGroup[key] = grpc.loadPackageDefinition(
         fromJSON(
             root[key],
             Object.assign(defaultLoaderOptions, config && config.loaderOptions),

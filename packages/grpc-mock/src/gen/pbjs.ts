@@ -1,31 +1,24 @@
 import { lodash } from '@liangskyli/utils';
-import type protobufjs from 'protobufjs';
 import type {
   Enum,
-  Field,
-  IEnum,
-  IMethod,
   INamespace,
-  IService,
-  IType,
   Namespace,
-  ReflectionObject,
+  Root,
   Service,
   Type,
 } from 'protobufjs';
-import type { TEnum, TField, TMessage, TMethod, TService } from '../types';
+import type {
+  TEnum,
+  TField,
+  TMessage,
+  TMethod,
+  TNamespace,
+  TService,
+  TServiceJson,
+  TType,
+} from '../types';
 import type { IDefaultMockData } from '../utils';
 import genResponseData from './gen-response-data';
-
-interface HasName {
-  name: string;
-  fullName: string;
-  comment: string;
-}
-
-interface HasAuthor {
-  author: string;
-}
 
 function formatFullName(fullName: string): string {
   return fullName.replace(/^\./, '');
@@ -33,7 +26,7 @@ function formatFullName(fullName: string): string {
 
 export type IInspectNamespace =
   | {
-      json: HasName & INamespace;
+      json: TNamespace;
       services: TService[];
       methods: TMethod[];
       messages: TMessage[];
@@ -42,28 +35,29 @@ export type IInspectNamespace =
   | null
   | undefined;
 
-function inspectType(message: Type): {
-  json: IType & HasName;
+type IInspectType = {
+  json: TType;
   services: TService[];
   methods: TMethod[];
   messages: TMessage[];
-} {
+};
+function inspectType(message: Type): IInspectType {
   const collectServices: TService[] = [];
   const collectMethods: TMethod[] = [];
   const collectMessages: TMessage[] = [];
 
   const { nested } = message;
-  const typeClone: IType & HasName = {
+  const cloneTypeJson: IInspectType['json'] = {
     fields: {},
     name: message.name,
     fullName: formatFullName(message.fullName),
-    comment: message.comment as string,
+    comment: message.comment,
   };
   if (nested) {
     // eslint-disable-next-line @typescript-eslint/no-use-before-define
     const inspectNamespace1 = inspectNamespace(message);
     if (inspectNamespace1) {
-      typeClone.nested = inspectNamespace1.json.nested;
+      cloneTypeJson.nested = inspectNamespace1.json.nested;
       collectServices.push(...inspectNamespace1.services);
       collectMethods.push(...inspectNamespace1.methods);
       collectMessages.push(...inspectNamespace1.messages);
@@ -72,7 +66,7 @@ function inspectType(message: Type): {
 
   const fields: TField[] = [];
   Object.keys(message.fields).forEach((key) => {
-    const field: Field = message.fields[key];
+    const field = message.fields[key];
     const { type, name, repeated, defaultValue, bytes, id } = field;
 
     let { comment, required } = field;
@@ -83,7 +77,7 @@ function inspectType(message: Type): {
       required = true;
     }
 
-    const fieldClone = {
+    const fieldClone: TField = {
       name,
       type,
       id,
@@ -92,95 +86,64 @@ function inspectType(message: Type): {
       repeated,
       defaultValue,
       bytes,
-    } as TField;
+    };
 
     fields.push(fieldClone);
 
-    typeClone.fields[key] = fieldClone;
+    cloneTypeJson.fields[key] = fieldClone;
   });
   collectMessages.push({
     name: message.name,
     fullName: formatFullName(message.fullName),
-    comment: message.comment as string,
+    comment: message.comment,
     fields,
     filename:
       message.filename &&
-      (message.filename as string).replace(
-        /^.+\/.load-proto-cache\/[^/]+\//,
-        '',
-      ),
+      message.filename.replace(/^.+\/.load-proto-cache\/[^/]+\//, ''),
   });
   return {
-    json: typeClone,
+    json: cloneTypeJson,
     services: collectServices,
     messages: collectMessages,
     methods: collectMethods,
   };
 }
 
-function inspectEnum(enum1: Enum): {
-  json: IEnum & HasName;
-  enums: TEnum[];
-} {
-  const collectEnums: TEnum[] = [];
-
-  const clone: TEnum = {
+type IInspectEnum = {
+  json: TEnum;
+  enum: TEnum;
+};
+function inspectEnum(enum1: Enum): IInspectEnum {
+  const cloneEnumJson: IInspectEnum['json'] = {
     values: enum1.values,
     name: enum1.name,
     fullName: formatFullName(enum1.fullName),
-    comment: enum1.comment as string,
+    comment: enum1.comment,
     comments: enum1.comments,
     filename:
       enum1.filename &&
-      (enum1.filename as string).replace(/^.+\/.load-proto-cache\/[^/]+\//, ''),
+      enum1.filename.replace(/^.+\/.load-proto-cache\/[^/]+\//, ''),
   };
 
-  collectEnums.push(clone);
   return {
-    json: clone,
-    enums: collectEnums,
+    json: cloneEnumJson,
+    enum: cloneEnumJson,
   };
 }
 
-const regExpAuthor = /\n?\s*@author\s+([^\n]+)/;
-
-function getAuthor(comment: string | null): {
-  author: string | undefined | null;
-  comment: string | undefined | null;
-} {
-  if (!comment) {
-    return { author: null, comment };
-  }
-
-  let author;
-
-  if (regExpAuthor.test(comment)) {
-    const execRes = regExpAuthor.exec(comment);
-    if (execRes) {
-      author = execRes[1];
-    }
-
-    comment = comment.replace(regExpAuthor, '');
-  }
-  return { author, comment };
-}
-
-function inspectService(service: Service): {
-  json: IService & HasName;
-  services: TService[];
+type IInspectService = {
+  json: TServiceJson;
+  service: TService;
   methods: TMethod[];
-} {
-  const collectServices: TService[] = [];
+};
+function inspectService(service: Service): IInspectService {
   const collectMethods: TMethod[] = [];
 
-  const res = getAuthor(service.comment);
-  const { author } = res;
-  const clone: IService & HasName & HasAuthor = {
+  const cloneServiceJson: IInspectService['json'] = {
     methods: {},
     name: service.name,
     fullName: formatFullName(service.fullName),
-    comment: res.comment as string,
-    author: author as string,
+    comment: service.comment,
   };
   Object.keys(service.methods).forEach((key) => {
     const method = service.methods[key];
@@ -193,60 +156,58 @@ function inspectService(service: Service): {
       requestStream,
       responseStream,
       fullName,
+      comment,
     } = method;
 
-    let { comment } = method;
-
-    const authorAndComment = getAuthor(comment);
-    comment = authorAndComment.comment as string;
-
-    const methodClone = {
+    const methodClone: TMethod = {
       name,
       fullName: formatFullName(fullName),
       type,
-      comment,
       options,
       requestType,
       responseType,
       requestStream,
       responseStream,
-      author: authorAndComment.author,
-    } as IMethod & HasName;
+      comment,
+    };
     collectMethods.push(methodClone);
-    clone.methods[key] = methodClone;
+    cloneServiceJson.methods[key] = {
+      ...methodClone,
+      comment: methodClone.comment ?? '',
+    };
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { methods: methodsClone, nested: nestedClone, ...restClone } = clone;
+  const {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    methods: methodsClone,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    nested: nestedClone,
+    ...restClone
+  } = cloneServiceJson;
 
-  collectServices.push({
+  const collectService: TService = {
     ...restClone,
     methods: collectMethods,
     filename:
       service.filename &&
-      (service.filename as string).replace(
-        /^.+\/.load-proto-cache\/[^/]+\//,
-        '',
-      ),
-  });
+      service.filename.replace(/^.+\/.load-proto-cache\/[^/]+\//, ''),
+  };
 
   return {
-    json: clone,
-    services: collectServices,
+    json: cloneServiceJson,
+    service: collectService,
     methods: collectMethods,
   };
 }
 
-export function inspectNamespace(
-  namespace: ReflectionObject & INamespace,
-): IInspectNamespace {
+export function inspectNamespace(namespace: Namespace): IInspectNamespace {
   const collectServices: TService[] = [];
   const collectMethods: TMethod[] = [];
   const collectMessages: TMessage[] = [];
   const collectEnums: TEnum[] = [];
   const { nested, name, fullName, comment } = namespace;
   if (typeof nested !== 'undefined') {
-    const cloneNested: any = {};
+    const cloneNested: INamespace['nested'] = {};
     Object.keys(nested).forEach((key) => {
       const reflectionObject = nested[key];
 
@@ -279,13 +240,13 @@ export function inspectNamespace(
         cloneNested[key] = inspectService1.json;
 
         collectMethods.push(...inspectService1.methods);
-        collectServices.push(...inspectService1.services);
+        collectServices.push(inspectService1.service);
       }
       if (typeof asEnum.values !== 'undefined') {
         const inspectEnum1 = inspectEnum(asEnum);
         cloneNested[key] = inspectEnum1.json;
 
-        collectEnums.push(...inspectEnum1.enums);
+        collectEnums.push(inspectEnum1.enum);
       }
     });
     return {
@@ -293,7 +254,7 @@ export function inspectNamespace(
         name,
         fullName: formatFullName(fullName),
         nested: cloneNested,
-        comment: comment as string,
+        comment: comment,
       },
       services: lodash.uniqBy(collectServices, 'fullName'),
       methods: lodash.uniqBy(collectMethods, 'fullName'),
@@ -308,7 +269,7 @@ type IGenImplementationDataOpts = {
   path: string;
   methods: TMethod[];
   protoName: string;
-  root: protobufjs.Root;
+  root: Root;
   longsTypeToString: boolean;
   defaultMockData?: Partial<IDefaultMockData>;
 };
@@ -337,9 +298,10 @@ export const genImplementationData = (opts: IGenImplementationDataOpts) => {
         longsTypeToString,
         defaultMockData,
       });
-
+      const methodComment = item.comment ? `/** ${item.comment} */` : '';
       data.push(
-        `${item.name}: {
+        `${methodComment}
+        ${item.name}: {
           /** mock 错误数据 */
           error: CustomData['${path}']?.${item.name}?.error,
           /** mock 正常响应数据 */
