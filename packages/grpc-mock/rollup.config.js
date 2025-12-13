@@ -1,10 +1,7 @@
-import { createRequire } from 'node:module';
 import copy from 'rollup-plugin-copy';
 import typescript from 'rollup-plugin-typescript2';
 import { getConfig } from '../rollup.base.config.js';
-
-const require = createRequire(import.meta.url);
-const packageJSON = require('./package.json');
+import packageJSON from './package.json' with { type: 'json' };
 
 const config = getConfig(packageJSON);
 
