@@ -46,7 +46,7 @@ const mockServerLoadScript = async (opts: IMockServerLoadScript) => {
 
   const mockServerLoadScript = path.join(
     curDirName,
-    './cli/grpc-mock-server-load.mjs',
+    './cli/grpc-mock-server-load.js',
   );
 
   const runningScript = () => {

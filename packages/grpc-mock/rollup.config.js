@@ -29,7 +29,7 @@ grpcMockServerLoadConfig.plugins = [
 ];
 grpcMockServerLoadConfig.output = [
   {
-    file: './lib/cli/grpc-mock-server-load.mjs',
+    file: './lib/cli/grpc-mock-server-load.js',
     format: 'esm',
   },
 ];
