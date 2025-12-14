@@ -39,7 +39,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "rollup --config=./rollup.config.js",
+    "build": "rolldown --config=./rolldown.config.ts && tsc --noEmit false --emitDeclarationOnly",
     "test-grpc-express-app": "tsx test/grpc/app.mts",
     "test-grpc-mock-code-gen": "tsx test/grpc/gen.mts",
     "test-grpc-mock-code-gen-cli": "node bin/index.js code-gen -c test/grpc/mock.config.cli.mts",

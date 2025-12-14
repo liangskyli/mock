@@ -42,7 +42,7 @@
     "package.json"
   ],
   "scripts": {
-    "build": "rollup --config=./rollup.config.js",
+    "build": "rolldown --config=./rolldown.config.ts && tsc --noEmit false --emitDeclarationOnly",
     "start-esm": "cross-env DEBUG=mock:* tsx test/esm/server.ts",
     "start": "cross-env DEBUG=mock:* tsx test/server.mts",
     "test-http-cli": "cross-env DEBUG=mock:* node bin/index.js -d ./test -e mock/b.mts -c test/mock.config.mts",
