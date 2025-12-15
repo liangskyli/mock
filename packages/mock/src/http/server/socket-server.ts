@@ -2,6 +2,7 @@ import { colors, ip, tsImport, winPath } from '@liangskyli/utils';
 import type { FSWatcher } from 'chokidar';
 import type http from 'node:http';
 import { isAbsolute, join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import type { ServerOptions, Socket } from 'socket.io';
 import { Server as SocketServer } from 'socket.io';
 
@@ -75,8 +76,11 @@ const initSocketServer = (socketServerConfig: ISocketServerConfig) => {
     }
     const socketControllerMainPath = winPath(mockControllerUrl);
 
-    const { default: socketMain, socketNamespaceController } = await tsImport(
+    const socketControllerMainPathURL = pathToFileURL(
       socketControllerMainPath,
+    ).href;
+    const { default: socketMain, socketNamespaceController } = await tsImport(
+      socketControllerMainPathURL,
       import.meta.url,
     );
     return { socketMain, socketNamespaceController };

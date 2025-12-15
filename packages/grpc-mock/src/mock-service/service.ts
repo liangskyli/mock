@@ -9,6 +9,7 @@ import grpc from '@grpc/grpc-js';
 import { colors, lodash, tsImport } from '@liangskyli/utils';
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import type { IMetadataRecord, IMockService, IProtoItem } from './service-type';
 
 const toMetadata = (metadata?: IMetadataRecord) => {
@@ -95,7 +96,8 @@ const start = (grpcObject: GrpcObject, mock: IMockService) => {
 const grpcMockInit = async (mockList: IMockService[], baseDir: string) => {
   const grpcObjPath = path.join(process.cwd(), baseDir, 'grpc-obj.ts');
   if (fs.existsSync(grpcObjPath)) {
-    const getGrpcObjectGroup = (await tsImport(grpcObjPath, import.meta.url))
+    const grpcObjPathURL = pathToFileURL(grpcObjPath).href;
+    const getGrpcObjectGroup = (await tsImport(grpcObjPathURL, import.meta.url))
       .default;
     const grpcObject = (await getGrpcObjectGroup()) as GrpcObject;
     // start server

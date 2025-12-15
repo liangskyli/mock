@@ -1,5 +1,6 @@
 import { colors, fs, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import { program } from 'commander';
+import { pathToFileURL } from 'node:url';
 import type { ConfigFileOptionsCLI } from '../gen';
 import { grpcMockCodeGen } from '../gen';
 
@@ -20,8 +21,9 @@ const commandCodeGenCli = async (version: string, script: string) => {
     process.exit(1);
   }
 
+  const configFileURL = pathToFileURL(configFilePath).href;
   const data: ConfigFileOptionsCLI = (
-    await tsImport(configFilePath, import.meta.url)
+    await tsImport(configFileURL, import.meta.url)
   ).default;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { loaderOptions, ...otherOptions } = data;

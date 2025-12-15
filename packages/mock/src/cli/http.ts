@@ -1,5 +1,6 @@
 import { colors, fs, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import { program } from 'commander';
+import { pathToFileURL } from 'node:url';
 import type { IOpts } from '../http/server/server';
 import mockServer from '../http/server/server';
 
@@ -54,7 +55,8 @@ const commandHttpCli = async (version: string) => {
       process.exit(1);
     }
 
-    const data: IOpts = (await tsImport(configFilePath, import.meta.url))
+    const configFileURL = pathToFileURL(configFilePath).href;
+    const data: IOpts = (await tsImport(configFileURL, import.meta.url))
       .default;
     opt = {
       ...opt,

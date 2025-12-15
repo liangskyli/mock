@@ -6,6 +6,7 @@ import { globSync } from 'glob';
 import multer from 'multer';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { pathToRegexp } from 'path-to-regexp';
 
 // support all openapi methods
@@ -46,7 +47,8 @@ export async function getMockConfig(files: string[]) {
     async (memoPromise, mockFile) => {
       const memo = await memoPromise; // 等待之前的结果
       try {
-        const m = await tsImport(mockFile, import.meta.url);
+        const mockFileURL = pathToFileURL(mockFile).href;
+        const m = await tsImport(mockFileURL, import.meta.url);
         return {
           ...memo,
           ...(m.default || m),

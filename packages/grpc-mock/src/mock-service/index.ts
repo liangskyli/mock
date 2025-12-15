@@ -1,7 +1,7 @@
 import { colors, fs, getAbsolutePath, tsImport } from '@liangskyli/utils';
 import spawn from 'cross-spawn';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import nodemon from 'nodemon';
 import type { ConfigFileOptionsCLI } from '../gen';
 
@@ -26,8 +26,9 @@ const mockServerLoadScript = async (opts: IMockServerLoadScript) => {
     process.exit(1);
   }
 
+  const configFileURL = pathToFileURL(configFilePath).href;
   const data: ConfigFileOptionsCLI = (
-    await tsImport(configFilePath, import.meta.url)
+    await tsImport(configFileURL, import.meta.url)
   ).default;
   const { grpcMockDir = './', grpcMockFolderName = 'grpc-mock' } = data;
 

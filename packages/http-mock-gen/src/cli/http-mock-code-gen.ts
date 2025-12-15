@@ -6,6 +6,7 @@ import {
   tsImport,
 } from '@liangskyli/utils';
 import { program } from 'commander';
+import { pathToFileURL } from 'node:url';
 import type { IGenMockDataOpts, IGenMockDataOptsCLI } from '../gen';
 import genMockData from '../gen';
 
@@ -28,8 +29,9 @@ const commandCodeGenCli = async (version: string) => {
     process.exit(1);
   }
 
+  const configFileURL = pathToFileURL(configFilePath).href;
   let opts: IGenMockDataOptsCLI = (
-    await tsImport(configFilePath, import.meta.url)
+    await tsImport(configFileURL, import.meta.url)
   ).default;
 
   const runningScript = async () => {

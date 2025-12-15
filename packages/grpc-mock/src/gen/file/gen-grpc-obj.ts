@@ -41,17 +41,19 @@ import { type ConfigFileOptionsCLI, defaultLoaderOptions } from '${packageName}'
 ${configFilePath ? 'import { fs } from "@liangskyli/utils";' : ''}
 import { createRequire } from 'node:module';
 import { tsImport } from '@liangskyli/utils';
+import { pathToFileURL } from 'node:url';
 
 const require = createRequire(import.meta.url);
 const root = require('${getImportPath(grpcObjPath, rootPath)}');
 
 const getGrpcObjectGroup = async () => {
-  let config: Pick<ConfigFileOptionsCLI, 'loaderOptions'> | undefined;;
+  let config: Pick<ConfigFileOptionsCLI, 'loaderOptions'> | undefined;
   ${
     absoluteConfigFilePath
       ? `
   if (fs.existsSync('${absoluteConfigFilePath}')) {
-    const configData = await tsImport('${absoluteConfigFilePath}', import.meta.url);
+    const absoluteConfigFilePathURL = pathToFileURL('${absoluteConfigFilePath}').href;
+    const configData = await tsImport(absoluteConfigFilePathURL, import.meta.url);
     config = configData.default;
   }
   `
