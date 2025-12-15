@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1-beta.0](https://github.com/liangskyli/mock/compare/v7.0.0...v7.0.1-beta.0) (2025-12-15)
+
+
+### Bug Fixes
+
+* window path tsImport load error ([f1ffe3a](https://github.com/liangskyli/mock/commit/f1ffe3aec0d1081927c48b205bee427d93fabd36))
+
+
+
 ## [7.0.0](https://github.com/liangskyli/mock/compare/v7.0.0-beta.1...v7.0.0) (2025-11-19)
 
 

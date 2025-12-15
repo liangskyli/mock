@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [7.0.1-beta.0](https://github.com/liangskyli/mock/compare/v7.0.0...v7.0.1-beta.0) (2025-12-15)
+
+
+### Features
+
+* **grpc-mock:** grpc-mock-server-load.mjs to grpc-mock-server-load.js ([bddc3a4](https://github.com/liangskyli/mock/commit/bddc3a461a92d7a010f6656e6881914a4c413c4d))
+* **grpc-mock:** refactor any type,add comment generate ([4ecd6b2](https://github.com/liangskyli/mock/commit/4ecd6b24e524b956d5187c1f74372ad692e5d846))
+
+
+### Bug Fixes
+
+* window path tsImport load error ([f1ffe3a](https://github.com/liangskyli/mock/commit/f1ffe3aec0d1081927c48b205bee427d93fabd36))
+
+
+
 ## [7.0.0](https://github.com/liangskyli/mock/compare/v7.0.0-beta.1...v7.0.0) (2025-11-19)
 
 
