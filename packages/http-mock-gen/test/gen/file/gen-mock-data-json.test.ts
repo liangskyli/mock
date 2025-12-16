@@ -60,7 +60,9 @@ describe('Generate mock/mock-data.json file', () => {
     );
     expect(mockDataAbsolutePath).toBe(args[0] as string);
     expect(args[1]).contains('"/root/v4/getQueryParams1-v4"');
-    expect(args[1]).toMatchFileSnapshot('./__test__snapshots__/mock-data.json');
+    await expect(args[1]).toMatchFileSnapshot(
+      './__test__snapshots__/mock-data.json',
+    );
 
     expect((global as any).writePrettierFileArgs.prettierOptions).toEqual({
       parser: 'json',

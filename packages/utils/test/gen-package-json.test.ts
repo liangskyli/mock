@@ -1,4 +1,5 @@
 import fs from 'fs-extra';
+import os from 'node:os';
 import { beforeEach, describe, expect, test, vi } from 'vitest';
 import { GenPackageJson, winPath } from '../src';
 
@@ -42,7 +43,10 @@ describe('gen-package-json', () => {
       './__test__snapshots__/genFilePath/package.json',
     );
     expect((global as any).writePrettierFileArgs).toEqual({
-      absolutePath: 'genFilePath/package.json',
+      absolutePath:
+        os.platform() === 'win32'
+          ? 'genFilePath\\package.json'
+          : 'genFilePath/package.json',
       data: `{
   "type": "module"
 }`,
