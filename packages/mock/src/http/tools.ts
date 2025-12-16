@@ -1,15 +1,16 @@
-export const killProcess = (target: any, type: 'httpServer' | 'watcher' = 'watcher') => {
+import type { FSWatcher } from 'chokidar';
+import type http from 'node:http';
+
+type IKillProcessOpts = { httpServer?: http.Server; fsWatcher?: FSWatcher };
+export const killProcess = (opts: IKillProcessOpts) => {
+  const { httpServer, fsWatcher } = opts;
   let closed = false;
   const onSignal = async () => {
     if (closed) return;
     closed = true;
     // 退出时触发事件
-    if (type === 'httpServer') {
-      target?.close();
-    }
-    if (type === 'watcher') {
-      await target?.close?.();
-    }
+    httpServer?.close();
+    await fsWatcher?.close();
 
     process.exit(0);
   };

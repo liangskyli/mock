@@ -1,6 +1,5 @@
 import { colors, ip } from '@liangskyli/utils';
 import express from 'express';
-import type http from 'node:http';
 import { killProcess } from '../tools';
 import getMiddleware from './middleware';
 import type { ISocketConfig } from './socket-server';
@@ -27,7 +26,6 @@ const mockServer = async (opts: IOpts = {}) => {
     socketConfig,
   } = opts;
   const HOME_PAGE = 'homepage';
-  let httpServer: http.Server | undefined;
 
   try {
     const init = async () => {
@@ -40,7 +38,7 @@ const mockServer = async (opts: IOpts = {}) => {
       app.get('/', (req: any, res: any) => {
         res.end(HOME_PAGE);
       });
-      httpServer = app.listen(port, hostname);
+      const httpServer = app.listen(port, hostname);
 
       if (socketConfig && socketConfig.enable) {
         initSocketServer({
@@ -52,6 +50,7 @@ const mockServer = async (opts: IOpts = {}) => {
           middlewareWatcher,
         });
       }
+      killProcess({ httpServer });
 
       return {
         hostname,
@@ -79,8 +78,6 @@ const mockServer = async (opts: IOpts = {}) => {
 
       return Promise.resolve('init ok');
     });
-
-    killProcess(httpServer, 'httpServer');
   } catch (e) {
     console.error(e);
     process.exit(0);

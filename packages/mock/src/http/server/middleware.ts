@@ -49,9 +49,9 @@ const getMiddleware = async (
       }),
   });
   if (process.env.WATCH_FILES === 'false' || !watch) {
-    await middlewareWatcher?.close?.();
+    await middlewareWatcher?.close();
   }
-  killProcess(middlewareWatcher);
+  killProcess({ fsWatcher: middlewareWatcher });
   return { middleware, middlewareWatcher };
 };
 
