@@ -1,5 +1,10 @@
 import type { IPrettierOptions } from '@liangskyli/utils';
-import { fs, winPath, writePrettierFile } from '@liangskyli/utils';
+import {
+  fs,
+  getRelativePath,
+  winPath,
+  writePrettierFile,
+} from '@liangskyli/utils';
 import path from 'node:path';
 import type { Root } from 'protobufjs';
 import type { TService } from '../../types';
@@ -39,11 +44,22 @@ export class GenProtoMockData {
       root,
       longsTypeToString,
       defaultMockData,
+      genProtoPath,
+      serverName,
     } = this.opts;
+    const absoluteServerNamePath = path.join(
+      genProtoPath,
+      serverName,
+      protoName,
+    );
+    const relativeGenCustomDataPath = getRelativePath(
+      absoluteServerNamePath,
+      genCustomDataPath,
+    );
     const protoMockContent = `${fileTip}
             // 自定义mock数据，请在custom-data文件夹下编写，详细见custom-data/index.ts文件说明
             import type { IProtoItem } from '${packageName}';
-            import CustomData from '${winPath(genCustomDataPath)}/index';
+            import CustomData from '${winPath(relativeGenCustomDataPath)}/index';
             
             ${serviceComment}
             const ${serviceCodeName}: IProtoItem = {
