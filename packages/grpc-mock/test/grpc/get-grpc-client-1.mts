@@ -26,17 +26,31 @@ export const start = async (): Promise<unknown> => {
     grpc.credentials.createInsecure(),
   );
   return new Promise((resolve, reject) => {
-    client.GetListByBuildingId(
+    let responseData: any;
+    let trailingMetadata: Metadata | undefined;
+    const call = client.GetListByBuildingId(
       { buildingId: 1 },
       toMetadata({ a: 1, b: 2 }),
-      (err: any, response: any, metadataRes: Metadata) => {
+      (err: any, response: any) => {
         if (err) {
           reject(err);
           return;
         }
-        resolve({ response, metadata: metadataRes });
+        responseData = response;
       },
     );
+    call.on('status', (status: any) => {
+      trailingMetadata = status.metadata;
+
+      // 在这里 resolve，确保已经获取到所有 metadata
+      if (status.code === grpc.status.OK) {
+        // 注意：response 需要从 callback 中获取，这里我们需要重构代码
+        resolve({
+          response: responseData,
+          metadata: trailingMetadata,
+        });
+      }
+    });
   });
 };
 
@@ -51,16 +65,33 @@ export const start2 = async (): Promise<unknown> => {
     grpc.credentials.createInsecure(),
   );
   return new Promise((resolve, reject) => {
-    client.Create(
+    let responseData: any;
+    let trailingMetadata: Metadata | undefined;
+    // 注意：unary call 的 callback 只有两个参数 (err, response)
+    // 第三个参数 metadataRes 实际上是 undefined，因为 @grpc/grpc-js 的 UnaryCallback 类型定义只支持两个参数
+    const call = client.Create(
       { activityId: 1 },
       toMetadata({ a: 1, b: 2 }),
-      (err: any, response: any, metadataRes: Metadata) => {
+      (err: any, response: any) => {
         if (err) {
           reject(err);
           return;
         }
-        resolve({ response, metadata: metadataRes });
+        responseData = response;
       },
     );
+    // 获取 trailing metadata (包含在 status 事件中)
+    call.on('status', (status: any) => {
+      trailingMetadata = status.metadata;
+
+      // 在这里 resolve，确保已经获取到所有 metadata
+      if (status.code === grpc.status.OK) {
+        // 注意：response 需要从 callback 中获取，这里我们需要重构代码
+        resolve({
+          response: responseData,
+          metadata: trailingMetadata,
+        });
+      }
+    });
   });
 };
