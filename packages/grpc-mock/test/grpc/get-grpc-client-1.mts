@@ -1,5 +1,5 @@
 import type { GrpcObject, Metadata , ServiceClientConstructor } from '@grpc/grpc-js';
-import grpc from '@grpc/grpc-js';
+import * as grpc from '@grpc/grpc-js';
 import { lodash } from '@liangskyli/utils';
 import getGrpcObjectGroup from '../grpc-mock/grpc-obj';
 
@@ -27,7 +27,6 @@ export const start = async (): Promise<unknown> => {
   );
   return new Promise((resolve, reject) => {
     let responseData: any;
-    let trailingMetadata: Metadata | undefined;
     const call = client.GetListByBuildingId(
       { buildingId: 1 },
       toMetadata({ a: 1, b: 2 }),
@@ -40,14 +39,11 @@ export const start = async (): Promise<unknown> => {
       },
     );
     call.on('status', (status: any) => {
-      trailingMetadata = status.metadata;
-
       // 在这里 resolve，确保已经获取到所有 metadata
       if (status.code === grpc.status.OK) {
-        // 注意：response 需要从 callback 中获取，这里我们需要重构代码
         resolve({
           response: responseData,
-          metadata: trailingMetadata,
+          metadata: status.metadata,
         });
       }
     });
@@ -66,7 +62,6 @@ export const start2 = async (): Promise<unknown> => {
   );
   return new Promise((resolve, reject) => {
     let responseData: any;
-    let trailingMetadata: Metadata | undefined;
     // 注意：unary call 的 callback 只有两个参数 (err, response)
     // 第三个参数 metadataRes 实际上是 undefined，因为 @grpc/grpc-js 的 UnaryCallback 类型定义只支持两个参数
     const call = client.Create(
@@ -82,14 +77,11 @@ export const start2 = async (): Promise<unknown> => {
     );
     // 获取 trailing metadata (包含在 status 事件中)
     call.on('status', (status: any) => {
-      trailingMetadata = status.metadata;
-
       // 在这里 resolve，确保已经获取到所有 metadata
       if (status.code === grpc.status.OK) {
-        // 注意：response 需要从 callback 中获取，这里我们需要重构代码
         resolve({
           response: responseData,
-          metadata: trailingMetadata,
+          metadata: status.metadata,
         });
       }
     });
